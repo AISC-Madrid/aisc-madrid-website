@@ -1,0 +1,38 @@
+:root{
+    --background: hsl(300, 3%, 7%);
+    --foreground: hsl(240, 7%, 97%);
+    --primary: #EB178E;
+    --secondary: #20CCF1;
+    --muted: hsl(180, 2%, 10%);
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--foreground);
+    color: var(--foreground);
+}
+
+.navbar {
+    background-color: var(--foreground);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: var(--background);
+}
+
+.navbar .nav-link:hover {
+    color: var(--primary);
+}
+
+.btn-custom {
+    background-color: var(--primary);
+    color: var(--foreground);
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: var(--secondary);
+    color: var(--foreground);
+}
