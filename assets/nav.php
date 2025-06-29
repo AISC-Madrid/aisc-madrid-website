@@ -1,5 +1,5 @@
 <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg px-4 py-3">
+  <nav class="navbar navbar-expand-lg px-4 py-3 fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand w-50" href="#">AISC</a>
       <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
