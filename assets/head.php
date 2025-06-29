@@ -17,4 +17,10 @@
 
     <!-- Optional: Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Icons -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+     <script src="https://kit.fontawesome.com/f4cbad00a6.js" crossorigin="anonymous"></script>
+
 </head>

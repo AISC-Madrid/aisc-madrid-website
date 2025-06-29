@@ -1,1 +1,1 @@
-# aisc
+# Web page of AI Student Collective Madrid

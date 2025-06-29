@@ -36,3 +36,13 @@ body {
     background-color: var(--secondary);
     color: var(--foreground);
 }
+
+/* Card styles */
+.card {
+  transition: transform 0.3s ease; /* smooth transition */
+}
+
+.card:hover {
+  transform: scale(1.05); /* increase size 5% */
+}
+
