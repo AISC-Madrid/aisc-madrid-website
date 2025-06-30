@@ -130,4 +130,6 @@ include("assets/head.php");
 
 </body>
 
+<?php include('assets/footer.php'); ?>
+
 </html>
