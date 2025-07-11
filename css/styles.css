@@ -49,7 +49,14 @@ body {
 
 
 footer {
-  background-color: var(--background); 
+  background-image: linear-gradient(
+  to right,
+  rgba(255, 255, 255, 0.9) 0%,       /* casi blanco y muy transparente a la izquierda */
+  rgba(235, 23, 142, 0.05) 60%,     /* rosa muy transparente en el centro-izquierda */
+  #EB178E 100%                       /* rosa sólido a la derecha */
+  );
+
+ 
   color: var(--foreground);
   padding: 20px 40px;
 }
@@ -77,14 +84,14 @@ footer {
 }
 
 .footer-right a {
+  padding: 0;
+  border-radius: 0;
+  margin-left: 15px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--muted);
-  padding: 8px;
-  border-radius: 50%;
-  margin-left: 15px;
 }
+
 
 .footer-right .footer-icon {
   font-size: 1.5rem;
