@@ -1,3 +1,5 @@
+
+
 :root{
     --background: hsl(300, 3%, 7%);
     --foreground: hsl(240, 7%, 97%);
@@ -11,6 +13,12 @@ body {
     background-color: var(--foreground);
     color: var(--foreground);
 }
+
+
+.scroll-margin{
+  padding-top: 15vh; /* TO AVOID NAVBAR OVERFLOW. ALL SECTIONS MUST HAVE IT */
+}
+
 
 .navbar {
     background-color: var(--foreground);
@@ -101,4 +109,17 @@ footer {
 
 .footer-right a:hover .footer-icon {
   color: var(--secondary);
+}
+
+/* Button styling */
+.form-btn {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.form-btn:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: black;
 }

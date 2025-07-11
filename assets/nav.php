@@ -1,23 +1,31 @@
 <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg px-4 py-3 fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand w-50" href="#">AISC</a>
-      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between w-50" id="navbarNav">
-        <ul class="navbar-nav d-flex justify-content-around" style="width:75%">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
-          </li>
-        </ul>
-        <button class="btn btn-custom ms-3">Acceder</button>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top px-4 py-3 shadow-sm">
+  <div class="container-fluid">
+    <!-- Brand / Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="images/SVG/Property 1=AISC Lockup Color.svg" alt="Logo de AISC" style="width: 160px;">
+    </a>
+
+    <!-- Toggler button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible nav links + button -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav me-3">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contacto</a>
+        </li>
+      </ul>
+      <a href="#get-involved" class="btn btn-custom">Acceder</a>
     </div>
-  </nav>
+  </div>
+</nav>

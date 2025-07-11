@@ -7,129 +7,185 @@ include("assets/head.php");
 
 <body>
 
-    <?php
-    include("assets/nav.php");
-    ?>
+  <?php
+  include("assets/nav.php");
+  ?>
 
-    <!-- Main container -->
-    <div class="container-fluid">
-        <!-- Landing -->
-        <header class="row pt-5 mx-2" style="height:80vh;">
-            <div class="col-6 d-flex flex-column align-items-start justify-content-center">
-                <h1 class="text-dark fw-bold"> <span style="color:var(--primary);">AI</span> <br> STUDENT COLLECTIVE <br> <span style="color:var(--secondary);">MADRID</span></h1>
-            </div>
-        </header>
+  <!-- Main container -->
+  <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <!-- Landing -->
+    <header class="row mx-2" style="height:115vh; width:90vw;">
+      <div class="col-7 d-flex flex-column align-items-start justify-content-center">
+        <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
+        <h6 class="lh-lg text-muted">The AI and Engineering student collective at UC3M. Gain in-demand skills, connect with industry, and be part of an international AI community!</h6>
+        <div class="mt-4 d-flex gap-2">
+          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold">Get involved!</a>
+          <a href="#more" class="btn btn-outline-secondary px-4 fw-semibold">
+            More <span class="ms-1">&rarr;</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-5 d-flex flex-column align-items-end justify-content-center ">
+        <img style="width: 75%;" src="images/SVG/Property%201=AISC%20Logo%20Color.svg" alt="Logotipo de la asociación AISC">
+      </div>
+    </header>
 
-<section style="margin-top:20vh;">
-  <div class="container py-4">
-    <h2 class="text-center mb-4"><span style="color:var(--muted);">Desde AISC Madrid</span></h2>
-    <div class="row g-4">
-      
-      <!-- Card 1 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
-              <i class="fa-solid fa-brain fs-2"></i>
+    <section>
+      <div class="container py-4">
+        <h2 class="text-center mb-4"><span style="color:var(--muted);">Desde AISC Madrid</span></h2>
+        <div class="row g-4">
+
+          <!-- Card 1 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
+                  <i class="fa-solid fa-brain fs-2"></i>
+                </div>
+                <h5 class="card-title">Ingeniería e Inteligencia Artificial</h5>
+                <p class="card-text">
+                  Asociación de estudiantes en la Universidad Carlos III de Madrid.
+                </p>
+              </div>
             </div>
-            <h5 class="card-title">Ingeniería e Inteligencia Artificial</h5>
-            <p class="card-text">
-              Asociación de estudiantes en la Universidad Carlos III de Madrid.
-            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
+                  <i class="bi bi-tools fs-2 "></i>
+                </div>
+                <h5 class="card-title">Talleres</h5>
+                <p class="card-text">
+                  Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
+                  <i class="bi bi-diagram-3 fs-2"></i>
+                </div>
+                <h5 class="card-title">Eventos y Conexiones</h5>
+                <p class="card-text">
+                  Acércate al mundo laboral de la mano de estudiantes y miembros del sector.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
+                  <i class="bi bi-people fs-2"></i>
+                </div>
+                <h5 class="card-title">Comunidad</h5>
+                <p class="card-text">
+                  Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
+                  <i class="bi bi-globe-americas fs-2"></i>
+                </div>
+                <h5 class="card-title">Red Internacional</h5>
+                <p class="card-text">
+                  Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
+                  <i class="bi bi-rocket-takeoff fs-2"></i>
+                </div>
+                <h5 class="card-title">Bienvenid@</h5>
+                <p class="card-text">
+                  ¡Únete y disfruta del proceso!
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="container-fluid mb-5 scroll-margin" id="get-involved">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm border-0 form-card">
+            <div class="card-body p-4">
+              <h4 class=" display-4 text-center mb-3">Get Involved</h4>
+              <p class="text-muted text-center mb-4 form-subtext">Submit your name and email to stay in the loop and join our AI community at UC3M.</p>
+
+              <form method="POST" action="store_form.php" novalidate>
+                <!-- Name -->
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control form-input" id="name" name="name" placeholder="Your name" required>
+                  <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input type="email" class="form-control form-input" id="email" name="email" placeholder="name@example.com" required>
+                  <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+
+                <!-- Consent -->
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+                  <label class="form-check-label form-text" for="consent">
+                    I consent to AISC Madrid storing my submitted data to contact me.
+                  </label>
+                  <div class="invalid-feedback">You must give your consent to proceed.</div>
+                </div>
+
+                <!-- Submit -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary form-btn fw-semibold">Submit</button>
+                </div>
+              </form>
+
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Card 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
-              <i class="bi bi-tools fs-2 "></i>
-            </div>
-            <h5 class="card-title">Talleres</h5>
-            <p class="card-text">
-              Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 3 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
-              <i class="bi bi-diagram-3 fs-2"></i>
-            </div>
-            <h5 class="card-title">Eventos y Conexiones</h5>
-            <p class="card-text">
-              Acércate al mundo laboral de la mano de estudiantes y miembros del sector.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
-              <i class="bi bi-people fs-2"></i>
-            </div>
-            <h5 class="card-title">Comunidad</h5>
-            <p class="card-text">
-              Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
-              <i class="bi bi-globe-americas fs-2"></i>
-            </div>
-            <h5 class="card-title">Red Internacional</h5>
-            <p class="card-text">
-              Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
-              <i class="bi bi-rocket-takeoff fs-2"></i>
-            </div>
-            <h5 class="card-title">Bienvenid@</h5>
-            <p class="card-text">
-              ¡Únete y disfruta del proceso!
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
   </div>
-</section>
 
 
-<section>
-
-<section>
-    </div>
-
-    <!-- Bootstrap Bundle JS (includes Popper) -->
+  <!-- Footer include -->
+  <?php include('assets/footer.php'); ?>
 
 
-</body>
+  <!-- Bootstrap Bundle JS (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<?php include('assets/footer.php'); ?>
+
+
+  <body>
 
 </html>
