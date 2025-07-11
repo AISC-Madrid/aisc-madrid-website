@@ -132,7 +132,7 @@ include("assets/head.php");
     <section class="container-fluid mb-5 scroll-margin" id="get-involved">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-      <div class="card shadow-sm border-0 form-card">
+      <div class="card shadow-sm border-0 form-card no-hover">
         <div class="card-body p-4">
           <h4 class="display-4 text-center mb-3">¡Participa!</h4>
           <p class="text-muted text-center mb-4 form-subtext">

@@ -50,7 +50,7 @@ body {
   transition: transform 0.3s ease; /* smooth transition */
 }
 
-.card:hover {
+.card:hover:not(.no-hover) {
   transform: scale(1.05); /* increase size 5% */
 }
 
