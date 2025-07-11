@@ -17,11 +17,11 @@ include("assets/head.php");
     <header class="row mx-2" style="height:115vh; width:90vw;">
       <div class="col-7 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
-        <h6 class="lh-lg text-muted">The AI and Engineering student collective at UC3M. Gain in-demand skills, connect with industry, and be part of an international AI community!</h6>
+        <h6 class="lh-lg text-muted">Colectivo de estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
         <div class="mt-4 d-flex gap-2">
-          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold">Get involved!</a>
+          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold">¡Únete!</a>
           <a href="#more" class="btn btn-outline-secondary px-4 fw-semibold">
-            More <span class="ms-1">&rarr;</span>
+            Más <span class="ms-1">&rarr;</span>
           </a>
         </div>
       </div>
@@ -130,48 +130,51 @@ include("assets/head.php");
     </section>
 
     <section class="container-fluid mb-5 scroll-margin" id="get-involved">
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-          <div class="card shadow-sm border-0 form-card">
-            <div class="card-body p-4">
-              <h4 class=" display-4 text-center mb-3">Get Involved</h4>
-              <p class="text-muted text-center mb-4 form-subtext">Submit your name and email to stay in the loop and join our AI community at UC3M.</p>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0 form-card">
+        <div class="card-body p-4">
+          <h4 class="display-4 text-center mb-3">¡Participa!</h4>
+          <p class="text-muted text-center mb-4 form-subtext">
+            Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
+          </p>
 
-              <form method="POST" action="store_form.php" novalidate>
-                <!-- Name -->
-                <div class="mb-3">
-                  <label for="name" class="form-label">Full Name</label>
-                  <input type="text" class="form-control form-input" id="name" name="name" placeholder="Your name" required>
-                  <div class="invalid-feedback">Please enter your name.</div>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email address</label>
-                  <input type="email" class="form-control form-input" id="email" name="email" placeholder="name@example.com" required>
-                  <div class="invalid-feedback">Please enter a valid email.</div>
-                </div>
-
-                <!-- Consent -->
-                <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-                  <label class="form-check-label form-text" for="consent">
-                    I consent to AISC Madrid storing my submitted data to contact me.
-                  </label>
-                  <div class="invalid-feedback">You must give your consent to proceed.</div>
-                </div>
-
-                <!-- Submit -->
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary form-btn fw-semibold">Submit</button>
-                </div>
-              </form>
-
+          <form method="POST" action="processing/get_involved_form.php" novalidate>
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre completo</label>
+              <input type="text" class="form-control form-input" id="name" name="name" placeholder="Tu nombre" required>
+              <div class="invalid-feedback">Por favor, introduce tu nombre.</div>
             </div>
-          </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control form-input" id="email" name="email" placeholder="nombre@ejemplo.com" required>
+              <div class="invalid-feedback">Por favor, introduce un correo válido.</div>
+            </div>
+
+            <!-- Consentimiento -->
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+              <label class="form-check-label form-text" for="consent">
+                Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
+              </label>
+              <div class="invalid-feedback">Debes dar tu consentimiento para continuar.</div>
+            </div>
+
+            <!-- Enviar -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary form-btn fw-semibold">Enviar</button>
+            </div>
+          </form>
+
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
 
   </div>
