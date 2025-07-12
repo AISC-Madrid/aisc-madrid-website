@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AISC</title>
+    <title>AISC Madrid</title>
 
     <!-- Bootstrap CSS (v5.3 via CDN) -->
     <link
