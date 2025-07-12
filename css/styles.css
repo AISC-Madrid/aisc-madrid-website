@@ -59,9 +59,10 @@ body {
 footer {
   background-image: linear-gradient(
   to right,
-  rgba(255, 255, 255, 0.9) 0%,       /* casi blanco y muy transparente a la izquierda */
-  rgba(235, 23, 142, 0.05) 60%,     /* rosa muy transparente en el centro-izquierda */
-  #EB178E 100%                       /* rosa sólido a la derecha */
+  /* Gradient from left to right */
+  rgba(255, 255, 255, 0.9) 0%,        
+  rgba(235, 23, 142, 0.05) 10%,     
+  #EB178E 100%                       
   );
 
  
