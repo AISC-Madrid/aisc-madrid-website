@@ -14,7 +14,7 @@ $pass = 'Aisc_2025?';
 // Conexión
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
-    header("Location: /#get-involved?error=connection");
+    header("Location: /?error=connection#get-involved");
     exit;
 }
 
@@ -25,7 +25,7 @@ $consent = isset($_POST['consent']) ? 1 : 0;
 
 // Validación
 if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: /#get-involved?error=validation");
+    header("Location: /?error=validation#get-involved");
     exit;
 }
 
@@ -36,7 +36,7 @@ $checkStmt->execute();
 $checkStmt->store_result();
 
 if ($checkStmt->num_rows > 0) {
-    header("Location: /#get-involved?error=duplicate");
+    header("Location: /?error=duplicate#get-involved");
     $checkStmt->close();
     $conn->close();
     exit;
