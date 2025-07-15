@@ -6,7 +6,7 @@ include("assets/head.php");
 ?>
 
 <body>
-
+-
   <?php
   include("assets/nav.php");
   ?>
@@ -133,7 +133,7 @@ include("assets/head.php");
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class="card shadow-sm border-0 form-card no-hover">
-            <div class="card-body p-4">
+            <div id="form-error" class="card-body p-4">
               <h4 class="display-4 text-center mb-3">¡Participa!</h4>
               <p class="text-muted text-center mb-4 form-subtext">
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
@@ -199,7 +199,40 @@ include("assets/head.php");
         }, false);
       });
     })();
-  </script>
+  const params = new URLSearchParams(window.location.search);
+  const error = params.get('error');
+  if (error) {
+    let message = '';
+    switch (error) {
+      case 'validation':
+        message = 'Por favor, completa todos los campos correctamente.';
+        break;
+      case 'duplicate':
+        message = 'Este correo ya está registrado.';
+        break;
+      case 'insert':
+        message = 'Hubo un error al guardar tus datos. Inténtalo de nuevo.';
+        break;
+      case 'connection':
+        message = 'No se pudo conectar a la base de datos.';
+        break;
+      default:
+        message = 'Ha ocurrido un error inesperado.';
+    }
+
+    const formSection = document.getElementById('form-error');
+    if (formSection) {
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'alert alert-danger';
+      alertDiv.innerText = message;
+      formSection.prepend(alertDiv);
+    }
+
+    // Eliminar el parámetro de la URL después de mostrarlo
+    window.history.replaceState({}, document.title, window.location.pathname + '#get-involved');
+  }
+</script>
+
 
 
   <!-- Bootstrap Bundle JS (includes Popper) -->
