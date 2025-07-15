@@ -130,50 +130,50 @@ include("assets/head.php");
     </section>
 
     <section class="container-fluid mb-5 scroll-margin" id="get-involved">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow-sm border-0 form-card no-hover">
-        <div class="card-body p-4">
-          <h4 class="display-4 text-center mb-3">¡Participa!</h4>
-          <p class="text-muted text-center mb-4 form-subtext">
-            Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
-          </p>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm border-0 form-card no-hover">
+            <div class="card-body p-4">
+              <h4 class="display-4 text-center mb-3">¡Participa!</h4>
+              <p class="text-muted text-center mb-4 form-subtext">
+                Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
+              </p>
 
-          <form method="POST" action="processing/get_involved_form.php" novalidate>
-            <!-- Nombre -->
-            <div class="mb-3">
-              <label for="name" class="form-label">Nombre completo</label>
-              <input type="text" class="form-control form-input" id="name" name="name" placeholder="Tu nombre" required>
-              <div class="invalid-feedback">Por favor, introduce tu nombre.</div>
+              <form method="POST" action="processing/get_involved_form.php" class="needs-validation" novalidate>
+                <!-- Nombre -->
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nombre completo</label>
+                  <input type="text" class="form-control form-input" id="name" name="name" placeholder="Tu nombre" required>
+                  <div class="invalid-feedback">Por favor, introduce tu nombre.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control form-input" id="email" name="email" placeholder="nombre@ejemplo.com" required>
+                  <div class="invalid-feedback">Por favor, introduce un correo válido.</div>
+                </div>
+
+                <!-- Consentimiento -->
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+                  <label class="form-check-label form-text" for="consent">
+                    Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
+                  </label>
+                  <div class="invalid-feedback">Debes dar tu consentimiento para continuar.</div>
+                </div>
+
+                <!-- Enviar -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary form-btn fw-semibold">Enviar</button>
+                </div>
+              </form>
+
             </div>
-
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control form-input" id="email" name="email" placeholder="nombre@ejemplo.com" required>
-              <div class="invalid-feedback">Por favor, introduce un correo válido.</div>
-            </div>
-
-            <!-- Consentimiento -->
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-              <label class="form-check-label form-text" for="consent">
-                Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
-              </label>
-              <div class="invalid-feedback">Debes dar tu consentimiento para continuar.</div>
-            </div>
-
-            <!-- Enviar -->
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary form-btn fw-semibold">Enviar</button>
-            </div>
-          </form>
-
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
 
@@ -182,6 +182,24 @@ include("assets/head.php");
 
   <!-- Footer include -->
   <?php include('assets/footer.php'); ?>
+
+  <!-- Bootstrap validation script -->
+  <script>
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
 
 
   <!-- Bootstrap Bundle JS (includes Popper) -->
