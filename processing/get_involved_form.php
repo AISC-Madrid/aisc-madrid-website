@@ -70,7 +70,27 @@ if ($stmt->execute()) {
     </html>
     <?php
 } else {
-    header("Location: /#get-involved?error=insert");
+    // Érror: mostrar HTML volver a intentar
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gracias por unirte</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center">
+            <div class="alert alert-danger shadow-lg" role="alert">
+                <h4 class="alert-heading">¡Error al unirte!</h4>
+                <p>Tu correo ya está en nuestra base de datos!</p>
+                <hr>
+                <a href="/#get-involved" class="btn btn-primary">Volver al inicio</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
 }
 
 $stmt->close();
