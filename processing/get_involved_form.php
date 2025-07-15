@@ -1,48 +1,76 @@
-
 <?php
-// Enable all error reporting
+// Habilitar errores solo true para testear
+if(false){
 error_reporting(E_ALL);
-
-// Display errors on the screen
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
-// Replace with your actual database credentials
+}
+// Datos de conexión
 $host = 'localhost';
 $db   = 'u803318305_aisc';
 $user = 'u803318305_aisc';
 $pass = 'Aisc_2025?';
 
-// Create connection
+// Conexión
 $conn = new mysqli($host, $user, $pass, $db);
-
-// Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    header("Location: /#get-involved?error=connection");
+    exit;
 }
 
-// Get POST data
+// Datos del formulario
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
+$consent = isset($_POST['consent']) ? 1 : 0;
 
-// Basic validation
-if ($name === '' || $email === '') {
-  echo "Please fill in all required fields and give consent.";
-  exit;
+// Validación
+if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    header("Location: /#get-involved?error=validation");
+    exit;
 }
 
-// Prepare and bind
+// Comprobar duplicado
+$checkStmt = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
+$checkStmt->bind_param("s", $email);
+$checkStmt->execute();
+$checkStmt->store_result();
+
+if ($checkStmt->num_rows > 0) {
+    header("Location: /#get-involved?error=duplicate");
+    $checkStmt->close();
+    $conn->close();
+    exit;
+}
+$checkStmt->close();
+
+// Insertar datos
 $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (?, ?)");
 $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
-  echo "Thanks for joining us!";
+    // Éxito: mostrar HTML bonito
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gracias por unirte</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center">
+            <div class="alert alert-success shadow-lg" role="alert">
+                <h4 class="alert-heading">¡Gracias por unirte!</h4>
+                <p>Hemos recibido tus datos correctamente. Nos pondremos en contacto contigo pronto.</p>
+                <hr>
+                <a href="/" class="btn btn-primary">Volver al inicio</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
 } else {
-  if ($conn->errno === 1062) {
-    echo "This email is already registered.";
-  } else {
-    echo "Error: " . $conn->error;
-  }
+    header("Location: /#get-involved?error=insert");
 }
 
 $stmt->close();
