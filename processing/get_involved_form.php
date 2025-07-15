@@ -1,4 +1,12 @@
+
 <?php
+// Enable all error reporting
+error_reporting(E_ALL);
+
+// Display errors on the screen
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 // Replace with your actual database credentials
 $host = 'localhost';
 $db   = 'u803318305_aisc';
@@ -24,8 +32,8 @@ if ($name === '' || $email === '') {
 }
 
 // Prepare and bind
-$stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email, consent) VALUES (?, ?)");
-$stmt->bind_param("ssi", $name, $email);
+$stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (?, ?)");
+$stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
   echo "Thanks for joining us!";
