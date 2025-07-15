@@ -16,16 +16,16 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav me-3">
         <li class="nav-item">
-          <a class="nav-link" href="#">Inicio</a>
+          <a class="nav-link" href="#">Eventos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Servicios</a>
+          <a class="nav-link" href="#team">Equipo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contacto</a>
+          <a class="nav-link" href="#get-involved">Participa</a>
         </li>
       </ul>
-      <a href="#get-involved" class="btn btn-custom">Acceder</a>
+      <a href="#" class="btn btn-custom">Inicia Sesión</a>
     </div>
   </div>
 </nav>
