@@ -129,7 +129,77 @@ include("assets/head.php");
       </div>
     </section>
 
-    <section class="container-fluid mb-5 scroll-margin" id="get-involved">
+<section class="section" id="team"> 
+  <div class="container">
+    <h2 class="text-center mb-4">
+      <span style="color: var(--muted);">Conoce al equipo</span>
+    </h2>
+    <div class="mt-5 row">
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="team-box text-center">
+          <div class="team-wrapper">
+            <div class="team-member">
+              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
+                <img src="images/test/michael.jpg" alt="Michael Scott" class="img-fluid rounded">
+              </a>
+            </div>
+          </div>
+          <h5 class="mt-3" style="color: var(--background)">Michael Scott</h5>
+          <p class="text-muted">Presidente</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="team-box text-center">
+          <div class="team-wrapper">
+            <div class="team-member">
+              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
+                <img src="images/test/dwight.jpg" alt="Dwight" class="img-fluid rounded">
+              </a>
+            </div>
+          </div>
+          <h5 class="mt-3" style="color: var(--background)">Dwight Schrute</h5>
+          <p class="text-muted">Vicepresidente</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="team-box text-center">
+          <div class="team-wrapper">
+            <div class="team-member">
+              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
+                <img src="images/test/amador.jpg" alt="Amador" class="img-fluid rounded">
+              </a>
+            </div>
+          </div>
+          <h5 class="mt-3" style="color: var(--background)">Amador Rivas</h5>
+          <p class="text-muted">Vividor</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="team-box text-center">
+          <div class="team-wrapper">
+            <div class="team-member">
+              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
+                <img src="images/test/kenny.jpg" alt="Kenny" class="img-fluid rounded">
+              </a>
+            </div>
+          </div>
+          <h5 class="mt-3" style="color: var(--background)">Kenny</h5>
+          <p class="text-muted">Miembro</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Get Involved Section -->
+
+<section class="container-fluid mb-5 scroll-margin" id="get-involved">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="card shadow-sm border-0 form-card no-hover">
