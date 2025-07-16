@@ -196,6 +196,63 @@ include("assets/head.php");
   </div>
 </section>
 
+<section class="section scroll-margin" id="events">
+  <div class="container">
+    <h2 class="text-center mb-4">
+      <span style="color: var(--muted);">Eventos</span>
+    </h2>
+  <div class="event-btn-container">
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Futuros</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Pasados</button>
+  </div>
+
+    <div class="row g-4">
+
+      <!-- Event Structure -->
+      <div class="col-md-6 col-lg-4 event-past">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="img-container">
+              <img src="images/test/event1.jpeg" class="w-100" alt="...">
+            </div>
+            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+            <p class="card-text">Fecha y hora.</p>
+            <p class="card-text">Ubicación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 event-future">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="img-container">
+              <img src="images/test/event2.jpg" class="w-100" alt="...">
+            </div>
+            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+            <p class="card-text">Fecha y hora.</p>
+            <p class="card-text">Ubicación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 event-future">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="img-container">
+              <img src="images/test/event3.jpeg" class="w-100" alt="...">
+            </div>
+            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+            <p class="card-text">Fecha y hora.</p>
+            <p class="card-text">Ubicación.</p>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+    
+
+</section>
+
 
  <section class="container-fluid mb-5 scroll-margin" id="get-involved">
       <div class="row justify-content-center">
@@ -300,6 +357,38 @@ include("assets/head.php");
     window.history.replaceState({}, document.title, window.location.pathname + '#get-involved');
   }
 </script>
+
+ <!-- Event filter script -->
+<script>
+  const buttons = document.querySelectorAll('.event-filter-btn');
+  const pastEvents = document.querySelectorAll('.event-past');
+  const futureEvents = document.querySelectorAll('.event-future');
+
+  // Mostrar futuros por defecto
+  pastEvents.forEach(e => e.style.display = 'none');
+  futureEvents.forEach(e => e.style.display = 'block');
+  buttons[0].classList.add('active'); // El primero activo por defecto
+
+  buttons[0].addEventListener('click', () => {
+    // Mostrar futuros
+    pastEvents.forEach(e => e.style.display = 'none');
+    futureEvents.forEach(e => e.style.display = 'block');
+    // Cambiar botón activo
+    buttons.forEach(b => b.classList.remove('active'));
+    buttons[0].classList.add('active');
+  });
+
+  buttons[1].addEventListener('click', () => {
+    // Mostrar pasados
+    pastEvents.forEach(e => e.style.display = 'block');
+    futureEvents.forEach(e => e.style.display = 'none');
+    // Cambiar botón activo
+    buttons.forEach(b => b.classList.remove('active'));
+    buttons[1].classList.add('active');
+  });
+</script>
+
+
 
 
 
