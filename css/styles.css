@@ -125,13 +125,13 @@ footer {
 .form-btn {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: black;
+  color: white;
 }
 
 .form-btn:hover {
   background-color: var(--secondary);
   border-color: var(--secondary);
-  color: black;
+  color: white;
 }
 
 .event-btn-container{
