@@ -14,7 +14,7 @@ include("assets/head.php");
   <!-- Main container -->
   <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <!-- Landing -->
-    <header class="row mx-2 scroll-margin" style="height:auto; width:90vw;">
+    <header class="row mx-2 scroll-margin" style="height:85vh; width:90vw;">
       <div class="col-7 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
         <h6 class="lh-lg text-muted">Colectivo de estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
