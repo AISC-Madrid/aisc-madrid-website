@@ -30,7 +30,7 @@ include("assets/head.php");
       </div>
     </header>
 
-    <section class="mb-5">
+    <section class="scroll-margin mb-5">
       <div class="container py-4">
         <h2 class="text-center mb-4"><span style="color:var(--muted);">Desde AISC Madrid</span></h2>
         <div class="row g-4">
