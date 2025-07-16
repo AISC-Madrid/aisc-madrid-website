@@ -129,7 +129,7 @@ include("assets/head.php");
       </div>
     </section>
 
-<section class="section mt-5" id="team"> 
+<section class="section scroll-margin" id="team"> 
   <div class="container">
     <h2 class="text-center mb-4">
       <span style="color: var(--muted);">Conoce al equipo</span>
