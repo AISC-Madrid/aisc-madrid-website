@@ -54,6 +54,15 @@ body {
   transform: scale(1.05); /* increase size 5% */
 }
 
+.card-body img {
+  transition: filter 0.3s ease;
+}
+
+.card-body img:hover {
+  filter: brightness(70%);
+}
+
+
 
 
 footer {
@@ -116,7 +125,7 @@ footer {
 .form-btn {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: white;
+  color: black;
 }
 
 .form-btn:hover {
@@ -125,7 +134,44 @@ footer {
   color: black;
 }
 
+.event-btn-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.event-btn{
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.event-btn:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: white;
+}
+
+.event-filter-btn.active {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: white;
+  transform: scale(1.15);
+}
+
+.event-filter-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+
+
+
 #team {
   padding-top: 100px;
   margin-top: -100px;
 }
+
+
+
