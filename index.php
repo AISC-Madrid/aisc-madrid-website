@@ -14,7 +14,7 @@ include("assets/head.php");
   <!-- Main container -->
   <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <!-- Landing -->
-    <header class="row mx-2 scroll-margin" style="height:85vh; width:90vw;">
+    <header class="row mx-2 scroll-margin" style="min-height:85vh; width:90vw;">
       <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
         <h6 class="lh-lg text-muted">Colectivo de estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
@@ -25,7 +25,7 @@ include("assets/head.php");
           </a>
         </div>
       </div>
-      <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-end justify-content-center ">
+      <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
         <img style="width: 75%;" src="images/SVG/Property%201=AISC%20Logo%20Color.svg" alt="Logotipo de la asociación AISC">
       </div>
     </header>
