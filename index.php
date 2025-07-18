@@ -211,24 +211,11 @@ include("assets/head.php");
       <!-- Event Structure -->
       <div class="col-md-6 col-lg-4 event-past">
         <div class="card h-100 shadow-sm">
-          <div class="card-body">
+          <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event1.jpeg" class="w-100" alt="...">
             </div>
-            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-            <p class="card-text">Fecha y hora.</p>
-            <p class="card-text">Ubicación.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 event-future">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body p-0">
-            <div class="img-container">
-              <img src="images/test/event2.jpg" class="w-100" alt="...">
-            </div>
-            <div class="p-4">
+            <div class="p-2>
               <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
               <p class="card-text">Fecha y hora.</p>
               <p class="card-text">Ubicación.</p>
@@ -239,13 +226,31 @@ include("assets/head.php");
 
       <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">
-          <div class="card-body">
+          <div class="card-body p-0">
+            <div class="img-container">
+              <img src="images/test/event2.jpg" class="w-100" alt="...">
+            </div>
+            <div class="p-2">
+              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+              <p class="card-text">Fecha y hora.</p>
+              <p class="card-text">Ubicación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 event-future">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event3.jpeg" class="w-100" alt="...">
             </div>
-            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-            <p class="card-text">Fecha y hora.</p>
-            <p class="card-text">Ubicación.</p>
+            <div class="p-2">
+              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+              <p class="card-text">Fecha y hora.</p>
+              <p class="card-text">Ubicación.</p>
+            </div>
+            
           </div>
         </div>
       </div>
