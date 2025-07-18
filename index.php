@@ -202,8 +202,8 @@ include("assets/head.php");
       <span style="color: var(--muted);">Eventos</span>
     </h2>
   <div class="event-btn-container">
-    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Futuros</button>
-    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Pasados</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn m-1">Eventos Futuros</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn m-1">Eventos Pasados</button>
   </div>
 
     <div class="row g-4">
