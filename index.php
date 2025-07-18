@@ -215,7 +215,7 @@ include("assets/head.php");
             <div class="img-container">
               <img src="images/test/event1.jpeg" class="w-100" alt="...">
             </div>
-            <div class="p-2>
+            <div class="p-3">
               <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
               <p class="card-text">Fecha y hora.</p>
               <p class="card-text">Ubicación.</p>
@@ -230,7 +230,7 @@ include("assets/head.php");
             <div class="img-container">
               <img src="images/test/event2.jpg" class="w-100" alt="...">
             </div>
-            <div class="p-2">
+            <div class="p-3">
               <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
               <p class="card-text">Fecha y hora.</p>
               <p class="card-text">Ubicación.</p>
@@ -245,7 +245,7 @@ include("assets/head.php");
             <div class="img-container">
               <img src="images/test/event3.jpeg" class="w-100" alt="...">
             </div>
-            <div class="p-2">
+            <div class="p-3">
               <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
               <p class="card-text">Fecha y hora.</p>
               <p class="card-text">Ubicación.</p>
