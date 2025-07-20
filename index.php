@@ -17,7 +17,7 @@ include("assets/head.php");
     <header class="row mx-2 scroll-margin" style="height:85vh; width:90vw;">
       <div class="col-7 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
-        <h6 class="lh-lg text-muted">Colectivo de estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
+        <h6 class="lh-lg text-muted" data-en="Student Association of AI at UC3M. Gain in-demand skills, connect with the industry, and be part of an international AI community." data-es="Asociación de Estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.">Asociación de Estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
         <div class="mt-4 d-flex gap-2">
           <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold">¡Únete!</a>
           <a href="#more" class="btn btn-outline-secondary px-4 fw-semibold">
@@ -32,7 +32,9 @@ include("assets/head.php");
 
     <section class="scroll-margin">
       <div class="container py-4">
-        <h2 class="text-center mb-4"><span style="color:var(--muted);">Desde AISC Madrid</span></h2>
+        <h2 class="text-center mb-4">
+          <span style="color:var(--muted);" data-en="From AISC Madrid" data-es="Desde AISC Madrid">Desde AISC Madrid</span>
+        </h2>
         <div class="row g-4">
 
           <!-- Card 1 -->
@@ -42,8 +44,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="fa-solid fa-brain fs-2"></i>
                 </div>
-                <h5 class="card-title">Ingeniería e Inteligencia Artificial</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="Engineering and Artificial Intelligence" data-es="Ingeniería e Inteligencia Artificial">Ingeniería e Inteligencia Artificial</h5>
+                <p class="card-text" data-en="Student Association at University Carlos III of Madrid." data-es="Asociación de estudiantes en la Universidad Carlos III de Madrid.">
                   Asociación de estudiantes en la Universidad Carlos III de Madrid.
                 </p>
               </div>
@@ -57,8 +59,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="bi bi-tools fs-2 "></i>
                 </div>
-                <h5 class="card-title">Talleres</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="Workshops" data-es="Talleres">Talleres</h5>
+                <p class="card-text" data-en="Demystify AI by acquiring practical skills demanded by the industry." data-es="Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.">
                   Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.
                 </p>
               </div>
@@ -72,8 +74,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="bi bi-diagram-3 fs-2"></i>
                 </div>
-                <h5 class="card-title">Eventos y Conexiones</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="Events and Connections" data-es="Eventos y Conexiones">Eventos y Conexiones</h5>
+                <p class="card-text" data-en="Get closer to the job market with students and industry members." data-es="Acércate al mundo laboral de la mano de estudiantes y miembros del sector.">
                   Acércate al mundo laboral de la mano de estudiantes y miembros del sector.
                 </p>
               </div>
@@ -87,8 +89,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-people fs-2"></i>
                 </div>
-                <h5 class="card-title">Comunidad</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="Community" data-es="Comunidad">Comunidad</h5>
+                <p class="card-text" data-en="Take the opportunity to meet other students and enjoy the university experience." data-es="Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.">
                   Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.
                 </p>
               </div>
@@ -102,8 +104,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-globe-americas fs-2"></i>
                 </div>
-                <h5 class="card-title">Red Internacional</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="International Network" data-es="Red Internacional">Red Internacional</h5>
+                <p class="card-text" data-en="Be part of the AI Student Collective community, founded at UC Davis, California, and expanded across the US." data-es="Froma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.">
                   Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.
                 </p>
               </div>
@@ -117,8 +119,8 @@ include("assets/head.php");
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-rocket-takeoff fs-2"></i>
                 </div>
-                <h5 class="card-title">Bienvenid@</h5>
-                <p class="card-text">
+                <h5 class="card-title" data-en="Welcome" data-es ="Bienvenid@">Bienvenid@</h5>
+                <p class="card-text" data-en="Join us and enjoy the process!" data-es="¡Únete y disfruta del proceso!">
                   ¡Únete y disfruta del proceso!
                 </p>
               </div>
@@ -132,7 +134,7 @@ include("assets/head.php");
 <section class="section scroll-margin" id="team"> 
   <div class="container">
     <h2 class="text-center mb-4">
-      <span style="color: var(--muted);">Conoce al equipo</span>
+      <span style="color: var(--muted);" data-en="Meet the team" data-es="Conoce al equipo">Conoce al equipo</span>
     </h2>
     <div class="mt-5 row">
 
@@ -199,11 +201,11 @@ include("assets/head.php");
 <section class="section scroll-margin" id="events">
   <div class="container">
     <h2 class="text-center mb-4">
-      <span style="color: var(--muted);">Eventos</span>
+      <span style="color: var(--muted);" data-en="Events" data-es="Eventos">Eventos</span>
     </h2>
   <div class="event-btn-container">
-    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Futuros</button>
-    <button class="btn btn-primary event-btn fw-semibold event-filter-btn">Eventos Pasados</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Past Events" data-es="Future Events">Eventos Pasados</button>
   </div>
 
     <div class="row g-4">
@@ -221,7 +223,7 @@ include("assets/head.php");
           </div>
         </div>
       </div>
-
+      
       <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -259,30 +261,30 @@ include("assets/head.php");
         <div class="col-md-8 col-lg-6">
           <div class="card shadow-sm border-0 form-card no-hover">
             <div id="form-error" class="card-body p-4">
-              <h4 class="display-4 text-center mb-3">¡Participa!</h4>
-              <p class="text-muted text-center mb-4 form-subtext">
+              <h4 class="display-4 text-center mb-3" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</h4>
+              <p class="text-muted text-center mb-4 form-subtext" data-en="Send your name and email to stay informed and join our AI community at UC3M." data-es="Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.">
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
               </p>
 
               <form method="POST" action="processing/get_involved_form.php" class="needs-validation" novalidate>
                 <!-- Nombre -->
                 <div class="mb-3">
-                  <label for="name" class="form-label">Nombre completo</label>
+                  <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
                   <input type="text" class="form-control form-input" id="name" name="name" placeholder="Tu nombre" required>
-                  <div class="invalid-feedback">Por favor, introduce tu nombre.</div>
+                  <div class="invalid-feedback" data-en="Please, introduce your name." data-es="Por favor, introduce tu nombre.">Por favor, introduce tu nombre.</div>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
-                  <label for="email" class="form-label">Correo electrónico</label>
+                  <label for="email" class="form-label" data-en="E-mail" data-es="Correo electrónico">Correo electrónico</label>
                   <input type="email" class="form-control form-input" id="email" name="email" placeholder="nombre@ejemplo.com" required>
-                  <div class="invalid-feedback">Por favor, introduce un correo válido.</div>
+                  <div class="invalid-feedback" data-en="Please, introduce a valid e-mail" data-es="Por favor, introduce un correo válido.">Por favor, introduce un correo válido.</div>
                 </div>
 
                 <!-- Consentimiento -->
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-                  <label class="form-check-label form-text" for="consent">
+                  <label class="form-check-label form-text" for="consent" data-en="I consent to AISC Madrid storing my submitted data to contact me." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
                     Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
                   </label>
                   <div class="invalid-feedback">Debes dar tu consentimiento para continuar.</div>
@@ -290,7 +292,7 @@ include("assets/head.php");
 
                 <!-- Enviar -->
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary form-btn fw-semibold">Enviar</button>
+                  <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Send" data-es="Enviar">Enviar</button>
                 </div>
               </form>
 
@@ -386,6 +388,34 @@ include("assets/head.php");
     buttons.forEach(b => b.classList.remove('active'));
     buttons[1].classList.add('active');
   });
+</script>
+
+ <!-- Language of the page script -->
+<script>
+  const languageOptions = document.querySelectorAll('.language-option');
+  const languageBtn = document.getElementById('languageDropdown');
+
+  languageOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.preventDefault();
+      const selectedLang = option.dataset.lang.toUpperCase();
+      languageBtn.textContent = selectedLang;
+
+      //Change language of the page
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.dataset[selectedLang.toLowerCase()];
+      });
+
+      ///Store selected language in localStorage
+      localStorage.setItem('lang', selectedLang.toLowerCase());
+    });
+  });
+
+  //Load saved language from localStorage if exists
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang) {
+    document.querySelector(`[data-lang="${savedLang}"]`)?.click();
+  }
 </script>
 
 

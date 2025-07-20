@@ -14,18 +14,31 @@
 
     <!-- Collapsible nav links + button -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav me-3">
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#team">Equipo</a>
+          <a class="nav-link" href="#team" data-en="Team" data-es="Equipo">Equipo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#events">Eventos</a>
+          <a class="nav-link" href="#events" data-en="Events" data-es="Eventos">Eventos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#get-involved">Participa</a>
+          <a class="nav-link" href="#get-involved" data-en="Get Involved" data-es="Participa">Participa</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="#" data-en="Log In" data-es="Inicia Sesión">Inicia Sesión</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="btn btn-custom dropdown-toggle my-2 my-lg-0 ms-lg-2" href="#" role="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            ESP
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
+            <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
+          </ul>
         </li>
       </ul>
-      <a href="#" class="btn btn-custom">Inicia Sesión</a>
     </div>
+
   </div>
 </nav>
+
