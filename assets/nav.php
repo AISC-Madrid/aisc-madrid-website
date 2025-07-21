@@ -28,7 +28,7 @@
           <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="#" data-en="Log In" data-es="Inicia Sesión">Inicia Sesión</a>
         </li>
         <li class="nav-item dropdown">
-          <a class=" btn-custom dropdown-toggle my-2 my-lg-0 ms-lg-2" href="#" role="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="btn btn-custom dropdown-toggle my-2 my-lg-0 ms-lg-2" href="#" role="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             ESP
           </a>
           <ul class="dropdown-menu" aria-labelledby="languageDropdown">
