@@ -58,12 +58,12 @@ if ($stmt->execute()) {
     ?>
 
 
-    <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+    <body class="bg-light d-flex flex-column align-items-center justify-content-center vh-100">
         <?php
         include("../assets/nav.php")
         ?>
-        <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-            <div class=" shadow-lg" role="alert" style="background-color: var(--primary);">
+        <div class="text-center">
+            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
                 <h4 class="alert-heading">¡Gracias por unirte!</h4>
                 <p>Hemos recibido tus datos correctamente. Nos pondremos en contacto contigo pronto.</p>
                 <hr>
