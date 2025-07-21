@@ -1,4 +1,4 @@
-<footer class="vw-100">
+<footer class="vw-100" style="margin-top: auto;">
   <div class="footer-container">
     <div class="footer-left">
       <a href="#">
