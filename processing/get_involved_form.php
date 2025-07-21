@@ -1,9 +1,9 @@
 <?php
 // Habilitar errores solo true para testear
-if(false){
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+if (false) {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
 }
 // Datos de conexión
 $host = 'localhost';
@@ -49,36 +49,49 @@ $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
     // Éxito: mostrar HTML bonito
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="es">
+
     <head>
         <meta charset="UTF-8">
         <title>Gracias por unirte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
+
     <body class="bg-light d-flex align-items-center justify-content-center vh-100">
         <div class="text-center">
-            <div class="alert alert-success shadow-lg" role="alert">
+            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
                 <h4 class="alert-heading">¡Gracias por unirte!</h4>
                 <p>Hemos recibido tus datos correctamente. Nos pondremos en contacto contigo pronto.</p>
                 <hr>
                 <a href="/" class="btn btn-primary">Volver al inicio</a>
             </div>
+
+            <!-- WhatsApp Join Button -->
+            <a href="https://chat.whatsapp.com/DHdetGyDbvnAMMKo0JaaqY?mode=r_c"
+                target="_blank"
+                class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
+                <i class="bi bi-whatsapp fs-4"></i>
+                <span>Únete a la comunidad ASIC en WhatsApp</span>
+            </a>
         </div>
     </body>
+
     </html>
-    <?php
+<?php
 } else {
     // Érror: mostrar HTML volver a intentar
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="es">
+
     <head>
         <meta charset="UTF-8">
         <title>Gracias por unirte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
+
     <body class="bg-light d-flex align-items-center justify-content-center vh-100">
         <div class="text-center">
             <div class="alert alert-danger shadow-lg" role="alert">
@@ -89,8 +102,9 @@ if ($stmt->execute()) {
             </div>
         </div>
     </body>
+
     </html>
-    <?php
+<?php
 }
 
 $stmt->close();

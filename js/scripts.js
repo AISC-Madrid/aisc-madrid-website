@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
 (() => {
       'use strict';
       const forms = document.querySelectorAll('.needs-validation');
@@ -75,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons[1].classList.add('active');
   });
 
+
+
+
 // Language of the page script 
   const languageOptions = document.querySelectorAll('.language-option');
   const languageBtn = document.getElementById('languageDropdown');
@@ -92,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       ///Store selected language in localStorage
       localStorage.setItem('lang', selectedLang.toLowerCase());
+
+      const dropdown = bootstrap.Dropdown.getOrCreateInstance(languageBtn);
+dropdown.hide();
     });
   });
 
@@ -100,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedLang) {
     document.querySelector(`[data-lang="${savedLang}"]`)?.click();
   }
+
+
+
 
 
 

@@ -206,7 +206,7 @@ include("assets/head.php");
     </h2>
   <div class="event-btn-container">
     <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
-    <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Past Events" data-es="Future Events">Eventos Pasados</button>
+    <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
   </div>
 
     <div class="row g-4">
@@ -267,9 +267,9 @@ include("assets/head.php");
  <section class="container-fluid mb-5 scroll-margin" id="get-involved">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-          <div class="card shadow-sm border-0 form-card no-hover">
-            <div id="form-error" class="card-body p-4">
-              <h4 class="display-4 text-center mb-3" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</h4>
+          <div class=" border-0 form-card no-hover">
+            <div id="form-error" class="card-body bg-muted p-4">
+              <h4 class="display-4 text-center text-dark  mb-3" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</h4>
               <p class="text-muted text-center mb-4 form-subtext" data-en="Send your name and email to stay informed and join our AI community at UC3M." data-es="Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.">
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
               </p>
@@ -320,11 +320,6 @@ include("assets/head.php");
 
   <!-- Bootstrap validation script -->
   <script src="js/scripts.js"></script>
-
-
-
-
-
 
 
   <!-- Bootstrap Bundle JS (includes Popper) -->

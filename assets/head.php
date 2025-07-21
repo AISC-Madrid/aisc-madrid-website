@@ -10,6 +10,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
         crossorigin="anonymous">
 
+    <!-- jQuery -->
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
     <!-- Optional: Favicon -->
     <link rel="icon" href="images\AISC Logo Square.ico" type="image/x-icon">
 
