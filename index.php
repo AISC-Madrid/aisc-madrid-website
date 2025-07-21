@@ -17,9 +17,10 @@ include("assets/head.php");
     <header class="row mx-2 scroll-margin" style="height:85vh; width:90vw;">
       <div class="col-7 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
-        <h6 class="lh-lg text-muted" data-en="Student Association of AI at UC3M. Gain in-demand skills, connect with the industry, and be part of an international AI community." data-es="Asociación de Estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.">Asociación de Estudiantes de IA en UC3M. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional de IA.</h6>
+        <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
+        Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
-          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold">¡Únete!</a>
+          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</a>
           <a href="#more" class="btn btn-outline-secondary px-4 fw-semibold">
             Más <span class="ms-1">&rarr;</span>
           </a>
@@ -419,6 +420,54 @@ include("assets/head.php");
 </script>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const navbarCollapse = document.getElementById('navbarNav');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const languageMenu = languageDropdown?.nextElementSibling;
+
+    // 1. Evitar que hacer clic en el botón o menú de idioma cierre el navbar
+    [languageDropdown, ...document.querySelectorAll('.language-option')].forEach(el => {
+      el.addEventListener('click', function (e) {
+        e.stopPropagation(); // Evita que se propague y cierre el menú
+      });
+    });
+
+    // 2. Cerrar navbar al hacer clic fuera (excepto si fue en el botón del idioma o su menú)
+    document.addEventListener('click', function (event) {
+      const isOpen = navbarCollapse.classList.contains('show');
+      const clickedInsideNavbar = navbarCollapse.contains(event.target);
+      const clickedToggle = navbarToggler.contains(event.target);
+      const clickedLanguage = languageDropdown.contains(event.target) || languageMenu.contains(event.target);
+
+      if (isOpen && !clickedInsideNavbar && !clickedToggle && !clickedLanguage) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+        bsCollapse?.hide();
+      }
+    });
+
+    // 3. Cerrar navbar al hacer clic en enlaces normales (excepto los de idioma)
+    navbarCollapse.querySelectorAll('a.nav-link, a.btn').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (
+          e.target.closest('.dropdown-menu') || 
+          e.target.closest('#languageDropdown')
+        ) return;
+
+        const isOpen = navbarCollapse.classList.contains('show');
+        if (isOpen) {
+          const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+          bsCollapse?.hide();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
 
 
 
@@ -427,6 +476,6 @@ include("assets/head.php");
 
 
 
-  <body>
+</body>
 
 </html>
