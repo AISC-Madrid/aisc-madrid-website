@@ -53,13 +53,15 @@ if ($stmt->execute()) {
     <!DOCTYPE html>
     <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Gracias por unirte</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+    <?php
+    include("../assets/head.php");
+    ?>
+
 
     <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+        <?php
+        include("../assets/nav.php")
+        ?>
         <div class="text-center">
             <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
                 <h4 class="alert-heading">¡Gracias por unirte!</h4>
