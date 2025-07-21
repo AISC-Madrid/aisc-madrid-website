@@ -14,8 +14,8 @@ include("assets/head.php");
   <!-- Main container -->
   <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <!-- Landing -->
-    <header class="row mx-2 scroll-margin" style="height:85vh; width:90vw;">
-      <div class="col-7 d-flex flex-column align-items-start justify-content-center">
+    <header class="row mx-2 scroll-margin" style="min-height:85vh; width:90vw;">
+      <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column align-items-start justify-content-center">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
         <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
@@ -26,7 +26,7 @@ include("assets/head.php");
           </a>
         </div>
       </div>
-      <div class="col-5 d-flex flex-column align-items-end justify-content-center ">
+      <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
         <img style="width: 75%;" src="images/SVG/Property%201=AISC%20Logo%20Color.svg" alt="Logotipo de la asociación AISC">
       </div>
     </header>
@@ -132,8 +132,8 @@ include("assets/head.php");
       </div>
     </section>
 
-<section class="section scroll-margin" id="team"> 
-  <div class="container">
+<section class="section" id="team"> 
+  <div class="container scroll-margin">
     <h2 class="text-center mb-4">
       <span style="color: var(--muted);" data-en="Meet the team" data-es="Conoce al equipo">Conoce al equipo</span>
     </h2>
@@ -214,39 +214,46 @@ include("assets/head.php");
       <!-- Event Structure -->
       <div class="col-md-6 col-lg-4 event-past">
         <div class="card h-100 shadow-sm">
-          <div class="card-body">
+          <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event1.jpeg" class="w-100" alt="...">
             </div>
-            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-            <p class="card-text">Fecha y hora.</p>
-            <p class="card-text">Ubicación.</p>
+            <div class="p-3">
+              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+              <p class="card-text">Fecha y hora.</p>
+              <p class="card-text">Ubicación.</p>
+            </div>
           </div>
         </div>
       </div>
       
       <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">
-          <div class="card-body">
+          <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event2.jpg" class="w-100" alt="...">
             </div>
-            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-            <p class="card-text">Fecha y hora.</p>
-            <p class="card-text">Ubicación.</p>
+            <div class="p-3">
+              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+              <p class="card-text">Fecha y hora.</p>
+              <p class="card-text">Ubicación.</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">
-          <div class="card-body">
+          <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event3.jpeg" class="w-100" alt="...">
             </div>
-            <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-            <p class="card-text">Fecha y hora.</p>
-            <p class="card-text">Ubicación.</p>
+            <div class="p-3">
+              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
+              <p class="card-text">Fecha y hora.</p>
+              <p class="card-text">Ubicación.</p>
+            </div>
+            
           </div>
         </div>
       </div>
