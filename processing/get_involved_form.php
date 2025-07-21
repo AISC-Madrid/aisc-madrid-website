@@ -80,10 +80,10 @@ if ($stmt->execute()) {
         </div>
 
         <!-- Footer include -->
-        <?php include('assets/footer.php'); ?>
+        <?php include('../assets/footer.php'); ?>
 
         <!-- Bootstrap validation script -->
-        <script src="js/scripts.js"></script>
+        <script src="../js/scripts.js"></script>
 
 
         <!-- Bootstrap Bundle JS (includes Popper) -->
