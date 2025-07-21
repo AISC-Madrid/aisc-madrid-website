@@ -58,7 +58,7 @@ if ($stmt->execute()) {
     ?>
 
 
-    <body class="bg-light d-flex flex-column align-items-center justify-content-center vh-100">
+    <body class="bg-light d-flex flex-column align-items-center justify-content-center vw-100 vh-100">
         <?php
         include("../assets/nav.php")
         ?>
