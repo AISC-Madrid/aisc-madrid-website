@@ -129,8 +129,8 @@ include("assets/head.php");
       </div>
     </section>
 
-<section class="section scroll-margin" id="team"> 
-  <div class="container">
+<section class="section" id="team"> 
+  <div class="container scroll-margin">
     <h2 class="text-center mb-4">
       <span style="color: var(--muted);">Conoce al equipo</span>
     </h2>
