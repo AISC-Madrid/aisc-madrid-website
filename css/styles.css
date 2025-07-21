@@ -41,7 +41,7 @@ body {
 }
 
 .btn-custom:hover {
-    background-color: var(--secondary);
+    background-color: var(--secondary) !important;
     color: var(--foreground);
 }
 
