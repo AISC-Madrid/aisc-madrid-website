@@ -62,7 +62,7 @@ if ($stmt->execute()) {
         <?php
         include("../assets/nav.php")
         ?>
-        <div class="text-center">
+        <div class="text-center mb-5">
             <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
                 <h4 class="alert-heading">¡Gracias por unirte!</h4>
                 <p>Hemos recibido tus datos correctamente. Nos pondremos en contacto contigo pronto.</p>
