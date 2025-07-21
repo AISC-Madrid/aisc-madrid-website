@@ -125,13 +125,14 @@ footer {
 .form-btn {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .form-btn:hover {
   background-color: var(--secondary);
   border-color: var(--secondary);
-  color: white;
+  color: rgb(255, 255, 255);
+
 }
 
 .event-btn-container{
@@ -171,6 +172,11 @@ footer {
   will-change: transform, background-color, border-color;
 }
 
+/*Language button styling*/
+.btn-custom.dropdown-toggle.show {
+  background-color:var(--secondary);
+  color: white;
+}
 
 
 
