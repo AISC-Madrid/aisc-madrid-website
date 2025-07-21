@@ -35,7 +35,7 @@ body {
 }
 
 .btn-custom {
-    background-color: var(--primary);
+    background-color: var(--primary); !important
     color: var(--foreground);
     border: none;
 }
