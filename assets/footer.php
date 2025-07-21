@@ -1,4 +1,4 @@
-<footer>
+<footer class="vw-100">
   <div class="footer-container">
     <div class="footer-left">
       <a href="#">
