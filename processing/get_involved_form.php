@@ -78,9 +78,9 @@ if ($stmt->execute()) {
                 <span>Únete a la comunidad ASIC en WhatsApp</span>
             </a>
         </div>
-    </body>
-
-    </html>
+    <?php
+    include("/assets/footer.php");
+    ?>
 <?php
 } else {
     // Érror: mostrar HTML volver a intentar
