@@ -78,9 +78,22 @@ if ($stmt->execute()) {
                 <span>Únete a la comunidad ASIC en WhatsApp</span>
             </a>
         </div>
-    <?php
-    include("/assets/footer.php");
-    ?>
+
+        <!-- Footer include -->
+        <?php include('assets/footer.php'); ?>
+
+        <!-- Bootstrap validation script -->
+        <script src="js/scripts.js"></script>
+
+
+        <!-- Bootstrap Bundle JS (includes Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    </body>
+
+    </html>
 <?php
 } else {
     // Érror: mostrar HTML volver a intentar
