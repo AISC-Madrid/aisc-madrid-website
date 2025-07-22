@@ -75,7 +75,7 @@ if ($stmt->execute()) {
                 target="_blank"
                 class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
                 <i class="bi bi-whatsapp fs-4"></i>
-                <span>Únete a la comunidad ASIC en WhatsApp</span>
+                <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
             </a>
         </div>
 
