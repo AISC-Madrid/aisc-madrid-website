@@ -93,6 +93,9 @@
         el.textContent = el.dataset[selectedLang.toLowerCase()];
       });
 
+      document.getElementById("name").placeholder = document.getElementById("name").dataset[selectedLang.toLowerCase()];
+      document.getElementById("email").placeholder = document.getElementById("email").dataset[selectedLang.toLowerCase()];
+
       ///Store selected language in localStorage
       localStorage.setItem('lang', selectedLang.toLowerCase());
 
