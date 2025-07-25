@@ -158,7 +158,7 @@ include("assets/head.php");
           <div class="team-wrapper">
             <div class="team-member">
               <a target="_blank">
-                <img src="images/Members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
+                <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
               </a>
             </div>
           </div>
@@ -172,7 +172,7 @@ include("assets/head.php");
           <div class="team-wrapper">
             <div class="team-member">
               <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
-                <img src="images/test/amador.jpg" alt="Lauren Gallego Ropero" class="img-fluid rounded">
+                <img src="images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
               </a>
             </div>
           </div>
