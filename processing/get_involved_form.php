@@ -14,6 +14,7 @@ if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL))
     header("Location: /?error=validation#get-involved");
     exit;
 }
+include("../assets/db.php");
 
 $checkStmt = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkStmt->bind_param("s", $email);
