@@ -15,7 +15,7 @@
 
 
     <!-- Optional: Favicon -->
-    <link rel="icon" href="/images/AISC Logo Square.ico" type="image/x-icon">
+    <link rel="icon" href="/images/logos/AISC Logo Square.ico" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 

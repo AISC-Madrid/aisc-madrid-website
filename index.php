@@ -27,7 +27,7 @@ include("assets/head.php");
         </div>
       </div>
       <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
-        <img style="width: 75%;" src="images/SVG/Property%201=AISC%20Logo%20Color.svg" alt="Logotipo de la asociación AISC">
+        <img style="width: 75%;" src="images/logos/SVG/Property 1=AISC Logo Color.svg" alt="Logotipo de la asociación AISC">
       </div>
     </header>
 
@@ -143,13 +143,13 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
-                <img src="images/test/michael.jpg" alt="Michael Scott" class="img-fluid rounded">
+              <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
+                <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
               </a>
             </div>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Michael Scott</h5>
-          <p class="text-muted">Presidente</p>
+          <h5 class="mt-3" style="color: var(--background)">Hugo Centeno Sanz</h5>
+          <p class="text-muted" data-en="President" data-es="Presidente">Presidente</p>
         </div>
       </div>
 
@@ -157,13 +157,13 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
-                <img src="images/test/dwight.jpg" alt="Dwight" class="img-fluid rounded">
+              <a target="_blank">
+                <img src="images/Members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
               </a>
             </div>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Dwight Schrute</h5>
-          <p class="text-muted">Vicepresidente</p>
+          <h5 class="mt-3" style="color: var(--background)">Alfonso Mayoral Montero</h5>
+          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
         </div>
       </div>
 
@@ -171,13 +171,13 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
-                <img src="images/test/amador.jpg" alt="Amador" class="img-fluid rounded">
+              <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
+                <img src="images/test/amador.jpg" alt="Lauren Gallego Ropero" class="img-fluid rounded">
               </a>
             </div>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Amador Rivas</h5>
-          <p class="text-muted">Vividor</p>
+          <h5 class="mt-3" style="color: var(--background)">Lauren Gallego Ropero</h5>
+          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
         </div>
       </div>
 
@@ -185,13 +185,13 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a href="https://giphy.com/gifs/theoffice-the-office-tv-frame-toby-hyyV7pnbE0FqLNBAzs" target="_blank">
-                <img src="images/test/kenny.jpg" alt="Kenny" class="img-fluid rounded">
+              <a href="https://www.linkedin.com/in/alejandrobarrosobueso/" target="_blank">
+                <img src="images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
               </a>
             </div>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Kenny</h5>
-          <p class="text-muted">Miembro</p>
+          <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
+          <p class="text-muted" data-en="Web Master" data-es="Administrador Web">Administrador Web</p>
         </div>
       </div>
 
