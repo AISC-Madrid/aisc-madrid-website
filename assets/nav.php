@@ -28,16 +28,16 @@
           <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="#" data-en="Log In" data-es="Inicia Sesión">Inicia Sesión</a>
         </li>
         <li class="nav-item dropdown">
-          <button class="btn btn-secondary dropdown-toggle"
+          <button class="btn btn-custom dropdown-toggle py-1 mx-2 rounded-pill shadow-sm"
             type="button"
             id="languageDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false">
-            ES
+             ESP
           </button>
-          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-            <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
-            <li><a class="dropdown-item language-option" href="#" data-lang="es">Español</a></li>
+          <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
+            <li><div class="dropdown-item language-option" data-lang="en"> English</div></li>
+            <li><div class="dropdown-item language-option" data-lang="es"> Español</div></li>
           </ul>
         </li>
       </ul>
