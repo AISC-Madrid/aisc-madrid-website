@@ -5,6 +5,9 @@ if (false) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
 }
+
+include("../assets/db.php");
+
 // Datos del formulario
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
