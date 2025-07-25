@@ -17,7 +17,7 @@
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
                 <div class="mb-3">
                     <a href="#" class="badge bg-primary text-decoration-none">Evento</a>
-                    <h1 class="text-light display-5 fw-bold mt-2">Jornada de bienvenida<br> 2025-2026</h1>
+                    <h1 class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
                     <p class="text-light">
                         
                     </p>
@@ -45,12 +45,13 @@
                             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tech%20Conference%20Madrid&dates=20250730T160000Z/20250730T180000Z&location=Madrid,%20Spain&details=Conferencia%20con%20Jane%20Doe%20sobre%20innovaci%C3%B3n%20tecnol%C3%B3gica." class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
                                 <i class="fab fa-google"></i>
                             </a>
-                            <a href="https://events.stanford.edu/event/merging-humans-and-machines-innovation-and-translation.ics" class="btn btn-sm btn-outline-secondary me-1" title="iCal">
+                            
+<!--                             <a href="" class="btn btn-sm btn-outline-secondary me-1" title="iCal">
                                 <i class="fab fa-apple"></i>
                             </a>
-                            <a href="https://events.stanford.edu/event/merging-humans-and-machines-innovation-and-translation.ics" class="btn btn-sm btn-outline-secondary" title="Outlook">
+                            <a href="" class="btn btn-sm btn-outline-secondary" title="Outlook">
                                 <i class="fab fa-windows"></i>
-                            </a>
+                            </a> -->
                         </div>
 
 
@@ -58,14 +59,14 @@
                     <!-- <div class="mb-3">
                         <i class="fas fa-ticket-alt me-2"></i>
                         <strong>Free</strong><br>
-                        <a href="https://stanford.zoom.us/webinar/register/9017483612598/WN_E9gq0X-iTDq7UYQLhaYEHA" class="btn btn-primary mt-2">
+                        <a href="" class="btn btn-primary mt-2">
                             Register <i class="fas fa-long-arrow-alt-right"></i>
                         </a>
                     </div> -->
 
                     <!-- <div class="mb-3">
                         <i class="fas fa-link me-2"></i>
-                        <a href="https://wearable.su.domains/merging-humans-and-machines-innovation-and-translation/" class="text-decoration-none" target="_blank">
+                        <a href="" class="text-decoration-none" target="_blank">
                             Visit the event website
                         </a>
                     </div> -->
@@ -77,8 +78,9 @@
                                 Share <i class="fas fa-share-alt"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=https://events.stanford.edu/event/merging-humans-and-machines-innovation-and-translation" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
-                                <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=https%3A%2F%2Fevents.stanford.edu%2Fevent%2Fmerging-humans-and-machines-innovation-and-translation" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
+                                <!-- Add url= link event -->
+                                <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
+                                <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,10 +90,18 @@
             <!-- Main Content -->
             <div class="col-lg-8">
                 <section style="padding: 2rem;">
+                    <!-- Speaker section -->
+                    <!--<p><strong>Speaker:</strong> Xuanhe Zhao, PhD, Professor of Mechanical Engineering, and of Civil and Environmental Engineering, <i>Massachusetts Institute of Technology</i></p>  -->
+                    
 
-                    <p><strong>Speaker:</strong> Xuanhe Zhao, PhD, Professor of Mechanical Engineering, and of Civil and Environmental Engineering, <i>Massachusetts Institute of Technology</i></p>
+                    <p><strong>¡Visítanos durante la Jornada de Bienvenida!</strong></p>
+                    <p>Acércate a nuestro stand, conoce la asociación y explora en directo el potencial de dos áreas clave de la inteligencia artificial:</p>
+                    <p><strong>Reconocimiento de imagen en tiempo real</strong></p>
+                    <p>Pon a prueba tu destreza en un juego de plataformas interactivo controlado mediante <i>computer vision</i>: una cámara detectará y rastreará el movimiento de tu mano lo que servirá como control del juego.</p>
+                    <p><strong>Generación de imágenes con IA</strong></p>
+                    <p>Crea tu propio avatar personalizado con <strong>Stable Diffusion</strong>, un modelo de difusión basado en redes neuronales profundas que transforma descripciones de texto <i>(prompts)</i> en imágenes realistas de alta calidad.</p>
+                    <p>¡Te esperamos el 8 de septiembre de 10 a 17 en la EPS de la Universidad Carlos III!</p>
 
-                    <p><strong>Info event:</strong> Whereas human tissues and organs are mostly soft, wet, and bioactive, machines are commonly hard, dry, and abiotic... In this talk, I will discuss two examples of merging humans and machines by posing two challenges in science and technology:</p>
 
                     <!-- <div class="mb-3">
                         <span class="badge bg-secondary me-2">Class/Seminar</span>
@@ -108,26 +118,8 @@
 
     <?php include('../assets/footer.php'); ?>
 
-
-    <script>
-        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = document.querySelector(button.getAttribute('data-bs-target'));
-                const showText = button.querySelector('.show-map, .show-stream');
-                const hideText = button.querySelector('.hide-map, .hide-stream');
-                if (target.classList.contains('show')) {
-                    showText.classList.remove('d-none');
-                    hideText.classList.add('d-none');
-                } else {
-                    showText.classList.add('d-none');
-                    hideText.classList.remove('d-none');
-                }
-            });
-        });
-    </script>
-
-
     <script src="../js/language.js"></script>
+    <script src="../js/event.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
