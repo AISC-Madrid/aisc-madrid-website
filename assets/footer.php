@@ -9,7 +9,7 @@
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-instagram footer-icon"></i>
       </a>
-      <a href="https://chat.whatsapp.com/DHdetGyDbvnAMMKo0JaaqY?mode=r_c" target="_blank" class="footer-icon-wrapper">
+      <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-whatsapp footer-icon"></i>
       </a>
       <a href="https://www.linkedin.com/company/ai-student-collective-madrid" target="_blank" class="footer-icon-wrapper">
