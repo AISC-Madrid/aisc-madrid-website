@@ -21,7 +21,7 @@ include("assets/head.php");
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
           <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</a>
-          <a href="#more" class="btn btn-outline-secondary px-4 fw-semibold">
+          <a href="#about" class="btn btn-outline-secondary px-4 fw-semibold">
             Más <span class="ms-1">&rarr;</span>
           </a>
         </div>
@@ -31,7 +31,7 @@ include("assets/head.php");
       </div>
     </header>
 
-    <section class="scroll-margin">
+    <section class="scroll-margin" id="about">
       <div class="container py-4">
         <h2 class="text-center mb-4">
           <span style="color:var(--muted);" data-en="From AISC Madrid" data-es="Desde AISC Madrid">Desde AISC Madrid</span>
@@ -212,7 +212,7 @@ include("assets/head.php");
     <div class="row g-4" style="width:100%;">
 
        <!-- Event Structure -->
-      <div class="col-md-6 col-lg-4 event-past">
+<!--       <div class="col-md-6 col-lg-4 event-past">
         <div class="card h-100 shadow-sm">
           <div class="card-body p-0">
             <div class="img-container">
@@ -225,7 +225,7 @@ include("assets/head.php");
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       
       <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 w-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
