@@ -33,7 +33,7 @@
             id="languageDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false">
-             ESP
+             ES
           </button>
           <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
             <li><div class="dropdown-item language-option" data-lang="en"> English</div></li>

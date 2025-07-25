@@ -6,7 +6,7 @@ include("assets/head.php");
 ?>
 
 <body>
--
+
   <?php
   include("assets/nav.php");
   ?>
@@ -228,15 +228,19 @@ include("assets/head.php");
       </div>
       
       <div class="col-md-6 col-lg-4 event-future">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm" onclick="window.location.href='/eventos/evento.php'">
           <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event2.jpg" class="w-100" alt="...">
             </div>
             <div class="p-3">
-              <h5 class="card-title mt-3 fw-bold">Título Evento</h5>
-              <p class="card-text">Fecha y hora.</p>
-              <p class="card-text">Ubicación.</p>
+              <h5 class="card-title mt-3 fw-bold">Jornada de bienvenida 2025-2026</h5>
+              <p class="card-text"> <i class="fas fa-calendar me-2"></i>
+                        <strong>8 de Septiembre de 2025</strong><br>
+                        10:00 a 17:00
+                        </p>
+              <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i>
+                        <span>EPS Universidad Carlos III</span></p>
             </div>
           </div>
         </div>
@@ -295,7 +299,7 @@ include("assets/head.php");
                   <label class="form-check-label form-text" for="consent" data-en="I consent to AISC Madrid storing my submitted data to contact me." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
                     Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
                   </label>
-                  <div class="invalid-feedback" data-en="You must give permission to continue" data-es="Debes dar tu consentimiento para continuar.">Debes dar tu consentimiento para continuar.</div>
+                  <div class="invalid-feedback" data-en="You must give permission to continue" data-es="Debes dar tu consentimiento para continuar. ">Debes dar tu consentimiento para continuar.</div>
                 </div>
 
                 <!-- Enviar -->
@@ -319,7 +323,9 @@ include("assets/head.php");
   <?php include('assets/footer.php'); ?>
 
   <!-- Bootstrap validation script -->
-  <script src="js/scripts.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/language.js"></script>
+  
 
 
   <!-- Bootstrap Bundle JS (includes Popper) -->
