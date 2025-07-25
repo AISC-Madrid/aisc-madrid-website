@@ -234,7 +234,7 @@ include("assets/head.php");
               <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="..." styles="object-fit: cover;">
             </div>
             <div class="p-3">
-              <h5 class="card-title mt-3 fw-bold">Jornada de bienvenida 2025-2026</h5>
+              <h5 class="card-title mt-3 fw-bold" data-en="Welcome Day 2025-2026" data-es="Jornada de Bienvenida 2025-2026">Jornada de Bienvenida 2025-2026</h5>
               <p class="card-text"> <i class="fas fa-calendar me-2"></i>
                         <strong>8 de Septiembre de 2025</strong><br>
                         10:00 a 17:00
