@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="#">
-      <img src="images/SVG/navbar - AISC Madrid logo and letters.svg" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="images/logos/SVG/navbar - AISC Madrid logo and letters.svg" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler button -->
