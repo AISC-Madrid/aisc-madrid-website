@@ -228,7 +228,7 @@ include("assets/head.php");
       </div>
       
       <div class="col-md-6 col-lg-4 event-future">
-        <div class="card h-100 shadow-sm" onclick="window.location.href='/eventos/evento.php'">
+        <div class="card h-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
           <div class="card-body p-0">
             <div class="img-container">
               <img src="images/test/event2.jpg" class="w-100" alt="...">
