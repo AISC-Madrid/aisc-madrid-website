@@ -11,7 +11,7 @@
     <div class="container-fluid scroll-margin">
         <div class="bg-dark row px-3">
             <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
-                <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="Event Image" style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
+                <img src="/images/events/event1/Frame 16.png" class="card-img-top" alt="Event Image" style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
 
             </div>
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
