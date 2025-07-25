@@ -1,22 +1,20 @@
 <?php
-// Habilitar errores solo true para testear
+
 if (false) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
 }
-// Datos del formulario
+
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $consent = isset($_POST['consent']) ? 1 : 0;
 
-// Validación
 if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     header("Location: /?error=validation#get-involved");
     exit;
 }
 
-// Comprobar duplicado
 $checkStmt = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkStmt->bind_param("s", $email);
 $checkStmt->execute();
@@ -30,12 +28,11 @@ if ($checkStmt->num_rows > 0) {
 }
 $checkStmt->close();
 
-// Insertar datos
 $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (?, ?)");
 $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
-    // Éxito: mostrar HTML bonito
+    
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -67,7 +64,7 @@ if ($stmt->execute()) {
             </div>
 
             <!-- WhatsApp Join Button -->
-            <a href="https://chat.whatsapp.com/DHdetGyDbvnAMMKo0JaaqY?mode=r_c"
+            <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
                 target="_blank"
                 class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button"
                 data-es="Únete a la comunidad AISC Madrid en WhatsApp"
@@ -94,7 +91,7 @@ if ($stmt->execute()) {
     </html>
 <?php
 } else {
-    // Érror: mostrar HTML volver a intentar
+    
 ?>
     <!DOCTYPE html>
     <html lang="es">
