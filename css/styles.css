@@ -132,6 +132,7 @@ footer {
   background-color: var(--secondary);
   border-color: var(--secondary);
   color: rgb(255, 255, 255);
+
 }
 
 .event-btn-container{
@@ -162,20 +163,19 @@ footer {
 }
 
 .event-filter-btn {
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  display: inline-block;
+  transition: 
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  will-change: transform, background-color, border-color;
 }
 
 /*Language button styling*/
 .btn-custom.dropdown-toggle.show {
   background-color:var(--secondary);
   color: white;
-}
-
-
-
-#team {
-  padding-top: 100px;
-  margin-top: -100px;
 }
 
 
