@@ -199,8 +199,8 @@ include("assets/head.php");
   </div>
 </section>
 
-<section class="section scroll-margin" id="events">
-  <div class="container">
+<section class="section scroll-margin w-100 px-3 px-md-5" id="events">
+  <div class="container-fluid">
     <h2 class="text-center mb-4">
       <span style="color: var(--muted);" data-en="Events" data-es="Eventos">Eventos</span>
     </h2>
@@ -209,9 +209,9 @@ include("assets/head.php");
     <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
   </div>
 
-    <div class="row g-4">
+    <div class="row g-4" style="width:100%;">
 
-      <!-- Event Structure -->
+       <!-- Event Structure -->
       <div class="col-md-6 col-lg-4 event-past">
         <div class="card h-100 shadow-sm">
           <div class="card-body p-0">
@@ -228,10 +228,10 @@ include("assets/head.php");
       </div>
       
       <div class="col-md-6 col-lg-4 event-future">
-        <div class="card h-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
+        <div class="card h-100 w-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
           <div class="card-body p-0">
             <div class="img-container">
-              <img src="images/test/event2.jpg" class="w-100" alt="...">
+              <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="..." styles="object-fit: cover;">
             </div>
             <div class="p-3">
               <h5 class="card-title mt-3 fw-bold">Jornada de bienvenida 2025-2026</h5>
@@ -246,7 +246,7 @@ include("assets/head.php");
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-4 event-future">
+      <!-- <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">
           <div class="card-body p-0">
             <div class="img-container">
@@ -260,7 +260,7 @@ include("assets/head.php");
             
           </div>
         </div>
-      </div>
+      </div> -->
         
     </div>
     
