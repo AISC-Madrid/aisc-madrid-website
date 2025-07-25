@@ -278,14 +278,14 @@ include("assets/head.php");
                 <!-- Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
-                  <input type="text" class="form-control form-input" id="name" name="name" placeholder="Tu nombre" required>
+                  <input type="text" class="form-control form-input" id="name" name="name" data-es="Tu nombre" data-en="Your name" placeholder="Tu nombre" required>
                   <div class="invalid-feedback" data-en="Please, introduce your name." data-es="Por favor, introduce tu nombre.">Por favor, introduce tu nombre.</div>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
                   <label for="email" class="form-label" data-en="E-mail" data-es="Correo electrónico">Correo electrónico</label>
-                  <input type="email" class="form-control form-input" id="email" name="email" placeholder="nombre@ejemplo.com" required>
+                  <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com" data-es="nombre@ejemplo.com" placeholder="nombre@ejemplo.com" required>
                   <div class="invalid-feedback" data-en="Please, introduce a valid e-mail" data-es="Por favor, introduce un correo válido.">Por favor, introduce un correo válido.</div>
                 </div>
 
@@ -295,7 +295,7 @@ include("assets/head.php");
                   <label class="form-check-label form-text" for="consent" data-en="I consent to AISC Madrid storing my submitted data to contact me." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
                     Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
                   </label>
-                  <div class="invalid-feedback">Debes dar tu consentimiento para continuar.</div>
+                  <div class="invalid-feedback" data-en="You must give permission to continue" data-es="Debes dar tu consentimiento para continuar.">Debes dar tu consentimiento para continuar.</div>
                 </div>
 
                 <!-- Enviar -->

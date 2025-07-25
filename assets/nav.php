@@ -36,8 +36,8 @@
              ESP
           </button>
           <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
-            <li><a class="dropdown-item language-option" href="#" data-lang="en">🇺🇸 English</a></li>
-            <li><a class="dropdown-item language-option" href="#" data-lang="es">🇪🇸 Español</a></li>
+            <li><div class="dropdown-item language-option" data-lang="en"> English</div></li>
+            <li><div class="dropdown-item language-option" data-lang="es"> Español</div></li>
           </ul>
         </li>
       </ul>
