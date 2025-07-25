@@ -35,13 +35,13 @@ body {
 }
 
 .btn-custom {
-    background-color: var(--primary);
+    background-color: var(--primary) !important;
     color: var(--foreground);
     border: none;
 }
 
 .btn-custom:hover {
-    background-color: var(--secondary);
+    background-color: var(--secondary) !important;
     color: var(--foreground);
 }
 
