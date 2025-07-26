@@ -35,38 +35,85 @@ $stmt->bind_param("ss", $name, $email);
 if ($stmt->execute()) {
     //Send email:
    $to = $email;
-   $subject = "Gracias por unirte a AISC Madrid";
+   $subject = "¡Bienvenid@ a la comunidad AISC Madrid!";
    
    $message = "
     <html>
     <head>
-      <title>Gracias por unirte a AISC Madrid</title>
+      <title>¡Bienvenid@ a la comunidad AISC Madrid!</title>
     </head>
     <body>
       <h2>¡Hola $name!</h2>
       <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
-      <p>Estamos encantados de tenerte con nosotros. Puedes unirte al grupo de WhatsApp aquí:</p>
-    
-      <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
-         target='_blank'
-         style='
-           display: inline-flex;
-           align-items: center;
-           padding: 10px 20px;
-           background-color: #25D366;
-           color: white !important;
-           text-decoration: none;
-           border-radius: 5px;
-           font-weight: bold;
-           font-family: Arial, sans-serif;
-           margin-top: 15px;
-           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-         '>
-         Únete a la comunidad AISC Madrid en WhatsApp
-      </a>
-    
-      <br><br>
-      <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
+    <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
+
+    <p>Estamos encantados de tenerte con nosotros. Puedes unirte a la comunidad de WhatsApp aquí:</p>
+
+        <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-whatsapp' style='font-size: 1.2rem;'></i>
+        Únete a la comunidad AISC Madrid en WhatsApp
+        </a>
+
+        <br><br>
+
+        <p>Síguenos también en redes sociales para no perderte nada:</p>
+
+        <a href='https://instagram.com/aisc_madrid'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #D43089;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-instagram' style='font-size: 1.2rem;'></i>
+        Instagram
+        </a>
+
+        <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #0B66C3;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-linkedin' style='font-size: 1.2rem;'></i>
+        LinkedIn
+        </a>
+
+        <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
     </body>
     </html>
     ";
