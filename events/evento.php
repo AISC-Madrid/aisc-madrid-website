@@ -16,8 +16,8 @@
             </div>
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
                 <div class="mb-3">
-                    <a href="#" class="badge bg-aisc-event text-decoration-none">Evento</a>
-                    <h1 class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
+                    <a href="#" class="badge bg-aisc-event text-decoration-none" data-en="Event" data-es="Evento">Evento</a>
+                    <h1 id="article-title" class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
                     <p class="text-light">
                         
                     </p>
@@ -28,10 +28,10 @@
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
-                    <div class="mb-3">
+                    <div id = "article-date" class="mb-3">
                         <i class="fas fa-calendar me-2"></i>
                         <strong>8 de Septiembre de 2025</strong><br>
-                        10:00 a 17:00
+                        10 AM a 5 PM
                         
                     </div>
 
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="my-2">
-                            <span class="me-2">Add to calendar:</span>
+                            <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
                             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tech%20Conference%20Madrid&dates=20250730T160000Z/20250730T180000Z&location=Madrid,%20Spain&details=Conferencia%20con%20Jane%20Doe%20sobre%20innovaci%C3%B3n%20tecnol%C3%B3gica." class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
                                 <i class="fab fa-google"></i>
                             </a>
@@ -89,7 +89,7 @@
 
             <!-- Main Content -->
             <div class="col-lg-8">
-                <section style="padding: 2rem;">
+                <section id="article-body" style="padding: 2rem;">
                     <!-- Speaker section -->
                     <!--<p><strong>Speaker:</strong> Xuanhe Zhao, PhD, Professor of Mechanical Engineering, and of Civil and Environmental Engineering, <i>Massachusetts Institute of Technology</i></p>  -->
                     
@@ -100,7 +100,7 @@
                     <p>Pon a prueba tu destreza en un juego de plataformas interactivo controlado mediante <i>computer vision</i>: una cámara detectará y rastreará el movimiento de tu mano lo que servirá como control del juego.</p>
                     <p><strong>Generación de imágenes con IA</strong></p>
                     <p>Crea tu propio avatar personalizado con <strong>Stable Diffusion</strong>, un modelo de difusión basado en redes neuronales profundas que transforma descripciones de texto <i>(prompts)</i> en imágenes realistas de alta calidad.</p>
-                    <p>¡Te esperamos el 8 de septiembre de 10 a 17 en la EPS de la Universidad Carlos III!</p>
+                    <p>¡Te esperamos el 8 de septiembre de 10 AM a 5 PM en la EPS de la Universidad Carlos III!</p>
 
 
                     <!-- <div class="mb-3">
