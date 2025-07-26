@@ -61,8 +61,8 @@ include("assets/head.php");
                   <i class="bi bi-tools fs-2 "></i>
                 </div>
                 <h5 class="card-title" data-en="Workshops" data-es="Talleres">Talleres</h5>
-                <p class="card-text" data-en="Demystify AI by acquiring practical skills demanded by the industry." data-es="Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.">
-                  Desmitifica la IA adquieriendo habilidades prácticas demandas por la industria.
+                <p class="card-text" data-en="Demystify AI by acquiring practical skills demanded by the industry." data-es="Desmitifica la IA adquiriendo habilidades prácticas demandas por la industria.">
+                  Desmitifica la IA adquiriendo habilidades prácticas demandas por la industria.
                 </p>
               </div>
             </div>
