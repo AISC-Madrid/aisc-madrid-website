@@ -33,7 +33,58 @@ $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (
 $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
+    //Send email:
+   $to = $email;
+   $subject = "Gracias por unirte a AISC Madrid";
+   
+   $message = "
+    <html>
+    <head>
+      <title>Gracias por unirte a AISC Madrid</title>
+    </head>
+    <body>
+      <h2>¡Hola $name!</h2>
+      <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
+      <p>Estamos encantados de tenerte con nosotros. Puedes unirte al grupo de WhatsApp aquí:</p>
     
+      <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
+         target='_blank'
+         style='
+           display: inline-flex;
+           align-items: center;
+           padding: 10px 20px;
+           background-color: #25D366;
+           color: white !important;
+           text-decoration: none;
+           border-radius: 5px;
+           font-weight: bold;
+           font-family: Arial, sans-serif;
+           margin-top: 15px;
+           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+         '>
+         Únete a la comunidad AISC Madrid en WhatsApp
+      </a>
+    
+      <br><br>
+      <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
+    </body>
+    </html>
+    ";
+
+   
+   // Para enviar correo en formato HTML
+   $headers = "MIME-Version: 1.0" . "\r\n";
+   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+   
+   // Cabeceras adicionales
+   $headers .= "From: AISC UC3M <aisc.asoc@uc3m.es>" . "\r\n";
+   $headers .= "Reply-To: aisc.asoc@uc3m.es" . "\r\n";
+   
+   mail($to, $subject, $message, $headers);
+
+
+
+
 ?>
     <!DOCTYPE html>
     <html lang="es">
