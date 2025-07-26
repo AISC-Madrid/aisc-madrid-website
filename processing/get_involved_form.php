@@ -157,7 +157,7 @@ if ($stmt->execute()) {
 
                 <hr>
 
-                <a href="/" class="btn btn-primary"
+                <a href="/" class="btn btn-form"
                     data-es="Volver al inicio"
                     data-en="Return to homepage">Volver al inicio</a>
             </div>
