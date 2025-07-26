@@ -21,8 +21,8 @@ include("assets/head.php");
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
           <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</a>
-          <a href="#about" class="btn btn-outline-secondary px-4 fw-semibold">
-            Más <span class="ms-1">&rarr;</span>
+          <a href="#about" class="btn btn-outline-secondary px-4 fw-semibold" data-en="More ->" data-es="Más ->">
+            Más -> <span class="ms-1">&rarr;</span>
           </a>
         </div>
       </div>
