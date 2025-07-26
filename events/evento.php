@@ -42,7 +42,7 @@
 
                     <div class="my-2">
                             <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
-                            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tech%20Conference%20Madrid&dates=20250730T160000Z/20250730T180000Z&location=Madrid,%20Spain&details=Conferencia%20con%20Jane%20Doe%20sobre%20innovaci%C3%B3n%20tecnol%C3%B3gica." class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
+                            <a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWppdDNubmZkbnZvMnI1ZjhvOGMybjlxbzcgMTAwNDk4OTgyQGFsdW1ub3MudWMzbS5lcw&tmsrc=100498982%40alumnos.uc3m.es" class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
                                 <i class="fab fa-google"></i>
                             </a>
                             
