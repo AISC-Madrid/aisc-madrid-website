@@ -106,7 +106,7 @@ include("assets/head.php");
                   <i class="bi bi-globe-americas fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="International Network" data-es="Red Internacional">Red Internacional</h5>
-                <p class="card-text" data-en="Be part of the AI Student Collective community, founded at UC Davis, California, and expanded across the US." data-es="Froma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.">
+                <p class="card-text" data-en="Be part of the AI Student Collective community, founded at UC Davis, California, and expanded across the US." data-es="Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.">
                   Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.
                 </p>
               </div>
