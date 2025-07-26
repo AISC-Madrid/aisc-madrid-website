@@ -44,6 +44,15 @@ body {
     background-color: var(--secondary) !important;
     color: var(--foreground);
 }
+.btn-form {
+    background-color: var(--secondary) !important;
+    color: var(--foreground);
+    border: none;
+}
+.btn-form:hover {
+  filter: brightness(85%);
+  color: white !important;
+}
 
 /* Card styles */
 .card {
@@ -175,6 +184,12 @@ footer {
 /*Language button styling*/
 .btn-custom.dropdown-toggle.show {
   background-color:var(--secondary);
+  color: white;
+}
+
+/* Event button styling */
+.bg-aisc-event {
+  background-color: #20CCF1;
   color: white;
 }
 

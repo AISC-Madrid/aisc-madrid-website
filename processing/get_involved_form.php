@@ -33,7 +33,105 @@ $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (
 $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
-    
+    //Send email:
+   $to = $email;
+   $subject = "¡Bienvenid@ a la comunidad AISC Madrid!";
+   
+   $message = "
+    <html>
+    <head>
+      <title>¡Bienvenid@ a la comunidad AISC Madrid!</title>
+    </head>
+    <body>
+      <h2>¡Hola $name!</h2>
+      <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
+    <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
+
+    <p>Estamos encantados de tenerte con nosotros. Puedes unirte a la comunidad de WhatsApp aquí:</p>
+
+        <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-whatsapp' style='font-size: 1.2rem;'></i>
+        Únete a la comunidad AISC Madrid en WhatsApp
+        </a>
+
+        <br><br>
+
+        <p>Síguenos también en redes sociales para no perderte nada:</p>
+
+        <a href='https://instagram.com/aisc_madrid'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #D43089;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-instagram' style='font-size: 1.2rem;'></i>
+        Instagram
+        </a>
+
+        <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
+        target='_blank'
+        style='
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #0B66C3;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        '>
+        <i class='bi bi-linkedin' style='font-size: 1.2rem;'></i>
+        LinkedIn
+        </a>
+
+        <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
+    </body>
+    </html>
+    ";
+
+   
+   // Para enviar correo en formato HTML
+   $headers = "MIME-Version: 1.0" . "\r\n";
+   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+   
+   // Cabeceras adicionales
+   $headers .= "From: AISC UC3M <aisc.asoc@uc3m.es>" . "\r\n";
+   $headers .= "Reply-To: aisc.asoc@uc3m.es" . "\r\n";
+   
+   mail($to, $subject, $message, $headers);
+
+
+
+
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -52,14 +150,14 @@ if ($stmt->execute()) {
                     data-es="¡Gracias por unirte!"
                     data-en="Thank you for joining!">¡Gracias por unirte!</h4>
 
-                <p data-es="Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada!"
-                    data-en="We have received your data correctly. Check your inbox!">
+                <p data-es="Hemos recibido tus datos correctamente. ¡Revisa tu bandeja de entrada o spam!"
+                    data-en="We have received your data correctly. Check your inbox or spam!">
                     Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada!
                 </p>
 
                 <hr>
 
-                <a href="/" class="btn btn-primary"
+                <a href="/" class="btn btn-form"
                     data-es="Volver al inicio"
                     data-en="Return to homepage">Volver al inicio</a>
             </div>

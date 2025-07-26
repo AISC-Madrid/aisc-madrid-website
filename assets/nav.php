@@ -22,7 +22,7 @@
           <a class="nav-link" href="#events" data-en="Events" data-es="Eventos">Eventos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#get-involved" data-en="Get Involved" data-es="Participa">Participa</a>
+          <a class="nav-link" href="#get-involved" data-en="Don't miss a thing" data-es="Mantente al tanto">Mantente al tanto</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="#" data-en="Log In" data-es="Inicia Sesión">Inicia Sesión</a>

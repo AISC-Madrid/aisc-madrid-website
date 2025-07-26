@@ -273,7 +273,7 @@ include("assets/head.php");
         <div class="col-md-8 col-lg-6">
           <div class=" border-0 form-card no-hover">
             <div id="form-error" class="card-body bg-muted p-4">
-              <h4 class="display-4 text-center text-dark  mb-3" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</h4>
+              <h4 class="display-4 text-center text-dark  mb-3" data-en="Don't miss a thing!" data-es="¡Mantente al tanto!">¡Mantente al tanto!</h4>
               <p class="text-muted text-center mb-4 form-subtext" data-en="Send your name and email to stay informed and join our AI community at UC3M." data-es="Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.">
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
               </p>
