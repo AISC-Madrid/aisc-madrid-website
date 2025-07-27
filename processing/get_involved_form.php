@@ -152,7 +152,7 @@ if ($stmt->execute()) {
 
                 <p data-es="Hemos recibido tus datos correctamente. ¡Revisa tu bandeja de entrada o spam!"
                     data-en="We have received your data correctly. Check your inbox or spam!">
-                    Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada!
+                    Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam!
                 </p>
 
                 <hr>
