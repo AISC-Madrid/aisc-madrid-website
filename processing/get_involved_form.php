@@ -43,7 +43,7 @@ if ($stmt->execute()) {
       <title>¡Bienvenid@ a la comunidad AISC Madrid!</title>
     </head>
     <body>
-      <h2>¡Hola <?= explode(' ', $name)[0] ?>!</h2>
+      <h2>¡Hola " . explode(' ', $name)[0] . "!</h2>
       <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
     <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
 
