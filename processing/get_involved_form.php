@@ -150,9 +150,9 @@ if ($stmt->execute()) {
                     data-es="¡Gracias por unirte!"
                     data-en="Thank you for joining!">¡Gracias por unirte!</h4>
 
-                <p data-es="Hemos recibido tus datos correctamente. ¡Revisa tu bandeja de entrada o spam!"
-                    data-en="We have received your data correctly. Check your inbox or spam!">
-                    Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam!
+                <p data-es="Hemos recibido tus datos correctamente. ¡Revisa tu bandeja de entrada o spam."
+                    data-en="We have received your data correctly. Check your inbox or spam.">
+                    Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.
                 </p>
 
                 <hr>
