@@ -16,7 +16,7 @@
             </div>
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
                 <div class="mb-3">
-                    <a href="#" class="badge bg-aisc-event text-decoration-none" data-en="Event" data-es="Evento">Evento</a>
+                    <a class="badge bg-aisc-event text-decoration-none" data-en="Event" data-es="Evento">Evento</a>
                     <h1 id="article-title" class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
                     <p class="text-light">
                         
