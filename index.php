@@ -231,7 +231,7 @@ include("assets/head.php");
         <div class="card h-100 w-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
           <div class="card-body p-0">
             <div class="img-container">
-              <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="..." styles="object-fit: cover;">
+              <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="Universidad Carlos III" styles="object-fit: cover;">
             </div>
             <div class="p-3">
               <h5 class="card-title mt-3 fw-bold" data-en="Welcome Day 2025-2026" data-es="Jornada de Bienvenida 2025-2026">Jornada de Bienvenida 2025-2026</h5>
