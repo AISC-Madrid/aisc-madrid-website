@@ -40,7 +40,7 @@ include("assets/head.php");
 
           <!-- Card 1 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="fa-solid fa-brain fs-2"></i>
@@ -55,7 +55,7 @@ include("assets/head.php");
 
           <!-- Card 2 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="bi bi-tools fs-2 "></i>
@@ -70,7 +70,7 @@ include("assets/head.php");
 
           <!-- Card 3 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
                   <i class="bi bi-diagram-3 fs-2"></i>
@@ -85,7 +85,7 @@ include("assets/head.php");
 
           <!-- Card 4 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-people fs-2"></i>
@@ -100,7 +100,7 @@ include("assets/head.php");
 
           <!-- Card 5 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-globe-americas fs-2"></i>
@@ -115,7 +115,7 @@ include("assets/head.php");
 
           <!-- Card 6 -->
           <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
                   <i class="bi bi-rocket-takeoff fs-2"></i>

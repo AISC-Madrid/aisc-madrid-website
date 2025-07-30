@@ -193,5 +193,13 @@ footer {
   color: white;
 }
 
+/* Team cards */
+.team-box {
+  transition: transform 0.3s ease; /* smooth transition */
+}
+
+.team-box:hover:not(.no-hover) {
+  transform: scale(1.05); /* increase size 5% */
+}
 
 
