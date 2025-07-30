@@ -202,4 +202,26 @@ footer {
   transform: scale(1.05); /* increase size 5% */
 }
 
+/* Saber más card */
+.card-body.position-relative {
+  position: relative;
+}
 
+.card-more-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover .card-more-badge {
+  background-color: var(--secondary);
+}
