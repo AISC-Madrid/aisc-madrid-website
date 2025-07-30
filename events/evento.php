@@ -79,8 +79,8 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <!-- Add url= link event -->
-                                <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
-                                <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
+                                <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
+                                <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
                             </ul>
                         </div>
                     </div>
