@@ -8,8 +8,8 @@
 
 
     <!-- Main Content -->
-    <div class="container-fluid scroll-margin">
-        <div class="bg-dark row px-3">
+    <div class="container-fluid scroll-margin bg-dark">
+        <div class="row px-3">
             <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
                 <img src="/images/events/event1/Frame 16.png" class="card-img-top" alt="Event Image" style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
 
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-muted row px-3">
+        <div class="bg-muted row px-3 bg-light">
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
