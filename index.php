@@ -228,23 +228,25 @@ include("assets/head.php");
       </div> -->
       
       <div class="col-md-6 col-lg-4 event-future">
-        <div class="card h-100 w-100 shadow-sm" onclick="window.location.href='/events/evento.php'">
-          <div class="card-body p-0 position-relative">
-            <div class="img-container">
-              <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="Universidad Carlos III" style="object-fit: cover;">
+        <a href="/events/evento.php" class="text-decoration-none text-reset">
+          <div class="card h-100 w-100 shadow-sm">
+            <div class="card-body p-0 position-relative">
+              <div class="img-container">
+                <img src="https://live.staticflickr.com/4562/37696404454_88e0ff976b.jpg" class="card-img-top" alt="Universidad Carlos III" style="object-fit: cover;">
+              </div>
+              <div class="p-3 pb-5">
+                <h5 class="card-title mt-3 fw-bold" data-en="Welcome Day 2025-2026" data-es="Jornada de Bienvenida 2025-2026">
+                  Jornada de Bienvenida 2025-2026
+                </h5>
+                <p class="card-text"><i class="fas fa-calendar me-2"></i><strong>8 de Septiembre de 2025</strong><br>10:00 a 17:00</p>
+                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span>EPS Universidad Carlos III</span></p>
+              </div>
+              <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
             </div>
-            <div class="p-3 pb-5"> <!-- Extra bottom padding to dejar espacio al botón -->
-              <h5 class="card-title mt-3 fw-bold" data-en="Welcome Day 2025-2026" data-es="Jornada de Bienvenida 2025-2026">
-                Jornada de Bienvenida 2025-2026
-              </h5>
-              <p class="card-text"><i class="fas fa-calendar me-2"></i><strong>8 de Septiembre de 2025</strong><br>10:00 a 17:00</p>
-              <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span>EPS Universidad Carlos III</span></p>
-            </div>
-            <!-- Saber más -->
-            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
           </div>
-        </div>
+        </a>
       </div>
+
 
       <!-- <div class="col-md-6 col-lg-4 event-future">
         <div class="card h-100 shadow-sm">

@@ -63,16 +63,6 @@ body {
   transform: scale(1.05); /* increase size 5% */
 }
 
-.card-body img {
-  transition: filter 0.3s ease;
-}
-
-.card-body img:hover {
-  filter: brightness(70%);
-}
-
-
-
 
 footer {
   background-image: linear-gradient(
