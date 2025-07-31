@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-muted row px-3">
+        <div class="bg-muted row px-3 bg-light">
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
