@@ -6,7 +6,6 @@ if (false) {
     ini_set('display_startup_errors', 1);
 }
 
-
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $consent = isset($_POST['consent']) ? 1 : 0;
