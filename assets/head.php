@@ -18,7 +18,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="AISC Madrid – AI Student Collective at UC3M">
     <meta property="og:description" content="Artificial Intelligence talks, workshops, and events for students at UC3M. Join the AISC community in Madrid.">
-    <meta property="og:image" content="https://aiscmadrid.com/images/logos/og-image.jpg">
+    <meta property="og:image" content="/images/logos/PNG/AISC Logo Square.png">
     <meta property="og:url" content="https://aiscmadrid.com/">
     <meta property="og:type" content="website">
 
@@ -26,7 +26,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AISC Madrid – AI Student Collective at UC3M">
     <meta name="twitter:description" content="Join Madrid’s AI student movement at UC3M. Attend events, talks, and workshops on Artificial Intelligence.">
-    <meta name="twitter:image" content="https://aiscmadrid.com/images/logos/og-image.jpg">
+    <meta name="twitter:image" content="/images/logos/PNG/AISC Logo Square.png">
 
     <!-- Bootstrap CSS (v5.3 via CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
