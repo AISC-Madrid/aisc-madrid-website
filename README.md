@@ -4,5 +4,3 @@ It includes up to date information about events, activities, resources, and part
 Developed with HTML, CSS (Bootstrap), PHP, and JavaScript.
 
 https://aiscmadrid.com/
-
-Test
