@@ -40,6 +40,8 @@ $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
     // Enviar email con PHPMailer
+    $config = include('../config.php');
+
     $mail = new PHPMailer;
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
@@ -47,8 +49,8 @@ if ($stmt->execute()) {
     $mail->Host = 'smtp.hostinger.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'info@aiscmadrid.com';
-    $mail->Password = 'Aisc.2025';
+    $mail->Username = $config['smtp_user'];
+    $mail->Password = $config['smtp_pass'];
     $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
     $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
     $mail->addAddress($email, explode(' ', $name)[0]);
