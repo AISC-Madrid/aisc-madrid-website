@@ -41,6 +41,7 @@ $stmt->bind_param("ss", $name, $email);
 if ($stmt->execute()) {
     // Enviar email con PHPMailer
     $mail = new PHPMailer;
+    $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
     $mail->SMTPDebug = 0; // pon 2 si quieres ver errores detallados
     $mail->Host = 'smtp.hostinger.com';
