@@ -51,7 +51,7 @@ if ($stmt->execute()) {
     $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
     $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
     $mail->addAddress($email, explode(' ', $name)[0]);
-    $mail->Subject = '¡Bienvenid@ a la comunidad AISC Madrid!';
+    $mail->Subject ='¡Bienvenid@ a la comunidad AISC Madrid!';
 
     $htmlContent = "
     <html>
