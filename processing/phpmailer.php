@@ -8,7 +8,6 @@ if (false) {
 
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
-$config = include('../config.php');
 
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
