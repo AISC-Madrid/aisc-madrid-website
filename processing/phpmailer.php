@@ -6,8 +6,9 @@ if (false) {
     ini_set('display_startup_errors', 1);
 }
 
-require '../vendor/autoload.php'; // Asegúrate de que la ruta sea correcta
+require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
+$config = include('../config.php');
 
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
@@ -20,7 +21,7 @@ if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL))
 
 include("../assets/db.php");
 
-// Verificar si ya existe
+// Verify if mail already in DB
 $checkStmt = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkStmt->bind_param("s", $email);
 $checkStmt->execute();
@@ -34,21 +35,22 @@ if ($checkStmt->num_rows > 0) {
 }
 $checkStmt->close();
 
-// Insertar en la base de datos
+// Insert into DB
 $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email) VALUES (?, ?)");
 $stmt->bind_param("ss", $name, $email);
 
 if ($stmt->execute()) {
-    // Enviar email con PHPMailer
-    $config = include('../config.php');
-
+    // Send email with PHPMailer
     $mail = new PHPMailer;
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
-    $mail->SMTPDebug = 0; // pon 2 si quieres ver errores detallados
+    $mail->SMTPDebug = 0; 
     $mail->Host = 'smtp.hostinger.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
+    
+    $config = include('config.php');
+    
     $mail->Username = $config['smtp_user'];
     $mail->Password = $config['smtp_pass'];
     $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
