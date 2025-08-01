@@ -280,7 +280,7 @@ include("assets/head.php");
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
               </p>
 
-              <form method="POST" action="processing/get_involved_form.php" class="needs-validation" novalidate>
+              <form method="POST" action="processing/phpmailer.php" class="needs-validation" novalidate>
                 <!-- Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
