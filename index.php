@@ -157,7 +157,7 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a target="_blank">
+              <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
                 <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
               </a>
             </div>
@@ -338,3 +338,4 @@ include("assets/head.php");
 </body>
 
 </html>
+
