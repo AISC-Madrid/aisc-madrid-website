@@ -48,7 +48,7 @@ if ($stmt->execute()) {
     $mail->Port = 587;
     $mail->SMTPAuth = true;
     
-    $config = include('config.php');
+    $config = include('../config.php');
     
     $mail->Username = $config['smtp_user'];
     $mail->Password = $config['smtp_pass'];
