@@ -157,7 +157,7 @@ include("assets/head.php");
         <div class="team-box text-center">
           <div class="team-wrapper">
             <div class="team-member">
-              <a target="_blank">
+              <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
                 <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
               </a>
             </div>
@@ -280,7 +280,7 @@ include("assets/head.php");
                 Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
               </p>
 
-              <form method="POST" action="processing/get_involved_form.php" class="needs-validation" novalidate>
+              <form method="POST" action="processing/phpmailer.php" class="needs-validation" novalidate>
                 <!-- Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
@@ -338,3 +338,4 @@ include("assets/head.php");
 </body>
 
 </html>
+
