@@ -19,7 +19,7 @@
                     <a class="badge bg-aisc-event text-decoration-none" data-en="Event" data-es="Evento">Evento</a>
                     <h1 id="article-title" class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
                     <p class="text-light">
-                        
+
                     </p>
                 </div>
             </div>
@@ -28,11 +28,11 @@
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
-                    <div id = "article-date" class="mb-3">
+                    <div id="article-date" class="mb-3">
                         <i class="fas fa-calendar me-2"></i>
                         <strong>8 de Septiembre de 2025</strong><br>
                         10 AM a 5 PM
-                        
+
                     </div>
 
                     <div class="mb-3">
@@ -41,18 +41,18 @@
                     </div>
 
                     <div class="my-2">
-                            <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
-                            <a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWppdDNubmZkbnZvMnI1ZjhvOGMybjlxbzcgMTAwNDk4OTgyQGFsdW1ub3MudWMzbS5lcw&tmsrc=100498982%40alumnos.uc3m.es" class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            
-<!--                             <a href="" class="btn btn-sm btn-outline-secondary me-1" title="iCal">
+                        <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
+                        <a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWppdDNubmZkbnZvMnI1ZjhvOGMybjlxbzcgMTAwNDk4OTgyQGFsdW1ub3MudWMzbS5lcw&tmsrc=100498982%40alumnos.uc3m.es" class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
+                            <i class="fab fa-google"></i>
+                        </a>
+
+                        <!--                             <a href="" class="btn btn-sm btn-outline-secondary me-1" title="iCal">
                                 <i class="fab fa-apple"></i>
                             </a>
                             <a href="" class="btn btn-sm btn-outline-secondary" title="Outlook">
                                 <i class="fab fa-windows"></i>
                             </a> -->
-                        </div>
+                    </div>
 
 
 
@@ -72,13 +72,18 @@
                     </div> -->
 
                     <div class="mt-3 mb-5">
-                        
+
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Share <i class="fas fa-share-alt"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <!-- Add url= link event -->
+                                <li>
+                                    <a class="dropdown-item" href="https://api.whatsapp.com/send?text=¡Mira%20este%20evento!%20https://aiscmadrid.com/events/evento.php" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                    </a>
+                                </li>
                                 <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
                                 <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
                             </ul>
@@ -92,7 +97,7 @@
                 <section id="article-body" style="padding: 2rem;">
                     <!-- Speaker section -->
                     <!--<p><strong>Speaker:</strong> Xuanhe Zhao, PhD, Professor of Mechanical Engineering, and of Civil and Environmental Engineering, <i>Massachusetts Institute of Technology</i></p>  -->
-                    
+
 
                     <p><strong>¡Visítanos durante la Jornada de Bienvenida!</strong></p>
                     <p>Acércate a nuestro stand, conoce la asociación y explora en directo el potencial de dos áreas clave de la inteligencia artificial:</p>
