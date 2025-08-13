@@ -24,7 +24,7 @@ include("assets/head.php");
         </div>
       </div>
       <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
-        <img style="width: 75%;" src="images/logos/SVG/Property 1=AISC Logo Color.svg" alt="Logotipo de la asociación AISC">
+        <img style="width: 75%;" src="images/logos/SVG/AISC Logo Color.svg" alt="Logotipo de la asociación AISC">
       </div>
     </header>
 
