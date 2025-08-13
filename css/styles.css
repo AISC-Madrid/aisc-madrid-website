@@ -38,6 +38,7 @@ body {
     background-color: var(--primary) !important;
     color: var(--foreground);
     border: none;
+    font-weight: 600; /* fw-semibold */
 }
 
 .btn-custom:hover {
