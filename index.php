@@ -33,9 +33,10 @@ include("assets/head.php");
 
     <section class="scroll-margin" id="about">
       <div class="container py-4">
-        <h2 class="text-center mb-4">
+        <h2 class="text-center mb-4 fw-bold">
           <span style="color:var(--muted);" data-en="From AISC Madrid" data-es="Desde AISC Madrid">Desde AISC Madrid</span>
         </h2>
+        <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
         <div class="row g-4">
 
           <!-- Card 1 -->
@@ -134,9 +135,14 @@ include("assets/head.php");
 
 <section class="section" id="team"> 
   <div class="container scroll-margin">
-    <h2 class="text-center mb-4">
-      <span style="color: var(--muted);" data-en="Meet the team" data-es="Conoce al equipo">Conoce al equipo</span>
+    <h2 class="text-center mb-4 fw-bold">
+      <span style="color: var(--muted);" data-en="Meet the team" data-es="Conoce al equipo">
+        Conoce al equipo
+      </span>
     </h2>
+    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+
+    <!-- Board members row -->
     <div class="mt-5 row">
 
       <div class="col-sm-6 col-lg-3">
@@ -195,15 +201,25 @@ include("assets/head.php");
         </div>
       </div>
 
+    </div><!-- End board members row -->
+
+    <!-- Button -->
+    <div class="d-flex justify-content-center mt-4">
+      <a class="btn btn-custom"href="team.php" role="button" data-en="See all members" data-es="Ver todos los miembros">
+        Ver todos los miembros
+      </a>
     </div>
+
   </div>
 </section>
 
+
 <section class="section scroll-margin w-100 px-3 px-md-5" id="events">
   <div class="container-fluid">
-    <h2 class="text-center mb-4">
+    <h2 class="text-center mb-4 fw-bold">
       <span style="color: var(--muted);" data-en="Events" data-es="Eventos">Eventos</span>
     </h2>
+  <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
   <div class="event-btn-container">
     <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
     <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
