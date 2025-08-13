@@ -197,7 +197,7 @@ include("assets/head.php");
             </div>
           </div>
           <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
-          <p class="text-muted" data-en="Web Master" data-es="Administrador Web">Administrador Web</p>
+          <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
         </div>
       </div>
 

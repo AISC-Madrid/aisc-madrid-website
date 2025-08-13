@@ -75,23 +75,10 @@
               </div>
             </div>
             <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
-            <p class="text-muted" data-en="Web Master" data-es="Administrador Web">Administrador Web</p>
+            <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
           </div>
         </div>
         
-        <div class="col-sm-6 col-lg-3">
-          <div class="team-box text-center">
-            <div class="team-wrapper">
-              <div class="team-member">
-                <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
-                  <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
-                </a>
-              </div>
-            </div>
-            <h5 class="mt-3" style="color: var(--background)">Hugo Centeno Sanz</h5>
-            <p class="text-muted" data-en="President" data-es="Presidente">Presidente</p>
-          </div>
-        </div>
 
       </div><!-- End members row -->
 
