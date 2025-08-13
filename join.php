@@ -7,7 +7,7 @@
 
   <?php include("assets/nav.php"); ?>
     <div class="container scroll-margin">
-        <p style="color: black">Get involved at AISC Madrid</p>
+        <p style="color: black">Join AISC Madrid</p>
     </div>
     <?php include('assets/footer.php'); ?>
 
