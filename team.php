@@ -80,6 +80,20 @@
             <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
           </div>
         </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="team-box text-center">
+            <div class="team-wrapper">
+              <div class="team-member">
+                <a href="https://www.linkedin.com/in/yagocabanes/" target="_blank">
+                  <img src="images/members/Yago Cabanes Corvera.png" alt="Yago Cabanes Corvera" class="img-fluid rounded">
+                </a>
+              </div>
+            </div>
+            <h5 class="mt-3" style="color: var(--background)">Yago Cabanes Corvera</h5>
+            <p class="text-muted" data-en="Legal and Finance Manager" data-es="Gestor Legal y Financiero">Gestor Legal y Financiero</p>
+          </div>
+        </div>
         
 
       </div><!-- End members row -->
