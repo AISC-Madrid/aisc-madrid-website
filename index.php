@@ -129,16 +129,17 @@ include("assets/head.php");
             </div>
           </div>
         </div>
+
         <!-- Button -->
-        <div class="d-flex justify-content-left mt-4">
-          <a class="btn btn-custom"href="learnmore.php" role="button" data-en="Learn more" data-es="Saber más">
-            Saber más
-          </a>
+        <div class="row mt-4">
+          <div class="col-12 d-flex justify-content-center justify-content-lg-start">
+            <a class="btn btn-custom w-100 w-lg-auto" href="learnmore.php" role="button" data-en="Learn more" data-es="Saber más">
+              Saber más
+            </a>
+          </div>
         </div>
+
       </div>
-    
-
-
     </section>
 
 <section class="section" id="team"> 
@@ -211,15 +212,19 @@ include("assets/head.php");
 
     </div><!-- End board members row -->
 
-    <!-- Button -->
-    <div class="d-flex justify-content-center mt-4">
-      <a class="btn btn-custom"href="team.php" role="button" data-en="See all members" data-es="Ver todos los miembros">
-        Ver todos los miembros
-      </a>
+    <!-- Button aligned with first column on desktop, full-width on mobile -->
+    <div class="row mt-4">
+      <!-- Contenedor del botón en móvil ocupa el mismo ancho que la fila de tarjetas -->
+      <div class="col-12 d-flex justify-content-center justify-content-lg-start">
+        <!-- El botón mantiene su ancho natural en escritorio y ancho completo en móvil -->
+        <a class="btn btn-custom w-100 w-lg-auto" href="team.php" role="button" data-en="See all members" data-es="Ver todos los miembros">
+          Ver todos los miembros
+        </a>
+      </div>
     </div>
-
   </div>
 </section>
+
 
 
 <section class="section scroll-margin w-100 px-3 px-md-5" id="events">
