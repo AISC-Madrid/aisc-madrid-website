@@ -6,8 +6,9 @@
 <body class="d-flex flex-column min-vh-100">
 
   <?php include("assets/nav.php"); ?>
-
-
+    <div class="container scroll-margin">
+        <p style="color: black">More information about AISC Madrid</p>
+    </div>
     <?php include('assets/footer.php'); ?>
 
     <script src="js/language.js"></script>
