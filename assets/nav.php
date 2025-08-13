@@ -17,19 +17,24 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
 
-        <!-- Team Section -->
-        <li class="nav-item">
-          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
-        </li>
-
         <!-- Events Section -->
         <li class="nav-item">
           <a class="nav-link" href="#events" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
-        <!-- Newsletter or Updates Section -->
+        <!-- Team Section -->
         <li class="nav-item">
-          <a class="nav-link" href="#get-involved" data-en="Don't miss a thing" data-es="Mantente al tanto" title="Suscríbete para no perderte nada">Mantente al tanto</a>
+          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
+        </li>
+             
+        <!-- Learn more Section -->
+        <li class="nav-item">
+          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Equipo</a>
+        </li>
+
+        <!-- Get involved Section -->
+        <li class="nav-item">
+          <a class="nav-link" href="get_involved.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
         </li>
 
         <!-- Log In Button -->
