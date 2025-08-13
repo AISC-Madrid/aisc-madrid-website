@@ -2,7 +2,7 @@
   <div class="footer-container">
     <div class="footer-left">
       <a href="#">
-      <img src="images/logos/SVG/AISC Logo Color.svg" href = "#" alt="AISC Madrid Logo" style="width:auto; height:50px; vertical-align:middle; margin-right:8px;">
+      <img src="images/logos/PNG/AISC Logo Color.png" href = "#" alt="AISC Madrid Logo" style="width:auto; height:50px; vertical-align:middle; margin-right:8px;">
       </a>
     </div>
     
