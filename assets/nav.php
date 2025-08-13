@@ -19,7 +19,7 @@
 
         <!-- Team Section -->
         <li class="nav-item">
-          <a class="nav-link" href="#team" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
+          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
         </li>
 
         <!-- Events Section -->
