@@ -20,7 +20,7 @@ include("assets/head.php");
         <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
-          <a href="#get-involved" style="background-color:var(--primary);" class="text-light btn px-4 fw-semibold" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</a>
+          <a href="#get-involved" class="btn btn-custom text-light px-4 fw-semibold" data-en="Get Involved!" data-es="¡Participa!">¡Participa!</a>
           <a href="#about" class="btn btn-outline-secondary px-4 fw-semibold" data-en="More ->" data-es="Más ->">
             Más -> <span class="ms-1">&rarr;</span>
           </a>
@@ -128,9 +128,17 @@ include("assets/head.php");
               </div>
             </div>
           </div>
-
+        </div>
+        <!-- Button -->
+        <div class="d-flex justify-content-left mt-4">
+          <a class="btn btn-custom"href="learnmore.php" role="button" data-en="Learn more" data-es="Saber más">
+            Saber más
+          </a>
         </div>
       </div>
+    
+
+
     </section>
 
 <section class="section" id="team"> 
