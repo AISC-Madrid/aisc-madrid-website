@@ -14,9 +14,11 @@
           Conoce al equipo
         </h2>
         <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-        <p class="lead text-muted mx-auto" style="max-width:700px;">
-          Nada sería posible sin las personas que forman nuestro equipo. AISC Madrid reúne estudiantes de distintos orígenes y carreras, fomentando un espacio donde la creatividad y la colaboración van de la mano.
-        </p>
+        <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
+        data-en="Nothing would be possible without the people who make up our team. AISC Madrid brings together students from different fields and ages, fostering a space where creativity and collaboration go hand in hand."
+        data-es="Nada sería posible sin las personas que forman nuestro equipo. AISC Madrid reúne estudiantes de distintas carreras y edades, fomentando un espacio donde la creatividad y la colaboración van de la mano.">
+          Nada sería posible sin las personas que forman nuestro equipo. AISC Madrid reúne estudiantes de distintas carreras y edades, fomentando un espacio donde la creatividad y la colaboración van de la mano.
+        </h6>
       </div>
 
 
