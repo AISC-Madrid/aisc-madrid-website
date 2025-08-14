@@ -39,7 +39,7 @@
 
         <!-- Log In Button -->
         <li class="nav-item">
-          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/events/login.php" data-en="Log In" data-es="Inicia Sesión" role="button" title="Inicia sesión o regístrate">Inicia Sesión</a>
+          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/login" data-en="Log In" data-es="Inicia Sesión" role="button" title="Inicia sesión o regístrate">Inicia Sesión</a>
         </li>
 
         <!-- Language Selector -->
