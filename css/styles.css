@@ -121,7 +121,7 @@ footer {
   color: var(--secondary);
 }
 .footer-right a.footer-text {
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: var(--foreground); /* blanco por defecto */
   text-decoration: none;    /* sin subrayado */
   transition: color 0.3s ease;
