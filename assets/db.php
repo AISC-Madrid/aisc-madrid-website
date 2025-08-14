@@ -11,7 +11,7 @@ $user = $config['db_user'];
 $pass = $config['db_pass'];
 
 // Conexión
-@$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     header("Location: /?error=connection#get-involved");
     exit;
