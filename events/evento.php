@@ -1,131 +1,158 @@
+<?php
+// Show errors for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include('../assets/db.php');
+include("../assets/head.php"); // should create $mysqli connection
+
+
+// Validate and get the event ID from URL
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("❌ Invalid event ID");
+}
+$event_id = (int) $_GET['id'];
+
+// Prepare SQL
+$stmt = $conn->prepare("SELECT * FROM events WHERE id = ?");
+if (!$stmt) {
+    die("❌ Prepare failed: " . $mysqli->error);
+}
+$stmt->bind_param("i", $event_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$event = $result->fetch_assoc();
+$stmt->close();
+
+if (!$event) {
+    die("❌ Event not found");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("../assets/head.php"); ?>
-
 <body style="color:black;">
-    <?php include("../assets/nav.php"); ?>
+<?php include("../assets/nav.php"); ?>
 
-
-    <!-- Main Content -->
-    <div class="container-fluid scroll-margin bg-dark">
-        <div class="row px-3">
-            <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
-                <img src="/images/events/event1/Frame 16.png" class="card-img-top" alt="Event Image" style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
-
-            </div>
-            <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
-                <div class="mb-3">
-                    <a class="badge bg-aisc-event text-decoration-none" data-en="Event" data-es="Evento">Evento</a>
-                    <h1 id="article-title" class="text-light display-5 fw-bold mt-2">Jornada de Bienvenida<br> 2025-2026</h1>
-                    <p class="text-light">
-
-                    </p>
-                </div>
-            </div>
+<!-- Main Content -->
+<div class="container-fluid scroll-margin bg-dark">
+    <div class="row px-3">
+        <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
+            <img src="<?= htmlspecialchars($event['image_path']) ?>" 
+                 class="card-img-top" 
+                 alt="Event Image" 
+                 style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
         </div>
-        <div class="bg-muted row px-3 bg-light">
-            <!-- Sidebar -->
-            <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
-                <div style="width:70%;">
-                    <div id="article-date" class="mb-3">
-                        <i class="fas fa-calendar me-2"></i>
-                        <strong>8 de Septiembre de 2025</strong><br>
-                        10 AM a 5 PM
-
-                    </div>
-
-                    <div class="mb-3">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        <span>EPS Universidad Carlos III</span>
-                    </div>
-
-                    <div class="my-2">
-                        <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
-                        <a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWppdDNubmZkbnZvMnI1ZjhvOGMybjlxbzcgMTAwNDk4OTgyQGFsdW1ub3MudWMzbS5lcw&tmsrc=100498982%40alumnos.uc3m.es" class="btn btn-sm btn-outline-secondary me-1" title="Google Calendar">
-                            <i class="fab fa-google"></i>
-                        </a>
-
-                        <!--                             <a href="" class="btn btn-sm btn-outline-secondary me-1" title="iCal">
-                                <i class="fab fa-apple"></i>
-                            </a>
-                            <a href="" class="btn btn-sm btn-outline-secondary" title="Outlook">
-                                <i class="fab fa-windows"></i>
-                            </a> -->
-                    </div>
-
-
-
-                    <!-- <div class="mb-3">
-                        <i class="fas fa-ticket-alt me-2"></i>
-                        <strong>Free</strong><br>
-                        <a href="" class="btn btn-primary mt-2">
-                            Register <i class="fas fa-long-arrow-alt-right"></i>
-                        </a>
-                    </div> -->
-
-                    <!-- <div class="mb-3">
-                        <i class="fas fa-link me-2"></i>
-                        <a href="" class="text-decoration-none" target="_blank">
-                            Visit the event website
-                        </a>
-                    </div> -->
-
-                    <div class="mt-3 mb-5">
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Share <i class="fas fa-share-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <!-- Add url= link event -->
-                                <li>
-                                    <a class="dropdown-item" href="https://api.whatsapp.com/send?text=¡Mira%20este%20evento!%20https://aiscmadrid.com/events/evento.php" target="_blank">
-                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
-                                    </a>
-                                </li>
-                                <li><a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-linkedin-in me-2"></i>LinkedIn</a></li>
-                                <li><a class="dropdown-item" href="https://x.com/intent/tweet/?url=https://aiscmadrid.com/events/evento.php" target="_blank"><i class="fab fa-x-twitter me-2"></i>X</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="col-lg-8">
-                <section id="article-body" style="padding: 2rem;">
-                    <!-- Speaker section -->
-                    <!--<p><strong>Speaker:</strong> Xuanhe Zhao, PhD, Professor of Mechanical Engineering, and of Civil and Environmental Engineering, <i>Massachusetts Institute of Technology</i></p>  -->
-
-
-                    <p><strong>¡Visítanos durante la Jornada de Bienvenida!</strong></p>
-                    <p>Acércate a nuestro stand, conoce la asociación y explora en directo el potencial de dos áreas clave de la inteligencia artificial:</p>
-                    <p><strong>Reconocimiento de imagen en tiempo real</strong></p>
-                    <p>Pon a prueba tu destreza en un juego de plataformas interactivo controlado mediante <i>computer vision</i>: una cámara detectará y rastreará el movimiento de tu mano lo que servirá como control del juego.</p>
-                    <p><strong>Generación de imágenes con IA</strong></p>
-                    <p>Crea tu propio avatar personalizado con <strong>Stable Diffusion</strong>, un modelo de difusión basado en redes neuronales profundas que transforma descripciones de texto <i>(prompts)</i> en imágenes realistas de alta calidad.</p>
-                    <p>¡Te esperamos el 8 de septiembre de 10 AM a 5 PM en la EPS de la Universidad Carlos III!</p>
-
-
-                    <!-- <div class="mb-3">
-                        <span class="badge bg-secondary me-2">Class/Seminar</span>
-                        <span class="badge bg-secondary me-2">Science</span>
-                        <span class="badge bg-secondary">Engineering/Technology</span>
-                    </div> -->
-
-                </section>
-
+        <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
+            <div class="mb-3">
+                <a class="badge bg-aisc-event text-decoration-none" 
+                   data-en="<?= htmlspecialchars($event['type_en']) ?>" 
+                   data-es="<?= htmlspecialchars($event['type_es']) ?>">
+                   <?= htmlspecialchars($event['type_es']) ?>
+                </a>
+                <h1 id="article-title" class="text-light display-5 fw-bold mt-2"
+                    data-en="<?= htmlspecialchars($event['title_en']) ?>" 
+                    data-es="<?= htmlspecialchars($event['title_es']) ?>">
+                    <?= nl2br(htmlspecialchars($event['title_es'])) ?>
+                </h1>
             </div>
         </div>
     </div>
+    <div class="bg-muted row px-3 bg-light">
+        <!-- Sidebar -->
+        <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
+            <div style="width:70%;">
+                <?php
+$start = new DateTime($event['start_datetime']);
+$end   = new DateTime($event['end_datetime']);
+?>
+<div id="article-date" class="mb-3">
+    <i class="fas fa-calendar me-2"></i>
+    <?php
+    if ($start->format('d/m/Y') === $end->format('d/m/Y')) {
+        // Same day: date bold, times normal
+        ?>
+        <strong><?= $start->format('d/m/Y'); ?></strong> <?= $start->format('H:i'); ?> - <?= $end->format('H:i'); ?>
+        <?php
+    } else {
+        // Different days: both dates bold, times normal
+        ?>
+        <strong><?= $start->format('d/m/Y'); ?></strong> <?= $start->format('H:i'); ?> - <strong><?= $end->format('d/m/Y'); ?></strong> <?= $end->format('H:i'); ?>
+        <?php
+    }
+    ?>
+</div>
 
 
-    <?php include('../assets/footer.php'); ?>
 
-    <script src="../js/language.js"></script>
-    <script src="../js/event.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                <div class="mb-3">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    <span><?= htmlspecialchars($event['location']) ?></span>
+                </div>
+
+                <div class="my-2">
+                    <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
+                    <?php if (!empty($event['google_calendar_url'])): ?>
+                        <a href="<?= htmlspecialchars($event['google_calendar_url']) ?>" 
+                           class="btn btn-sm btn-outline-secondary me-1" 
+                           title="Google Calendar" target="_blank">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <div class="mt-3 mb-5">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Share <i class="fas fa-share-alt"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" 
+                                   href="https://api.whatsapp.com/send?text=<?= urlencode('¡Mira este evento! https://aiscmadrid.com/events/evento.php?id='.$event_id) ?>" 
+                                   target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" 
+                                   href="https://www.linkedin.com/shareArticle?mini=true&url=<?= urlencode('https://aiscmadrid.com/events/evento.php?id='.$event_id) ?>" 
+                                   target="_blank">
+                                    <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" 
+                                   href="https://x.com/intent/tweet/?url=<?= urlencode('https://aiscmadrid.com/events/evento.php?id='.$event_id) ?>" 
+                                   target="_blank">
+                                    <i class="fab fa-x-twitter me-2"></i>X
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <section id="article-body" style="padding: 2rem; white-space: pre-line;"
+            data-en="<?= htmlspecialchars_decode($event['description_en']) ?>" 
+    data-es="<?= htmlspecialchars_decode($event['description_es']) ?>"
+>
+    <?= nl2br(htmlspecialchars_decode($event['description_es'])) ?>
+
+</section>
+
+        </div>
+    </div>
+</div>
+
+<?php include('../assets/footer.php'); ?>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/language.js"></script>
 </body>
-
 </html>
