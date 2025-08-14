@@ -327,7 +327,7 @@ include("assets/head.php");
                   <label class="form-check-label form-text" for="consent" data-en="I consent to AISC Madrid storing my submitted data to contact me." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
                     Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
                   </label>
-                      <a class="form-check-label form-text" href="files/newsletter_terms.pdf" target="_blank" data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
+                      <a class="form-check-label form-text" href="terms_conditions.php" target="_blank" data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
                         (Leer términos y condiciones)
                       </a>
                   <div class="invalid-feedback" data-en="You must give permission to continue" data-es="Debes dar tu consentimiento para continuar. ">Debes dar tu consentimiento para continuar.</div>
