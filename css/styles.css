@@ -121,7 +121,7 @@ footer {
   color: var(--secondary);
 }
 .footer-link-text {
-  font-size: 0.8em;
+  font-size: 0.7em;
   color: var(--foreground);
   text-decoration: none;
   transition: color 0.3s ease;
