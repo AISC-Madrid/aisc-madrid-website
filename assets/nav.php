@@ -34,7 +34,7 @@
 
         <!-- Get involved Section -->
         <li class="nav-item">
-          <a class="nav-link" href="joinz.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
+          <a class="nav-link" href="join.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
         </li>
 
         <!-- Log In Button -->
