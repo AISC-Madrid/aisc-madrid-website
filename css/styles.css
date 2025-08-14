@@ -64,7 +64,7 @@ body {
   transform: scale(1.05); /* increase size 5% */
 }
 
-
+/* Footer styles */
 footer {
   background-image: linear-gradient(
   to right,
@@ -120,6 +120,17 @@ footer {
 .footer-right a:hover .footer-icon {
   color: var(--secondary);
 }
+.footer-link-text {
+  font-size: 0.8em;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link-text:hover {
+  color: var(--secondary);
+}
+
 
 /* Button styling */
 .form-btn {

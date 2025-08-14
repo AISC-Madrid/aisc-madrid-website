@@ -2,11 +2,14 @@
   <div class="footer-container">
     <div class="footer-left">
       <a href="#">
-      <img src="images/logos/SVG/Logo AISC Madrid.svg" href = "#" alt="AISC Madrid Logo" style="width:40px; height:auto; vertical-align:middle; margin-right:8px;">
+      <img src="images/logos/PNG/AISC Logo Color.png" href = "#" alt="AISC Madrid Logo" style="width:auto; height:50px; vertical-align:middle; margin-right:8px;">
       </a>
     </div>
     
     <div class="footer-right">
+      <a href="terms_conditions.php" class="footer-link-text" style="margin-left:15px;">
+        Términos y Condiciones
+      </a>
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-instagram footer-icon"></i>
       </a>
@@ -22,6 +25,8 @@
       <a href="mailto:aisc.asoc@uc3m.es" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-envelope footer-icon"></i>
       </a>
+    </div> 
     </div>
   </div>
+  
 </footer>

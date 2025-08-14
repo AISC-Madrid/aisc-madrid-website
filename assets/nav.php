@@ -4,7 +4,7 @@
     
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
-      <img src="images/logos/SVG/navbar - AISC Madrid logo and letters.svg" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler button for mobile -->
@@ -29,7 +29,7 @@
              
         <!-- Learn more Section -->
         <li class="nav-item">
-          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Equipo</a>
+          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
         </li>
 
         <!-- Get involved Section -->
