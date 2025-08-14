@@ -7,7 +7,7 @@
     </div>
     
     <div class="footer-right">
-      <a href="terms_conditions.php" class="footer-text" style="margin-left:15px;">
+      <a href="terms_conditions.php" class="footer-link-text" style="margin-left:15px;">
         Términos y Condiciones
       </a>
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">

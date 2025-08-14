@@ -120,16 +120,17 @@ footer {
 .footer-right a:hover .footer-icon {
   color: var(--secondary);
 }
-.footer-right a.footer-text {
+.footer-link-text {
   font-size: 0.8em;
-  color: var(--foreground); /* blanco por defecto */
-  text-decoration: none;    /* sin subrayado */
+  color: var(--foreground);
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.footer-right a.footer-text:hover {
-  color: var(--secondary);  /* mismo color hover que iconos */
+.footer-link-text:hover {
+  color: var(--secondary);
 }
+
 
 /* Button styling */
 .form-btn {
