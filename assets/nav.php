@@ -54,10 +54,10 @@
           </button>
           <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
             <li>
-              <a class="dropdown-item language-option" href="#" data-lang="en" lang="en" hreflang="en" title="Switch to English">English</a>
+              <a class="dropdown-item language-option" href="?lang=en" data-lang="en" lang="en" hreflang="en" title="Switch to English">English</a>
             </li>
             <li>
-              <a class="dropdown-item language-option" href="#" data-lang="es" lang="es" hreflang="es" title="Cambiar a español">Español</a>
+              <a class="dropdown-item language-option" href="?lang=es" data-lang="es" lang="es" hreflang="es" title="Cambiar a español">Español</a>
             </li>
           </ul>
         </li>
