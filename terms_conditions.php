@@ -9,6 +9,9 @@
 
   <div class="container scroll-margin" style="color:black;">
     <div class="text-center mb-5 px-3 px-md-5" style="color:black;">
+      <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Terms and Conditions" data-es="Términos y Condiciones">
+        Términos y Condiciones
+      </h2>
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
 
