@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("/assets/head.php"); ?>
+<?php include("assets/head.php"); ?>
 
 <body class="d-flex flex-column min-vh-100">
 
-  <?php include("/assets/nav.php"); ?>
+  <?php include("assets/nav.php"); ?>
 
   <section class="section" id="team"> 
     <div class="container scroll-margin">
@@ -30,7 +30,7 @@
             <div class="team-wrapper">
               <div class="team-member">
                 <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
-                  <img src="/images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
+                  <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
                 </a>
               </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="team-wrapper">
               <div class="team-member">
                 <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
-                  <img src="/images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
+                  <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
                 </a>
               </div>
             </div>
@@ -58,7 +58,7 @@
             <div class="team-wrapper">
               <div class="team-member">
                 <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
-                  <img src="/images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
+                  <img src="images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
                 </a>
               </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="team-wrapper">
               <div class="team-member">
                 <a href="https://www.linkedin.com/in/alejandrobarrosobueso/" target="_blank">
-                  <img src="/images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
+                  <img src="images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
                 </a>
               </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="team-wrapper">
               <div class="team-member">
                 <a href="https://www.linkedin.com/in/yagocabanes/" target="_blank">
-                  <img src="/images/members/Yago Cabanes Corvera.png" alt="Yago Cabanes Corvera" class="img-fluid rounded">
+                  <img src="images/members/Yago Cabanes Corvera.png" alt="Yago Cabanes Corvera" class="img-fluid rounded">
                 </a>
               </div>
             </div>
@@ -102,9 +102,9 @@
   </section>
 
 
-    <?php include('/assets/footer.php'); ?>
+    <?php include('assets/footer.php'); ?>
 
-    <script src="/js/language.js"></script>
+    <script src="js/language.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
