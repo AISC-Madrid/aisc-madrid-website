@@ -29,12 +29,12 @@
              
         <!-- Learn more Section -->
         <li class="nav-item">
-          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
+          <a class="nav-link" href="#about" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
         </li>
 
         <!-- Get involved Section -->
         <li class="nav-item">
-          <a class="nav-link" href="join.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
+          <a class="nav-link" href="#get-involved" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
         </li>
 
         <!-- Log In Button -->
