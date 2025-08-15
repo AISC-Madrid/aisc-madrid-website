@@ -7,9 +7,6 @@
     </div>
     
     <div class="footer-right">
-      <a href="terms_conditions.php" class="footer-link-text" style="margin-left:15px;">
-        Términos y Condiciones
-      </a>
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-instagram footer-icon"></i>
       </a>
@@ -25,7 +22,12 @@
       <a href="mailto:aisc.asoc@uc3m.es" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-envelope footer-icon"></i>
       </a>
-    </div> 
+    </div>
+          <div class="footer-terms">
+        <a href="terms_conditions.php" class="footer-link-text">
+          Términos y Condiciones
+        </a>
+      </div> 
     </div>
   </div>
   
