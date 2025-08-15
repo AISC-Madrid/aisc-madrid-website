@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include('../assets/db.php');
-include("../assets/head.php"); // should create $mysqli connection
+include("../assets/head.php"); 
 
 
 // Validate and get the event ID from URL
