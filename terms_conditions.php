@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("assets/head.php"); ?>
+<?php include("/assets/head.php"); ?>
 
 <body class="d-flex flex-column min-vh-100">
 
@@ -122,10 +122,10 @@
 </div>
 </div>
 
-    <?php include('assets/footer.php'); ?>
+    <?php include('/assets/footer.php'); ?>
 
-    <script src="js/language.js"></script>
-    <script src="js/accordion.js"></script>
+    <script src="/js/language.js"></script>
+    <script src="/js/accordion.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
