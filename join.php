@@ -34,7 +34,7 @@
     <!-- Marketing Section -->
     <div class="mb-4">
       <div class="d-flex align-items-center mb-2">
-        <img src="images/logos/PNG/marketing.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
+        <!-- <img src="images/logos/PNG/marketing.png" alt="Marketing" class="me-2" style="width:40px; height:40px;"> -->
         <h3 class="fw-semibold mb-0" style="color: var(--primary);" data-en="Marketing, design and social media" data-es="Marketing, diseño y redes sociales">
           Marketing, diseño y redes sociales
         </h3>
@@ -56,7 +56,7 @@
     <!-- Web Development Section -->
     <div class="mb-4">
       <div class="d-flex align-items-center mb-2">
-        <img src="images/logos/PNG/webdevelopement.png" alt="Web development" class="me-2" style="width:40px; height:40px;">
+        <!-- <img src="images/logos/PNG/webdevelopement.png" alt="Web development" class="me-2" style="width:40px; height:40px;">-->
         <h3 class="fw-semibold mb-0" style="color: var(--primary);" data-en="Web development" data-es="Desarrollo web">
           Desarrollo web
         </h3>
@@ -115,15 +115,15 @@
 
           <form method="POST" action="processing/recruiting.php">
             <div class="mb-3">
-              <label for="name" class="form-label">Nombre completo</label>
+              <label for="name" class="form-label" style="color: black">Nombre completo</label>
               <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name_value); ?>" required>
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
+              <label for="email" class="form-label" style="color: black">Correo electrónico</label>
               <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email_value); ?>" required>
             </div>
             <div class="mb-3">
-              <label for="position" class="form-label">¿Qué rol te interesa?</label>
+              <label for="position" class="form-label" style="color: black">¿Qué rol te interesa?</label>
               <select class="form-select" id="position" name="position" required>
                 <option value="" disabled <?php echo $position_value === '' ? 'selected' : ''; ?>>Selecciona una opción</option>
                 <option value="diseno" <?php echo $position_value === 'diseno' ? 'selected' : ''; ?>>Marketing, diseño y redes sociales</option>
@@ -133,12 +133,12 @@
               </select>
             </div>
             <div class="mb-3">
-              <label for="reason" class="form-label">¿Por qué te interesa el puesto?</label>
+              <label for="reason" class="form-label" style="color: black">¿Por qué te interesa el puesto?</label>
               <textarea class="form-control" id="reason" name="reason" rows="4" maxlength="1000" required><?php echo htmlspecialchars($reason_value); ?></textarea>
             </div>
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" id="consent" name="consent" <?php echo $consent_value ? 'checked' : ''; ?> required>
-              <label class="form-check-label" for="consent">
+              <label class="form-check-label" for="consent" style="color: black">
                 Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
               </label>
             </div>
