@@ -6,14 +6,13 @@
 <body class="d-flex flex-column min-vh-100">
 
 <?php include("assets/nav.php"); ?>
-
+<section class="container scroll-margin my-5 px-3 px-md-5"></section>
   <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Become a member of AISC Madrid" data-es="Sé parte del equipo de AISC Madrid">
     Sé parte del equipo de AISC Madrid
   </h2>
   <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
   <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
-
-<section class="container my-5 px-3 px-md-5">  
+  
   <p class="mb-3" style="color: black;"
      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:"
      data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
@@ -64,7 +63,8 @@
 
   <div class="mb-4">
     <div class="d-flex align-items-center mb-2">
-    <img src="images/logos/webdevelopement.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
+    <img src="images/logos/webdevelopement.png" alt="Web developement" class="me-2" style="width:40px; height:40px;">
+    </div>
     <h3 class="fw-semibold mb-2" style="color: var(--primary);" 
         data-en="Web development" data-es="Desarrollo web">
       Desarrollo web
