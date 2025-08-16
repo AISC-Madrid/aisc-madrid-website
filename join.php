@@ -17,15 +17,17 @@
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
 
-    <!-- Contenido alineado a la izquierda -->
-    <p class="mb-3" style="color: black;" data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:" data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
+    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+      <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
+      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:" data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
       En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:
-    </p>
     <ul class="mb-4" style="color: black;">
       <li data-en="You are enrolled in a Bachelor's or Master's program at UC3M." data-es="Estás matriculado en un Grado o Máster en la UC3M.">Estás matriculado en un Grado o Máster en la UC3M.</li>
       <li data-en="You are passionate and committed to what you do." data-es="Eres apasionado y comprometido con lo que haces.">Eres apasionado y comprometido con lo que haces.</li>
       <li data-en="You enjoy teamwork and being part of a community." data-es="Te gusta trabajar en equipo y ser parte de una comunidad.">Te gusta trabajar en equipo y ser parte de una comunidad.</li>
     </ul>
+    </h6>
+  </div>
 
     <p class="mb-3" style="color: black;" data-en="To join in the first semester of the 2025/2026 academic year, we are especially interested in the following profiles:" data-es="Para incorporarse en el primer cuatrimestre del curso 2025/2026 estamos especialmente interesados en los siguientes perfiles:">
       Para incorporarse en el primer cuatrimestre del curso 2025/2026 estamos especialmente interesados en los siguientes perfiles:
