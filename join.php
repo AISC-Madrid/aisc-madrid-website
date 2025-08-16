@@ -9,7 +9,7 @@
 
 <section>
   <div class="container scroll-margin">
-    <!-- Solo el título principal y barra centrada -->
+
     <div class="text-center mb-5 px-3 px-md-5">
       <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Join the AISC Madrid team" data-es="Únete al equipo de AISC Madrid">
         Únete al equipo de AISC Madrid
@@ -18,13 +18,11 @@
     </div>
 
       <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
-      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:" data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
+      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:
+      You are enrolled in a Bachelor's or Master's program at UC3M, you are passionate and committed to what you do, and you enjoy working in a team and being part of a community." data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:
+      Estás matriculado en un Grado o Máster en la UC3M, eres apasionado y comprometido con lo que haces, Te gusta trabajar en equipo y ser parte de una comunidad.">
       En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:
-    <ul class="mb-4" style="color: black;">
-      <li data-en="You are enrolled in a Bachelor's or Master's program at UC3M." data-es="Estás matriculado en un Grado o Máster en la UC3M.">Estás matriculado en un Grado o Máster en la UC3M.</li>
-      <li data-en="You are passionate and committed to what you do." data-es="Eres apasionado y comprometido con lo que haces.">Eres apasionado y comprometido con lo que haces.</li>
-      <li data-en="You enjoy teamwork and being part of a community." data-es="Te gusta trabajar en equipo y ser parte de una comunidad.">Te gusta trabajar en equipo y ser parte de una comunidad.</li>
-    </ul>
+      Estás matriculado en un Grado o Máster en la UC3M, eres apasionado y comprometido con lo que haces, Te gusta trabajar en equipo y ser parte de una comunidad.
     </h6>
   </div>
 
