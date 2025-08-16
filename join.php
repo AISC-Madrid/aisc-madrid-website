@@ -6,12 +6,13 @@
 <body class="d-flex flex-column min-vh-100">
 
 <?php include("assets/nav.php"); ?>
-
-<section class="container scroll-margin my-5 px-3 px-md-5">
-  <h2 class="fw-bold mb-2" style="color: var(--muted);" data-en="Become a member of AISC Madrid" data-es="Sé parte del equipo de AISC Madrid">
-    Sé parte del equipo de AISC Madrid
-  </h2>
-  <div class="mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+<section>
+<div class="container scroll-margin">
+  <div class="text-center mb-5 px-3 px-md-5">
+    <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Join the AISC Madrid team" data-es="Únete al equpo de AISC Madrid">
+      Únete al equpo de AISC Madrid
+    </h2>
+    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
   <p class="mb-3" style="color: black;"
      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:"
@@ -36,7 +37,7 @@
   <!-- Marketing Section -->
   <div class="mb-4">
     <div class="d-flex align-items-center mb-2">
-      <img src="images/logos/marketing.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
+      <img src="images/logos/PNG/marketing.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
       <h3 class="fw-semibold mb-0" style="color: var(--primary);" data-en="Marketing, design and social media" data-es="Marketing, diseño y redes sociales">
         Marketing, diseño y redes sociales
       </h3>
@@ -64,7 +65,7 @@
   <!-- Web Development Section -->
   <div class="mb-4">
     <div class="d-flex align-items-center mb-2">
-      <img src="images/logos/webdevelopement.png" alt="Web developement" class="me-2" style="width:40px; height:40px;">
+      <img src="images/logos/PNG/webdevelopement.png" alt="Web developement" class="me-2" style="width:40px; height:40px;">
       <h3 class="fw-semibold mb-0" style="color: var(--primary);" data-en="Web development" data-es="Desarrollo web">
         Desarrollo web
       </h3>
