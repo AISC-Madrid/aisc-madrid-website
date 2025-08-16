@@ -224,62 +224,7 @@ footer {
 .card:hover .card-more-badge {
   background-color: var(--secondary);
 }
-/* Terms Accordion */
-  .terms-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    color: #000; /* Texto negro */
-  }
 
-  .terms-accordion h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.6em;
-    color: #000;
-  }
-
-  .accordion-item {
-    margin-bottom: 10px;
-  }
-
-  .accordion-header {
-    background: var(--primary);
-    color: #fff;
-    cursor: pointer;
-    padding: 15px 20px;
-    font-size: 1.1em;
-    text-align: left;
-    border: none;
-    border-radius: 10px; /* Bordes redondeados */
-    transition: background 0.3s;
-    width: 100%;
-  }
-
-  .accordion-header:hover {
-    background: var(--secondary);
-  }
-
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    background: #f9f9f9;
-    padding: 0 20px;
-    color: #000; /* Texto negro */
-    border-radius: 0 0 10px 10px; /* Bordes redondeados solo abajo */
-    margin-top: 5px;
-  }
-
-  .accordion-content p, .accordion-content ul {
-    margin: 10px 0;
-  }
-
-  .accordion-content ul {
-    padding-left: 20px;
-  }
-
-  .accordion-item.active .accordion-content {
-    max-height: 500px; /* Ajustable según contenido */
-    padding: 15px 20px;
-  }
+form label {
+    color: black;
+}

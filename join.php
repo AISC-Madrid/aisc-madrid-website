@@ -7,9 +7,96 @@
 
 <?php include("assets/nav.php"); ?>
 
-<div class="container scroll-margin">
-    <p style="color: black">Join AISC Madrid</p>
-</div>
+  <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Become a member of AISC Madrid" data-es="Sé parte del equipo de AISC Madrid">
+    Sé parte del equipo de AISC Madrid
+  </h2>
+  <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+  <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
+
+<section class="container my-5 px-3 px-md-5">
+  <h2 class="fw-bold mb-4" style="color: var(--primary);"
+      data-en="Join AISC Madrid" data-es="Únete a AISC Madrid">
+    Únete a AISC Madrid
+  </h2>
+  
+  <p class="mb-3" style="color: black;"
+     data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:"
+     data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
+    En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:
+  </p>
+  <ul class="mb-4" style="color: black;">
+    <li data-en="You are enrolled in a Bachelor's or Master's program at UC3M." 
+        data-es="Estás matriculado en un Grado o Máster en la UC3M.">Estás matriculado en un Grado o Máster en la UC3M.</li>
+    <li data-en="You are passionate and committed to what you do." 
+        data-es="Eres apasionado y comprometido con lo que haces.">Eres apasionado y comprometido con lo que haces.</li>
+    <li data-en="You enjoy teamwork and being part of a community." 
+        data-es="Te gusta trabajar en equipo y ser parte de una comunidad.">Te gusta trabajar en equipo y ser parte de una comunidad.</li>
+  </ul>
+
+  <p class="mb-3" style="color: black;"
+     data-en="To join in the first semester of the 2025/2026 academic year, we are especially interested in the following profiles:"
+     data-es="Para incorporarse en el primer cuatrimestre del curso 2025/2026 estamos especialmente interesados en los siguientes perfiles:">
+    Para incorporarse en el primer cuatrimestre del curso 2025/2026 estamos especialmente interesados en los siguientes perfiles:
+  </p>
+
+  <div class="mb-4">
+    <h3 class="fw-semibold mb-2" style="color: var(--primary);"
+        data-en="Marketing, design and social media" data-es="Marketing, diseño y redes sociales">
+      Marketing, diseño y redes sociales
+    </h3>
+    <p style="color: black;"
+       data-en="We are looking for creative people, with initiative and good digital skills to boost the communication and image of the association. You will help manage and create content for our social media and design visual materials for events, social media and web." 
+       data-es="Buscamos personas creativas, con iniciativa y un buen manejo de herramientas digitales para impulsar la comunicación y la imagen de la asociación. Queremos que ayudes a gestionar y crear contenido para nuestras redes sociales, así como a diseñar materiales visuales para eventos, redes sociales y web.">
+      Buscamos personas creativas, con iniciativa y un buen manejo de herramientas digitales para impulsar la comunicación y la imagen de la asociación. Queremos que ayudes a gestionar y crear contenido para nuestras redes sociales, así como a diseñar materiales visuales para eventos, redes sociales y web.
+    </p>
+    <p style="color: black;" data-en="You fit this role if you identify with some of these points:" data-es="Encajarás en este rol si te identificas con algunos de estos puntos:">
+      Encajarás en este rol si te identificas con algunos de estos puntos:
+    </p>
+    <ul style="color: black;">
+      <li data-en="Intermediate photo editing skills (Photoshop, Canva, GIMP, Lightroom…)" 
+          data-es="Conocimientos medios de edición de foto (Photoshop, Canva, GIMP, Lightroom…).">Conocimientos medios de edición de foto (Photoshop, Canva, GIMP, Lightroom…)</li>
+      <li data-en="Video editing skills (Premiere, CapCut, DaVinci…)" 
+          data-es="Manejas herramientas de edición de vídeo (Premiere, CapCut, DaVinci ...)">Manejas herramientas de edición de vídeo (Premiere, CapCut, DaVinci ...)</li>
+      <li data-en="Experience or interest in social media management (Instagram, LinkedIn)" 
+          data-es="Experiencia o interés en gestión de redes sociales (Instagram y LinkedIn)">Experiencia o interés en gestión de redes sociales (Instagram y LinkedIn)</li>
+      <li data-en="You like proposing ideas for constant improvement and innovation" 
+          data-es="Te gusta proponer ideas para la constante mejora e innovación">Te gusta proponer ideas para la constante mejora e innovación</li>
+    </ul>
+  </div>
+
+  <div class="mb-4">
+    <h3 class="fw-semibold mb-2" style="color: var(--primary);" 
+        data-en="Web development" data-es="Desarrollo web">
+      Desarrollo web
+    </h3>
+    <p style="color: black;"
+       data-en="We are looking for people interested in maintaining and improving the association's website. You will be part of the team that boosts our online presence and develops new features." 
+       data-es="Buscamos personas interesadas en mantener y mejorar la página web de la asociación. Queremos que formes parte del equipo que impulsa nuestra presencia online y desarrolla nuevas funcionalidades.">
+      Buscamos personas interesadas en mantener y mejorar la página web de la asociación. Queremos que formes parte del equipo que impulsa nuestra presencia online y desarrolla nuevas funcionalidades.
+    </p>
+    <p style="color: black;" data-en="You fit this role if you identify with some of these points:" data-es="Encajarás en este rol si te identificas con algunos de estos puntos:">
+      Encajarás en este rol si te identificas con algunos de estos puntos:
+    </p>
+    <ul style="color: black;">
+      <li data-en="Knowledge in HTML, CSS and JavaScript" data-es="Conocimientos en HTML, CSS y JavaScript">Conocimientos en HTML, CSS y JavaScript</li>
+      <li data-en="Experience with frameworks or libraries like Bootstrap, React, Vue, etc." data-es="Experiencia con frameworks o librerías como Bootstrap, React, Vue u otros">Manejas frameworks o librerías como Bootstrap, React, Vue u otros</li>
+      <li data-en="Worked with PHP" data-es="Has trabajado con PHP">Has trabajado con PHP</li>
+      <li data-en="Familiar with Git and GitHub workflows" data-es="Estás familiarizado con Git y con flujos de trabajo en GitHub">Estás familiarizado con Git y con flujos de trabajo en GitHub</li>
+      <li data-en="Database management (MySQL)" data-es="Sabes gestionar bases de datos (MySQL)">Sabes gestionar bases de datos (MySQL)</li>
+      <li data-en="Familiar with hosting and deployment services (Hostinger)" data-es="Estás familiarizado con servicios de hosting y despliegue web (Hostinger)">Estás familiarizado con servicios de hosting y despliegue web (Hostinger)</li>
+      <li data-en="Interest in web design and user experience" data-es="Te gusta el diseño web y cuidar la experiencia de usuario">Te gusta el diseño web y cuidar la experiencia de usuario</li>
+      <li data-en="Motivated to learn new technologies and work in a team" data-es="Te motiva aprender nuevas tecnologías y trabajar en equipo">Te motiva aprender nuevas tecnologías y trabajar en equipo</li>
+    </ul>
+  </div>
+
+  <div class="mb-4">
+    <p style="color: black;"
+       data-en="At AISC Madrid we know everyone has great value to contribute, so throughout the year we are open to new proposals. Would you like to organize a talk, workshop or event at the university? We would love to hear your ideas on any topic you are passionate about and help you implement them in our community." 
+       data-es="Desde AISC Madrid sabemos que todo el mundo tiene un gran valor que aportar, por lo que durante todo el curso estamos abiertos a nuevas propuestas. ¿Te gustaría organizar una charla, taller o evento en la universidad? Nos encantaría escuchar tus ideas sobre cualquier temática que te apasione y ayudarte a llevarlas a cabo en nuestra comunidad.">
+      Desde AISC Madrid sabemos que todo el mundo tiene un gran valor que aportar, por lo que durante todo el curso estamos abiertos a nuevas propuestas. ¿Te gustaría organizar una charla, taller o evento en la universidad? Nos encantaría escuchar tus ideas sobre cualquier temática que te apasione y ayudarte a llevarlas a cabo en nuestra comunidad.
+    </p>
+  </div>
+</section>
 
 <section class="container-fluid mb-5 scroll-margin" id="get-involved">
     <div class="row justify-content-center">
@@ -45,7 +132,7 @@
                         echo '<div class="alert alert-danger">Solo se acepta una inscripción por correo.</div>';
                     }
                     if (isset($_GET['success'])) {
-                        echo '<div class="alert alert-success">¡Gracias! Hemos recibido tus datos correctamente.</div>';
+                        echo '<div class="alert alert-success">¡Gracias! Hemos recibido tus datos correctamente. En breves nos pondremos en contacto.</div>';
                     }
                     ?>
 
