@@ -24,7 +24,7 @@
                         if ($errorType === 'validation') {
                             echo '<div class="alert alert-danger">Por favor completa todos los campos correctamente.</div>';
                         } elseif ($errorType === 'duplicate') {
-                            echo '<div class="alert alert-danger">Tu correo ya está en nuestra base de datos.</div>';
+                            echo '<div class="alert alert-danger">Solo se acepta una inscripción por correo.</div>';
                         }
                     } elseif (isset($_GET['success'])) {
                         echo '<div class="alert alert-success">¡Gracias! Hemos recibido tus datos correctamente.</div>';
