@@ -17,7 +17,6 @@
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
 
-    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
       <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
       data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:" data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
       En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:
