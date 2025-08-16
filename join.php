@@ -13,12 +13,7 @@
   <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
   <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
 
-<section class="container my-5 px-3 px-md-5">
-  <h2 class="fw-bold mb-4" style="color: var(--primary);"
-      data-en="Join AISC Madrid" data-es="Únete a AISC Madrid">
-    Únete a AISC Madrid
-  </h2>
-  
+<section class="container my-5 px-3 px-md-5">  
   <p class="mb-3" style="color: black;"
      data-en="At AISC Madrid, we are looking for people eager to join our team and bring their energy and ideas. This opportunity is for you if:"
      data-es="En AISC Madrid buscamos personas con ganas de unirse a nuestro equipo y aportar su energía e ideas. Esta oportunidad es para ti si:">
@@ -40,10 +35,13 @@
   </p>
 
   <div class="mb-4">
-    <h3 class="fw-semibold mb-2" style="color: var(--primary);"
-        data-en="Marketing, design and social media" data-es="Marketing, diseño y redes sociales">
-      Marketing, diseño y redes sociales
-    </h3>
+    <div class="d-flex align-items-center mb-2">
+      <img src="images/logos/marketing.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
+      <h3 class="fw-semibold mb-0" style="color: var(--primary);"
+          data-en="Marketing, design and social media" data-es="Marketing, diseño y redes sociales">
+        Marketing, diseño y redes sociales
+      </h3>
+    </div>
     <p style="color: black;"
        data-en="We are looking for creative people, with initiative and good digital skills to boost the communication and image of the association. You will help manage and create content for our social media and design visual materials for events, social media and web." 
        data-es="Buscamos personas creativas, con iniciativa y un buen manejo de herramientas digitales para impulsar la comunicación y la imagen de la asociación. Queremos que ayudes a gestionar y crear contenido para nuestras redes sociales, así como a diseñar materiales visuales para eventos, redes sociales y web.">
@@ -65,10 +63,13 @@
   </div>
 
   <div class="mb-4">
+    <div class="d-flex align-items-center mb-2">
+    <img src="images/logos/webdevelopement.png" alt="Marketing" class="me-2" style="width:40px; height:40px;">
     <h3 class="fw-semibold mb-2" style="color: var(--primary);" 
         data-en="Web development" data-es="Desarrollo web">
       Desarrollo web
     </h3>
+    </div>
     <p style="color: black;"
        data-en="We are looking for people interested in maintaining and improving the association's website. You will be part of the team that boosts our online presence and develops new features." 
        data-es="Buscamos personas interesadas en mantener y mejorar la página web de la asociación. Queremos que formes parte del equipo que impulsa nuestra presencia online y desarrolla nuevas funcionalidades.">
