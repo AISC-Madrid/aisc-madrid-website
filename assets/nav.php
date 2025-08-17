@@ -29,7 +29,7 @@
              
         <!-- Learn more Section -->
         <li class="nav-item">
-          <a class="nav-link" href="#about" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
+          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
         </li>
 
         <!-- Get involved Section -->
