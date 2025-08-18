@@ -174,6 +174,8 @@
 </div>
 
 <?php include('assets/footer.php'); ?>
+
+<script src="js/language.js"></script>
 <script src="js/char_counter.js"></script>
 </body>
 </html>
