@@ -169,7 +169,9 @@
                 <option value="" disabled <?php echo $position_value === '' ? 'selected' : ''; ?>
                   data-en="Select an option"
                   data-es="Selecciona una opción">Selecciona una opción</option>
-                <option value="diseno" <?php echo $position_value === 'diseno' ? 'selected' : ''; ?>>Redes Sociales, Diseño y Marketing</option>
+                <option value="diseno" <?php echo $position_value === 'diseno' ? 'selected' : ''; ?>
+                  data-en="Social Media, Design and Marketing"
+                  data-es="Redes Sociales, Diseño y Marketing">Redes Sociales, Diseño y Marketing</option>
                 <option value="web" <?php echo $position_value === 'web' ? 'selected' : ''; ?>
                   data-en="Web Developement"
                   data-es="Desarrollo Web">Desarrollo Web</option>
