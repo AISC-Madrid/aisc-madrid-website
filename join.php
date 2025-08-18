@@ -62,8 +62,13 @@
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
         <div class="role-icon mb-3"><i class="bi bi-code-slash"></i></div>
-        <h5 class="mb-2">Desarrollo Web</h5>
-        <p class="text-muted mb-3">Mantén y mejora la web de AISC con nuevas funcionalidades.</p>
+        <h5 class="mb-2"
+        data-en="Web Developement"
+        data-es="Desarrollo Web">Desarrollo Web</h5>
+        <p class="text-muted mb-3"
+        data-en="Maintain and improve the website with new features."
+        data-es="Mantén y mejora la web de con nuevas funcionalidades.">Mantén y mejora la web de con nuevas funcionalidades.
+        </p>
         <p class ="text-muted small"
         data-en="<i>Positively valued:</i>"
         data-es="<i>Se valora positivamente:</i>"><i>Se valora positivamente:</i></p>
@@ -84,8 +89,12 @@
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
         <div class="role-icon mb-3"><i class="bi bi-mortarboard"></i></div>
-        <h5 class="mb-2">Eventos y Talleres</h5>
-        <p class="text-muted mb-3">Diseño y coordinación de eventos y talleres, además de contacto con ponentes.</p>
+        <h5 class="mb-2"
+        data-en="Events and Workshops"
+        data-es="Eventos y Talleres">Eventos y Talleres</h5>
+        <p class="text-muted mb-3"
+        data-en="Design and coordinate events and workshops, as well as liaise with speakers."
+        data-es="Diseño y coordinación de eventos y talleres, además de contacto con ponentes.">Diseño y coordinación de eventos y talleres, además de contacto con ponentes.</p>
         <p class ="text-muted small"
         data-en="<i>Positively valued:</i>"
         data-es="<i>Se valora positivamente:</i>"><i>Se valora positivamente:</i></p>
@@ -141,25 +150,41 @@
 
           <form method="POST" action="processing/recruiting.php">
             <div class="mb-3">
-              <label for="name" class="form-label" style="color: black">Nombre completo</label>
+              <label for="name" class="form-label" style="color: black"
+              data-en="Full name"
+              data-es="Nombre completo">Nombre completo</label>
               <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name_value); ?>" required>
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label" style="color: black">Correo electrónico</label>
+              <label for="email" class="form-label" style="color: black"
+              data-en="Email"
+              data-es="Correo electrónico">Correo electrónico</label>
               <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email_value); ?>" required>
             </div>
             <div class="mb-3">
-              <label for="position" class="form-label" style="color: black">¿Qué rol te interesa?</label>
+              <label for="position" class="form-label" style="color: black"
+              data-en="What role interests you?"
+              data-es="¿Qué rol te interesa?">¿Qué rol te interesa?</label>
               <select class="form-select" id="position" name="position" required>
-                <option value="" disabled <?php echo $position_value === '' ? 'selected' : ''; ?>>Selecciona una opción</option>
+                <option value="" disabled <?php echo $position_value === '' ? 'selected' : ''; ?>
+                  data-en="Select an option"
+                  data-es="Selecciona una opción">Selecciona una opción</option>
                 <option value="diseno" <?php echo $position_value === 'diseno' ? 'selected' : ''; ?>>Redes Sociales, Diseño y Marketing</option>
-                <option value="web" <?php echo $position_value === 'web' ? 'selected' : ''; ?>>Desarrollo web</option>
-                <option value="events" <?php echo $position_value === 'events' ? 'selected' : ''; ?>>Eventos y Talleres</option>
-                <option value="various" <?php echo $position_value === 'various' ? 'selected' : ''; ?>>Varios (especificar en siguiente apartado)</option>
+                <option value="web" <?php echo $position_value === 'web' ? 'selected' : ''; ?>
+                  data-en="Web Developement"
+                  data-es="Desarrollo Web">Desarrollo Web</option>
+                <option value="events" <?php echo $position_value === 'events' ? 'selected' : ''; ?>
+                  data-en="Events and Workshops"
+                  data-es="Eventos y Talleres">Eventos y Talleres</option>
+                <option value="various" <?php echo $position_value === 'various' ? 'selected' : ''; ?>
+                  data-en="Various (specify in next section)"
+                  data-es="Varios (especificar en siguiente apartado)">Varios (especificar en siguiente apartado)</option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="reason" class="form-label" style="color: black">¿Por qué te interesa el puesto?</label>
+              <label for="reason" class="form-label" style="color: black"
+              data-en="Why are you interested in this role?"
+              data-es="¿Por qué te interesa este rol?">¿Por qué te interesa este rol?</label>
               <textarea class="form-control" id="reason" name="reason" rows="4" maxlength="1000" required><?php echo htmlspecialchars($reason_value); ?></textarea>
                 <div id="char-count" class="form-text text-end" style="color: gray;">
                   0 / 1000 characters
