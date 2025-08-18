@@ -334,14 +334,14 @@ include("assets/head.php");
                 <!-- Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
-                  <input type="text" class="form-control form-input" id="name" name="name" data-es="Nombre y apellido(s)" data-en="Your name and surname" placeholder="Nombre y apellido(s)" required>
+                  <input type="text" class="form-control form-input" id="name" name="name" data-es="Nombre y apellido(s)" data-en="Full name" placeholder="Michael Scott" required>
                   <div class="invalid-feedback" data-en="Please, introduce your name and surname." data-es="Por favor, introduce tu nombre y apellido(s).">Por favor, introduce tu nombre y apellido(s).</div>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
                   <label for="email" class="form-label" data-en="E-mail" data-es="Correo electrónico">Correo electrónico</label>
-                  <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com" data-es="nombre@ejemplo.com" placeholder="nombre@ejemplo.com" required>
+                  <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com" data-es="nombre@ejemplo.com" placeholder="name@example.com" required>
                   <div class="invalid-feedback" data-en="Please, introduce a valid e-mail" data-es="Por favor, introduce un correo válido.">Por favor, introduce un correo válido.</div>
                 </div>
 
