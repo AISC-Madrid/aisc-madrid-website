@@ -7,7 +7,6 @@
 
 <?php include("assets/nav.php"); ?>
 
-<section>
   <div class="container scroll-margin">
     <div class="text-center mb-5 px-3 px-md-5">
       <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Join the AISC Madrid team" data-es="Únete al equipo de AISC Madrid">
@@ -26,53 +25,79 @@
       <br>
       Si estudias un Grado o Máster en la UC3M, eres comprometido y entusiasta con lo que haces, te gusta trabajar en equipo y quieres aportar tus ideas, ¡este es tu sitio!.
       </h6>
-    <section class="mb-4 mt-5" style="color: var(--primary);">
-    <h5 class="fw-bold" data-es="Redes Sociales, Diseño y Marketing" data-en="Social Media, Design, and Marketing">
-      Redes Sociales, Diseño y Marketing
-    </h5>
-      <p class="lh-lg" style="color: black" data-es="Personas creativas para gestionar redes, crear contenido y diseñar materiales. <br>
-      Valoramos experiencia en edición de foto/vídeo y  gestión de redes (Instagram, LinkedIn)."
-      data-en="Creative individuals to manage social media, create content, and design materials. <br>
-      Experience in photo/video editing and social media management (Instagram, LinkedIn) is a plus.">
-      Personas creativas para gestionar redes, crear contenido y diseñar materiales. <br>
-      Valoramos experiencia en edición de foto/vídeo y  gestión de redes (Instagram, LinkedIn).
-      </p>
-    <h5 class="fw-bold mt-4" data-es="Desarrollo Web" data-en="Web Development">
-      Desarrollo Web
-    </h5>
-      <p class="lh-lg" style="color: black" data-es="Interesados en mantener y mejorar la web de la asociación. <br>
-      Conocimientos en HTML, CSS, JS, PHP y Git/GitHub son un plus."
-      data-en="Interested in maintaining and improving the association’s website.<br>
-      Knowledge of HTML, CSS, JS, PHP, and Git/GitHub is a plus.">
-      Interesados en mantener y mejorar la web de la asociación.<br>
-      Conocimientos en HTML, CSS, JS, PHP y Git/GitHub son un plus.
-      </p>
-    <h5 class="fw-bold mt-4" data-es="Eventos y Talleres" data-en="Events and Workshops">
-      Eventos y Talleres
-    </h5>
-      <p class="lh-lg" style="color: black" data-es="Personas con iniciativa para diseñar y coordinar talleres y eventos, así como contactar con ponentes. <br>
-      Si te motiva la divulgación tecnológica y coordinar eventos, este rol es para ti."
-      data-en="IIndividuals with initiative to design and coordinate workshops and events, as well as reach out to speakers.<br>
-      If you are motivated by tech outreach and event coordination, this role is for you.">
-      Personas con iniciativa para diseñar y coordinar talleres y eventos, así como contactar con ponentes. <br>
-      Si te motiva la divulgación tecnológica y coordinar eventos, este rol es para ti.
 
-      </p>
-    </section>
+<section class="container my-5">
+  <h3 class="fw-bold text-center mb-4" style="color: var(--primary);">Roles que buscamos</h3>
+  <div class="row g-4">
+
+    <!-- Card 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="role-card h-100 d-flex flex-column">
+        <div class="role-icon mb-3"><i class="bi bi-megaphone"></i></div>
+        <h5 class="mb-2">Redes Sociales, Diseño y Marketing</h5>
+        <p class="text-muted mb-3">Impulsa nuestra presencia con contenido, branding y materiales para eventos.</p>
+        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <ul class="small mb-4">
+          <li>Creatividad e iniciativa</li>
+          <li>Gestión de Instagram/LinkedIn/Comunidad de Whatsapp</li>
+          <li>Edición foto/vídeo</li>
+        </ul>
+        <div class="mt-auto">
+          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="role-card h-100 d-flex flex-column">
+        <div class="role-icon mb-3"><i class="bi bi-code-slash"></i></div>
+        <h5 class="mb-2">Desarrollo Web</h5>
+        <p class="text-muted mb-3">Mantén y mejora la web de AISC con nuevas funcionalidades.</p>
+        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <ul class="small mb-4">
+          <li>Desarrollo con HTML, CSS, JS</li>
+          <li>Conocimiento de backend PHP</li>
+          <li>Familiar con Git/GitHub</li>
+        </ul>
+        <div class="mt-auto">
+          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="role-card h-100 d-flex flex-column">
+        <div class="role-icon mb-3"><i class="bi bi-mortarboard"></i></div>
+        <h5 class="mb-2">Eventos y Talleres</h5>
+        <p class="text-muted mb-3">Diseño y coordinación de eventos y talleres, además de contacto con ponentes.</p>
+        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <ul class="small mb-4">
+          <li>Creatividad e iniciativa</li>
+          <li>Hablidades de comunicación</li>
+          <li>Habilidades de organización y planificación</li>
+          <li>Interés en divulgación tecnológica</li>
+        </ul>
+        <div class="mt-auto">
+          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+        </div>
+      </div>
+    </div>
   </div>
-
 </section>
-<div class="text-center mt-4">
-  <h5 class="fw-bold"style="color: var(--secondary);" data-es="Rellena el formulario y únete a nuestro equipo" data-en="Fill out the form and join our team">
+
+<div class="text-center" style="margin-top: 5rem;" id="recruiting-form">
+  <h4 class="fw-bold"style="color: var(--secondary);" data-es="Rellena el formulario y únete a nuestro equipo" data-en="Fill out the form and join our team">
     Rellena el formulario y únete a nuestro equipo
-  </h5>
+  </h4>
   <p class="text-muted mb-0" style="max-width: 600px; margin: 0 auto;" data-es="Estamos deseando conocerte y contar con tu talento en la comunidad AISC Madrid." data-en="We can’t wait to meet you and have your talent in the AISC Madrid community.">
     Estamos deseando conocerte y contar con tu talento en la comunidad AISC Madrid.
   </p>
 </div>
 
 <!-- Join Form Section -->
-<section class="container-fluid mb-5 scroll-margin" id="get-involved" style="margin-top: 0;">
+<section class="container-fluid mb-5" style="margin-top: 0;">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="border-0 form-card no-hover">
@@ -146,6 +171,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <?php include('assets/footer.php'); ?>
 <script src="js/char_counter.js"></script>

@@ -12,6 +12,9 @@
       color: var(--foreground);
   }
 
+html {
+  scroll-behavior: smooth;
+}
 
   .scroll-margin{
     padding-top: 15vh; /* TO AVOID NAVBAR OVERFLOW. ALL SECTIONS MUST HAVE IT */
@@ -277,3 +280,24 @@
     display: block;
     margin: 0 auto;  
   }
+
+  .role-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.role-card h5 { color: var(--muted); font-weight: 700; }
+.role-card ul { padding-left: 1.1rem; color: #555; }
+.role-card .btn { background-color: var(--primary); border-color: var(--primary); }
+.role-card .btn:hover { background-color: var(--secondary); border-color: var(--secondary); }
+
+.role-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(235,23,142,.15), rgba(32,204,241,.15));
+  color: var(--primary); font-size: 1.25rem;
+}
