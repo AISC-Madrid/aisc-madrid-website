@@ -187,7 +187,7 @@
               <label for="reason" class="form-label" style="color: black"
               data-en="Why are you interested in this role?"
               data-es="¿Por qué te interesa este rol?">¿Por qué te interesa este rol?</label>
-              <textarea class="form-control" id="reason" name="reason" rows="4" maxlength="1000" required><?php echo htmlspecialchars($reason_value); ?></textarea>
+              <textarea class="form-control" id="reason" name="reason" rows="4" placeholder="Max. 1000 characters" maxlength="1000" required><?php echo htmlspecialchars($reason_value); ?></textarea>
                 <div id="char-count" class="form-text text-end" style="color: gray;">
                   0 / 1000 characters
                 </div>
