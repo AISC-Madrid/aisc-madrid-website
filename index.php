@@ -320,7 +320,7 @@ include("assets/head.php");
 
 
 
- <section class="container-fluid mb-5 scroll-margin" id="get-involved">
+ <section class="container-fluid mb-5 scroll-margin" id="newsletter">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class=" border-0 form-card no-hover">
