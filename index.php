@@ -333,7 +333,7 @@ include("assets/head.php");
               <form method="POST" action="processing/phpmailer.php" class="needs-validation" novalidate>
                 <!-- Nombre -->
                 <div class="mb-3">
-                  <label for="name" class="form-label" data-en="Full name" data-es="Nombre completo">Nombre completo</label>
+                  <label for="name" class="form-label" data-en="Full name" data-es="Nombre y apellidos">Nombre y apellidos</label>
                   <input type="text" class="form-control form-input" id="name" name="name" data-es="Nombre y apellido(s)" data-en="Full name" placeholder="Michael Scott" required>
                   <div class="invalid-feedback" data-en="Please, introduce your name and surname." data-es="Por favor, introduce tu nombre y apellido(s).">Por favor, introduce tu nombre y apellido(s).</div>
                 </div>
