@@ -14,7 +14,7 @@
       </h2>
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
-      <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
+      <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px;"
       data-en="At AISC Madrid, we are looking for new members for the <stron>2025/2026 academic year.</strong>
       <br>
       If you are pursuing a Bachelor's or Master's degree at UC3M, are committed and enthusiastic about what you do, enjoy working in a team, and want to contribute your ideas, this is the place for you."
@@ -27,23 +27,33 @@
       </h6>
 
 <section class="container my-5">
-  <h3 class="fw-bold text-center mb-4" style="color: var(--primary);">Roles que buscamos</h3>
+  <h3 class="fw-bold text-center mb-4" style="color: var(--primary);"
+  data-en="Open roles"
+  data-es="Roles que buscamos">Roles que buscamos</h3>
   <div class="row g-4">
 
     <!-- Card 1 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
         <div class="role-icon mb-3"><i class="bi bi-megaphone"></i></div>
-        <h5 class="mb-2">Redes Sociales, Diseño y Marketing</h5>
-        <p class="text-muted mb-3">Impulsa nuestra presencia con contenido, branding y materiales para eventos.</p>
-        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <h5 class="mb-2"
+        data-en="Social Media, Design and Marketing"
+        data-es="Redes Sociales, Diseño y Marketing">Redes Sociales, Diseño y Marketing</h5>
+        <p class="text-muted mb-3"
+        data-en="Boost our presence with content, branding, and event materials."
+        data-es="Impulsa nuestra presencia con contenido, branding y materiales para eventos.">Impulsa nuestra presencia con contenido, branding y materiales para eventos.</p>
+        <p class ="text-muted small"
+        data-en="<i>Positively valued:</i>"
+        data-es="<i>Se valora positivamente:</i>"><i>Se valora positivamente:</i></p>
         <ul class="small mb-4">
-          <li>Creatividad e iniciativa</li>
-          <li>Gestión de Instagram/LinkedIn/Comunidad de Whatsapp</li>
-          <li>Edición foto/vídeo</li>
+          <li data-en="Creativity and initiative" data-es="Creatividad e iniciativa">Creatividad e iniciativa</li>
+          <li data-en="Managing Instagram/LinkedIn/Whatsapp Community" data-es="Gestión de Instagram/LinkedIn/Comunidad de Whatsapp">Gestión de Instagram/LinkedIn/Comunidad de Whatsapp</li>
+          <li data-en="Photo/video editing" data-es="Edición foto/vídeo">Edición foto/vídeo</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+          <a href="#recruiting-form" class="btn btn-primary w-100"
+          data-en="I'm interested"
+          data-es="Me interesa">Me interesa</a>
         </div>
       </div>
     </div>
@@ -54,14 +64,18 @@
         <div class="role-icon mb-3"><i class="bi bi-code-slash"></i></div>
         <h5 class="mb-2">Desarrollo Web</h5>
         <p class="text-muted mb-3">Mantén y mejora la web de AISC con nuevas funcionalidades.</p>
-        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <p class ="text-muted small"
+        data-en="<i>Positively valued:</i>"
+        data-es="<i>Se valora positivamente:</i>"><i>Se valora positivamente:</i></p>
         <ul class="small mb-4">
-          <li>Desarrollo con HTML, CSS, JS</li>
-          <li>Conocimiento de backend PHP</li>
-          <li>Familiar con Git/GitHub</li>
+          <li data-en="Development with HTML, CSS, JS" data-es="Desarrollo con HTML, CSS, JS">Desarrollo con HTML, CSS, JS</li>
+          <li data-en="Knowledge of PHP backend" data-es="Conocimiento de backend PHP">Conocimiento de backend PHP</li>
+          <li data-en="Familiar with Git/GitHub" data-es="Familiar con Git/GitHub">Familiar con Git/GitHub</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+          <a href="#recruiting-form" class="btn btn-primary w-100"
+          data-en="I'm interested"
+          data-es="Me interesa">Me interesa</a>
         </div>
       </div>
     </div>
@@ -72,15 +86,19 @@
         <div class="role-icon mb-3"><i class="bi bi-mortarboard"></i></div>
         <h5 class="mb-2">Eventos y Talleres</h5>
         <p class="text-muted mb-3">Diseño y coordinación de eventos y talleres, además de contacto con ponentes.</p>
-        <p class ="text-muted small"><i>Se valora positivamente:</i></p>
+        <p class ="text-muted small"
+        data-en="<i>Positively valued:</i>"
+        data-es="<i>Se valora positivamente:</i>"><i>Se valora positivamente:</i></p>
         <ul class="small mb-4">
-          <li>Creatividad e iniciativa</li>
-          <li>Hablidades de comunicación</li>
-          <li>Habilidades de organización y planificación</li>
-          <li>Interés en divulgación tecnológica</li>
+          <li data-en="Creativity and initiative" data-es="Creatividad e iniciativa">Creatividad e iniciativa</li>
+          <li data-en="Communication skills" data-es="Hablidades de comunicación">Hablidades de comunicación</li>
+          <li data-en="Organizational and planning skills" data-es="Habilidades de organización y planificación">Habilidades de organización y planificación</li>
+          <li data-en="Interest in technology outreach" data-es="Interés en divulgación tecnológica">Interés en divulgación tecnológica</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100">Me interesa</a>
+          <a href="#recruiting-form" class="btn btn-primary w-100"
+          data-en="I'm interested"
+          data-es="Me interesa">Me interesa</a>
         </div>
       </div>
     </div>
