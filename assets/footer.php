@@ -28,7 +28,10 @@
 
     <!-- Terms -->
     <div class="footer-terms text-end w-100">
+      <a href="/index.php#newsletter" class="footer-link-text">Newsletter</a>
+      <a> | </a>
       <a href="terms_conditions.php" class="footer-link-text">Términos y Condiciones</a>
     </div>
+    <!-- Newsletter -->
   </div>
 </footer>
