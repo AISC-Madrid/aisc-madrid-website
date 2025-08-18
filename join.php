@@ -152,14 +152,14 @@
             <div class="mb-3">
               <label for="name" class="form-label" style="color: black"
               data-en="Full name"
-              data-es="Nombre completo">Nombre completo</label>
-              <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name_value); ?>" required>
+              data-es="Nombre y apellidos">Nombre y apellidos</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Michael Scott" value="<?php echo htmlspecialchars($name_value); ?>" required>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label" style="color: black"
               data-en="Email"
               data-es="Correo electrónico">Correo electrónico</label>
-              <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email_value); ?>" required>
+              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?php echo htmlspecialchars($email_value); ?>" required>
             </div>
             <div class="mb-3">
               <label for="position" class="form-label" style="color: black"
