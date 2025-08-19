@@ -114,7 +114,7 @@
   </div>
 </section>
 
-<div class="text-center" style="margin-top: 5rem;" id="recruiting-form">
+<div class="text-center scroll-margin" style="margin-top: 5rem;" id="recruiting-form">
   <h4 class="fw-bold"style="color: var(--secondary);" data-es="Rellena el formulario y únete a nuestro equipo" data-en="Fill out the form and join our team">
     Rellena el formulario y únete a nuestro equipo
   </h4>
