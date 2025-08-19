@@ -35,7 +35,7 @@
     <!-- Card 1 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
-        <div class="role-icon mb-3"><i class="bi bi-megaphone"></i></div>
+        <div class="role-icon-pink mb-3"><i class="bi bi-megaphone"></i></div>
         <h5 class="mb-2"
         data-en="Social Media, Design and Marketing"
         data-es="Redes Sociales, Diseño y Marketing">Redes Sociales, Diseño y Marketing</h5>
@@ -51,7 +51,7 @@
           <li data-en="Photo/video editing" data-es="Edición foto/vídeo">Edición foto/vídeo</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100"
+          <a href="join.php#recruiting-form" class="btn btn-primary w-100"
           data-en="I'm interested"
           data-es="Me interesa">Me interesa</a>
         </div>
@@ -61,7 +61,7 @@
     <!-- Card 2 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
-        <div class="role-icon mb-3"><i class="bi bi-code-slash"></i></div>
+        <div class="role-icon-pink mb-3"><i class="bi bi-code-slash"></i></div>
         <h5 class="mb-2"
         data-en="Web Developement"
         data-es="Desarrollo Web">Desarrollo Web</h5>
@@ -78,7 +78,7 @@
           <li data-en="Familiar with Git/GitHub" data-es="Familiar con Git/GitHub">Familiar con Git/GitHub</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100"
+          <a href="join.php#recruiting-form" class="btn btn-primary w-100"
           data-en="I'm interested"
           data-es="Me interesa">Me interesa</a>
         </div>
@@ -88,7 +88,7 @@
     <!-- Card 3 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="role-card h-100 d-flex flex-column">
-        <div class="role-icon mb-3"><i class="bi bi-mortarboard"></i></div>
+        <div class="role-icon-pink mb-3"><i class="bi bi-mortarboard"></i></div>
         <h5 class="mb-2"
         data-en="Events and Workshops"
         data-es="Eventos y Talleres">Eventos y Talleres</h5>
@@ -105,7 +105,7 @@
           <li data-en="Interest in technology outreach" data-es="Interés en divulgación tecnológica">Interés en divulgación tecnológica</li>
         </ul>
         <div class="mt-auto">
-          <a href="#recruiting-form" class="btn btn-primary w-100"
+          <a href="join.php#recruiting-form" class="btn btn-primary w-100"
           data-en="I'm interested"
           data-es="Me interesa">Me interesa</a>
         </div>
