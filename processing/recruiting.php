@@ -38,7 +38,7 @@ $checkStmt->store_result();
 if ($checkStmt->num_rows > 0) {
     $checkStmt->close();
     $conn->close();
-    header("Location: /join.php?error_duplicate=1&name=$name&email=$email&position=$position&reason=$reason&consent=$consent#get-involved");
+    header("Location: /join.php?error_duplicate=1&name=$name&email=$email&position=$position&reason=$reason&consent=$consent#recruiting-form");
     exit;
 }
 $checkStmt->close();
