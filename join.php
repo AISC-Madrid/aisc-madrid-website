@@ -15,7 +15,7 @@
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
       <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px;"
-      data-en="At AISC Madrid, we are looking for new members for the <stron>2025/2026 academic year.</strong>
+      data-en="At AISC Madrid, we are looking for new members for the <strong>2025/2026 academic year.</strong>
       <br>
       If you are pursuing a Bachelor's or Master's degree at UC3M, are committed and enthusiastic about what you do, enjoy working in a team, and want to contribute your ideas, this is the place for you."
       data-es="En AISC Madrid buscamos nuevas incorporaciones para el <strong>curso 2025/2026.</strong>
