@@ -64,13 +64,13 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
-                  <i class="fa-solid fa-brain fs-2"></i>
+                <div class="role-icon-pink mb-3">
+                  <i class="bi bi-robot fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="Engineering and Artificial Intelligence" data-es="Ingeniería e Inteligencia Artificial">Ingeniería e Inteligencia Artificial</h5>
                 <p class="card-text" data-en="Student Association at University Carlos III of Madrid." data-es="Asociación de estudiantes en la Universidad Carlos III de Madrid.">
                   Asociación de estudiantes en la Universidad Carlos III de Madrid.
-                </p>
+                </p>  
               </div>
             </div>
           </div>
@@ -79,8 +79,8 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
-                  <i class="bi bi-tools fs-2 "></i>
+                <div class="role-icon-pink mb-3">
+                  <i class="bi bi-gear fs-2 "></i>
                 </div>
                 <h5 class="card-title" data-en="Workshops" data-es="Talleres">Talleres</h5>
                 <p class="card-text" data-en="Demystify AI by acquiring practical skills demanded by the industry." data-es="Desmitifica la IA adquiriendo habilidades prácticas demandas por la industria.">
@@ -94,7 +94,7 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--primary);">
+                <div class="role-icon-pink mb-3">
                   <i class="bi bi-diagram-3 fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="Events and Connections" data-es="Eventos y Conexiones">Eventos y Conexiones</h5>
@@ -109,7 +109,7 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
+                <div class="role-icon-blue mb-3">
                   <i class="bi bi-people fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="Community" data-es="Comunidad">Comunidad</h5>
@@ -124,7 +124,7 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
+                <div class="role-icon-blue mb-3">
                   <i class="bi bi-globe-americas fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="International Network" data-es="Red Internacional">Red Internacional</h5>
@@ -139,8 +139,8 @@ include("assets/head.php");
           <div class="col-md-4">
             <div class="card h-100 shadow-sm no-hover">
               <div class="card-body d-flex flex-column">
-                <div class="mb-3 d-inline-flex align-items-center justify-content-center rounded text-white" style="width:50px; height:50px; background-color: var(--secondary);">
-                  <i class="bi bi-rocket-takeoff fs-2"></i>
+                <div class="role-icon-blue mb-3">
+                  <i class="bi bi-lightbulb fs-2"></i>
                 </div>
                 <h5 class="card-title" data-en="Welcome" data-es ="Bienvenid@">Bienvenid@</h5>
                 <p class="card-text" data-en="Join us and enjoy the process!" data-es="¡Únete y disfruta del proceso!">
