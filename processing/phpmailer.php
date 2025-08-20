@@ -13,7 +13,7 @@ $email = trim($_POST['email'] ?? '');
 $consent = isset($_POST['consent']) ? 1 : 0;
 
 if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: /index.php?error=validation#get-involved");
+    header("Location: /index.php?error=validation#newsletter");
     exit;
 }
 
@@ -26,14 +26,14 @@ $checkStmt->execute();
 $checkStmt->store_result();
 
 if ($checkStmt->num_rows > 0) {
-    header("Location: /index.php?error=duplicate#get-involved");
+    header("Location: /index.php?error=duplicate#newsletter");
     $checkStmt->close();
     $conn->close();
     exit;
 }
 $checkStmt->close();
 
-// Insertar en DB con token
+// Insertar token in DB
 $token = bin2hex(random_bytes(16));
 
 $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email, newsletter, unsubscribe_token) VALUES (?, ?, 'yes', ?)");
@@ -44,9 +44,7 @@ if ($stmt->execute()) {
     $mail = new PHPMailer;
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
-    $mail->SMTPDebug = 2; // muestra toda la conversación SMTP
-    $mail->Debugoutput = 'html';
-
+    $mail->SMTPDebug = 0;
     $mail->Host = 'smtp.hostinger.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
@@ -96,9 +94,9 @@ if ($stmt->execute()) {
         error_log('Mailer Error: ' . $mail->ErrorInfo);
     }
 
-    // Página de confirmación
+    // Mostrar HTML de confirmación
     ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="es">
     <?php include("../assets/head.php"); ?>
     <body class="bg-light d-flex flex-column align-items-center justify-content-center vw-100 vh-100">
@@ -122,7 +120,6 @@ if ($stmt->execute()) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
     </html>
-
     <?php
 } else {
     ?>
