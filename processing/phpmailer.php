@@ -1,5 +1,4 @@
 <?php
-
 if (false) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -20,7 +19,7 @@ if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL))
 
 include("../assets/db.php");
 
-// Verify if mail already in DB
+// Verificar si el correo ya existe
 $checkStmt = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkStmt->bind_param("s", $email);
 $checkStmt->execute();
@@ -34,118 +33,58 @@ if ($checkStmt->num_rows > 0) {
 }
 $checkStmt->close();
 
-// Insert into DB
-$token = bin2hex(random_bytes(16)); // unsuscribe token
+// Insertar en DB con token
+$token = bin2hex(random_bytes(16));
 
 $stmt = $conn->prepare("INSERT INTO form_submissions (full_name, email, newsletter, unsubscribe_token) VALUES (?, ?, 'yes', ?)");
 $stmt->bind_param("sss", $name, $email, $token);
 
-
 if ($stmt->execute()) {
-    // Send email with PHPMailer
+    // Enviar correo
     $mail = new PHPMailer;
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
-    $mail->SMTPDebug = 0; 
+    $mail->SMTPDebug = 0;
     $mail->Host = 'smtp.hostinger.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    
+
     $config = include('../config.php');
-    
     $mail->Username = $config['smtp_user'];
     $mail->Password = $config['smtp_pass'];
     $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
     $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
     $mail->addAddress($email, explode(' ', $name)[0]);
-    $mail->Subject ='¡Bienvenid@ a la comunidad AISC Madrid!';
+    $mail->Subject = '¡Bienvenid@ a la comunidad AISC Madrid!';
 
-$htmlContent = "
-<html>
-<head><title>¡Bienvenid@ a la comunidad AISC Madrid!</title></head>
-<body>
-  <h2>¡Hola " . explode(' ', $name)[0] . "!</h2>
-  <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
-  <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
-  <p>Estamos encantados de tenerte con nosotros. Puedes unirte a la comunidad de WhatsApp aquí:</p>
+    $htmlContent = "
+    <html>
+    <head><title>¡Bienvenid@ a la comunidad AISC Madrid!</title></head>
+    <body>
+      <h2>¡Hola " . explode(' ', $name)[0] . "!</h2>
+      <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
+      <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
+      <p>Estamos encantados de tenerte con nosotros. Puedes unirte a la comunidad de WhatsApp aquí:</p>
 
-  <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
-  target='_blank'
-  style='
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      background-color: #25D366;
-      color: white !important;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      margin-top: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  '>Únete a la comunidad AISC Madrid en WhatsApp</a>
+      <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
+      target='_blank'
+      style='display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background-color: #25D366; color: white !important; text-decoration: none; border-radius: 5px; font-weight: bold; font-family: Arial, sans-serif; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>Únete a la comunidad AISC Madrid en WhatsApp</a>
 
-  <br><br>
+      <br><br>
 
-  <p>Síguenos también en redes sociales:</p>
+      <p>Síguenos también en redes sociales:</p>
 
-  <a href='https://instagram.com/aisc_madrid'
-  target='_blank'
-  style='
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      background-color: #D43089;
-      color: white !important;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      margin-top: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  '>Instagram</a>
+      <a href='https://instagram.com/aisc_madrid' target='_blank' style='display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background-color: #D43089; color: white !important; text-decoration: none; border-radius: 5px; font-weight: bold; font-family: Arial, sans-serif; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>Instagram</a>
 
-  <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
-  target='_blank'
-  style='
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      background-color: #0B66C3;
-      color: white !important;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      margin-top: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  '>LinkedIn</a>
+      <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background-color: #0B66C3; color: white !important; text-decoration: none; border-radius: 5px; font-weight: bold; font-family: Arial, sans-serif; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>LinkedIn</a>
 
-  <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
+      <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
 
-  <!-- Botón cancelar suscripción abajo a la derecha -->
-  <div style='text-align:right; margin-top:30px;'>
-      <a href='https://aiscmadrid.com/unsubscribe.php?token=" . urlencode($token) . "'
-      style='
-          display:inline-block;
-          padding:8px 15px;
-          background-color:#dc3545;
-          color:white !important;
-          text-decoration:none;
-          border-radius:5px;
-          font-weight:bold;
-          font-family:Arial, sans-serif;
-          font-size:12px;
-          box-shadow:0 4px 6px rgba(0,0,0,0.1);
-      '>Cancelar suscripción Newsletter</a>
-  </div>
-
-</body>
-</html>";
-
+      <div style='text-align:right; margin-top:30px;'>
+          <a href='https://aiscmadrid.com/unsubscribe.php?token=" . urlencode($token) . "' style='display:inline-block; padding:8px 15px; background-color:#dc3545; color:white !important; text-decoration:none; border-radius:5px; font-weight:bold; font-family:Arial, sans-serif; font-size:12px; box-shadow:0 4px 6px rgba(0,0,0,0.1);'>Cancelar suscripción Newsletter</a>
+      </div>
+    </body>
+    </html>";
 
     $mail->isHTML(true);
     $mail->Body = $htmlContent;
@@ -155,15 +94,16 @@ $htmlContent = "
         error_log('Mailer Error: ' . $mail->ErrorInfo);
     }
 
-    // Mostrar HTML de confirmación
+    // Página de confirmación
     ?>
     <!DOCTYPE html>
     <html lang="es">
     <?php include("../assets/head.php"); ?>
-    <body class="bg-light d-flex flex-column align-items-center justify-content-center vw-100 vh-100">
-        <?php include("../assets/nav.php") ?>
-        <div class="text-center d-flex flex-column align-items-center justify-content-center h-100">
-            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
+    <body class="bg-light d-flex flex-column min-vh-100">
+        <?php include("../assets/nav.php"); ?>
+
+        <div class="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1">
+            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary); max-width:400px;">
                 <h4 class="alert-heading">¡Gracias por unirte!</h4>
                 <p>Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.</p>
                 <hr>
@@ -176,8 +116,9 @@ $htmlContent = "
                 <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
             </a>
         </div>
-        </div>
+
         <?php include('../assets/footer.php'); ?>
+
         <script src="../js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
