@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (languageBtn) languageBtn.textContent = lang.toUpperCase();
         document.querySelectorAll('[data-en]').forEach(el => {
             const html = el.dataset[lang]; // e.g., "&lt;strong&gt;Hello&lt;/strong&gt;"
-            if (html) el.innerHTML = decodeHtml(html); // now <strong> works
+            if (html) el.innerHTML = html; // now <strong> works
         });
         localStorage.setItem('lang', lang);
     };
