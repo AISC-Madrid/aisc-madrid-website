@@ -13,7 +13,6 @@
         Únete al equipo de AISC Madrid
       </h2>
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-    </div>
       <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px;"
       data-en="At AISC Madrid, we are looking for new members for the <strong>2025/2026 academic year.</strong>
       <br>
@@ -25,7 +24,7 @@
       <br>
       Si estudias un Grado o Máster en la UC3M, eres comprometido y entusiasta con lo que haces, te gusta trabajar en equipo y quieres aportar tus ideas, ¡este es tu sitio!.
       </h6>
-
+    </div>
 <section class="container my-5">
   <h3 class="fw-bold text-center mb-4" style="color: var(--primary);"
   data-en="Open roles"
