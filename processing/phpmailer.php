@@ -99,35 +99,29 @@ if ($stmt->execute()) {
     // Página de confirmación
     ?>
 <!DOCTYPE html>
-<html lang="es">
-<?php include("../assets/head.php"); ?>
-<body class="bg-light d-flex flex-column">
-
-    <?php include("../assets/nav.php"); ?>
-
-    <main class="container my-4 d-flex flex-column align-items-center text-center" style="margin-top: 1rem;">
-        <!-- Cuadro de gracias -->
-        <div class="alert shadow-lg" role="alert" style="background-color: var(--primary); max-width:400px;">
-            <h4 class="alert-heading">¡Gracias por unirte!</h4>
-            <p>Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.</p>
-            <hr>
-            <a href="/" class="btn btn-form">Volver al inicio</a>
+    <html lang="es">
+    <?php include("../assets/head.php"); ?>
+    <body class="bg-light d-flex flex-column align-items-center justify-content-center vw-100 vh-100">
+        <?php include("../assets/nav.php") ?>
+        <div class="text-center d-flex flex-column align-items-center justify-content-center h-100">
+            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary);">
+                <h4 class="alert-heading">¡Gracias por unirte!</h4>
+                <p>Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.</p>
+                <hr>
+                <a href="/" class="btn btn-form">Volver al inicio</a>
+            </div>
+            <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
+                target="_blank"
+                class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
+                <i class="bi bi-whatsapp fs-4"></i>
+                <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
+            </a>
         </div>
-
-        <!-- Botón comunidad WhatsApp -->
-        <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
-            target="_blank"
-            class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
-            <i class="bi bi-whatsapp fs-4"></i>
-            <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
-        </a>
-    </main>
-
-    <?php include('../assets/footer.php'); ?>
-
-</body>
-
-</html>
+        <?php include('../assets/footer.php'); ?>
+        <script src="../js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
 
     <?php
 } else {
