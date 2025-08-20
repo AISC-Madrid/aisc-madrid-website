@@ -13,7 +13,7 @@ $email = trim($_POST['email'] ?? '');
 $consent = isset($_POST['consent']) ? 1 : 0;
 
 if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: /?error=validation#get-involved");
+    header("Location: /index.php?error=validation#get-involved");
     exit;
 }
 
@@ -26,7 +26,7 @@ $checkStmt->execute();
 $checkStmt->store_result();
 
 if ($checkStmt->num_rows > 0) {
-    header("Location: /?error=duplicate#get-involved");
+    header("Location: /index.php?error=duplicate#get-involved");
     $checkStmt->close();
     $conn->close();
     exit;
@@ -105,7 +105,7 @@ if ($stmt->execute()) {
 
     <?php include("../assets/nav.php"); ?>
 
-    <main class="container my-4 d-flex flex-column align-items-center text-center">
+    <main class="container my-4 d-flex flex-column align-items-center text-center" style="margin-top: 1rem;">
         <!-- Cuadro de gracias -->
         <div class="alert shadow-lg" role="alert" style="background-color: var(--primary); max-width:400px;">
             <h4 class="alert-heading">¡Gracias por unirte!</h4>
@@ -125,9 +125,8 @@ if ($stmt->execute()) {
 
     <?php include('../assets/footer.php'); ?>
 
-    <script src="../js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
     <?php
