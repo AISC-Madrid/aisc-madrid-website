@@ -4,7 +4,7 @@
     
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
-      <img src="images/logos/SVG/navbar - AISC Madrid logo and letters.svg" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler button for mobile -->
@@ -17,24 +17,29 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
 
-        <!-- Team Section -->
-        <li class="nav-item">
-          <a class="nav-link" href="#team" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
-        </li>
-
         <!-- Events Section -->
         <li class="nav-item">
           <a class="nav-link" href="#events" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
-        <!-- Newsletter or Updates Section -->
+        <!-- Team Section -->
         <li class="nav-item">
-          <a class="nav-link" href="#get-involved" data-en="Don't miss a thing" data-es="Mantente al tanto" title="Suscríbete para no perderte nada">Mantente al tanto</a>
+          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
+        </li>
+             
+        <!-- Learn more Section -->
+        <li class="nav-item">
+          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
+        </li>
+
+        <!-- Get involved Section -->
+        <li class="nav-item">
+          <a class="nav-link" href="join.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
         </li>
 
         <!-- Log In Button -->
         <li class="nav-item">
-          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/login" data-en="Log In" data-es="Inicia Sesión" role="button" title="Inicia sesión o regístrate">Inicia Sesión</a>
+          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/events/login.php" data-en="Log In" data-es="Inicia Sesión" role="button" title="Inicia sesión o regístrate">Inicia Sesión</a>
         </li>
 
         <!-- Language Selector -->

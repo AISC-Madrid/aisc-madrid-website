@@ -1,12 +1,14 @@
-<footer class="" style=" width:100%; margin-top: auto;">
-  <div class="footer-container">
-    <div class="footer-left">
+<footer style="footer;">
+  <div class="footer-container d-flex justify-content-between align-items-center flex-wrap">
+    <!-- Logo -->
+    <div class="footer-left mb-2">
       <a href="#">
-      <img src="images/logos/SVG/Logo AISC Madrid.svg" href = "#" alt="AISC Madrid Logo" style="width:40px; height:auto; vertical-align:middle; margin-right:8px;">
+        <img src="images/logos/PNG/AISC Logo Color.png" alt="AISC Madrid Logo" style="height:50px;">
       </a>
     </div>
-    
-    <div class="footer-right">
+
+    <!-- Social icons -->
+    <div class="footer-right d-flex gap-3 flex-wrap mb-1">
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-instagram footer-icon"></i>
       </a>
@@ -23,5 +25,13 @@
         <i class="bi bi-envelope footer-icon"></i>
       </a>
     </div>
+
+    <!-- Terms -->
+    <div class="footer-terms text-end w-100">
+      <a href="/index.php#newsletter" class="footer-link-text">Newsletter</a>
+      <a> | </a>
+      <a href="terms_conditions.php" class="footer-link-text" data-en="Terms and Conditions" data-es="Terms and Conditions">Términos y Condiciones</a>
+    </div>
+    <!-- Newsletter -->
   </div>
 </footer>

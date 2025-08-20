@@ -1,4 +1,4 @@
-document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
+/* document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
     button.addEventListener('click', () => {
         const target = document.querySelector(button.getAttribute('data-bs-target'));
         const showText = button.querySelector('.show-map, .show-stream');
@@ -11,4 +11,5 @@ document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
             hideText.classList.remove('d-none');
         }
     });
-});
+}); */
+/* Not using JSON anymore since it is easier to store it in the database */
