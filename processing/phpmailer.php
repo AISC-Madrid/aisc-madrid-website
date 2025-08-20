@@ -83,7 +83,7 @@ if ($stmt->execute()) {
       <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
 
       <div style='text-align:right; margin-top:30px;'>
-          <a href='https://aiscmadrid.com/unsubscribe.php?token=" . urlencode($token) . "' style='display:inline-block; padding:8px 15px; background-color:#dc3545; color:white !important; text-decoration:none; border-radius:5px; font-weight:bold; font-family:Arial, sans-serif; font-size:12px; box-shadow:0 4px 6px rgba(0,0,0,0.1);'>Cancelar suscripción Newsletter</a>
+          <a href='https://orange-shark-883400.hostingersite.com/unsubscribe.php?token=" . urlencode($token) . "' style='color: black; text-decoration: underline; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
       </div>
     </body>
     </html>";
@@ -98,33 +98,38 @@ if ($stmt->execute()) {
 
     // Página de confirmación
     ?>
-    <!DOCTYPE html>
-    <html lang="es">
-    <?php include("../assets/head.php"); ?>
-    <body class="bg-light d-flex flex-column min-vh-100">
-        <?php include("../assets/nav.php"); ?>
+<!DOCTYPE html>
+<html lang="es">
+<?php include("../assets/head.php"); ?>
+<body class="bg-light d-flex flex-column">
 
-        <div class="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1">
-            <div class="alert shadow-lg" role="alert" style="background-color: var(--primary); max-width:400px;">
-                <h4 class="alert-heading">¡Gracias por unirte!</h4>
-                <p>Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.</p>
-                <hr>
-                <a href="/" class="btn btn-form">Volver al inicio</a>
-            </div>
-            <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
-                target="_blank"
-                class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
-                <i class="bi bi-whatsapp fs-4"></i>
-                <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
-            </a>
+    <?php include("../assets/nav.php"); ?>
+
+    <main class="container my-4 d-flex flex-column align-items-center text-center">
+        <!-- Cuadro de gracias -->
+        <div class="alert shadow-lg" role="alert" style="background-color: var(--primary); max-width:400px;">
+            <h4 class="alert-heading">¡Gracias por unirte!</h4>
+            <p>Hemos recibido tus datos correctamente. Revisa tu bandeja de entrada o spam.</p>
+            <hr>
+            <a href="/" class="btn btn-form">Volver al inicio</a>
         </div>
 
-        <?php include('../assets/footer.php'); ?>
+        <!-- Botón comunidad WhatsApp -->
+        <a href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
+            target="_blank"
+            class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 mt-3 shadow-lg join-whatsapp-button">
+            <i class="bi bi-whatsapp fs-4"></i>
+            <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
+        </a>
+    </main>
 
-        <script src="../js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-    </html>
+    <?php include('../assets/footer.php'); ?>
+
+    <script src="../js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
     <?php
 } else {
     ?>
