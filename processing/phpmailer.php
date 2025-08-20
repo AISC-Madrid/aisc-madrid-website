@@ -44,7 +44,9 @@ if ($stmt->execute()) {
     $mail = new PHPMailer;
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
-    $mail->SMTPDebug = 0;
+    $mail->SMTPDebug = 2; // muestra toda la conversación SMTP
+    $mail->Debugoutput = 'html';
+
     $mail->Host = 'smtp.hostinger.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
