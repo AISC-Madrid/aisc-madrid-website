@@ -23,7 +23,7 @@ if (!empty($errors)) {
         'reason' => $reason,
         'consent' => $consent
     ]));
-    header("Location: /join.php?$query#get-involved");
+    header("Location: /join.php?$query#recruiting-form");
     exit;
 }
 
@@ -72,6 +72,6 @@ if ($checkForm->num_rows === 0) {
 $conn->close();
 
 // Sucess redirect
-header("Location: /join.php?success=1#get-involved");
+header("Location: /join.php?success=1#recruiting-form");
 exit;
 ?>
