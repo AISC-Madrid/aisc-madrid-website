@@ -18,10 +18,10 @@
       data-en="At AISC Madrid, we are looking for new members for the <strong>2025/2026 academic year.</strong>
       <br>
       If you are pursuing a Bachelor's or Master's degree at UC3M, are committed and enthusiastic about what you do, enjoy working in a team, and want to contribute your ideas, this is the place for you."
-      data-es="En AISC Madrid buscamos nuevas incorporaciones para el &lt;strong&gt;curso 2025/2026.&lt;/strong&gt;
+      data-es="En AISC Madrid buscamos nuevas incorporaciones para el <strong>curso 2025/2026.</strong>
       <br>
       Si estudias un Grado o Máster en la UC3M, eres comprometido y entusiasta con lo que haces, te gusta trabajar en equipo y quieres aportar tus ideas, ¡este es tu sitio!.">
-      En AISC Madrid buscamos nuevas incorporaciones para el &lt;strong&gt;curso 2025/2026.&lt;/strong&gt;
+      En AISC Madrid buscamos nuevas incorporaciones para el <strong>curso 2025/2026.</strong>
       <br>
       Si estudias un Grado o Máster en la UC3M, eres comprometido y entusiasta con lo que haces, te gusta trabajar en equipo y quieres aportar tus ideas, ¡este es tu sitio!.
       </h6>
