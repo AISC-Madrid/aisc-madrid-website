@@ -61,7 +61,7 @@ if ($checkForm->num_rows === 0) {
     // Generate unsubscribe token
     $unsubscribe_token = bin2hex(random_bytes(16)); 
 
-    $stmt2 = $conn->prepare("INSERT INTO form_submission (full_name, email, unsubscribe_token) VALUES (?, ?, ?)");
+    $stmt2 = $conn->prepare("INSERT INTO form_submissions (full_name, email, unsubscribe_token) VALUES (?, ?, ?)");
     $stmt2->bind_param("sss", $name, $email, $unsubscribe_token);
     $stmt2->execute();
     $stmt2->close();
