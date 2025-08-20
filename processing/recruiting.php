@@ -49,8 +49,8 @@ $stmt->bind_param("ssss", $name, $email, $position, $reason);
 $stmt->execute();
 $stmt->close();
 
-// Save in form_submission (newsletter) table if not already present
-$checkForm = $conn->prepare("SELECT id FROM form_submission WHERE email = ?");
+// Save in form_submissions (newsletter) table if not already present
+$checkForm = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkForm->bind_param("s", $email);
 $checkForm->execute();
 $checkForm->store_result();
