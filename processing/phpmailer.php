@@ -81,7 +81,7 @@ if ($stmt->execute()) {
       <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
 
       <div style='text-align:right; margin-top:30px;'>
-          <a href='https://orange-shark-883400.hostingersite.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: black; text-decoration: underline; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+          <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: black; text-decoration: underline; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
       </div>
     </body>
     </html>";
