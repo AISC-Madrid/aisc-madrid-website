@@ -99,8 +99,13 @@ if ($stmt->execute()) {
     <!DOCTYPE html>
     <html lang="es">
     <?php include("../assets/head.php"); ?>
-    <body>
-        <div class="bg-light d-flex flex-column align-items-center justify-content-center" style="height:80vh" >      
+    <style>
+        footer{
+            width: 100%;
+        }
+    </style>
+    <body style="height:100vh">
+        <div class="bg-light d-flex flex-column align-items-center justify-content-center h-100" >      
         
         <?php include("../assets/nav.php") ?>
         <div class="text-center d-flex flex-column align-items-center justify-content-center h-100">
@@ -117,8 +122,9 @@ if ($stmt->execute()) {
                 <span>Únete a la comunidad AISC Madrid en WhatsApp</span>
             </a>
         </div>
-        </div>
         <?php include('../assets/footer.php'); ?>
+        </div>
+        
         
         <script src="../js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
