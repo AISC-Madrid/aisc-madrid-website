@@ -23,7 +23,7 @@ if (!empty($errors)) {
         'reason' => $reason,
         'consent' => $consent
     ]));
-    header("Location: /join.php?$query#get-involved");
+    header("Location: /join.php?$query#recruiting-form");
     exit;
 }
 
@@ -48,9 +48,30 @@ $stmt = $conn->prepare("INSERT INTO recruiting_2025 (full_name, email, position,
 $stmt->bind_param("ssss", $name, $email, $position, $reason);
 $stmt->execute();
 $stmt->close();
+
+// Save in form_submissions (newsletter) table if not already present
+$checkForm = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
+$checkForm->bind_param("s", $email);
+$checkForm->execute();
+$checkForm->store_result();
+
+if ($checkForm->num_rows === 0) {
+    $checkForm->close();
+
+    // Generate unsubscribe token
+    $unsubscribe_token = bin2hex(random_bytes(16)); 
+
+    $stmt2 = $conn->prepare("INSERT INTO form_submissions (full_name, email, unsubscribe_token) VALUES (?, ?, ?)");
+    $stmt2->bind_param("sss", $name, $email, $unsubscribe_token);
+    $stmt2->execute();
+    $stmt2->close();
+} else {
+    $checkForm->close();
+}
+
 $conn->close();
 
-// Redirigir con éxito
-header("Location: /join.php?success=1#get-involved");
+// Sucess redirect
+header("Location: /join.php?success=1#recruiting-form");
 exit;
 ?>
