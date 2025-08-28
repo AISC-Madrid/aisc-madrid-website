@@ -97,7 +97,7 @@ $end   = new DateTime($event['end_datetime']);
                         <a href="<?= htmlspecialchars($event['google_calendar_url']) ?>" 
                            class="btn btn-sm btn-outline-secondary me-1" 
                            title="Google Calendar" target="_blank">
-                            <i class="fab fa-google"></i>
+                            <i class="bi bi-google"></i>
                         </a>
                     <?php endif; ?>
                 </div>
