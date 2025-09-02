@@ -64,7 +64,9 @@ if ($stmt->execute()) {
       <h2>¡Hola " . explode(' ', $name)[0] . "!</h2>
       <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
       <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
-      <p>Estamos encantados de tenerte con nosotros. Puedes unirte a la comunidad de WhatsApp aquí:</p>
+      <p>Estamos encantados de tenerte con nosotros.</p>
+      <br>
+      <p>Únete a la comunidad de WhatsApp para ser parte de la comunidad AISC Madrid y enterarte de los eventos y oportunidades en exclusiva:</p>
 
       <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
       target='_blank'
@@ -81,7 +83,7 @@ if ($stmt->execute()) {
       <p>Nos vemos pronto,<br>Equipo de AISC UC3M</p>
 
       <div style='text-align:right; margin-top:30px;'>
-          <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: black; text-decoration: underline; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+          <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
       </div>
     </body>
     </html>";
