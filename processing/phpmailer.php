@@ -62,11 +62,10 @@ if ($stmt->execute()) {
     <head><title>¡Bienvenid@ a la comunidad AISC Madrid!</title></head>
     <body>
       <h2>¡Hola " . explode(' ', $name)[0] . "!</h2>
-      <p>Gracias por unirte a la comunidad de <strong>AISC Madrid</strong>.</p>
+      <p>Gracias por unirte a la newsletter de <strong>AISC Madrid</strong>.</p>
       <p>A partir de ahora, recibirás noticias sobre nuestros próximos eventos, talleres y actividades.</p>
       <p>Estamos encantados de tenerte con nosotros.</p>
-      <br>
-      <p>Únete a la comunidad de WhatsApp para ser parte de la comunidad AISC Madrid y enterarte de los eventos y oportunidades en exclusiva:</p>
+      <p>Únete al canal de WhatsApp para ser parte de la comunidad AISC Madrid y enterarte de los eventos y oportunidades en exclusiva:</p>
 
       <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'
       target='_blank'
