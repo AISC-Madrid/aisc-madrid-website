@@ -122,7 +122,11 @@ if ($result->num_rows > 0) {
                             <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
                             style='color:#007BFF; text-decoration:none;'>LinkedIn</a>
             <br><br>
-                        <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                        <a href=\"https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "\" 
+                        style=\"color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;\">
+                        Cancelar suscripción Newsletter
+                        </a>
+
                     </td>
                 </tr>
             </table>
