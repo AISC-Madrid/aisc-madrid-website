@@ -138,5 +138,4 @@ if (!$mail->send()) {
     error_log('Mailer Error: ' . $mail->ErrorInfo);
 }
 
-$stmt->close();
 $conn->close();
