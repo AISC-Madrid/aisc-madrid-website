@@ -80,9 +80,9 @@ if ($result->num_rows > 0) {
                         <br>
                         Hablaremos de la proyección de la asociación, de los talleres y charlas que organizaremos, y de todas las oportunidades para que puedas involucrarte desde el primer día.
                         </p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.C02B, Edificio Sabatini EPS Universidad Carlos III</p>
                         <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 11 de septiembre de 2025</p>
                         <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.C02B, Edificio Sabatini EPS Universidad Carlos III</p>
                     </td>
                 </tr>
                 
