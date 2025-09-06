@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AI Regression Game</title>
     <meta name="description"
         content="AISC Madrid is the Artificial Intelligence Student Collective at UC3M. We organize AI events, workshops, and talks to explore real-world applications of AI in university and beyond. Join the AI movement in Madrid.">
@@ -31,6 +32,12 @@
             color: gray;
             margin-top: 10px;
         }
+        /* Small devices: max-width 576px */
+@media (max-width: 576px) {
+    .chart-container {
+        max-height: 50vh;
+    }
+}
     </style>
 </head>
 
@@ -62,7 +69,7 @@
             </div>
 
             <!-- Chart -->
-            <div class="col-12 col-sm-7 bg-white rounded-3 p-0 p-sm-3" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="col-12 col-sm-7 bg-white rounded-3 p-0 p-sm-3 chart-container" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
                 <canvas class="w-100 h-100" id="chart"></canvas>
             </div>
         </div>
