@@ -103,47 +103,41 @@ if (!isset($_SESSION['user_id'])) {
         let tempClicks = [];
         let minError = 0;
 
-        // Initialize Chart.js
         const chart = new Chart(ctx, {
             type: 'scatter',
             data: {
-                datasets: [{
-                    label: 'Generated Points',
-                    data: [],
-                    backgroundColor: 'blue',
-                    pointRadius: 4,
-                    showLine: false
-                }, {
-                    label: 'Guessed Points',
-                    data: [],
-                    backgroundColor: 'black',
-                    pointRadius: 5,
-                    showLine: false
-                }]
+                datasets: [
+                    { 
+                        label: 'Generated Points',
+                        data: [],
+                        backgroundColor: 'blue',
+                        pointRadius: 4,
+                        showLine: false
+                    },
+                    { 
+                        label: 'Guessed Points',
+                        data: [],
+                        backgroundColor: 'black',
+                        pointRadius: 5,
+                        showLine: false
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        min: -10,
-                        max: 10,
-                        title: {
-                            display: true,
-                            text: "X Axis"
-                        }
-                    },
-                    y: {
-                        min: -10,
-                        max: 10,
-                        title: {
-                            display: true,
-                            text: "Y Axis"
-                        }
+                plugins: {
+                    legend: {
+                        display: false // ⚡ Aquí se oculta toda la leyenda
                     }
+                },
+                scales: {
+                    x: { min: -10, max: 10, title: { display: true, text: "X Axis" } },
+                    y: { min: -10, max: 10, title: { display: true, text: "Y Axis" } }
                 }
             }
         });
+
 
         function fetchGamePoints() {
             $.getJSON("get_random_points.php", function(data) {
