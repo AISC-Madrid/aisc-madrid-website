@@ -52,7 +52,7 @@
 </head>
 
 <body>
-    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; ">
+    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; background-color: transparent; border: none; box-shadow: none;">
 
         <!-- Title + Info (30%) -->
         <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%; background-color: transparent; border: none; box-shadow: none;">
@@ -170,54 +170,37 @@
         let email = "";
         let fullName = "";
 
-        // Initialize Chart.js
         const chart = new Chart(ctx, {
             type: 'scatter',
             data: {
-                datasets: [{
-                    label: 'Generated Points',
-                    data: [],
-                    backgroundColor: 'blue',
-                    pointRadius: 4,
-                    showLine: false
-                }, {
-                    label: 'Guessed Points',
-                    data: [],
-                    backgroundColor: 'black',
-                    pointRadius: 5,
-                    showLine: false
-                }]
+                datasets: [
+                    { 
+                        label: 'Generated Points',
+                        data: [],
+                        backgroundColor: 'blue',
+                        pointRadius: 4,
+                        showLine: false
+                    },
+                    { 
+                        label: 'Guessed Points',
+                        data: [],
+                        backgroundColor: 'black',
+                        pointRadius: 5,
+                        showLine: false
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        min: -10,
-                        max: 10,
-                        title: {
-                            display: true,
-                            text: "X Axis"
-                        }
-                    },
-                    y: {
-                        min: -10,
-                        max: 10,
-                        title: {
-                            display: true,
-                            text: "Y Axis"
-                        }
-                    }
-                },
                 plugins: {
                     legend: {
-                        labels: {
-                            filter: function(legendItem, chartData) {
-                                // Show only the dataset with label "Your Guess"
-                                return legendItem.text === "Your Guess";
-                            }
-                        }
+                        display: false
                     }
+                },
+                scales: {
+                    x: { min: -10, max: 10, title: { display: true, text: "X Axis" } },
+                    y: { min: -10, max: 10, title: { display: true, text: "Y Axis" } }
                 }
             }
         });
