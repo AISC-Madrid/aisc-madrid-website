@@ -32,8 +32,9 @@ if ($result->num_rows > 0) {
         $mail->Subject = '¡Gracias por acercarte durante la Jornada de Bienvenida!';
 
         // HTML content
-        $htmlContent = "
-        <html>
+            $htmlContent = "
+    <!DOCTYPE html>
+    <html>
         <head>
             <meta charset='UTF-8'>
             <title>Newsletter AISC Madrid</title>
@@ -42,69 +43,93 @@ if ($result->num_rows > 0) {
             <table align='center' width='600'
                 style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
-                <!-- Cabecera -->
+                <!-- Head -->
                 <tr>
                     <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                        <h1 style='margin:0; font-size:24px;'>¡Gracias por pasar por nuestro stand! </h1>
+                        <h1 style='margin:0; font-size:24px;'>Título 1 </h1>
                     </td>
                 </tr>
 
-                <!-- Imagen -->
+                <!-- Image -->
                 <tr>
                     <td align='center' style='padding:20px;'>
+                        <!-- Substitute by image path -->
                         <img src='https://aiscmadrid.com/images/events/event2/presentation.png'
                             alt='AISC Madrid - Jornada de Bienvenida' width='100%'
                             style='max-width:560px; border-radius:6px; display:block;'>
                     </td>
                 </tr>
 
-                <!-- Texto principal -->
+                <!-- Main text -->
                 <tr>
                     <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                        <p align='center'><strong>¡Fue un placer conocerte en la Jornada de Bienvenida!</strong></p>
-                            <p>Desde AISC Madrid, la primera asociación de inteligencia artificial de la EPS,
-                            estamos muy ilusionados de contar con tu energía y entusiasmo.</p>
+                        <p align='center'><strong>Subtítulo 1</strong></p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur lacus elit, vitae posuere sapien ultricies vel.
+                                Nam congue ipsum vitae tincidunt luctus.
+                                Nullam consequat laoreet nibh, nec sodales augue interdum sit amet</p>
                     </td>                
                 </tr>
 
                 <tr>
                     <td align='center' style='padding:20px; color:#EB178E;'> 
-                        <h1 style='margin:0; font-size:24px;'><strong>Invitación Evento Presentación AISC Madrid</strong></h1>
+                        <h1 style='margin:0; font-size:24px;'><strong>Tema 1</strong></h1>
                     </td>
                 </tr>
 
                 <tr>
                     <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
                         <p>
-                        Nos gustaría invitarte a la <strong>presentación oficial de AISC Madrid</strong>:
-                        <br>
-                        Hablaremos de la proyección de la asociación, de los talleres y charlas que organizaremos, y de todas las oportunidades para que puedas involucrarte desde el primer día.
-                        </p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 11 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.C02B, Edificio Sabatini EPS Universidad Carlos III</p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Nullam consectetur lacus elit, vitae posuere sapien ultricies vel.
+                            Nam congue ipsum vitae tincidunt luctus. <strong>Aliquam faucibus pretium nunc,</strong> dapibus eleifend ipsum ullamcorper eget.
+                            In hac habitasse platea dictumst. 
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
                     </td>
                 </tr>
                 
                 <tr>
                     <td align='center' style='padding:20px; color:#EB178E;'> 
-                        <h1 style='margin:0; font-size:24px;'><strong>Próximos Eventos</strong></h1>
+                        <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
                     </td>
                 </tr>
 
+                <!-- Events section -->
+                <tr>
+                    <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                        <p align='center'><strong>Eventos</strong></p>
+                            <p><strong>Título Evento 1</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+
+                            <p><strong>Título Evento 2</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+                    </td>                
+                </tr>
+                
+                <!-- Workshops section -->
                 <tr>
                     <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
                         <p align='center'><strong>Workshops</strong></p>
-                            <p><strong>Introducción a la IA & ML: Data Preprocessing</strong></p>
-                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
-                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 15 de septiembre de 2025</p>
-                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 14:00h</p>
+                            <p><strong>Título Workshop 1</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+
+                            <p><strong>Título Workshop 2</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
                         <p>Pincha el botón para más información!</p>
                     </td>                
                 </tr>
 
 
-                <!-- Botón -->
+                <!-- Button -->
                 <tr>
                     <td align='center' style='padding:20px;'>
                         <a href='https://aiscmadrid.com/#events'
@@ -114,7 +139,7 @@ if ($result->num_rows > 0) {
                     </td>
                 </tr>
 
-                <!-- Pie -->
+                <!-- Footer -->
                 <tr>
                     <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
                             Síguenos en <a href='https://instagram.com/aisc_madrid'
@@ -122,16 +147,12 @@ if ($result->num_rows > 0) {
                             <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
                             style='color:#007BFF; text-decoration:none;'>LinkedIn</a>
             <br><br>
-                        <a href=\"https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "\" 
-                        style=\"color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;\">
-                        Cancelar suscripción Newsletter
-                        </a>
-
+                        <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
                     </td>
                 </tr>
             </table>
         </body>
-        </html>";
+    </html>";
 
         $mail->isHTML(true);
         $mail->Body = $htmlContent;

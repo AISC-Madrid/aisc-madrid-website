@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>AI Regression Game</title>
+    <title>Regression Game AISC Madrid</title>
     <meta name="description"
         content="AISC Madrid is the Artificial Intelligence Student Collective at UC3M. We organize AI events, workshops, and talks to explore real-world applications of AI in university and beyond. Join the AI movement in Madrid.">
     <link rel="canonical" href="https://aiscmadrid.com/">
@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
@@ -53,36 +53,39 @@ if (!isset($_SESSION['user_id'])) {
     <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 100vh; ">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
-            <!-- <h1 class="pt-3 text-warning fw-bold  text-center">📈 AI Regression Game</h1>
-        <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p> -->
-
-            <div class="d-flex align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2" style="width:80%;">
-                <div class="d-flex flex-column align-items-center justify-content-around">
-                    <div class="text-danger fw-bold fs-2" id="info">Min error: <span id="error">0</span></div>
-                    <div id="error-message" class="error text-warning fw-semibold"></div>
-                </div>
-                <div>
-                    <h1 class="pt-3  fw-bold fs-2 text-center">📈 AI Regression Game</h1>
-                    <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
-                </div>
-                <button class="btn btn-lg btn-warning fw-bold shadow" onclick="resetGame()">🔄 Reset Game</button>
+        <div class="d-flex align-items-center justify-content-around p-2" 
+            style="width:80%; background-color: transparent; border: none; box-shadow: none;">
+            <div class="d-flex flex-column align-items-center justify-content-around">
+                <div class="text-danger fw-bold fs-2" id="info">Min error: <span id="error">0</span></div>
+                <div id="error-message" class="error text-warning fw-semibold"></div>
             </div>
+            <div>
+                <h1 class="pt-3 fw-bold fs-2 text-center">📈 Regression Game AISC Madrid</h1>
+                <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
+            </div>
+            <button class="btn btn-lg btn-warning fw-bold shadow" style="background-color: #EB178E; color: black;" onclick="resetGame()">Reset Game</button>
         </div>
 
         <!-- Game Area (80%) -->
         <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
             <!-- Leaderboard -->
-            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto;">
-                <h4 class="fw-bold text-center text-warning mb-3">🏆 Leaderboard</h4>
+            <div id="error-log" 
+                style="width: 30%; overflow-y: auto; 
+                        background-color: transparent; 
+                        border: none; 
+                        box-shadow: none; 
+                        border-radius: 0.75rem; 
+                        padding: 1rem;">
+                <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
+                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
                 </ul>
             </div>
-
             <!-- Chart -->
-            <div class="bg-white rounded-3 p-3" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+                        background-color: transparent; border: none; box-shadow: none;">
                 <canvas id="chart"></canvas>
             </div>
         </div>
@@ -92,13 +95,16 @@ if (!isset($_SESSION['user_id'])) {
 
     <script>
         const canvas = document.getElementById("chart");
+
         const ctx = canvas.getContext("2d");
         let generatedPoints = [];
+        let newGame = true;
         let userInfo = null;
         let userPlayed = false;
         let guessLine = null;
         let tempClicks = [];
-        let minError = 0;
+        let email = "";
+        let fullName = "";
 
         // Initialize Chart.js
         const chart = new Chart(ctx, {
@@ -138,9 +144,21 @@ if (!isset($_SESSION['user_id'])) {
                             text: "Y Axis"
                         }
                     }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            filter: function(legendItem, chartData) {
+                                // Show only the dataset with label "Your Guess"
+                                return legendItem.text === "Your Guess";
+                            }
+                        }
+                    }
                 }
             }
         });
+
+
 
         function fetchGamePoints() {
             $.getJSON("get_random_points.php", function(data) {
@@ -297,7 +315,6 @@ if (!isset($_SESSION['user_id'])) {
                         displayedGuesses[g.user_id] = g; // store whole guess for later sorting
                         // Draw line on chart
                         chart.data.datasets.push({
-                            label: g.full_name,
                             data: [{
                                     x: -10,
                                     y: g.slope * -10 + g.intercept
