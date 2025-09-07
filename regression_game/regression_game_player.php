@@ -267,7 +267,6 @@
                             // Hide email modal and show full name modal
                             emailModal.hide();
                             fullNameModal.show();
-                            console.log("show");
                             return;
                         } else {
                             showMessage(res.message, "Error");
