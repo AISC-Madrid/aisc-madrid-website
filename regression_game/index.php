@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
@@ -70,15 +70,22 @@ if (!isset($_SESSION['user_id'])) {
         <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
             <!-- Leaderboard -->
-            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto; background: linear-gradient(to top, #EB178E 10%, #ffffff 90%);">
+            <div id="error-log" 
+                style="width: 30%; overflow-y: auto; 
+                        background-color: transparent; 
+                        border: none; 
+                        box-shadow: none; 
+                        border-radius: 0.75rem; 
+                        padding: 1rem;">
                 <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
+                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
                 </ul>
             </div>
-
             <!-- Chart -->
-            <div class="bg-white rounded-3 p-3" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+                        background-color: transparent; border: none; box-shadow: none;">
                 <canvas id="chart"></canvas>
             </div>
         </div>
@@ -293,7 +300,6 @@ if (!isset($_SESSION['user_id'])) {
                         displayedGuesses[g.user_id] = g; // store whole guess for later sorting
                         // Draw line on chart
                         chart.data.datasets.push({
-                            label: g.full_name,
                             data: [{
                                     x: -10,
                                     y: g.slope * -10 + g.intercept
