@@ -25,7 +25,7 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
@@ -52,46 +52,47 @@
 </head>
 
 <body>
-    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; background-color: transparent; border: none; box-shadow: none;">
+    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" 
+        style="height: 120vh; background-color: transparent; border: none; box-shadow: none;">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%; background-color: transparent; border: none; box-shadow: none;">
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
+        <div class="d-flex flex-column align-items-center justify-content-center" 
+            style="flex: 2; width: 100%; background-color: transparent; border: none; box-shadow: none;">
+
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around rounded-3 p-2 w-100" 
+                style="max-width: 80%; background-color: transparent; border: none; box-shadow: none;">
+
                 <!-- Brand / Logo -->
-                <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
-                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
+                <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" 
+                href="/" title="AISC Madrid - Inicio">
+                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" 
+                        alt="Logo de AISC Madrid">
                 </a>
 
                 <!-- Title / Info -->
-                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center;"
-                style= "background-color: transparent; border: none; box-shadow: none;">
+                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center"
+                    style="background-color: transparent; border: none; box-shadow: none;">
                     <h1 class="pt-3 fw-bold fs-2">📈 Regression Game AISC Madrid</h1>
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
+
             </div>
         </div>
+    </div>
 
-
-        <!-- Game Area (80%) -->
         <div class="row w-100 py-2 px-4" style="flex:8;">
-
             <!-- Leaderboard -->
             <div id="error-log" 
-                style="width: 30%; overflow-y: auto; 
-                        background-color: transparent; 
-                        border: none; 
-                        box-shadow: none; 
-                        border-radius: 0.75rem; 
-                        padding: 1rem;">
+                class="col-12 col-md-4 mb-3" 
+                style="background-color: transparent; border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem; overflow-y: auto;">
                 <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
                 <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
-                <ul id="error-log-list"
-                    style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
-                </ul>
+                <ul id="error-log-list" class="list-unstyled fs-6 lh-lg"></ul>
             </div>
+
             <!-- Chart -->
-            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
-                        background-color: transparent; border: none; box-shadow: none;">
+            <div class="col-12 col-md-8 d-flex align-items-center justify-content-center" 
+                style="background-color: transparent; border: none; box-shadow: none;">
                 <canvas id="chart"></canvas>
             </div>
         </div>
