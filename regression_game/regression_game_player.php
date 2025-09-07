@@ -63,8 +63,9 @@
                 </a>
 
                 <!-- Title / Info -->
-                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
-                    <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
+                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center;"
+                style= "background-color: transparent; border: none; box-shadow: none;">
+                    <h1 class="pt-3 fw-bold fs-2">📈 Regression Game AISC Madrid</h1>
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
             </div>
@@ -73,18 +74,25 @@
 
         <!-- Game Area (80%) -->
         <div class="row w-100 py-2 px-4" style="flex:8;">
-
+            
             <!-- Leaderboard -->
-            <div id="error-log" class=" col-12 col-sm-3 bg-white text-dark rounded-3 py-3 me-3 mb-3 shadow-lg" style=" overflow-y: auto;">
-                <h4 class="fw-bold text-center text-warning mb-3">🏆 Leaderboard</h4>
+            <div id="error-log" 
+                style="width: 30%; overflow-y: auto; 
+                        background-color: transparent; 
+                        border: none; 
+                        box-shadow: none; 
+                        border-radius: 0.75rem; 
+                        padding: 1rem;">
+                <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
+                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
                 </ul>
             </div>
-
             <!-- Chart -->
-            <div class="col-12 col-sm-7 bg-white rounded-3 p-0 p-sm-3 chart-container" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
-                <canvas class="w-100 h-100" id="chart"></canvas>
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+                        background-color: transparent; border: none; box-shadow: none;">
+                <canvas id="chart"></canvas>
             </div>
         </div>
     </div>
