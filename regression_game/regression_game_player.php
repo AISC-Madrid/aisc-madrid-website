@@ -76,19 +76,26 @@
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
 
-        <div class="row w-100 py-2 px-4" style="flex:8;">
+        <!-- Game Area (80%) -->
+        <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
+
             <!-- Leaderboard -->
             <div id="error-log" 
-                class="col-12 col-md-4 mb-3" 
-                style="background-color: transparent; border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem; overflow-y: auto;">
+                style="width: 30%; overflow-y: auto; 
+                        background-color: transparent; 
+                        border: none; 
+                        box-shadow: none; 
+                        border-radius: 0.75rem; 
+                        padding: 1rem;">
                 <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
                 <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
-                <ul id="error-log-list" class="list-unstyled fs-6 lh-lg"></ul>
+                <ul id="error-log-list"
+                    style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
+                </ul>
             </div>
-
             <!-- Chart -->
-            <div class="col-12 col-md-8 d-flex align-items-center justify-content-center" 
-                style="background-color: transparent; border: none; box-shadow: none;">
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+                        background-color: transparent; border: none; box-shadow: none;">
                 <canvas id="chart"></canvas>
             </div>
         </div>
