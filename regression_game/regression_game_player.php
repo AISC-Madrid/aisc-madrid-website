@@ -357,7 +357,6 @@
                     }
                     userPlayed = res.already_played;
                     if (!userPlayed) {
-                        console.log("adf");
                         showMessage("NEW GAME!!", "Info");
                         newGame = true;
                         // Remove only this user’s entry from displayedGuesses
@@ -422,7 +421,7 @@
                 const intercept = p1.y - slope * p1.x;
                 // Compute error using stored points
                 const error = computeMSE(generatedPoints, slope, intercept);
-
+                const randomColor = getRandomColor();
                 // ✅ Update the info element
                 /* document.getElementById("error").textContent = error.toFixed(2); */
 
@@ -433,9 +432,11 @@
                     y1: p1.y,
                     x2: p2.x,
                     y2: p2.y,
-                    color: getRandomColor(),
+                    color: randomColor,
                     error: error
                 }, "json");
+
+                
 
                 userPlayed = true;
                 newGame = false;
@@ -457,7 +458,7 @@
 
                     let chart_label = g.full_name;
                     let chart_borderWidth = 1;
-                    if (g.user_id == (userInfo?.id ?? 0)) {
+                    if (g.user_id == (userInfo.id ?? 0)) {
                         chart_label = "Your Guess";
                         chart_borderWidth = 4;
                     }
