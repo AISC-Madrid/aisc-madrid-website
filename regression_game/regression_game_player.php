@@ -76,10 +76,6 @@
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
         <div class="row w-100 py-2 px-4" style="flex:8;">
             <!-- Leaderboard -->
             <div id="error-log" 
