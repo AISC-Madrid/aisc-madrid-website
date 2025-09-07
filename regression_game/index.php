@@ -53,14 +53,14 @@ if (!isset($_SESSION['user_id'])) {
     <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 100vh; ">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex align-items-center justify-content-around p-2" 
+        <div class="d-flex align-items-center justify-content-around p-2"
             style="width:80%; background-color: transparent; border: none; box-shadow: none;">
             <div class="d-flex flex-column align-items-center justify-content-around">
                 <div class="text-danger fw-bold fs-2" id="info">Min error: <span id="error">0</span></div>
                 <div id="error-message" class="error text-warning fw-semibold"></div>
             </div>
             <div>
-                <h1 class="pt-3 fw-bold fs-2 text-center">📈 Regression Game AISC Madrid</h1>
+                <h1 class="pt-3 fw-bold  text-center">📈 Regression Game AISC Madrid</h1>
                 <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
             </div>
             <button class="btn btn-lg btn-warning fw-bold shadow" style="background-color: #EB178E; color: black;" onclick="resetGame()">Reset Game</button>
@@ -70,19 +70,28 @@ if (!isset($_SESSION['user_id'])) {
         <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
             <!-- Leaderboard -->
-            <div id="error-log" 
-                style="width: 30%; overflow-y: auto; 
-                        background-color: transparent; 
-                        border: none; 
-                        box-shadow: none; 
-                        border-radius: 0.75rem; 
-                        padding: 1rem;">
-                <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
-                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
-                <ul id="error-log-list"
-                    style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
-                </ul>
+            <div id="error-log"
+                style="width: 30%; height: 100%; display: flex; flex-direction: column; 
+            overflow: hidden; background-color: transparent; 
+            border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem;">
+
+                <!-- Top 50%: Leaderboard -->
+                <div style="flex: 1; overflow-y: auto;">
+                    <h2 class="fw-bold text-center text-dark mb-3">Leaderboard</h2>
+                    <div class="mx-auto mb-4"
+                        style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
+                    <ul id="error-log-list"
+                        style="list-style-type: none; padding-left: 0; font-size: 1.5rem; line-height: 1.6;">
+                    </ul>
+                </div>
+
+                <!-- Bottom 50%: QR Code -->
+                <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://aiscmadrid.com/regression_game/regression_game_player.php"
+                        alt="QR Code" style="border-radius: 0.5rem;">
+                </div>
             </div>
+
             <!-- Chart -->
             <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; 
                         background-color: transparent; border: none; box-shadow: none;">
