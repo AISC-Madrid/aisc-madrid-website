@@ -70,7 +70,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
             <!-- Leaderboard -->
-            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto; background: linear-gradient(to bottom, #EB178E 10%, #ffff 90%);">
+            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto; background: linear-gradient(to top, #EB178E 10%, #ffff 90%);">
                 <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
