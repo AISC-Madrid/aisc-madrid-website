@@ -15,6 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+    <!-- Custom CSS -->
+    
+
+    <!-- Base URL -->
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,25 +52,24 @@
 </head>
 
 <body>
-    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 100vh; ">
+    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; ">
 
         <!-- Title + Info (30%) -->
         <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
-            <!-- <h1 class="pt-3 text-warning fw-bold  text-center">📈 AI Regression Game</h1>
-        <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p> -->
+    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
+            <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
+        </a>
 
-            <div class="d-flex align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2" style="width:80%;">
-                <!-- Brand / Logo -->
-                <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
-                    <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
-                </a>
-                <div class="d-flex flex-column align-items-center justify-content-around">
-
-                    <h1 class="pt-3  fw-bold fs-2 text-center">📈 AI Regression Game</h1>
-                    <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
-                </div>
-            </div>
+        <!-- Title / Info -->
+        <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
+            <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
+            <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
         </div>
+    </div>
+</div>
+
 
         <!-- Game Area (80%) -->
         <div class="row w-100 py-2 px-4" style="flex:8;">
@@ -142,9 +145,7 @@
 
 
 
-    <?php
-    include("../assets/footer.php");
-    ?>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
