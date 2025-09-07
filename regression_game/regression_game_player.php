@@ -13,6 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -32,12 +37,13 @@
             color: gray;
             margin-top: 10px;
         }
+
         /* Small devices: max-width 576px */
-@media (max-width: 576px) {
-    .chart-container {
-        max-height: 50vh;
-    }
-}
+        @media (max-width: 576px) {
+            .chart-container {
+                max-height: 50vh;
+            }
+        }
     </style>
 </head>
 
@@ -50,7 +56,12 @@
         <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p> -->
 
             <div class="d-flex align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2" style="width:80%;">
+                <!-- Brand / Logo -->
+                <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
+                    <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
+                </a>
                 <div class="d-flex flex-column align-items-center justify-content-around">
+
                     <h1 class="pt-3  fw-bold fs-2 text-center">📈 AI Regression Game</h1>
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
@@ -75,9 +86,71 @@
         </div>
     </div>
 
+    <!-- Email Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModalLabel">Enter your email</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="email" id="modalEmail" class="form-control" placeholder="your@email.com" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="submitEmail" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalTitle">Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="messageModalBody">
+                    <!-- Message goes here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Name Modal -->
+    <div class="modal fade" id="fullNameModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="modalFullName" class="form-control" placeholder="Your full name" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="submitFullName" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <?php
+    include("../assets/footer.php");
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <script>
         const canvas = document.getElementById("chart");
-        const email = prompt("Enter your email:");
+
         const ctx = canvas.getContext("2d");
         let generatedPoints = [];
         let newGame = true;
@@ -85,6 +158,8 @@
         let userPlayed = false;
         let guessLine = null;
         let tempClicks = [];
+        let email = "";
+        let fullName = "";
 
         // Initialize Chart.js
         const chart = new Chart(ctx, {
@@ -138,6 +213,16 @@
             }
         });
 
+        function showMessage(message, title = "Message") {
+            const modalEl = document.getElementById("messageModal");
+            modalEl.querySelector("#messageModalBody").innerHTML = message;
+            modalEl.querySelector(".modal-title").textContent = title;
+
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+
+
         function fetchGamePoints() {
             $.getJSON("get_random_points.php", function(data) {
                 if (!data || !Array.isArray(data)) return;
@@ -158,31 +243,90 @@
 
         // Ask user email
         function checkUser() {
-            if (!email) {
-                alert("Email is required.");
-                return;
-            }
-            $.post("register_user.php", {
-                email
-            }, function(res) {
-                if (!res.success) {
-                    alert(res.message);
+            const emailModalEl = document.getElementById('emailModal');
+            const fullNameModalEl = document.getElementById('fullNameModal');
+            const emailModal = new bootstrap.Modal(emailModalEl);
+            const fullNameModal = new bootstrap.Modal(fullNameModalEl);
+
+            emailModal.show();
+
+            // Submit email
+            $("#submitEmail").off("click").on("click", function() {
+                email = $("#modalEmail").val().trim();
+                if (!email) {
+                    showMessage("Email is required", "Error");
                     return;
                 }
-                userInfo = {
-                    id: res.user_id,
-                    full_name: res.full_name,
+
+                $.post("register_user.php", {
                     email: email
-                };
-                userPlayed = res.already_played;
-                newGame = !userPlayed;
-                if (userPlayed) {
-                    alert("You already played!");
-                } else {
-                    alert("Welcome, " + userInfo.full_name + "! Click two points to guess the line.");
+                }, function(res) {
+                    if (!res.success) {
+                        if (res.message === "Not registered") {
+                            // Hide email modal and show full name modal
+                            emailModal.hide();
+                            fullNameModal.show();
+                            console.log("show");
+                            return;
+                        } else {
+                            showMessage(res.message, "Error");
+                        }
+                        return;
+                    }
+
+                    // Email exists → store user info
+                    userInfo = {
+                        id: res.user_id,
+                        full_name: res.full_name,
+                        email: email
+                    };
+                    userPlayed = res.already_played;
+                    newGame = !userPlayed;
+                    emailModal.hide();
+
+                    if (userPlayed) showMessage("You already played!", "Info");
+                    else showMessage("Welcome, " + userInfo.full_name + "! Click two points to guess the line.", "Welcome!");
+                }, "json");
+            });
+
+            // --- Handle full name submission (registration) ---
+            $("#submitFullName").off("click").on("click", function() {
+                const fullNameVal = $("#modalFullName").val().trim();
+                if (!fullNameVal) {
+                    showMessage("Full name is required", "Error");
+                    return;
                 }
-            }, "json");
+
+                // Use the email captured from the previous step
+                $.post("register_user.php", {
+                    email,
+                    full_name: fullNameVal
+                }, function(res) {
+                    if (!res.success) {
+                        showMessage(res.message, "Error");
+                        return;
+                    }
+
+                    fullNameModal.hide();
+
+                    // Registration succeeded → store user info and continue
+                    userInfo = {
+                        id: res.user_id,
+                        full_name: fullNameVal,
+                        email: email
+                    };
+                    userPlayed = false;
+                    newGame = true;
+
+                    showMessage("Welcome, " + fullNameVal + "! Click two points to guess the line.", "Welcome!");
+                }, "json").fail(function() {
+                    console.error('AJAX error on full name submission');
+                    showMessage("An error occurred. Please try again.", "Error");
+                });
+            });
         }
+
+
 
         // Convert click to chart coords
         function getChartCoordinates(event) {
@@ -212,7 +356,8 @@
                     }
                     userPlayed = res.already_played;
                     if (!userPlayed) {
-                        alert("NEW GAME!!");
+                        console.log("adf");
+                        showMessage("NEW GAME!!", "Info");
                         newGame = true;
                         // Remove only this user’s entry from displayedGuesses
                         displayedGuesses = {};
@@ -305,12 +450,13 @@
 
                 // --- Add new guesses to chart ---
                 data.forEach(g => {
+                    if (!g || g.user_id == null) return; // skip invalid entries
                     // Skip guesses we already displayed
                     if (displayedGuesses[g.user_id]) return;
 
                     let chart_label = g.full_name;
                     let chart_borderWidth = 1;
-                    if (g.user_id == userInfo.id) {
+                    if (g.user_id == (userInfo?.id ?? 0)) {
                         chart_label = "Your Guess";
                         chart_borderWidth = 4;
                     }
@@ -348,7 +494,7 @@
                 logList.innerHTML = "";
 
                 // Add top 10
-                sorted.forEach((g, i) => {
+                data.forEach((g, i) => {
                     const li = document.createElement("li");
                     const firstName = g.full_name.split(' ')[0];
                     const capitalized = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
@@ -367,6 +513,10 @@
         setInterval(fetchGuesses, 2000);
         setInterval(playAgain, 2000);
     </script>
+
+
+
+
 </body>
 
 </html>

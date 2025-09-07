@@ -3,7 +3,9 @@ session_start();
 include("../assets/db.php");
 
 $email     = trim($_POST['email'] ?? '');
+$full_name = trim($_POST['full_name'] ?? '');
 
+// Validate email
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email']);
     exit;
@@ -19,10 +21,23 @@ if ($user = $result->fetch_assoc()) {
     $user_id = $user['id'];
     $name    = $user['full_name'];
 } else {
-    // Not registered → create
+    // If full_name provided, register new user
+    if ($full_name !== '') {
+        $token = bin2hex(random_bytes(16));
+        $stmtInsert = $conn->prepare("INSERT INTO form_submissions (full_name, email, newsletter, unsubscribe_token) VALUES (?, ?, 'yes', ?)");
+        $stmtInsert->bind_param("sss", $full_name, $email , $token);
+        if ($stmtInsert->execute()) {
+            $user_id = $stmtInsert->insert_id;
+            $name = $full_name;
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to register user']);
+            exit;
+        }
+    } else {
+        // No full name → email not registered
         echo json_encode(['success' => false, 'message' => 'Not registered']);
         exit;
-    
+    }
 }
 
 // 2. Check if user already submitted a guess
@@ -33,10 +48,12 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $already_played = ($row['c'] > 0);
 
-$_SESSION['player_id']   = $user_id;
-$_SESSION['player_name'] = $name;
+// Save session info
+$_SESSION['player_id']    = $user_id;
+$_SESSION['player_name']  = $name;
 $_SESSION['player_email'] = $email;
 
+// Return success
 echo json_encode([
     'success' => true,
     'user_id' => $user_id,

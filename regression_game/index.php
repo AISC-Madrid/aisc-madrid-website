@@ -23,6 +23,11 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -163,6 +168,72 @@ if (!isset($_SESSION['user_id'])) {
             return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
         }
 
+
+        /**
+         * Compute MSE of a guessed line against generated points
+         * @param {Array<{x: number, y: number}>} points - generated points
+         * @param {number} slope - user's guessed slope (m)
+         * @param {number} intercept - user's guessed intercept (b)
+         * @returns {number} MSE
+         */
+        function computeMSE(points, slope, intercept) {
+            if (!points || points.length === 0) return 0;
+
+            let sumSquaredError = 0;
+            for (const p of points) {
+                const yPred = slope * p.x + intercept;
+                const error = yPred - p.y;
+                sumSquaredError += error * error;
+            }
+
+            return sumSquaredError / points.length;
+        }
+
+        /**
+         * Compute the best slope and intercept using Ordinary Least Squares
+         * @param {Array<{x: number, y: number}>} points - generated points
+         * @returns {{slope: number, intercept: number}}
+         */
+        function computeBestFit(points) {
+            if (!points || points.length === 0) {
+                return {
+                    slope: 0,
+                    intercept: 0
+                }; // fallback
+            }
+
+            const n = points.length;
+            let sumX = 0,
+                sumY = 0,
+                sumXY = 0,
+                sumX2 = 0;
+
+            for (const p of points) {
+                sumX += p.x;
+                sumY += p.y;
+                sumXY += p.x * p.y;
+                sumX2 += p.x * p.x;
+            }
+
+            const denominator = (n * sumX2 - sumX * sumX);
+            if (denominator === 0) {
+                return {
+                    slope: 0,
+                    intercept: 0
+                }; // all x are the same, vertical line case
+            }
+
+            const slope = (n * sumXY - sumX * sumY) / denominator;
+            const intercept = (sumY - slope * sumX) / n;
+
+            return {
+                slope,
+                intercept
+            };
+        }
+
+
+
         // Generate regression points
         function generateRandomPoints() {
             const slope = (Math.random() * 2 - 1) * 2;
@@ -178,6 +249,15 @@ if (!isset($_SESSION['user_id'])) {
                     y: yTrue + noise
                 });
             }
+            const {
+                slope: best_slope,
+                intercept: best_intercept
+            } = computeBestFit(points);
+            console.log(computeBestFit(points));
+
+            minError = computeMSE(points, best_slope, best_intercept);
+            document.getElementById("error").textContent = minError.toFixed(2);
+
 
             generatedPoints = points;
 
