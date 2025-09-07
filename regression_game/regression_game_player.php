@@ -25,7 +25,7 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
@@ -52,49 +52,40 @@
 </head>
 
 <body>
-    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" 
-        style="height: 120vh; background-color: transparent; border: none; box-shadow: none;">
+    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; ">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex flex-column align-items-center justify-content-center" 
-            style="flex: 2; width: 100%; background-color: transparent; border: none; box-shadow: none;">
-
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around rounded-3 p-2 w-100" 
-                style="max-width: 80%; background-color: transparent; border: none; box-shadow: none;">
-
+        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
                 <!-- Brand / Logo -->
-                <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" 
-                href="/" title="AISC Madrid - Inicio">
-                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" 
-                        alt="Logo de AISC Madrid">
+                <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
+                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
                 </a>
 
                 <!-- Title / Info -->
-                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center"
-                    style="background-color: transparent; border: none; box-shadow: none;">
-                    <h1 class="pt-3 fw-bold fs-2">📈 Regression Game AISC Madrid</h1>
+                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
+                    <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
-
-    <!-- Game Area -->
-    <div class="d-flex flex-wrap w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
-
-        <!-- Leaderboard -->
-        <div id="error-log"
-            class="d-flex flex-column"
-            style="flex: 0 1 30%; min-width: 250px; max-height: 80vh; overflow-y: auto; 
-                    background-color: transparent; border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem;">
-            <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
-            <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
-            <ul id="error-log-list"
-                style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
-            </ul>
+            </div>
         </div>
 
-        <!-- Chart -->
-        <div class="chart-container" 
-            style="flex: 1 1 60%; min-width: 250px; display: flex; align-items: center; justify-content: center; height: 70vh;">
-            <canvas id="chart" style="width: 100%; height: 100%;"></canvas>
+
+        <!-- Game Area (80%) -->
+        <div class="row w-100 py-2 px-4" style="flex:8;">
+
+            <!-- Leaderboard -->
+            <div id="error-log" class=" col-12 col-sm-3 bg-white text-dark rounded-3 py-3 me-3 mb-3 shadow-lg" style=" overflow-y: auto;">
+                <h4 class="fw-bold text-center text-warning mb-3">🏆 Leaderboard</h4>
+                <ul id="error-log-list"
+                    style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
+                </ul>
+            </div>
+
+            <!-- Chart -->
+            <div class="col-12 col-sm-7 bg-white rounded-3 p-0 p-sm-3 chart-container" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+                <canvas class="w-100 h-100" id="chart"></canvas>
+            </div>
         </div>
     </div>
 
@@ -171,37 +162,54 @@
         let email = "";
         let fullName = "";
 
+        // Initialize Chart.js
         const chart = new Chart(ctx, {
             type: 'scatter',
             data: {
-                datasets: [
-                    { 
-                        label: 'Generated Points',
-                        data: [],
-                        backgroundColor: 'blue',
-                        pointRadius: 4,
-                        showLine: false
-                    },
-                    { 
-                        label: 'Guessed Points',
-                        data: [],
-                        backgroundColor: 'black',
-                        pointRadius: 5,
-                        showLine: false
-                    }
-                ]
+                datasets: [{
+                    label: 'Generated Points',
+                    data: [],
+                    backgroundColor: 'blue',
+                    pointRadius: 4,
+                    showLine: false
+                }, {
+                    label: 'Guessed Points',
+                    data: [],
+                    backgroundColor: 'black',
+                    pointRadius: 5,
+                    showLine: false
+                }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
+                scales: {
+                    x: {
+                        min: -10,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: "X Axis"
+                        }
+                    },
+                    y: {
+                        min: -10,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: "Y Axis"
+                        }
                     }
                 },
-                scales: {
-                    x: { min: -10, max: 10, title: { display: true, text: "X Axis" } },
-                    y: { min: -10, max: 10, title: { display: true, text: "Y Axis" } }
+                plugins: {
+                    legend: {
+                        labels: {
+                            filter: function(legendItem, chartData) {
+                                // Show only the dataset with label "Your Guess"
+                                return legendItem.text === "Your Guess";
+                            }
+                        }
+                    }
                 }
             }
         });
