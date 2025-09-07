@@ -7,7 +7,7 @@ try {
         SELECT g.user_id, g.x1, g.y1, g.x2, g.y2, g.color, g.error, u.full_name
         FROM regression_guesses g
         JOIN form_submissions u ON g.user_id = u.id
-        ORDER BY g.error DESC
+        ORDER BY g.error ASC
     ";
     $result = $conn->query($query);
 
