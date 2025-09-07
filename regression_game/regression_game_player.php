@@ -16,7 +16,7 @@
     <!-- Favicon -->
     <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
     <!-- Custom CSS -->
-    
+
 
     <!-- Base URL -->
 
@@ -56,19 +56,19 @@
 
         <!-- Title + Info (30%) -->
         <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
-    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
-        <!-- Brand / Logo -->
-        <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
-            <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
-        </a>
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
+                <!-- Brand / Logo -->
+                <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
+                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
+                </a>
 
-        <!-- Title / Info -->
-        <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
-            <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
-            <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
+                <!-- Title / Info -->
+                <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
+                    <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
+                    <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
         <!-- Game Area (80%) -->
@@ -145,7 +145,7 @@
 
 
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -284,7 +284,10 @@
                     newGame = !userPlayed;
                     emailModal.hide();
 
-                    if (userPlayed) showMessage("You already played!", "Info");
+                    if (userPlayed){
+                        showMessage("You already played!", "Info"); 
+
+                    } 
                     else showMessage("Welcome, " + userInfo.full_name + "! Click two points to guess the line.", "Welcome!");
                 }, "json");
             });
@@ -418,15 +421,32 @@
                 tempClicks = [];
                 const slope = (p2.y - p1.y) / (p2.x - p1.x);
                 const intercept = p1.y - slope * p1.x;
-                // Compute error using stored points
                 const error = computeMSE(generatedPoints, slope, intercept);
                 const randomColor = getRandomColor();
-                // ✅ Update the info element
-                /* document.getElementById("error").textContent = error.toFixed(2); */
 
-                // Save guess
+                // ✅ Add line to chart as "Your Guess"
+                chart.data.datasets.push({
+                    label: "Your Guess",
+                    data: [{
+                            x: -10,
+                            y: slope * -10 + intercept
+                        },
+                        {
+                            x: 10,
+                            y: slope * 10 + intercept
+                        }
+                    ],
+                    type: 'line',
+                    borderColor: randomColor,
+                    borderWidth: 4, // thicker so it's visible
+                    fill: false,
+                    pointRadius: 0
+                });
+                chart.update();
+
+                // Save guess to server
                 $.post("submit_guess.php", {
-                    user_id: userInfo.id,
+                    user_id: userInfo?.id ?? 0, // fallback 0 if null
                     x1: p1.x,
                     y1: p1.y,
                     x2: p2.x,
@@ -435,11 +455,10 @@
                     error: error
                 }, "json");
 
-                
-
                 userPlayed = true;
                 newGame = false;
             }
+
         });
 
         //Display new guesses
@@ -457,28 +476,32 @@
 
                     let chart_label = g.full_name;
                     let chart_borderWidth = 1;
-                    if (g.user_id == (userInfo.id ?? 0)) {
-                        chart_label = "Your Guess";
-                        chart_borderWidth = 4;
+                    console.log(g.user_id);
+                    console.log(userInfo.id);
+                    const currentUserId = userInfo?.id ? parseInt(userInfo.id, 10) : 0;
+                    const guessUserId = g.user_id ? parseInt(g.user_id, 10) : 0;
+
+                    if (guessUserId !== currentUserId) {
+                        chart.data.datasets.push({
+                            label: chart_label,
+                            data: [{
+                                    x: -10,
+                                    y: g.slope * -10 + g.intercept
+                                },
+                                {
+                                    x: 10,
+                                    y: g.slope * 10 + g.intercept
+                                }
+                            ],
+                            type: 'line',
+                            borderColor: g.color,
+                            borderWidth: chart_borderWidth,
+                            fill: false,
+                            pointRadius: 0
+                        });
                     }
 
-                    chart.data.datasets.push({
-                        label: chart_label,
-                        data: [{
-                                x: -10,
-                                y: g.slope * -10 + g.intercept
-                            },
-                            {
-                                x: 10,
-                                y: g.slope * 10 + g.intercept
-                            }
-                        ],
-                        type: 'line',
-                        borderColor: g.color,
-                        borderWidth: chart_borderWidth,
-                        fill: false,
-                        pointRadius: 0
-                    });
+
 
                     // Mark as displayed
                     displayedGuesses[g.user_id] = true;
