@@ -76,26 +76,25 @@
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
 
-            <!-- Game Area (80%) -->
-            <div class="d-flex flex-wrap w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
+    <!-- Game Area -->
+    <div class="d-flex flex-wrap w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
-            <!-- Leaderboard -->
-            <div id="error-log"
-                class="d-flex flex-column"
-                style="flex: 0 1 30%; min-width: 250px; max-height: 80vh; overflow-y: auto; 
-                        background-color: transparent; border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem;">
-                <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
-                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
-                <ul id="error-log-list"
-                    style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
-                </ul>
-            </div>
+        <!-- Leaderboard -->
+        <div id="error-log"
+            class="d-flex flex-column"
+            style="flex: 0 1 30%; min-width: 250px; max-height: 80vh; overflow-y: auto; 
+                    background-color: transparent; border: none; box-shadow: none; border-radius: 0.75rem; padding: 1rem;">
+            <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
+            <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
+            <ul id="error-log-list"
+                style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
+            </ul>
+        </div>
 
-            <!-- Chart -->
-            <div style="flex: 1 1 60%; min-width: 250px; display: flex; align-items: center; justify-content: center; 
-                        background-color: transparent; border: none; box-shadow: none;">
-                <canvas id="chart"></canvas>
-            </div>
+        <!-- Chart -->
+        <div class="chart-container" 
+            style="flex: 1 1 60%; min-width: 250px; display: flex; align-items: center; justify-content: center; height: 70vh;">
+            <canvas id="chart" style="width: 100%; height: 100%;"></canvas>
         </div>
     </div>
 
