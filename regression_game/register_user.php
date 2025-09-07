@@ -30,7 +30,7 @@ if ($user = $result->fetch_assoc()) {
             $user_id = $stmtInsert->insert_id;
             $name = $full_name;
 
-            if ($stmt->execute()) {
+            if ($stmtInsert->execute()) {
                 // Enviar correo
                 $mail = new PHPMailer;
                 $mail->CharSet = 'UTF-8';
