@@ -55,7 +55,7 @@
     <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; ">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%; background-color: transparent; border: none; box-shadow: none;">
             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
                 <!-- Brand / Logo -->
                 <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
@@ -74,7 +74,7 @@
 
         <!-- Game Area (80%) -->
         <div class="row w-100 py-2 px-4" style="flex:8;">
-            
+
             <!-- Leaderboard -->
             <div id="error-log" 
                 style="width: 30%; overflow-y: auto; 
