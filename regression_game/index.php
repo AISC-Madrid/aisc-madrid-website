@@ -53,28 +53,24 @@ if (!isset($_SESSION['user_id'])) {
     <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 100vh; ">
 
         <!-- Title + Info (30%) -->
-        <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
-            <!-- <h1 class="pt-3 text-warning fw-bold  text-center">📈 Regression Game AISC Madrid</h1>
-        <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p> -->
-
-            <div class="d-flex align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2" style="width:80%;">
-                <div class="d-flex flex-column align-items-center justify-content-around">
-                    <div class="text-danger fw-bold fs-2" id="info">Min error: <span id="error">0</span></div>
-                    <div id="error-message" class="error text-warning fw-semibold"></div>
-                </div>
-                <div>
-                    <h1 class="pt-3  fw-bold fs-2 text-center">📈 Regression Game AISC Madrid</h1>
-                    <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
-                </div>
-                <button class="btn btn-lg btn-warning fw-bold shadow" style="background-color: #EB178E; color: black;" onclick="resetGame()">Reset Game</button>
+        <div class="d-flex align-items-center justify-content-around p-2" 
+            style="width:80%; background-color: transparent; border: none; box-shadow: none;">
+            <div class="d-flex flex-column align-items-center justify-content-around">
+                <div class="text-danger fw-bold fs-2" id="info">Min error: <span id="error">0</span></div>
+                <div id="error-message" class="error text-warning fw-semibold"></div>
             </div>
+            <div>
+                <h1 class="pt-3 fw-bold fs-2 text-center">📈 Regression Game AISC Madrid</h1>
+                <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
+            </div>
+            <button class="btn btn-lg btn-warning fw-bold shadow" style="background-color: #EB178E; color: black;" onclick="resetGame()">Reset Game</button>
         </div>
 
         <!-- Game Area (80%) -->
         <div class="d-flex w-100 justify-content-around py-2 px-4" style="flex: 8; width: 100%;">
 
             <!-- Leaderboard -->
-            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto; background: linear-gradient(to bottom, #EB178E 35%, #ffff 65%);">
+            <div id="error-log" class="bg-white text-dark rounded-3 py-3 me-3 shadow-lg" style="width: 30%; overflow-y: auto; background: linear-gradient(to bottom, #EB178E 10%, #ffff 90%);">
                 <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
