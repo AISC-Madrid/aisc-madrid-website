@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Regression Game</title>
+    <title>Regression Game AISC Madrid</title>
     <meta name="description"
         content="AISC Madrid is the Artificial Intelligence Student Collective at UC3M. We organize AI events, workshops, and talks to explore real-world applications of AI in university and beyond. Join the AI movement in Madrid.">
     <link rel="canonical" href="https://aiscmadrid.com/">
@@ -25,7 +25,7 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
@@ -52,11 +52,11 @@
 </head>
 
 <body>
-    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; ">
+    <div class="text-dark w-100 d-flex flex-column align-items-center justify-content-start" style="height: 120vh; background-color: transparent; border: none; box-shadow: none; ">
 
         <!-- Title + Info (30%) -->
         <div class="d-flex flex-column align-items-center justify-content-center" style="flex: 2; width: 100%;">
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted rounded-3 shadow-lg p-2 w-100" style="max-width: 80%;">
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted p-2 w-100" style="max-width: 80%;">
                 <!-- Brand / Logo -->
                 <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
                     <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
@@ -64,7 +64,7 @@
 
                 <!-- Title / Info -->
                 <div class="w-100 w-sm-50 d-flex flex-column align-items-center justify-content-around text-center">
-                    <h1 class="pt-3 fw-bold fs-2">📈 AI Regression Game</h1>
+                    <h1 class="pt-3 fw-bold fs-2">📈 Regression Game</h1>
                     <p class="text-muted mb-4">Guess the line, minimize the error, and climb the leaderboard!</p>
                 </div>
             </div>
@@ -75,15 +75,19 @@
         <div class="row w-100 py-2 px-4" style="flex:8;">
 
             <!-- Leaderboard -->
-            <div id="error-log" class=" col-12 col-sm-3 bg-white text-dark rounded-3 py-3 me-3 mb-3 shadow-lg" style=" overflow-y: auto;">
-                <h4 class="fw-bold text-center text-warning mb-3">🏆 Leaderboard</h4>
+            <div id="error-log" class=" col-12 col-sm-3 text-dark py-3 me-3 mb-3" style=" overflow-y: auto;
+                        background-color: transparent; 
+                        border: none; 
+                        box-shadow: none; ">
+                <h4 class="fw-bold text-center text-dark mb-3">Leaderboard</h4>
+                <div class="mx-auto mb-4" style="width:60px; height:3px; background: #EB178E; border-radius:2px;"></div>
                 <ul id="error-log-list"
                     style="list-style-type: none; padding-left: 0; font-size: 1.1rem; line-height: 1.6;">
                 </ul>
             </div>
 
             <!-- Chart -->
-            <div class="col-12 col-sm-7 bg-white rounded-3 p-0 p-sm-3 chart-container" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="col-12 col-sm-7 p-0 p-sm-3 chart-container" style="flex-grow: 1; display: flex; align-items: center; justify-content: center; background-color: transparent; border: none; box-shadow: none; ">
                 <canvas class="w-100 h-100" id="chart"></canvas>
             </div>
         </div>
