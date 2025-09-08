@@ -1,4 +1,9 @@
 <?php
+// Turn off output buffering
+while (ob_get_level()) ob_end_flush();
+ini_set('output_buffering', 'off');
+ini_set('zlib.output_compression', 0);
+
 // Display all errors for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -26,68 +31,68 @@ include("../assets/db.php");
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 py-2 shadow-sm fixed-top" role="navigation" aria-label="Dashboard navigation">
-  <div class="container-fluid">
+        <div class="container-fluid">
 
-    <!-- Brand / Logo -->
-    <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
-      <img src="images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
-      <span class="fw-bold">Dashboard</span>
-    </a>
+            <!-- Brand / Logo -->
+            <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
+                <img src="images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
+                <span class="fw-bold">Dashboard</span>
+            </a>
 
-    <!-- Toggler for mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNav"
-      aria-controls="dashboardNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNav"
+                aria-controls="dashboardNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <!-- Nav Items -->
-    <div class="collapse navbar-collapse justify-content-end" id="dashboardNav">
-      <ul class="navbar-nav align-items-center">
+            <!-- Nav Items -->
+            <div class="collapse navbar-collapse justify-content-end" id="dashboardNav">
+                <ul class="navbar-nav align-items-center">
 
-        <!-- Dashboard link -->
-        <li class="nav-item">
-          <a class="nav-link active" href="dashboard.php">
-            <i class="bi bi-house-door me-1"></i> Resumen
-          </a>
-        </li>
+                    <!-- Dashboard link -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.php">
+                            <i class="bi bi-house-door me-1"></i> Resumen
+                        </a>
+                    </li>
 
-        <!-- Users -->
-        <li class="nav-item">
-          <a class="nav-link" href="users.php">
-            <i class="bi bi-people me-1"></i> Usuarios
-          </a>
-        </li>
+                    <!-- Users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="users.php">
+                            <i class="bi bi-people me-1"></i> Usuarios
+                        </a>
+                    </li>
 
-        <!-- Newsletter -->
-        <li class="nav-item">
-          <a class="nav-link" href="mails/newsletter.php">
-            <i class="bi bi-envelope me-1"></i> Newsletter
-          </a>
-        </li>
+                    <!-- Newsletter -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="mails/newsletter.php">
+                            <i class="bi bi-envelope me-1"></i> Newsletter
+                        </a>
+                    </li>
 
-        <!-- Events -->
-        <li class="nav-item">
-          <a class="nav-link" href="events/events_list.php">
-            <i class="bi bi-calendar-event me-1"></i> Eventos
-          </a>
-        </li>
+                    <!-- Events -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="events/events_list.php">
+                            <i class="bi bi-calendar-event me-1"></i> Eventos
+                        </a>
+                    </li>
 
-        <!-- Recruiting -->
-        <li class="nav-item">
-          <a class="nav-link" href="recruiting/recruiting_list.php">
-            <i class="bi bi-briefcase me-1"></i> Recruiting
-          </a>
-        </li>
+                    <!-- Recruiting -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="recruiting/recruiting_list.php">
+                            <i class="bi bi-briefcase me-1"></i> Recruiting
+                        </a>
+                    </li>
 
-        <!-- Divider -->
+                    <!-- Divider -->
 
-        <!-- <li class="nav-item mx-2 d-none d-lg-block">
+                    <!-- <li class="nav-item mx-2 d-none d-lg-block">
           <span class="text-light">|</span>
         </li> -->
 
-        <!-- Profile Dropdown -->
+                    <!-- Profile Dropdown -->
 
-        <!-- <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle me-1"></i> Admin
@@ -100,10 +105,10 @@ include("../assets/db.php");
           </ul>
         </li> -->
 
-      </ul>
-    </div>
-  </div>
-</nav>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">
@@ -123,38 +128,37 @@ include("../assets/db.php");
                                 </button>
                             </form>
                         <?php
-                            exit;
-                        }
+                        } else {
 
-                        // Step 2: Send emails if form submitted
-                        $sql = "SELECT email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
-                        $result = $conn->query($sql);
+                            // Step 2: Send emails if form submitted
+                            $sql = "SELECT email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
+                            $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
+                            if ($result->num_rows > 0) {
 
-                            while ($row = $result->fetch_assoc()) {
-                                $email = $row['email'];
-                                $token = $row['unsubscribe_token'];
+                                while ($row = $result->fetch_assoc()) {
+                                    $email = $row['email'];
+                                    $token = $row['unsubscribe_token'];
 
-                                // New mail for each user
-                                $mail = new PHPMailer;
-                                $mail->CharSet = 'UTF-8';
-                                $mail->isSMTP();
-                                $mail->SMTPDebug = 0; // cambia a 2 para ver logs detallados
-                                $mail->Host = 'smtp.hostinger.com';
-                                $mail->Port = 587;
-                                $mail->SMTPAuth = true;
+                                    // New mail for each user
+                                    $mail = new PHPMailer;
+                                    $mail->CharSet = 'UTF-8';
+                                    $mail->isSMTP();
+                                    $mail->SMTPDebug = 0; // cambia a 2 para ver logs detallados
+                                    $mail->Host = 'smtp.hostinger.com';
+                                    $mail->Port = 587;
+                                    $mail->SMTPAuth = true;
 
-                                $config = include('../config.php');
-                                $mail->Username = $config['smtp_user'];
-                                $mail->Password = $config['smtp_pass'];
-                                $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
-                                $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
-                                $mail->addAddress($email);
-                                $mail->Subject = '¡Gracias por acercarte durante la Jornada de Bienvenida!';
+                                    $config = include('../config.php');
+                                    $mail->Username = $config['smtp_user'];
+                                    $mail->Password = $config['smtp_pass'];
+                                    $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+                                    $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+                                    $mail->addAddress($email);
+                                    $mail->Subject = '¡Gracias por acercarte durante la Jornada de Bienvenida!';
 
-                                // HTML content
-                                $htmlContent = "
+                                    // HTML content
+                                    $htmlContent = "
     <!DOCTYPE html>
     <html>
         <head>
@@ -276,22 +280,24 @@ include("../assets/db.php");
         </body>
     </html>";
 
-                                $mail->isHTML(true);
-                                $mail->Body = $htmlContent;
+                                    $mail->isHTML(true);
+                                    $mail->Body = $htmlContent;
 
-                                if (!$mail->send()) {
-                                    error_log("Error enviando a $email: " . $mail->ErrorInfo);
-                                } else {
-                                    echo "Correo enviado a $email<br>";
+                                    if (!$mail->send()) {
+                                        error_log("Error enviando a $email: " . $mail->ErrorInfo);
+                                    } else {
+                                        echo "Correo enviado a $email<br>";
+                                    }
+                                    // Force flush immediately
+                                    if (ob_get_level()) ob_flush();  // flush PHP buffer
+                                    flush();                          // flush system buffer
                                 }
-                                ob_flush();
-                                flush(); // forces output per email
+                            } else {
+                                echo "No hay usuarios suscritos a la newsletter.";
                             }
-                        } else {
-                            echo "No hay usuarios suscritos a la newsletter.";
-                        }
 
-                        $conn->close();
+                            $conn->close();
+                        }
 
                         ?>
                     </div>
