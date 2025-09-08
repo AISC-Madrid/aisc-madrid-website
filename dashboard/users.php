@@ -114,7 +114,7 @@ if (!isset($_SESSION['user_id'])) {
 
             <!-- Main content -->
             <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <h2 class="mb-4">Usuarios Registrados</h2>
+                <h2 class="mb-4 text-dark">Usuarios Registrados</h2>
 
                 <div class="card">
                     <div class="card-body">

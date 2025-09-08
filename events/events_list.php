@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+include("../assets/head.php");
 include("../assets/db.php");
 
 // Handle delete action
