@@ -1,103 +1,240 @@
 <?php
-// Turn off output buffering so browser sees output immediately
-ob_implicit_flush(true);
-ob_end_flush();
-
-// Include PHPMailer
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// Display all errors for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require '../vendor/autoload.php';
-require '../config/db.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include("../assets/db.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <?php include("../assets/head.php"); ?>
+
 <body>
 
-<!-- Navbar -->
-<?php include("../assets/dashboard_nav.php"); ?>
+    <!-- Navbar -->
+    <?php include("../assets/dashboard_nav.php"); ?>
 
-<div class="container-fluid" style="margin-top:90px;">
-  <div class="row">
-    <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4" style="min-height:100vh;">
-      <div class="nav flex-column">
-        <a class="nav-link" href="../dashboard.php"><i class="bi bi-speedometer2"></i> Resumen</a>
-        <a class="nav-link" href="../users.php"><i class="bi bi-people"></i> Usuarios</a>
-        <a class="nav-link active" href="newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
-        <a class="nav-link" href="../events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
-      </div>
-    </nav>
+    <div class="container-fluid" style="margin-top:90px;">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4" style="min-height:100vh;">
+                <div class="nav flex-column">
+                    <a class="nav-link" href="../dashboard.php"><i class="bi bi-speedometer2"></i> Resumen</a>
+                    <a class="nav-link" href="../users.php"><i class="bi bi-people"></i> Usuarios</a>
+                    <a class="nav-link active" href="newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
+                    <a class="nav-link" href="../events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
+                </div>
+            </nav>
 
-    <!-- Main content -->
-    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
-      <h2 class="mb-4">Enviar Newsletter</h2>
+            <!-- Main content -->
+            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <h2 class="mb-4">Enviar Newsletter</h2>
 
-      <div class="card">
-        <div class="card-body">
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $subject = $_POST['subject'] ?? '';
-    $body = $_POST['body'] ?? '';
+                <div class="card">
+                    <div class="card-body">
+                        <?php
+                        // Step 1: Show button if page loaded without sending
+                        if (!isset($_POST['send_emails'])) {
+                        ?>
+                            <form method="post">
+                                <button type="submit" name="send_emails" class="btn btn-primary">
+                                    Enviar Newsletter
+                                </button>
+                            </form>
+                        <?php
+                            exit;
+                        }
 
-    // Query subscribers
-    $sql = "SELECT email, unsubscribe_token FROM subscribers WHERE status = 'active'";
-    $result = $conn->query($sql);
+                        // Step 2: Send emails if form submitted
+                        $sql = "SELECT email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
+                        $result = $conn->query($sql);
 
-    if ($result && $result->num_rows > 0) {
+                        if ($result->num_rows > 0) {
 
-        // Add padding so browser starts rendering immediately
-        echo str_repeat(' ', 1024);
+                            while ($row = $result->fetch_assoc()) {
+                                $email = $row['email'];
+                                $token = $row['unsubscribe_token'];
 
-        while ($row = $result->fetch_assoc()) {
-            $email = $row['email'];
-            $token = $row['unsubscribe_token'];
-            $unsubscribe_link = "https://yoursite.com/unsubscribe.php?token=" . urlencode($token);
+                                // New mail for each user
+                                $mail = new PHPMailer;
+                                $mail->CharSet = 'UTF-8';
+                                $mail->isSMTP();
+                                $mail->SMTPDebug = 0; // cambia a 2 para ver logs detallados
+                                $mail->Host = 'smtp.hostinger.com';
+                                $mail->Port = 587;
+                                $mail->SMTPAuth = true;
 
-            // PHPMailer setup
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.example.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'your@email.com';
-                $mail->Password = 'yourpassword';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
+                                $config = include('../config.php');
+                                $mail->Username = $config['smtp_user'];
+                                $mail->Password = $config['smtp_pass'];
+                                $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+                                $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+                                $mail->addAddress($email);
+                                $mail->Subject = '¡Gracias por acercarte durante la Jornada de Bienvenida!';
 
-                $mail->setFrom('no-reply@yoursite.com', 'AISC Madrid');
-                $mail->addAddress($email);
+                                // HTML content
+                                $htmlContent = "
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Newsletter AISC Madrid</title>
+        </head>
+        <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
+            <table align='center' width='600'
+                style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
-                $mail->isHTML(true);
-                $mail->Subject = $subject;
-                $mail->Body = $body . "<br><br><a href='$unsubscribe_link'>Darse de baja</a>";
+                <!-- Head -->
+                <tr>
+                    <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
+                        <h1 style='margin:0; font-size:24px;'>Título 1 </h1>
+                    </td>
+                </tr>
 
-                $mail->send();
-                echo "<p class='text-success mb-1'>✅ Correo enviado a $email</p>";
-            } catch (Exception $e) {
-                echo "<p class='text-danger mb-1'>❌ Error enviando a $email: {$mail->ErrorInfo}</p>";
-            }
+                <!-- Image -->
+                <tr>
+                    <td align='center' style='padding:20px;'>
+                        <!-- Substitute by image path -->
+                        <img src='https://aiscmadrid.com/images/events/event2/presentation.png'
+                            alt='AISC Madrid - Jornada de Bienvenida' width='100%'
+                            style='max-width:560px; border-radius:6px; display:block;'>
+                    </td>
+                </tr>
 
-            // Force flush after each line
-            @ob_flush();
-            flush();
-        }
-    } else {
-        echo "<p class='text-warning'>⚠️ No hay suscriptores activos.</p>";
-    }
-}
-?>
+                <!-- Main text -->
+                <tr>
+                    <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                        <p align='center'><strong>Subtítulo 1</strong></p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur lacus elit, vitae posuere sapien ultricies vel.
+                                Nam congue ipsum vitae tincidunt luctus.
+                                Nullam consequat laoreet nibh, nec sodales augue interdum sit amet</p>
+                    </td>                
+                </tr>
+
+                <tr>
+                    <td align='center' style='padding:20px; color:#EB178E;'> 
+                        <h1 style='margin:0; font-size:24px;'><strong>Tema 1</strong></h1>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Nullam consectetur lacus elit, vitae posuere sapien ultricies vel.
+                            Nam congue ipsum vitae tincidunt luctus. <strong>Aliquam faucibus pretium nunc,</strong> dapibus eleifend ipsum ullamcorper eget.
+                            In hac habitasse platea dictumst. 
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align='center' style='padding:20px; color:#EB178E;'> 
+                        <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
+                    </td>
+                </tr>
+
+                <!-- Events section -->
+                <tr>
+                    <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                        <p align='center'><strong>Eventos</strong></p>
+                            <p><strong>Título Evento 1</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+
+                            <p><strong>Título Evento 2</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+                    </td>                
+                </tr>
+                
+                <!-- Workshops section -->
+                <tr>
+                    <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                        <p align='center'><strong>Workshops</strong></p>
+                            <p><strong>Título Workshop 1</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+
+                            <p><strong>Título Workshop 2</strong></p>
+                            <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula ejemplo, Edificio nombre EPS Universidad Carlos III</p>
+                            <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> día de mes de año</p>
+                            <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 00:00h</p>
+                        <p>Pincha el botón para más información!</p>
+                    </td>                
+                </tr>
+
+
+                <!-- Button -->
+                <tr>
+                    <td align='center' style='padding:20px;'>
+                        <a href='https://aiscmadrid.com/#events'
+                            style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'>
+                            Ver próximos eventos
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
+                            Síguenos en <a href='https://instagram.com/aisc_madrid'
+                            style='color:#007BFF; text-decoration:none;'>Instagram</a>
+                            <a href='https://www.linkedin.com/company/ai-student-collective-madrid/'
+                            style='color:#007BFF; text-decoration:none;'>LinkedIn</a>
+            <br><br>
+                        <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                    </td>
+                </tr>
+            </table>
+        </body>
+    </html>";
+
+                                $mail->isHTML(true);
+                                $mail->Body = $htmlContent;
+
+                                if (!$mail->send()) {
+                                    error_log("Error enviando a $email: " . $mail->ErrorInfo);
+                                } else {
+                                    echo "Correo enviado a $email<br>";
+                                }
+                                ob_flush();
+                                flush(); // forces output per email
+                            }
+                        } else {
+                            echo "No hay usuarios suscritos a la newsletter.";
+                        }
+
+                        $conn->close();
+
+                        $conn->close();
+                        ?>
+                    </div>
+                </div>
+            </main>
         </div>
-      </div>
-    </main>
-  </div>
-</div>
+    </div>
 
-<!-- Footer -->
-<?php include("../assets/footer.php"); ?>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include("../assets/footer.php"); ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
