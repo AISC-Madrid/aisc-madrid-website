@@ -41,14 +41,14 @@ if (!isset($_SESSION['user_id'])) {
 
                     <!-- Dashboard link -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.php">
+                        <a class="nav-link active" href="dashboard/dashboard.php">
                             <i class="bi bi-house-door me-1"></i> Resumen
                         </a>
                     </li>
 
                     <!-- Users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="users.php">
+                        <a class="nav-link" href="dashboard/users.php">
                             <i class="bi bi-people me-1"></i> Usuarios
                         </a>
                     </li>
