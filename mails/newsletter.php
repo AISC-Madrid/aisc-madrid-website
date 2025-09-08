@@ -108,7 +108,7 @@ include("../assets/db.php");
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">
             <!-- Main content -->
-            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <main class="col-12 px-md-4 py-4">
                 <h2 class="mb-4">Enviar Newsletter</h2>
 
                 <div class="card">
@@ -300,7 +300,7 @@ include("../assets/db.php");
         </div>
     </div>
 
-    <?php include('..assets/footer.php'); ?>
+    <?php include('../assets/footer.php'); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
