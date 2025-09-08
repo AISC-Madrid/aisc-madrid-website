@@ -23,12 +23,12 @@
 
 <!-- Navbar -->
 <!-- Dashboard Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm fixed-top" role="navigation" aria-label="Dashboard navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-white px-4 py-3 shadow-sm fixed-top" role="navigation" aria-label="Dashboard navigation">
   <div class="container-fluid">
 
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
-      <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="images/logos/PNG/AISC Logo Color" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler for mobile -->
@@ -117,7 +117,7 @@
 
     <!-- Main content -->
     <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
-      <h2 class="mb-4">Panel de Control</h2>
+      <h2 class="mb-4 text-dark">Panel de Control</h2>
 
       <!-- Cards Row -->
       <div class="row mb-4">
