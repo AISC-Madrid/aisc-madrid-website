@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-    include("assets/head.php");
-    include("assets/db.php");
+    include("../assets/head.php");
+    include("../assets/db.php");
 
     // ---------- USERS ----------
     $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM form_submissions")->fetch_assoc()['total'];
@@ -191,7 +191,7 @@
 </div>
 
 <!-- Footer -->
-<?php include("assets/footer.php"); ?>
+<?php include("../assets/footer.php"); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
