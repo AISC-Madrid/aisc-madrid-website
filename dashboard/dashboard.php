@@ -5,11 +5,16 @@ session_start(); // Start the session
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: eventslogin.php");
     exit();
 }
     include("../assets/head.php");
     include("../assets/db.php");
+    // Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: events/login.php");
+    exit();
+}
 
     // ---------- USERS ----------
     $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM form_submissions")->fetch_assoc()['total'];
