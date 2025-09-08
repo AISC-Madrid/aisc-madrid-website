@@ -200,10 +200,9 @@ include("../assets/db.php");
                                 👉Ver el repositorio en GitHub
                             </a>
                         </p>
-                        <p><a href='https://github.com/AISC-Madrid/Hand-Controlled-Platform-Game'></a></p>
                         <p><strong>Competición aproximación Regresión Lineal:</strong></p>
-                                                <p>
-                            <a href='https://github.com/AISC-Madrid/aisc-madrid-website/tree/main/regression_game'
+                        <p>
+                            <a href='https://github.com/AISC-Madrid/aisc-madrid-website/tree/main/events/regression_game'
                                 target='_blank' rel='noopener noreferrer'>
                                 👉Ver el repositorio en GitHub
                             </a>
