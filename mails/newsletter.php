@@ -36,7 +36,7 @@ include("../assets/db.php");
             <!-- Brand / Logo -->
             <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
                 <img src="images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
-                <span class="fw-bold">Dashboard</span>
+                <span class="fw-bold">Newsletter</span>
             </a>
 
             <!-- Toggler for mobile -->
@@ -114,7 +114,7 @@ include("../assets/db.php");
         <div class="row">
             <!-- Main content -->
             <main class="col-12 px-md-4 py-4">
-                <h2 class="mb-4">Enviar Newsletter</h2>
+                <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
 
                 <div class="card">
                     <div class="card-body">

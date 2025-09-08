@@ -21,14 +21,14 @@
 ?>
 <body>
 
-<!-- Navbar -->
+
 <!-- Dashboard Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 py-2 shadow-sm fixed-top" role="navigation" aria-label="Dashboard navigation">
   <div class="container-fluid">
 
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
-      <img src="images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
+      <img src="../images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
       <span class="fw-bold">Dashboard</span>
     </a>
 
@@ -58,14 +58,14 @@
 
         <!-- Newsletter -->
         <li class="nav-item">
-          <a class="nav-link" href="mails/newsletter.php">
+          <a class="nav-link" href="../mails/newsletter.php">
             <i class="bi bi-envelope me-1"></i> Newsletter
           </a>
         </li>
 
         <!-- Events -->
         <li class="nav-item">
-          <a class="nav-link" href="events/events_list.php">
+          <a class="nav-link" href="../events/events_list.php">
             <i class="bi bi-calendar-event me-1"></i> Eventos
           </a>
         </li>
@@ -111,8 +111,8 @@
       <div class="nav flex-column">
         <a class="nav-link active" href="dashboard.php"><i class="bi bi-speedometer2"></i> Resumen</a>
         <a class="nav-link" href="#"><i class="bi bi-people"></i> Usuarios</a>
-        <a class="nav-link" href="mails/newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
-        <a class="nav-link" href="events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
+        <a class="nav-link" href="../mails/newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
+        <a class="nav-link" href="../events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
       </div>
     </nav>
 
