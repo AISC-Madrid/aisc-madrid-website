@@ -28,7 +28,7 @@
 
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
-      <img src="images/logos/PNG/AISC Logo Color" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler for mobile -->
