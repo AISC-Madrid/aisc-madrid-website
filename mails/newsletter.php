@@ -12,6 +12,29 @@ if (!isset($_SESSION['user_id'])) {
 }
 include("../assets/db.php");
 
+// Step 1: Show button if page loaded without sending
+if (!isset($_POST['send_emails'])) {
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Enviar Newsletter</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; text-align:center; margin-top:50px;">
+        <h2>Enviar newsletter a suscriptores</h2>
+        <form method="post">
+            <button type="submit" name="send_emails" 
+                    style="padding:10px 20px; font-size:16px; cursor:pointer;">
+                Enviar Emails
+            </button>
+        </form>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+
 // Check users subscribed to the newsletter
 $sql = "SELECT email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
 $result = $conn->query($sql);
