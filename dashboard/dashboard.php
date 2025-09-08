@@ -44,14 +44,14 @@
 
         <!-- Dashboard link -->
         <li class="nav-item">
-          <a class="nav-link active" href="dashboard.php">
+          <a class="nav-link active" href="dashboard/dashboard.php">
             <i class="bi bi-house-door me-1"></i> Resumen
           </a>
         </li>
 
         <!-- Users -->
         <li class="nav-item">
-          <a class="nav-link" href="users.php">
+          <a class="nav-link" href="dashboard/users.php">
             <i class="bi bi-people me-1"></i> Usuarios
           </a>
         </li>
@@ -106,18 +106,9 @@
 
 <div class="container-fluid scroll-margin">
   <div class="row">
-    <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4" style="min-height:100vh;">
-      <div class="nav flex-column">
-        <a class="nav-link active" href="dashboard.php"><i class="bi bi-speedometer2"></i> Resumen</a>
-        <a class="nav-link" href="#"><i class="bi bi-people"></i> Usuarios</a>
-        <a class="nav-link" href="../mails/newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
-        <a class="nav-link" href="../events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
-      </div>
-    </nav>
 
     <!-- Main content -->
-    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+    <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 py-4">
       <h2 class="mb-4 text-dark">Panel de Control</h2>
 
       <!-- Cards Row -->

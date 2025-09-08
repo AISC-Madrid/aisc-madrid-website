@@ -119,7 +119,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        $sql = "SELECT * FROM users"; // Replace 'users' with your table name
+                        $sql = "SELECT * FROM form_submissions"; // Replace 'users' with your table name
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
