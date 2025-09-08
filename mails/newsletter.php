@@ -116,8 +116,8 @@ include("../assets/db.php");
             <main class="col-12 px-md-4 py-4">
                 <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
 
-                <div class="card">
-                    <div class="card-body">
+                <div class="border rounded bg-white p-3">
+                    <div >
                         <?php
                         // Step 1: Show button if page loaded without sending
                         if (!isset($_POST['send_emails'])) {
