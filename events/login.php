@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Start session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            header("Location: events_list.php"); // Redirect after login
+            header("Location: ..//dashboard.php"); // Redirect after login
             exit();
         } else {
             $error = "Invalid username or password.";
