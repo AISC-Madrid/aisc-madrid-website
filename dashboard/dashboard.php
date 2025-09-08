@@ -154,7 +154,7 @@
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Fecha</th>
-                <th>Estado</th>
+                <th>Newsletter</th>
               </tr>
             </thead>
             <tbody>
