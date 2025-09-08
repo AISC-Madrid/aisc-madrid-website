@@ -102,18 +102,10 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4" style="min-height:100vh;">
-                <div class="nav flex-column">
-                    <a class="nav-link" href="../dashboard.php"><i class="bi bi-speedometer2"></i> Resumen</a>
-                    <a class="nav-link active" href="users.php"><i class="bi bi-people"></i> Usuarios</a>
-                    <a class="nav-link" href="../mails/newsletter.php"><i class="bi bi-envelope"></i> Newsletter</a>
-                    <a class="nav-link" href="../events/events_list.php"><i class="bi bi-calendar-event"></i> Eventos</a>
-                </div>
-            </nav>
+            
 
             <!-- Main content -->
-            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 py-4">
                 <h2 class="mb-4 text-dark">Usuarios Registrados</h2>
 
                 <div class="card">
