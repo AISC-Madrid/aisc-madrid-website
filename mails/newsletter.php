@@ -131,12 +131,13 @@ include("../assets/db.php");
                         } else {
 
                             // Step 2: Send emails if form submitted
-                            $sql = "SELECT email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
+                            $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
 
                                 while ($row = $result->fetch_assoc()) {
+                                    $full_name = $row['full_name'];
                                     $email = $row['email'];
                                     $token = $row['unsubscribe_token'];
 
@@ -172,7 +173,7 @@ include("../assets/db.php");
             <!-- Head -->
             <tr>
                 <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                    <h1 style='margin:0; font-size:24px;'>¡Gracias por pasar por nuestro stand! </h1>
+                    <h1 style='margin:0; font-size:24px;'>¡" . explode(' ', $full_name)[0] . ", gracias por pasar por nuestro stand! </h1>
                 </td>
             </tr>
 
@@ -228,6 +229,23 @@ include("../assets/db.php");
                 </td>
             </tr>
             
+            <tr>
+                <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
+                    <p>Si además de asistir a los talleres y los eventos quieres formar parte activamente de la asociación, estamos buscando nuevos miembros para nuestro equipo.
+                        Buscamos todo tipo de perfiles, tanto técnicos como no técnicos, con más y menos experiencia.
+                    
+                        <p style='margin:8px 0;'>📣 <strong>Redes Sociales, Diseño y Marketing</strong></p>
+                        <p style='margin:8px 0;'>💻 <strong>Desarrollo Web</strong></p>
+                        <p style='margin:8px 0;'>👥 <strong>Eventos y Talleres</strong></p>
+                        <br>
+                        <p>
+                            <a href='https://aiscmadrid.com/join.php'
+                                target='_blank' rel='noopener noreferrer'>
+                                Aplica aquí para unirte al equipo.
+                            </a>
+                        </p>
+                </td>
+            </tr>
             <tr>
                 <td align='center' style='padding:20px; color:#EB178E;'> 
                     <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
