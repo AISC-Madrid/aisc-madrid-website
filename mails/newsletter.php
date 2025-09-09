@@ -230,6 +230,11 @@ include("../assets/db.php");
             </tr>
             
             <tr>
+                <td align='center' style='padding:20px; color:#EB178E;'> 
+                    <h1 style='margin:0; font-size:24px;'><strong>Únete al equipo de AISC Madrid</strong></h1>
+                </td>
+            </tr>
+            <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
                     <p>Si además de asistir a los talleres y los eventos quieres formar parte activamente de la asociación, estamos buscando nuevos miembros para nuestro equipo.
                         Buscamos todo tipo de perfiles, tanto técnicos como no técnicos, con más y menos experiencia.
