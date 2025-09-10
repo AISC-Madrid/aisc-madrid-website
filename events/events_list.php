@@ -113,7 +113,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Eventos</h2>
-        <a href="create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
+        <a href="events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
