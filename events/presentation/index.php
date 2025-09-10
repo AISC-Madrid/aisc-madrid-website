@@ -43,7 +43,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6">
                     <div class="border-0 form-card no-hover p-4">
-                        <form id="multiStepForm" method="POST" action="aisc-madrid-website/events/presentation/save_data.php">
+                        <form id="multiStepForm" method="POST" action="events/presentation/save_data.php">
 
                             <!-- Step 1: Full Name -->
                             <div class="form-step active">
