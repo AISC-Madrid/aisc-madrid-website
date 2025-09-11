@@ -323,7 +323,7 @@ include("../assets/db.php");
         <!-- Footer -->
         <tr> 
         <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
-            <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>
+            <a href='https://orange-shark-883400.hostingersite.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>
                 Cancelar suscripción Newsletter</a>
          </td> 
         </tr>
