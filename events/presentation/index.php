@@ -11,13 +11,13 @@
             <h2 class="fw-bold mb-4" style="color: var(--muted);"
                 data-es="Únete a AISC Madrid"
                 data-en="Join AISC Madrid">
-                Únete a AISC Madrid
+                ¡Os queremos conocer!
             </h2>
             <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
             <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px;"
                 data-es="Rellena este formulario para unirte a nuestra comunidad y mantenerte informado."
                 data-en="Fill out this form to join our community and stay updated.">
-                Rellena este formulario para unirte a nuestra comunidad y mantenerte informado.
+                Rellena este formulario para que sepamos más sobre tus intereses.
             </h6>
         </div>
 
