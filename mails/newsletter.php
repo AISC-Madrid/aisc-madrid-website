@@ -181,7 +181,7 @@ include("../assets/db.php");
             <tr>
                 <td align='center' style='padding:20px;'>
                     <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event5/Conoce AISC.png'
+                    <img src='https://aiscmadrid.com/images/events/event5/ConoceAISC.png'
                         alt='AISC Madrid - Evento de Presentación' width='100%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
