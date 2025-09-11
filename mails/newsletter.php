@@ -156,7 +156,7 @@ include("../assets/db.php");
                                     $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
                                     $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
                                     $mail->addAddress($email);
-                                    $mail->Subject = '¡Gracias por acercarte durante la Jornada de Bienvenida!';
+                                    $mail->Subject = '¡Así fue el Evento de Presentación!';
 
                                     // HTML content
                                     $htmlContent = "
