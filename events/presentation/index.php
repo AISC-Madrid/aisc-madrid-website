@@ -9,8 +9,8 @@
     <div class="container scroll-margin my-5 flex-fill">
         <div class="text-center mb-5 px-3 px-md-5">
             <h2 class="fw-bold mb-4" style="color: var(--muted);"
-                data-es="Únete a AISC Madrid"
-                data-en="Join AISC Madrid">
+                data-es="¡Os queremos conocer!"
+                data-en="We want to know about you!">
                 ¡Os queremos conocer!
             </h2>
             <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
@@ -292,7 +292,7 @@
     <?php include('../../assets/footer.php'); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="aisc-madrid-website/js/language.js"></script>
+    <script src="/js/language.js"></script>
 
     <script>
         // Multi-step form logic
