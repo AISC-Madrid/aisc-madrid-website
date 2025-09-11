@@ -62,7 +62,7 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
-    header("Location: index.php?success=Your information has been saved successfully!");
+    header("Location: results.php?success=Your information has been saved successfully!");
 } else {
     $error_str = urlencode('Database error: ' . $stmt->error);
     header("Location: index.php?error=$error_str");
