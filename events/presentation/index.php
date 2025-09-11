@@ -225,6 +225,10 @@
                                     <option value="robotics" data-es="Robótica" data-en="Robotics">Robótica</option>
                                     <option value="data_viz" data-es="Visualización de Datos" data-en="Data Visualization">Visualización de Datos</option>
                                     <option value="edge_ai" data-es="IA en el Edge / IoT" data-en="Edge AI / IoT">IA en dispositivos y IoT</option>
+                                    <option value="Ciberseguridad" data-es="Ciberseguridad" data-en="Cybersecurity">Ciberseguridad</option>
+                                    <option value="Desarrollo Web" data-es="Desarrollo Web" data-en="Web Development">Desarrollo Web</option>
+                                    <option value="Cloud Computing" data-es="Computación en Red" data-en="Cloud Computing">Computación en Red</option>
+                                    <option value="Otros" data-es="Otros" data-en="Other">Otros</option>
                                 </select>
 
                                 <div class="form-text" data-es="Mantén pulsada Ctrl (Cmd en Mac) para seleccionar varios"
