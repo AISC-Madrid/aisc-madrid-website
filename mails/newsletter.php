@@ -173,7 +173,7 @@ include("../assets/db.php");
             <!-- Head -->
             <tr>
                 <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                    <h1 style='margin:0; font-size:24px;'>' . explode(' ', $full_name)[0] . ', así fue el Evento de Presentación </h1>
+                    <h1 style='margin:0; font-size:24px;'>" . explode(' ', $full_name)[0] . ", así fue el Evento de Presentación </h1>
                 </td>
             </tr>
 
@@ -201,16 +201,7 @@ include("../assets/db.php");
                             target='_blank' rel='noopener noreferrer'>
                             formulario de interés
                         </a> si queréis
-                        uniros al equipo de AISC Madrid.</p>
-                        <br>
-                        <p>Os mandamos el funcionamiento de la interacción que usamos, por si os interesa.</p>
-                        <p><strong>Formulario interactivo:</strong></p>
-                        <p>
-                            <a href='https://github.com/AISC-Madrid/aisc-madrid-website/tree/main/events/presentation'
-                                target='_blank' rel='noopener noreferrer'>
-                                👉Ver el repositorio en GitHub
-                            </a>
-                        </p>
+                        uniros al equipo de AISC Madrid.</p>    
                 </td>                
             </tr>
             
