@@ -181,8 +181,8 @@ include("../assets/db.php");
             <tr>
                 <td align='center' style='padding:20px;'>
                     <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event1/WelcomeDay.png'
-                        alt='AISC Madrid - Jornada de Bienvenida' width='100%'
+                    <img src='https://aiscmadrid.com/images/events/event5/Conoce AISC.png'
+                        alt='AISC Madrid - Evento de Presentación' width='100%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
             </tr>
@@ -314,7 +314,7 @@ include("../assets/db.php");
         <!-- Footer -->
         <tr> 
         <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
-            <a href='https://orange-shark-883400.hostingersite.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>
+            <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>
                 Cancelar suscripción Newsletter</a>
          </td> 
         </tr>
