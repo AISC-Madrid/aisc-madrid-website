@@ -163,6 +163,75 @@ include("assets/head.php");
       </div>
     </section>
 
+<section class="section scroll-margin w-100 px-3 px-md-5" id="events">
+  <div class="container-fluid">
+    <h2 class="text-center mb-4 fw-bold">
+      <span style="color: var(--muted);" data-en="Events" data-es="Eventos">Eventos</span>
+    </h2>
+    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+
+    <div class="event-btn-container mb-4 text-center">
+        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="future" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
+        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="past" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
+    </div>
+
+    <div class="row g-4" style="width:100%;">
+        <?php foreach ($future_events as $event): ?>
+            <div class="col-md-6 col-lg-4 event-future">
+                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
+                    <div class="card h-100 w-100 shadow-sm">
+                        <div class="card-body p-0 position-relative">
+                            <div class="img-container">
+                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
+                            </div>
+                            <div class="p-3 pb-5">
+                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
+                                    <?= htmlspecialchars($event['title_es']) ?>
+                                </h5>
+                                <p class="card-text">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
+                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                                </p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
+                            </div>
+                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
+
+        <?php foreach ($past_events as $event): ?>
+            <div class="col-md-6 col-lg-4 event-past">
+                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
+                    <div class="card h-100 w-100 shadow-sm">
+                        <div class="card-body p-0 position-relative">
+                            <div class="img-container">
+                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
+                            </div>
+                            <div class="p-3 pb-5">
+                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
+                                    <?= htmlspecialchars($event['title_es']) ?>
+                                </h5>
+                                <p class="card-text">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
+                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                                </p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
+                            </div>
+                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php $conn->close(); ?>
+    
 <section class="section" id="team"> 
   <div class="container scroll-margin">
     <h2 class="text-center mb-4 fw-bold">
@@ -245,80 +314,6 @@ include("assets/head.php");
     </div>
   </div>
 </section>
-
-
-
-
-<section class="section scroll-margin w-100 px-3 px-md-5" id="events">
-  <div class="container-fluid">
-    <h2 class="text-center mb-4 fw-bold">
-      <span style="color: var(--muted);" data-en="Events" data-es="Eventos">Eventos</span>
-    </h2>
-    <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-
-    <div class="event-btn-container mb-4 text-center">
-        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="future" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
-        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="past" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
-    </div>
-
-    <div class="row g-4" style="width:100%;">
-        <?php foreach ($future_events as $event): ?>
-            <div class="col-md-6 col-lg-4 event-future">
-                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
-                                    <?= htmlspecialchars($event['title_es']) ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
-
-        <?php foreach ($past_events as $event): ?>
-            <div class="col-md-6 col-lg-4 event-past">
-                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
-                                    <?= htmlspecialchars($event['title_es']) ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-<?php $conn->close(); ?>
-
-
 
  <section class="container-fluid mb-5 scroll-margin" id="newsletter">
       <div class="row justify-content-center">
