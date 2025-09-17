@@ -10,7 +10,7 @@ $sql = "INSERT INTO events (
     start_datetime, end_datetime,
     image_path,
     google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -21,7 +21,7 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "ssssssssssss",
+    "sssssssssss",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],

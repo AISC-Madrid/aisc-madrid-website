@@ -85,7 +85,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </div>
 
         <!-- Speaker -->
-        <div class="mb-3 col-6">
+        <div class="mb-3">
             <label class="form-label">Speaker</label>
             <input type="text" name="speaker" class="form-control" value="<?= htmlspecialchars($speaker) ?>">
         </div>
