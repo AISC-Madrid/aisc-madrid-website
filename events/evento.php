@@ -56,7 +56,7 @@ if (!$event) {
                     data-es="<?= htmlspecialchars($event['title_es']) ?>">
                     <?= nl2br(htmlspecialchars($event['title_es'])) ?>
                 </h1>
-                <p class="bg-aisc-event text-decoration-none mt-2" 
+                <p class="text-decoration-none mt-2" style="color: white;" 
                    data-en="<?= htmlspecialchars($event['speaker_en']) ?>" 
                    data-es="<?= htmlspecialchars($event['speaker_es']) ?>">
                    <?= htmlspecialchars($event['speaker_es']) ?>
