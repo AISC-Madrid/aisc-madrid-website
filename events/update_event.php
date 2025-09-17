@@ -12,7 +12,7 @@ $event_id = (int)$_POST['id'];
 $sql = "UPDATE events SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
-    speaker,
+    speaker = ?,
     description_es = ?, description_en = ?,
     location = ?,
     start_datetime = ?, end_datetime = ?,
