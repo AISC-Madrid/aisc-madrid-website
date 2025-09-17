@@ -122,7 +122,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 <th>ID</th>
                 <th>Título (ES/EN)</th>
                 <th>Tipo (ES/EN)</th>
-                <th>Ponente (ES/EN)</th>
+                <th>Ponente</th>
                 <th>Fecha Inicio - Fin</th>
                 <th>Ubicación</th>
                 <th>Acciones</th>
@@ -142,8 +142,8 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                             <small class="text-muted"><?= htmlspecialchars($row['type_en']) ?></small>
                         </td>
                         <td>
-                            <?= htmlspecialchars($row['speaker_es']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['speaker_en']) ?></small>
+                            <?= htmlspecialchars($row['speaker']) ?><br>
+                            <small class="text-muted"><?= htmlspecialchars($row['speaker']) ?></small>
                         </td>
                         <td>
                             <?= date("d/m/Y H:i", strtotime($row['start_datetime'])) ?>

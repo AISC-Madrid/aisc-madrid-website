@@ -4,13 +4,13 @@ include("../assets/db.php");
 $sql = "INSERT INTO events (
     title_es, title_en,
     type_es, type_en,
-    speaker_es, speaker_en,
+    speaker,
     description_es, description_en,
     location,
     start_datetime, end_datetime,
     image_path,
     google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -21,13 +21,12 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssssssssss",
+    "ssssssssssss",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
     $_POST['type_en'],
-    $_POST['speaker_es'],
-    $_POST['speaker_en'],
+    $_POST['speaker'],
     $_POST['description_es'],
     $_POST['description_en'],
     $_POST['location_es'],

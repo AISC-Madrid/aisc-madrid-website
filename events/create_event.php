@@ -31,8 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $title_en = $event['title_en'];
         $type_es = $event['type_es'];
         $type_en = $event['type_en'];
-        $speaker_es = $event['speaker_es'];
-        $speaker_en = $event['speaker_en'];
+        $speaker = $event['speaker'];
         $description_es = $event['description_es'];
         $description_en = $event['description_en'];
         $location_es = $event['location'];
@@ -85,16 +84,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <input type="text" name="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
         </div>
 
-        <!-- Spanish speaker -->
+        <!-- Speaker -->
         <div class="mb-3 col-6">
-            <label class="form-label">Speaker (Spanish)</label>
-            <input type="text" name="speaker_es" class="form-control" value="<?= htmlspecialchars($speaker_es) ?>">
-        </div>
-
-        <!-- English speaker -->
-        <div class="mb-3 col-6">
-            <label class="form-label">Speaker (English)</label>
-            <input type="text" name="speaker_en" class="form-control" value="<?= htmlspecialchars($speaker_en) ?>">
+            <label class="form-label">Speaker</label>
+            <input type="text" name="speaker" class="form-control" value="<?= htmlspecialchars($speaker) ?>">
         </div>
 
         <!-- Spanish description -->
