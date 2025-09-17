@@ -12,6 +12,7 @@ $event_id = (int)$_POST['id'];
 $sql = "UPDATE events SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
+    speaker_es = ?, speaker_en = ?,
     description_es = ?, description_en = ?,
     location = ?,
     start_datetime = ?, end_datetime = ?,
@@ -28,11 +29,13 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssssssssi",
+    "sssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
     $_POST['type_en'],
+    $_POST['speaker_es'],
+    $_POST['speaker_en'],
     $_POST['description_es'],
     $_POST['description_en'],
     $_POST['location_es'],
