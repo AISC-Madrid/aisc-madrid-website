@@ -51,16 +51,16 @@ if (!$event) {
                    data-es="<?= htmlspecialchars($event['type_es']) ?>">
                    <?= htmlspecialchars($event['type_es']) ?>
                 </a>
-                <a class="badge bg-aisc-event text-decoration-none" 
-                   data-en="<?= htmlspecialchars($event['speaker_en']) ?>" 
-                   data-es="<?= htmlspecialchars($event['speaker_es']) ?>">
-                   <?= htmlspecialchars($event['speaker_es']) ?>
-                </a>
                 <h1 id="article-title" class="text-light display-5 fw-bold mt-2"
                     data-en="<?= htmlspecialchars($event['title_en']) ?>" 
                     data-es="<?= htmlspecialchars($event['title_es']) ?>">
                     <?= nl2br(htmlspecialchars($event['title_es'])) ?>
                 </h1>
+                <p class="bg-aisc-event text-decoration-none mt-2" 
+                   data-en="<?= htmlspecialchars($event['speaker_en']) ?>" 
+                   data-es="<?= htmlspecialchars($event['speaker_es']) ?>">
+                   <?= htmlspecialchars($event['speaker_es']) ?>
+                </p>
             </div>
         </div>
     </div>
