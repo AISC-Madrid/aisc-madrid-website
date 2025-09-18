@@ -28,9 +28,9 @@
       la primera rama europea de la asociación AISC, inicialmente fundada en 
       <a href="https://www.instagram.com/aiscdavis/" target="_blank">University of California Davis</a> 
       y actualmente con ramas en 
-      <a href="https://www.instagram.com/aiscuw/" target="_blank">University of Washington</a> 
+      <a href="https://aiscuw.netlify.app/" target="_blank">University of Washington</a> 
       y 
-      <a href="https://www.instagram.com/aisc_riv/" target="_blank">University of California Riverside.</a>
+      <a href="https://aisc.ucrhighlanders.org/" target="_blank">University of California Riverside.</a>
     </p>
   </div>
   <div class="story-image">
