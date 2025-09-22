@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start(); // Start the session
 
 // Check if the user is logged in
@@ -137,6 +141,10 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                         <td>
                             <?= htmlspecialchars($row['position_es']) ?><br>
                             <small class="text-muted"><?= htmlspecialchars($row['position_es']) ?></small>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['position_en']) ?><br>
+                            <small class="text-muted"><?= htmlspecialchars($row['position_en']) ?></small>
                         </td>
                         <td>
                             <?= htmlspecialchars($row['phone']) ?><br>
