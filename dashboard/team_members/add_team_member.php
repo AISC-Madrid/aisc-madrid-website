@@ -9,7 +9,7 @@ $sql = "INSERT INTO members (
     socials,
     active,
     image_path
-) VALUES (?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
