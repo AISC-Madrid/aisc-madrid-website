@@ -1,6 +1,0 @@
-{
-  "date": "<i class='fas fa-calendar me-2'></i> <strong>8 de Septiembre de 2025</strong><br>\n10 AM a 5 PM",
-  "title": "Jornada de Bienvenida 2025-2026",
-  "body": "\n    <p><strong>¡Visítanos durante la Jornada de Bienvenida!</strong></p>\n    <p>Acércate a nuestro stand, conoce la asociación y explora en directo el potencial de dos áreas clave de la inteligencia artificial:</p>\n    <p><strong>Reconocimiento de imagen en tiempo real</strong></p>\n    <p>Pon a prueba tu destreza en un juego de plataformas interactivo controlado mediante <strong><i>Computer Vision</i></strong>: una cámara detectará y rastreará el movimiento de tu mano lo que servirá como control del juego.</p>\n    <p><strong>Generación de imágenes con IA</strong></p>\n    <p>Crea tu propio avatar personalizado con <strong><i>Stable Diffusion</i></strong>, un modelo de difusión basado en redes neuronales profundas que transforma descripciones de texto <i>(prompts)</i> en imágenes realistas de alta calidad.</p>\n    <p>¡Te esperamos el 8 de septiembre de 10 AM a 5 PM en la EPS de la Universidad Carlos III!</p>"
-
-}
