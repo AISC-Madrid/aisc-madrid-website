@@ -20,7 +20,7 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssss",
+    "ssssssss",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
