@@ -114,7 +114,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Miembros</h2>
-        <a href="dashboard/team_members/add_team_member.php" class="btn btn-primary">+ Añadir nuevo miembro</a>
+        <a href="dashboard/team_members/create_team_member.php" class="btn btn-primary">+ Añadir nuevo miembro</a>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
