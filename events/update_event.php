@@ -1,5 +1,6 @@
 <?php
 include("../assets/db.php");
+include("upload_image.php");
 
 // Make sure ID is provided
 if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
@@ -8,7 +9,39 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 
 $event_id = (int)$_POST['id'];
 
-// Prepare SQL for UPDATE
+// 1. Delete old event folder (main image + gallery)
+$eventFolder = __DIR__ . "/../images/events/event$event_id";
+if (is_dir($eventFolder)) {
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
+    );
+    foreach ($files as $fileinfo) {
+        $fileinfo->isDir() ? rmdir($fileinfo) : unlink($fileinfo);
+    }
+    rmdir($eventFolder);
+}
+
+// 2. Create fresh folder for images
+if (!is_dir($eventFolder)) {
+    mkdir($eventFolder, 0755, true);
+}
+
+// 3. Upload main image
+$mainImage = handleImageUpload('image', $eventFolder);
+if (isset($mainImage['error'])) {
+    die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
+}
+$mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']); // relative path for DB
+
+// 4. Upload gallery images
+$gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
+$galleryPaths = array_map(function($path) {
+    return str_replace(__DIR__ . "/../", "", $path);
+}, $gallery['paths']);
+$galleryPathsJson = json_encode($galleryPaths);
+
+// 5. Prepare SQL for UPDATE including speaker and images
 $sql = "UPDATE events SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
@@ -16,20 +49,18 @@ $sql = "UPDATE events SET
     description_es = ?, description_en = ?,
     location = ?,
     start_datetime = ?, end_datetime = ?,
-    image_path = ?,
+    image_path = ?, gallery_paths = ?,
     google_calendar_url = ?
 WHERE id = ?";
 
-// Prepare statement
 $stmt = $conn->prepare($sql);
-
 if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
 
 // Bind parameters
 $stmt->bind_param(
-    "ssssssssssssi",
+    "sssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -37,17 +68,18 @@ $stmt->bind_param(
     $_POST['speaker'],
     $_POST['description_es'],
     $_POST['description_en'],
-    $_POST['location_es'],
+    $_POST['location'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
-    $_POST['image_path'],
+    $mainImagePath,
+    $galleryPathsJson,
     $_POST['google_calendar_url'],
     $event_id
 );
 
 // Execute
 if ($stmt->execute()) {
-    echo "<p style='color:green;'>✅ Evento actualizado correctamente.</p>";
+    echo "<p style='color:green;'>✅ Evento actualizado correctamente con nuevas imágenes.</p>";
     echo "<a href='events_list.php'>Volver al formulario</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar: " . $stmt->error . "</p>";
