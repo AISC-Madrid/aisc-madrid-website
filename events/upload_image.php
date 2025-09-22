@@ -2,11 +2,48 @@
 // upload_image.php
 
 /**
+ * Redimensiona/comprime la imagen y la convierte a WebP hasta que pese < 1 MB
+ */
+function compressImageToWebP(string $srcPath, string $destPath, int $imgType, int $maxSize = 1048576): bool
+{
+    switch ($imgType) {
+        case IMAGETYPE_JPEG:
+            $image = imagecreatefromjpeg($srcPath);
+            break;
+        case IMAGETYPE_PNG:
+            $image = imagecreatefrompng($srcPath);
+            imagepalettetotruecolor($image);
+            break;
+        case IMAGETYPE_GIF:
+            $image = imagecreatefromgif($srcPath);
+            imagepalettetotruecolor($image);
+            break;
+        case IMAGETYPE_WEBP:
+            $image = imagecreatefromwebp($srcPath);
+            break;
+        default:
+            return false;
+    }
+
+    if (!$image) return false;
+
+    $quality = 90; // empezamos con buena calidad
+    do {
+        ob_start();
+        imagewebp($image, null, $quality);
+        $data = ob_get_clean();
+        $size = strlen($data);
+        $quality -= 10;
+    } while ($size > $maxSize && $quality > 10);
+
+    return file_put_contents($destPath, $data) !== false;
+}
+
+/**
  * Maneja la subida de una sola imagen
  */
 function handleImageUpload(string $fileFieldName, string $targetFolder): array
 {
-    $maxSize = 1 * 1024 * 1024; // 1 MB
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
 
     if (!isset($_FILES[$fileFieldName]) || $_FILES[$fileFieldName]['error'] !== UPLOAD_ERR_OK) {
@@ -14,11 +51,6 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
     }
 
     $file = $_FILES[$fileFieldName];
-
-    if ($file['size'] > $maxSize) {
-        return ['error' => 'Archivo demasiado grande. Máximo permitido: 1 MB.'];
-    }
-
     $imgType = @exif_imagetype($file['tmp_name']);
     if ($imgType === false || !in_array($imgType, $allowedTypes, true)) {
         return ['error' => 'Tipo de archivo inválido. Solo se permiten JPG, PNG, GIF y WebP.'];
@@ -28,15 +60,14 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
         mkdir($targetFolder, 0755, true);
     }
 
-    $extension = ltrim(image_type_to_extension($imgType), '.');
-    $newName = uniqid('img_', true) . '.' . $extension;
+    $newName = uniqid('img_', true) . '.webp';
     $targetPath = rtrim($targetFolder, '/') . '/' . $newName;
 
-    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+    if (compressImageToWebP($file['tmp_name'], $targetPath, $imgType)) {
         return ['path' => $targetPath];
     }
 
-    return ['error' => 'Error al guardar el archivo subido.'];
+    return ['error' => 'Error al procesar la imagen.'];
 }
 
 /**
@@ -44,7 +75,6 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
  */
 function handleMultipleImageUpload(string $fileFieldName, string $targetFolder): array
 {
-    $maxSize = 1 * 1024 * 1024; // 1 MB
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
     $savedPaths = [];
     $errors = [];
@@ -73,25 +103,19 @@ function handleMultipleImageUpload(string $fileFieldName, string $targetFolder):
             continue;
         }
 
-        if ($file['size'] > $maxSize) {
-            $errors[] = "{$file['name']}: excede el tamaño máximo de 1 MB.";
-            continue;
-        }
-
         $imgType = @exif_imagetype($file['tmp_name']);
         if ($imgType === false || !in_array($imgType, $allowedTypes, true)) {
             $errors[] = "{$file['name']}: tipo de archivo inválido.";
             continue;
         }
 
-        $extension = ltrim(image_type_to_extension($imgType), '.');
-        $newName = uniqid('img_', true) . '.' . $extension;
+        $newName = uniqid('img_', true) . '.webp';
         $targetPath = rtrim($targetFolder, '/') . '/' . $newName;
 
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        if (compressImageToWebP($file['tmp_name'], $targetPath, $imgType)) {
             $savedPaths[] = $targetPath;
         } else {
-            $errors[] = "{$file['name']}: no se pudo guardar en el servidor.";
+            $errors[] = "{$file['name']}: no se pudo procesar la imagen.";
         }
     }
 

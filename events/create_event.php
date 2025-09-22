@@ -15,6 +15,8 @@ include('../assets/db.php'); // Your $conn mysqli connection
 $title_es = $title_en = $type_es = $type_en = '';
 $description_es = $description_en = $location_es = '';
 $start_datetime = $end_datetime = $image_path = $google_calendar_url = '';
+$speaker = '';
+
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
