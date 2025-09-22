@@ -157,7 +157,7 @@ if (!$event) {
             <!-- Main Content -->
             <div class="col-lg-8">
                 <?php if (!empty($gallery)): ?>
-                <div class="pt-2" style="width:80%;">
+                <div class="pt-2 flex align-items-center justify-content-center" style="width:100%;">
                     <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
                         <!-- Indicators -->
                         <div class="carousel-indicators">
