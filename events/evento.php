@@ -75,43 +75,7 @@ if (!$event) {
             }
             ?>
 
-            <?php if (!empty($gallery)): ?>
-                <div class="col-12 pt-5">
-                    <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
-                        <!-- Indicators -->
-                        <div class="carousel-indicators">
-                            <?php foreach ($gallery as $index => $path): ?>
-                                <button type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide-to="<?= $index ?>"
-                                    class="<?= $index === 0 ? 'active' : '' ?>"
-                                    aria-current="<?= $index === 0 ? 'true' : 'false' ?>"
-                                    aria-label="Slide <?= $index + 1 ?>"></button>
-                            <?php endforeach; ?>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="carousel-inner">
-                            <?php foreach ($gallery as $index => $path): ?>
-                                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                    <img src="<?= htmlspecialchars($path) ?>"
-                                        class="d-block w-100"
-                                        alt="Gallery image <?= $index + 1 ?>"
-                                        style="max-height:400px; object-fit:cover;">
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-
-                        <!-- Controls -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-            <?php endif; ?>
+            
 
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
@@ -187,6 +151,44 @@ if (!$event) {
                     </div>
                 </div>
             </div>
+
+            <?php if (!empty($gallery)): ?>
+                <div class="col-lg-8 pt-5">
+                    <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+                        <!-- Indicators -->
+                        <div class="carousel-indicators">
+                            <?php foreach ($gallery as $index => $path): ?>
+                                <button type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide-to="<?= $index ?>"
+                                    class="<?= $index === 0 ? 'active' : '' ?>"
+                                    aria-current="<?= $index === 0 ? 'true' : 'false' ?>"
+                                    aria-label="Slide <?= $index + 1 ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <!-- Slides -->
+                        <div class="carousel-inner">
+                            <?php foreach ($gallery as $index => $path): ?>
+                                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                                    <img src="<?= htmlspecialchars($path) ?>"
+                                        class="d-block w-100"
+                                        alt="Gallery image <?= $index + 1 ?>"
+                                        style="max-height:400px; object-fit:cover;">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#eventGalleryCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <!-- Main Content -->
             <div class="col-lg-8">
