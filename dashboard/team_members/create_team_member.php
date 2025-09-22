@@ -27,7 +27,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     if ($member) {
         $full_name = $member['full_name'];
-        $mail = $member['mails'];
+        $mail = $member['mail'];
         $position_es = $member['position_es'];
         $position_en = $member['position_en'];
         $phone = $member['phone'];
@@ -51,7 +51,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <h1 class="mb-4"><?= isset($id) ? 'Editar Miembro' : 'Crear Nuevo Miembro' ?></h1>
 
         <form action="<?= isset($id) ? 'update_team_member.php' : 'add_team_member.php' ?>" method="POST">
-    <?php if(isset($event_id)): ?>
+    <?php if(isset($id)): ?>
         <input type="hidden" name="id" value="<?= $id ?>">
     <?php endif; ?>
 
@@ -77,7 +77,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <!-- position_en -->
         <div class="mb-3 col-6">
             <label class="form-label">Position (English)</label>
-            <input type="text" name="position_es" class="form-control" value="<?= htmlspecialchars($position_es) ?>">
+            <input type="text" name="position_en" class="form-control" value="<?= htmlspecialchars($position_en) ?>">
         </div>
 
         <!-- phone -->
