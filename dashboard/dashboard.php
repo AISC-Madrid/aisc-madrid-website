@@ -89,6 +89,12 @@ if (!isset($_SESSION['user_id'])) {
           </a>
         </li>
 
+        <!-- Equipo -->
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard/team_members/team_members_list.php">
+            <i class="bi bi-cup-hot me-1"></i> Equipo
+          </a>
+        </li>
         <!-- Divider -->
 
         <!-- <li class="nav-item mx-2 d-none d-lg-block">
