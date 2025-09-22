@@ -11,9 +11,8 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-include("../assets/head.php");
-include("../assets/db.php");
-
+include(__DIR__ . "/../../assets/head.php");
+include(__DIR__ . "/../../assets/db.php");
 
 // Retrieve events
 $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
