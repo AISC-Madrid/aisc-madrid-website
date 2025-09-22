@@ -61,7 +61,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <input type="hidden" name="id" value="<?= $event_id ?>">
                 <?php endif; ?>
 
-                <div class="row justify-content-center">
+                    <div class="row justify-content-center">
                     <!-- Spanish title -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Título (Español)</label>
@@ -86,11 +86,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <input type="text" name="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
                     </div>
 
-        <!-- Speaker -->
-        <div class="mb-3">
-            <label class="form-label">Speaker</label>
-            <input type="text" name="speaker" class="form-control" value="<?= htmlspecialchars($speaker) ?>">
-        </div>
+                    <!-- Speaker -->
+                    <div class="mb-3">
+                        <label class="form-label">Speaker</label>
+                        <input type="text" name="speaker" class="form-control" value="<?= htmlspecialchars($speaker) ?>">
+                    </div>
 
                     <!-- Spanish description -->
                     <div class="mb-3 col-6">
@@ -122,14 +122,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <input type="datetime-local" name="end_datetime" class="form-control" required value="<?= $end_datetime ?>">
                     </div>
 
-        <!-- Image upload -->
+                    <!-- Image upload -->
                     <div class="mb-3">
                         <label class="form-label">Imagen principal del evento</label>
                         <input type="file" name="image" class="form-control" accept="image/*" <?= isset($event_id) ? '' : 'required' ?>>
                     </div>
 
                     <!-- Multiple event photos -->
-                    <div class="mb-3">    
+                    <div class="mb-3">
                         <label class="form-label">Fotos del evento</label>
                         <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
                     </div>
@@ -144,10 +144,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <button type="submit" class="btn btn-primary col-6">
                         <?= isset($event_id) ? 'Actualizar Evento' : 'Guardar Evento' ?>
                     </button>
-                </div>
-            </form>
-
         </div>
+        </form>
+
+
+    </div>
     </div>
 </body>
 

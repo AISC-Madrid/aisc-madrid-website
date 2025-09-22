@@ -24,7 +24,8 @@ $sql = "INSERT INTO events (
     image_path,
     gallery_paths,
     google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) {

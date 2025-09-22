@@ -63,7 +63,6 @@ function handleMultipleImageUpload(string $fileFieldName, string $targetFolder):
     for ($i = 0; $i < $count; $i++) {
         $file = [
             'name' => $files['name'][$i],
-            'type' => $files['type'][$i],
             'tmp_name' => $files['tmp_name'][$i],
             'error' => $files['error'][$i],
             'size' => $files['size'][$i]
