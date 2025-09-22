@@ -51,7 +51,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <h1 class="mb-4"><?= isset($id) ? 'Editar Miembro' : 'Crear Nuevo Miembro' ?></h1>
 
         <form action="<?= isset($id) ? 'update_team_member.php' : 'add_team_member.php' ?>" method="POST">
-    <?php if(isset($event_id)): ?>
+    <?php if(isset($id)): ?>
         <input type="hidden" name="id" value="<?= $id ?>">
     <?php endif; ?>
 
