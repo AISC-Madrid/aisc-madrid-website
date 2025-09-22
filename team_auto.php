@@ -45,31 +45,23 @@ while ($row = $result->fetch_assoc()) {
       </div>
 
 <!-- Auto load members test -->
- <div class="row g-4" style="width:100%;">
+ <div class="mt-5 row">
         <?php foreach ($active_members as $member): ?>
-            <div class="col-md-6 col-lg-4 event-future">
-                <a href="<?= $member['socials'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($member['image_path']) ?>" class="card-img-top" alt="<?= $member['full_name'] ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold">
-                                    <?= $member['full_name'] ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
+            <!--  -->
+        <div class="col-sm-6 col-lg-3">
+          <div class="team-box text-center">
+            <div class="team-wrapper">
+              <div class="team-member">
+                <a href="<?= $member['socials'] ?>" target="_blank">
+                  <img src="<?= htmlspecialchars($member['image_path']) ?>" alt="<?= $member['full_name'] ?>" class="img-fluid rounded">
                 </a>
+              </div>
             </div>
+            <h5 class="mt-3" style="color: var(--background)"><?= $member['full_name'] ?></h5>
+            <p class="text-muted" data-en="<?= htmlspecialchars($event['position_en']) ?>" data-es="<?= htmlspecialchars($event['position_es']) ?>">
+                <?= htmlspecialchars($event['position_es']) ?></p>
+          </div>
+        </div>
         <?php endforeach; ?>
     </div>
   </section>
