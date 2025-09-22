@@ -43,7 +43,7 @@ $stmt->bind_param(
 // Execute
 if ($stmt->execute()) {
     echo "<p style='color:green;'>✅ Miembro actualizado correctamente.</p>";
-    echo "<a href='events_list.php'>Volver al formulario</a>";
+    echo "<a href='team_members_list.php'>Volver al formulario</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar: " . $stmt->error . "</p>";
 }
