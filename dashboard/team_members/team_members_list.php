@@ -167,7 +167,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
     </table>
 </div>
 
-<?php include('../assets/footer.php'); ?>
+<?php include(__DIR__ . "/../../assets/footer.php"); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
