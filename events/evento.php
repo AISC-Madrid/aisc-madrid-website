@@ -76,9 +76,7 @@ if (!$event) {
             ?>
 
             <?php if (!empty($gallery)): ?>
-                <div class="col-12">
-
-
+                <div class="col-9 p-2">
                     <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
                         <!-- Indicators -->
                         <div class="carousel-indicators">
