@@ -41,8 +41,10 @@ function compressImageToWebP(string $srcPath, string $destPath, int $imgType, in
 
 /**
  * Maneja la subida de una sola imagen
+ * @param string $fileFieldName Nombre del input
+ * @param int $eventId ID del evento para crear la carpeta
  */
-function handleImageUpload(string $fileFieldName, string $targetFolder): array
+function handleImageUpload(string $fileFieldName, int $eventId): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
 
@@ -56,6 +58,8 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
         return ['error' => 'Tipo de archivo inválido. Solo se permiten JPG, PNG, GIF y WebP.'];
     }
 
+    // Carpeta basada en el eventId
+    $targetFolder = "images/events/event{$eventId}";
     if (!is_dir($targetFolder)) {
         mkdir($targetFolder, 0755, true);
     }
@@ -72,8 +76,10 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
 
 /**
  * Maneja la subida de múltiples imágenes
+ * @param string $fileFieldName Nombre del input
+ * @param int $eventId ID del evento para crear la carpeta
  */
-function handleMultipleImageUpload(string $fileFieldName, string $targetFolder): array
+function handleMultipleImageUpload(string $fileFieldName, int $eventId): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
     $savedPaths = [];
@@ -86,6 +92,8 @@ function handleMultipleImageUpload(string $fileFieldName, string $targetFolder):
     $files = $_FILES[$fileFieldName];
     $count = count($files['name']);
 
+    // Carpeta basada en el eventId
+    $targetFolder = "images/events/event{$eventId}/gallery";
     if (!is_dir($targetFolder)) {
         mkdir($targetFolder, 0755, true);
     }
@@ -121,3 +129,4 @@ function handleMultipleImageUpload(string $fileFieldName, string $targetFolder):
 
     return ['paths' => $savedPaths, 'errors' => $errors];
 }
+?>
