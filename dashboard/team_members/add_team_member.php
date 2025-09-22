@@ -1,5 +1,5 @@
 <?php
-include("../assets/db.php");
+include(__DIR__ . "/../../assets/db.php");
 // Prepare SQL
 $sql = "INSERT INTO members (
     full_name,
