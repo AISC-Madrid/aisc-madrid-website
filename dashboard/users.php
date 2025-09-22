@@ -102,7 +102,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">
-            
+
 
             <!-- Main content -->
             <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 py-4">
@@ -132,7 +132,7 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = $result->fetch_assoc()) {
                                 echo '<tr>';
                                 foreach ($row as $value) {
-                                    echo '<td>' . htmlspecialchars($value) . '</td>';
+                                    echo '<td>' . htmlspecialchars($value ?? '—') . '</td>';
                                 }
                                 echo '</tr>';
                             }
@@ -155,4 +155,5 @@ if (!isset($_SESSION['user_id'])) {
     <?php include("../assets/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
