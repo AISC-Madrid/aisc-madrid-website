@@ -1,12 +1,12 @@
 <?php
-include("../assets/db.php");
+include(__DIR__ . "/../../assets/db.php");
 
 // Make sure ID is provided
-if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("<p style='color:red;'>❌ Error: ID del miembro no proporcionado.</p>");
 }
 
-$id = (int)$_POST['id'];
+$id = (int)$_GET['id'];
 
 // Prepare SQL for UPDATE
 $sql = "UPDATE members SET
@@ -43,7 +43,7 @@ $stmt->bind_param(
 // Execute
 if ($stmt->execute()) {
     echo "<p style='color:green;'>✅ Miembro actualizado correctamente.</p>";
-    echo "<a href='events_list.php'>Volver al formulario</a>";
+    echo "<a href='team_members_list.php'>Volver al formulario</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar: " . $stmt->error . "</p>";
 }

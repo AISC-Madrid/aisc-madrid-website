@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start(); // Start the session
 
 // Check if the user is logged in
@@ -7,16 +11,8 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-include("../assets/head.php");
-include("../assets/db.php");
-
-// Handle delete action
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    $conn->query("DELETE FROM members WHERE id = $id");
-    header("Location: team_members_list.php");
-    exit();
-}
+include(__DIR__ . "/../../assets/head.php");
+include(__DIR__ . "/../../assets/db.php");
 
 // Retrieve events
 $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
@@ -146,6 +142,10 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                             <small class="text-muted"><?= htmlspecialchars($row['position_es']) ?></small>
                         </td>
                         <td>
+                            <?= htmlspecialchars($row['position_en']) ?><br>
+                            <small class="text-muted"><?= htmlspecialchars($row['position_en']) ?></small>
+                        </td>
+                        <td>
                             <?= htmlspecialchars($row['phone']) ?><br>
                             <small class="text-muted"><?= htmlspecialchars($row['phone']) ?></small>
                         </td>
@@ -158,6 +158,10 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                             <?= htmlspecialchars($row['active']) ?><br>
                             <small class="text-muted"><?= htmlspecialchars($row['active']) ?></small>
                         </td>
+                        <td>
+                        <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/add_team_member.php?id=<?= $row['id'] ?>">Editar</a>
+                        <a class="btn btn-sm btn-danger mb-1" href="<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                        </td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
@@ -167,7 +171,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
     </table>
 </div>
 
-<?php include('../assets/footer.php'); ?>
+<?php include(__DIR__ . "/../../assets/footer.php"); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

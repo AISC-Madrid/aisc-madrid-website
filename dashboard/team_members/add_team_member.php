@@ -1,5 +1,5 @@
 <?php
-include("../assets/db.php");
+include(__DIR__ . "/../../assets/db.php");
 // Prepare SQL
 $sql = "INSERT INTO members (
     full_name,
@@ -9,7 +9,7 @@ $sql = "INSERT INTO members (
     socials,
     active,
     image_path
-) VALUES (?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -20,7 +20,7 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssss",
+    "ssssssss",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
