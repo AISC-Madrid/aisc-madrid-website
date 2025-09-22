@@ -152,8 +152,12 @@ if (!$event) {
                 </div>
             </div>
 
-            <?php if (!empty($gallery)): ?>
-                <div class="col-lg-8 pt-5">
+            
+
+            <!-- Main Content -->
+            <div class="" style="width:80%;">
+                <?php if (!empty($gallery)): ?>
+                <div class="col-lg-8 pt-2">
                     <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
                         <!-- Indicators -->
                         <div class="carousel-indicators">
@@ -189,9 +193,6 @@ if (!$event) {
                     </div>
                 </div>
             <?php endif; ?>
-
-            <!-- Main Content -->
-            <div class="col-lg-8">
                 <section id="article-body" style="padding: 2rem; white-space: pre-line;"
                     data-en="<?= htmlspecialchars_decode($event['description_en']) ?>"
                     data-es="<?= htmlspecialchars_decode($event['description_es']) ?>">
