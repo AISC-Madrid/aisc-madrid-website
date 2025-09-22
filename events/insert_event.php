@@ -39,7 +39,7 @@ if (!$stmt->execute()) {
 $eventId = $conn->insert_id;
 
 // 2. Create folders for images
-$eventFolder = "images/events/event$eventId";
+$eventFolder = "/images/events/event$eventId";
 if (!is_dir($eventFolder)) mkdir($eventFolder, 0755, true);
 
 // 3. Upload main image
@@ -50,7 +50,7 @@ if (isset($mainImage['error'])) {
 $mainImagePath = $mainImage['path'];
 
 // 4. Upload gallery images
-$gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
+$gallery = handleMultipleImageUpload('images', "/$eventFolder/gallery");
 $galleryPathsJson = json_encode($gallery['paths']);
 
 // 5. Update the event row with image paths
