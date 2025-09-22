@@ -77,7 +77,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <!-- position_en -->
         <div class="mb-3 col-6">
             <label class="form-label">Position (English)</label>
-            <input type="text" name="position_es" class="form-control" value="<?= htmlspecialchars($position_es) ?>">
+            <input type="text" name="position_en" class="form-control" value="<?= htmlspecialchars($position_en) ?>">
         </div>
 
         <!-- phone -->
