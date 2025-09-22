@@ -27,7 +27,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     if ($member) {
         $full_name = $member['full_name'];
-        $mail = $member['mails'];
+        $mail = $member['mail'];
         $position_es = $member['position_es'];
         $position_en = $member['position_en'];
         $phone = $member['phone'];
