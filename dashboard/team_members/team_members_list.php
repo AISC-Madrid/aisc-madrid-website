@@ -114,7 +114,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Miembros</h2>
-        <a href="dashboard/team_members/add_team_member.php" class="btn btn-primary">+ Añadir nuevo miembro</a>
+        <a href="dashboard/team_members/create_team_member.php" class="btn btn-primary">+ Añadir nuevo miembro</a>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
@@ -123,6 +123,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                 <th>Nombre y Apellidos</th>
                 <th>Mail</th>
                 <th>Posición (ES/EN)</th>
+                <th>Position (ES/EN)</th>
                 <th>Tfno.</th>
                 <th>Redes</th>
                 <th>Activo</th>
@@ -159,8 +160,8 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                             <small class="text-muted"><?= htmlspecialchars($row['active']) ?></small>
                         </td>
                         <td>
-                        <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/add_team_member.php?id=<?= $row['id'] ?>">Editar</a>
-                        <a class="btn btn-sm btn-danger mb-1" href="<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                        <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/create_team_member.php?id=<?= $row['id'] ?>">Editar</a>
+                        <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

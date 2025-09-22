@@ -34,7 +34,7 @@ $stmt->bind_param(
 // Execute
 if ($stmt->execute()) {
     echo "<p style='color:green;'>✅ Miembro guardado correctamente.</p>";
-    echo "<a href='events_list.php'>Añadir otro miembro</a>";
+    echo "<a href='team_members_list.php'>Añadir otro miembro</a>";
 } else {
     echo "<p style='color:red;'>❌ Error: " . $stmt->error . "</p>";
 }
