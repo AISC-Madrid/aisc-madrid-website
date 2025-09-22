@@ -76,7 +76,7 @@ if (!$event) {
             ?>
 
             <?php if (!empty($gallery)): ?>
-                <div class="col-9 offset-3 m-2">
+                <div class="col align-self-center m-2">
                     <div id="eventGalleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
                         <!-- Indicators -->
                         <div class="carousel-indicators">
