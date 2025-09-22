@@ -160,7 +160,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                             <small class="text-muted"><?= htmlspecialchars($row['active']) ?></small>
                         </td>
                         <td>
-                        <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/add_team_member.php?id=<?= $row['id'] ?>">Editar</a>
+                        <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/create_team_member.php?id=<?= $row['id'] ?>">Editar</a>
                         <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                         </td>
                     </tr>
