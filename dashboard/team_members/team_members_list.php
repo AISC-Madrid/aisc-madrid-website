@@ -10,13 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 include("../assets/head.php");
 include("../assets/db.php");
 
-// Handle delete action
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    $conn->query("DELETE FROM members WHERE id = $id");
-    header("Location: team_members_list.php");
-    exit();
-}
 
 // Retrieve events
 $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
