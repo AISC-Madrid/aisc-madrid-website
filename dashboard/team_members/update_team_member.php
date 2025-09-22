@@ -2,11 +2,11 @@
 include("../assets/db.php");
 
 // Make sure ID is provided
-if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("<p style='color:red;'>❌ Error: ID del miembro no proporcionado.</p>");
 }
 
-$id = (int)$_POST['id'];
+$id = (int)$_GET['id'];
 
 // Prepare SQL for UPDATE
 $sql = "UPDATE members SET
