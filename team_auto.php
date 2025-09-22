@@ -58,8 +58,8 @@ while ($row = $result->fetch_assoc()) {
               </div>
             </div>
             <h5 class="mt-3" style="color: var(--background)"><?= $member['full_name'] ?></h5>
-            <p class="text-muted" data-en="<?= htmlspecialchars($event['position_en']) ?>" data-es="<?= htmlspecialchars($event['position_es']) ?>">
-                <?= htmlspecialchars($event['position_es']) ?></p>
+            <p class="text-muted" data-en="<?= htmlspecialchars($member['position_en']) ?>" data-es="<?= htmlspecialchars($member['position_es']) ?>">
+                <?= htmlspecialchars($member['position_es']) ?></p>
           </div>
         </div>
         <?php endforeach; ?>
