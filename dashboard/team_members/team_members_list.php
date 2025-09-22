@@ -12,7 +12,7 @@ include("../assets/db.php");
 
 // Handle delete action
 if (isset($_GET['delete'])) {
-    $event_id = intval($_GET['delete']);
+    $id = intval($_GET['delete']);
     $conn->query("DELETE FROM members WHERE id = $id");
     header("Location: team_members_list.php");
     exit();
