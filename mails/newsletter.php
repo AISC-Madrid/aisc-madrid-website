@@ -198,25 +198,15 @@ function generarNewsletterHTML($full_name, $token) {
             <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
             <div class="border rounded bg-white p-3">
                 <?php
-                // Paso 1: Botón inicial
-                if (!isset($_POST['preview']) && !isset($_POST['confirm_send'])) {
-                    ?>
-                    <form method="post">
-                        <button type="submit" name="preview" class="btn btn-primary">
-                            Previsualizar Newsletter
-                        </button>
-                    </form>
-                    <?php
-                }
 
-                // Paso 2: Preview
+                // Newsletter Preview
                 if (isset($_POST['preview'])) {
                     $htmlPreview = generarNewsletterHTML("Miembro AISC", "previewtoken123");
-
+                    
                     echo "<h4 class='text-success'>Vista previa de la Newsletter:</h4>";
-                    echo "<div class='border p-3 mb-3' style='background:white; max-height:600px; overflow:auto;'>";
-                    echo $htmlPreview;
-                    echo "</div>";
+                    echo "<iframe srcdoc=\"" . htmlspecialchars($htmlPreview) . "\" 
+                            style='width:100%; height:600px; border:1px solid #ccc;'>
+                        </iframe>";
                     ?>
                     <form method="post">
                         <input type="hidden" name="confirm_send" value="1">
@@ -227,7 +217,7 @@ function generarNewsletterHTML($full_name, $token) {
                     <?php
                 }
 
-                // Paso 3: Envío real
+                // Send newsletter
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
