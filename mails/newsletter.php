@@ -198,13 +198,6 @@ function generarNewsletterHTML($full_name, $token) {
             <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
             <div class="border rounded bg-white p-3">
 
-                <!-- Botón inicial de previsualizar -->
-                <?php if (!isset($_POST['preview']) && !isset($_POST['confirm_send'])): ?>
-                    <form method="post">
-                        <button type="submit" name="preview" class="btn btn-primary">Previsualizar Newsletter</button>
-                    </form>
-                <?php endif; ?>
-
                 <?php
                 // Newsletter Preview
                 if (isset($_POST['preview'])) {
