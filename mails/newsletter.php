@@ -197,24 +197,28 @@ function generarNewsletterHTML($full_name, $token) {
         <main class="col-12 px-md-4 py-4">
             <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
             <div class="border rounded bg-white p-3">
-                <?php
 
+                <!-- Botón inicial de previsualizar -->
+                <?php if (!isset($_POST['preview']) && !isset($_POST['confirm_send'])): ?>
+                    <form method="post">
+                        <button type="submit" name="preview" class="btn btn-primary">Previsualizar Newsletter</button>
+                    </form>
+                <?php endif; ?>
+
+                <?php
                 // Newsletter Preview
                 if (isset($_POST['preview'])) {
                     $htmlPreview = generarNewsletterHTML("Miembro AISC", "previewtoken123");
-                    
-                    echo "<h4 class='text-success'>Vista previa de la Newsletter:</h4>";
-                    echo "<iframe srcdoc=\"" . htmlspecialchars($htmlPreview) . "\" 
-                            style='width:100%; height:600px; border:1px solid #ccc;'>
-                        </iframe>";
-                    ?>
-                    <form method="post">
-                        <input type="hidden" name="confirm_send" value="1">
-                        <button type="submit" class="btn btn-danger">
-                            Confirmar y Enviar a todos los suscriptores
-                        </button>
-                    </form>
-                    <?php
+
+                    echo "<h4 class='text-success mt-3'>Vista previa de la Newsletter:</h4>";
+                    echo '<iframe srcdoc="' . htmlspecialchars($htmlPreview, ENT_QUOTES) . '" 
+                            style="width:100%; height:600px; border:1px solid #ccc;" sandbox="allow-same-origin allow-popups allow-forms">
+                          </iframe>';
+
+                    echo '<form method="post" class="mt-3">';
+                    echo '<input type="hidden" name="confirm_send" value="1">';
+                    echo '<button type="submit" class="btn btn-danger">Confirmar y Enviar a todos los suscriptores</button>';
+                    echo '</form>';
                 }
 
                 // Send newsletter
