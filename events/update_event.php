@@ -9,39 +9,53 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 
 $event_id = (int)$_POST['id'];
 
-// 1. Delete old event folder (main image + gallery)
-$eventFolder = __DIR__ . "/../images/events/event$event_id";
-if (is_dir($eventFolder)) {
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::CHILD_FIRST
-    );
-    foreach ($files as $fileinfo) {
-        $fileinfo->isDir() ? rmdir($fileinfo) : unlink($fileinfo);
+// Get current image paths from DB in case no new images are uploaded
+$result = $conn->query("SELECT image_path, gallery_paths FROM events WHERE id = $event_id");
+if (!$result || $result->num_rows === 0) {
+    die("<p style='color:red;'>❌ Evento no encontrado.</p>");
+}
+$current = $result->fetch_assoc();
+$currentMainImage = $current['image_path'];
+$currentGallery = $current['gallery_paths'];
+
+// 1. Handle main image upload (optional)
+$mainImagePath = $currentMainImage;
+if (!empty($_FILES['image']['name'])) {
+    // Delete old main image folder
+    $eventFolder = __DIR__ . "/../images/events/event$event_id";
+    if (is_dir($eventFolder)) {
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($files as $fileinfo) {
+            $fileinfo->isDir() ? rmdir($fileinfo) : unlink($fileinfo);
+        }
+        rmdir($eventFolder);
     }
-    rmdir($eventFolder);
-}
 
-// 2. Create fresh folder for images
-if (!is_dir($eventFolder)) {
+    // Create fresh folder
     mkdir($eventFolder, 0755, true);
+
+    // Upload main image
+    $mainImage = handleImageUpload('image', $eventFolder);
+    if (isset($mainImage['error'])) {
+        die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
+    }
+    $mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']);
 }
 
-// 3. Upload main image
-$mainImage = handleImageUpload('image', $eventFolder);
-if (isset($mainImage['error'])) {
-    die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
+// 2. Handle gallery upload (optional)
+$galleryPathsJson = $currentGallery; // default: keep existing
+if (!empty($_FILES['images']['name'][0])) {
+    $gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
+    $galleryPaths = array_map(function($path) {
+        return str_replace(__DIR__ . "/../", "", $path);
+    }, $gallery['paths']);
+    $galleryPathsJson = json_encode($galleryPaths);
 }
-$mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']); // relative path for DB
 
-// 4. Upload gallery images
-$gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
-$galleryPaths = array_map(function($path) {
-    return str_replace(__DIR__ . "/../", "", $path);
-}, $gallery['paths']);
-$galleryPathsJson = json_encode($galleryPaths);
-
-// 5. Prepare SQL for UPDATE including speaker and images
+// 3. Prepare SQL for UPDATE including optional images
 $sql = "UPDATE events SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
@@ -79,7 +93,7 @@ $stmt->bind_param(
 
 // Execute
 if ($stmt->execute()) {
-    echo "<p style='color:green;'>✅ Evento actualizado correctamente con nuevas imágenes.</p>";
+    echo "<p style='color:green;'>✅ Evento actualizado correctamente.</p>";
     echo "<a href='events_list.php'>Volver al formulario</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar: " . $stmt->error . "</p>";
