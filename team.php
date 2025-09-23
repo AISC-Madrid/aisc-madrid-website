@@ -3,6 +3,29 @@
 
 <?php include("assets/head.php"); ?>
 
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include("assets/db.php");
+
+
+// Retrieve all members from the db
+$result = $conn->query("SELECT * FROM members ORDER BY id ASC");
+
+// Separate active and past members
+$active_members = [];
+$past_members = [];
+
+while ($row = $result->fetch_assoc()) {
+    if ($row['active'] == 'yes') {
+        $active_members[] = $row;
+    } else {
+        $past_members[] = $row;
+    }
+}
+?>
+
 <body class="d-flex flex-column min-vh-100">
 
   <?php include("assets/nav.php"); ?>
@@ -21,83 +44,25 @@
         </h6>
       </div>
 
-
-      <!-- Members row -->
-      <div class="mt-5 row">
-
+<!-- Auto load members test -->
+ <div class="mt-5 row">
+        <?php foreach ($active_members as $member): ?>
+            <!--  -->
         <div class="col-sm-6 col-lg-3">
           <div class="team-box text-center">
             <div class="team-wrapper">
               <div class="team-member">
-                <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
-                  <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
+                <a href="<?= $member['socials'] ?>" target="_blank">
+                  <img src="<?= htmlspecialchars($member['image_path']) ?>" alt="<?= $member['full_name'] ?>" class="img-fluid rounded">
                 </a>
               </div>
             </div>
-            <h5 class="mt-3" style="color: var(--background)">Hugo Centeno Sanz</h5>
-            <p class="text-muted" data-en="President" data-es="Presidente">Presidente</p>
+            <h5 class="mt-3" style="color: var(--background)"><?= $member['full_name'] ?></h5>
+            <p class="text-muted" data-en="<?= htmlspecialchars($member['position_en']) ?>" data-es="<?= htmlspecialchars($member['position_es']) ?>">
+                <?= htmlspecialchars($member['position_es']) ?></p>
           </div>
         </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="team-box text-center">
-            <div class="team-wrapper">
-              <div class="team-member">
-                <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
-                  <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
-                </a>
-              </div>
-            </div>
-            <h5 class="mt-3" style="color: var(--background)">Alfonso Mayoral Montero</h5>
-            <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="team-box text-center">
-            <div class="team-wrapper">
-              <div class="team-member">
-                <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
-                  <img src="images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
-                </a>
-              </div>
-            </div>
-            <h5 class="mt-3" style="color: var(--background)">Lauren Gallego Ropero</h5>
-            <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="team-box text-center">
-            <div class="team-wrapper">
-              <div class="team-member">
-                <a href="https://www.linkedin.com/in/alejandrobarrosobueso/" target="_blank">
-                  <img src="images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
-                </a>
-              </div>
-            </div>
-            <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
-            <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="team-box text-center">
-            <div class="team-wrapper">
-              <div class="team-member">
-                <a href="https://www.linkedin.com/in/yagocabanes/" target="_blank">
-                  <img src="images/members/Yago Cabanes Corvera.png" alt="Yago Cabanes Corvera" class="img-fluid rounded">
-                </a>
-              </div>
-            </div>
-            <h5 class="mt-3" style="color: var(--background)">Yago Cabanes Corvera</h5>
-            <p class="text-muted" data-en="Legal and Finance Manager" data-es="Gestor Legal y Financiero">Gestor Legal y Financiero</p>
-          </div>
-        </div>
-        
-
-      </div><!-- End members row -->
-
+        <?php endforeach; ?>
     </div>
   </section>
 
