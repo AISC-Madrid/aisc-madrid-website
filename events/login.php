@@ -6,7 +6,7 @@ include('../assets/db.php'); // Your $conn mysqli connection
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mail = $_POST['mail'] ?? '';
+    $mail = $_POST['mail']."@alumnos.uc3m.es" ?? '';
     $password = $_POST['password'] ?? '';
 
     // Prepare and execute query
@@ -54,7 +54,7 @@ $conn->close();
             <?php endif; ?>
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label class="form-label">Mail</label>
+                    <label class="form-label">NIA</label>
                     <input type="text" name="mail" class="form-control" required>
                 </div>
                 <div class="mb-3">
