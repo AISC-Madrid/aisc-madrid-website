@@ -209,16 +209,19 @@ function generarNewsletterHTML($full_name, $token) {
                 // Newsletter Preview
                 if (isset($_POST['preview'])) {
                     $htmlPreview = generarNewsletterHTML("Miembro AISC", "previewtoken123");
+                    echo "<h4 class='text-success'>Vista previa de la Newsletter:</h4>";
+                   echo '<iframe srcdoc="' . htmlspecialchars($htmlPreview, ENT_QUOTES) . '" 
+                        style="width:100%; height:600px; border:1px solid #ccc;">
+                    </iframe>';
 
-                    echo "<h4 class='text-success mt-3'>Vista previa de la Newsletter:</h4>";
-                    echo '<iframe srcdoc="' . htmlspecialchars($htmlPreview, ENT_QUOTES) . '" 
-                            style="width:100%; height:600px; border:1px solid #ccc;" sandbox="allow-same-origin allow-popups allow-forms">
-                          </iframe>';
-
-                    echo '<form method="post" class="mt-3">';
-                    echo '<input type="hidden" name="confirm_send" value="1">';
-                    echo '<button type="submit" class="btn btn-danger">Confirmar y Enviar a todos los suscriptores</button>';
-                    echo '</form>';
+                    ?>
+                    <form method="post">
+                        <input type="hidden" name="confirm_send" value="1">
+                        <button type="submit" class="btn btn-danger">
+                            Confirmar y Enviar a todos los suscriptores
+                        </button>
+                    </form>
+                    <?php
                 }
 
                 // Send newsletter
