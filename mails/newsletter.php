@@ -4,16 +4,14 @@ while (ob_get_level()) ob_end_flush();
 ini_set('output_buffering', 'off');
 ini_set('zlib.output_compression', 0);
 
-// Display all errors for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require '../vendor/autoload.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 
-session_start(); // Start the session
+session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -22,68 +20,11 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include("../assets/db.php");
-?>
-<!DOCTYPE html>
-<html lang="es">
-<?php include("../assets/head.php"); ?>
 
-<body>
-
-    <!-- Navbar -->
-    <!-- Navbar -->
-<?php include("../dashboard/dashboard_nav.php"); ?>
-
-    <div class="container-fluid" style="margin-top:90px;">
-        <div class="row">
-            <!-- Main content -->
-            <main class="col-12 px-md-4 py-4">
-                <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
-
-                <div class="border rounded bg-white p-3">
-                    <div >
-                        <?php
-                        // Step 1: Show button if page loaded without sending
-                        if (!isset($_POST['send_emails'])) {
-                        ?>
-                            <form method="post">
-                                <button type="submit" name="send_emails" class="btn btn-primary">
-                                    Enviar Newsletter
-                                </button>
-                            </form>
-                        <?php
-                        } else {
-
-                            // Step 2: Send emails if form submitted
-                            $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    $full_name = $row['full_name'];
-                                    $email = $row['email'];
-                                    $token = $row['unsubscribe_token'];
-
-                                    // New mail for each user
-                                    $mail = new PHPMailer;
-                                    $mail->CharSet = 'UTF-8';
-                                    $mail->isSMTP();
-                                    $mail->SMTPDebug = 0; // cambia a 2 para ver logs detallados
-                                    $mail->Host = 'smtp.hostinger.com';
-                                    $mail->Port = 587;
-                                    $mail->SMTPAuth = true;
-
-                                    $config = include('../config.php');
-                                    $mail->Username = $config['smtp_user'];
-                                    $mail->Password = $config['smtp_pass'];
-                                    $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
-                                    $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
-                                    $mail->addAddress($email);
-                                    $mail->Subject = '¡Así fue el Evento de Presentación!';
-
-                                    // HTML content
-                                    $htmlContent = "
-        <!DOCTYPE html>
+// Función para generar el HTML de la newsletter
+function generarNewsletterHTML($full_name, $token) {
+    return "
+    <!DOCTYPE html>
 <html>
     <head>
         <meta charset='UTF-8'>
@@ -103,7 +44,6 @@ include("../assets/db.php");
             <!-- Image -->
             <tr>
                 <td align='center' style='padding:20px;'>
-                    <!-- Substitute by image path -->
                     <img src='https://aiscmadrid.com/images/events/event5/ConoceAISC.png'
                         alt='AISC Madrid - Evento de Presentación' width='100%'
                         style='max-width:560px; border-radius:6px; display:block;'>
@@ -114,7 +54,7 @@ include("../assets/db.php");
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
                     <p align='center'><strong>Estamos muy contentos con vuestro interés por la asociación.</strong></p>
-                        <p>En el Evento de Presentación podimos conoceros a todos y contaros más sobre AISC.</p>
+                        <p>En el Evento de Presentación pudimos conoceros a todos y contaros más sobre AISC.</p>
                         <p>Gracias por darnos vuestro feedback sobre lo qué esperáis de AISC
                             y por hacernos sentir vuestro interés e ilusión por la asociación.</p>
                         <br>
@@ -134,7 +74,7 @@ include("../assets/db.php");
                 </td>
             </tr>
             
-            <!-- Workshops section -->
+            <!-- Workshops -->
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
                     <p align='center'><strong>Workshops</strong></p>
@@ -150,7 +90,7 @@ include("../assets/db.php");
                 </td>                
             </tr>
 
-            <!-- Events section -->
+            <!-- Events -->
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
                     <p align='center'><strong>Events</strong></p>
@@ -181,6 +121,7 @@ include("../assets/db.php");
                     </p>
                 </td>
             </tr>
+
             <tr>
                 <td align='center' style='padding:20px; color:#EB178E;'> 
                     <h1 style='margin:0; font-size:24px;'><strong>Únete al equipo de AISC Madrid</strong></h1>
@@ -204,26 +145,24 @@ include("../assets/db.php");
                         </p>
                 </td>
             </tr>
-        <!-- Buttons Row -->
+
+        <!-- Botones -->
         <tr>
         <td align='center' style='padding:20px;'>
             <table border='0' cellspacing='0' cellpadding='0'>
             <tr>
-                <!-- Comunidad de Whatsapp -->
                 <td style='padding:0 5px;'>
                 <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=ac_t' target='_blank' rel='noopener noreferrer'
                     style='background-color:#25d366; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
                     Únete a la comunidad de Whatsapp
                 </a>
                 </td>
-                <!-- Instagram -->
                 <td style='padding:0 5px;'>
                 <a href='https://www.instagram.com/aisc_madrid/' target='_blank' rel='noopener noreferrer'
                     style='background-color:#c13584; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
                     Instagram
                 </a>
                 </td>
-                <!-- LinkedIn -->
                 <td style='padding:0 5px;'>
                 <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' rel='noopener noreferrer'
                     style='background-color:#0077B5; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
@@ -234,6 +173,7 @@ include("../assets/db.php");
             </table>
         </td>
         </tr>
+
         <!-- Footer -->
         <tr> 
         <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
@@ -244,35 +184,99 @@ include("../assets/db.php");
 
     </body>
 </html>";
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<?php include("../assets/head.php"); ?>
+<body>
+<?php include("../dashboard/dashboard_nav.php"); ?>
 
-                                    $mail->isHTML(true);
-                                    $mail->Body = $htmlContent;
+<div class="container-fluid" style="margin-top:90px;">
+    <div class="row">
+        <main class="col-12 px-md-4 py-4">
+            <h2 class="mb-4 text-dark">Enviar Newsletter</h2>
+            <div class="border rounded bg-white p-3">
+                <?php
+                // Paso 1: Botón inicial
+                if (!isset($_POST['preview']) && !isset($_POST['confirm_send'])) {
+                    ?>
+                    <form method="post">
+                        <button type="submit" name="preview" class="btn btn-primary">
+                            Previsualizar Newsletter
+                        </button>
+                    </form>
+                    <?php
+                }
 
-                                    if (!$mail->send()) {
-                                        error_log("Error enviando a $email: " . $mail->ErrorInfo);
-                                    } else {
-                                        echo "Correo enviado a $email<br>";
-                                    }
-                                    // Force flush immediately
-                                    if (ob_get_level()) ob_flush();  // flush PHP buffer
-                                    flush();                          // flush system buffer
-                                }
+                // Paso 2: Preview
+                if (isset($_POST['preview'])) {
+                    $htmlPreview = generarNewsletterHTML("Miembro AISC", "previewtoken123");
+
+                    echo "<h4 class='text-success'>Vista previa de la Newsletter:</h4>";
+                    echo "<div class='border p-3 mb-3' style='background:white; max-height:600px; overflow:auto;'>";
+                    echo $htmlPreview;
+                    echo "</div>";
+                    ?>
+                    <form method="post">
+                        <input type="hidden" name="confirm_send" value="1">
+                        <button type="submit" class="btn btn-danger">
+                            Confirmar y Enviar a todos los suscriptores
+                        </button>
+                    </form>
+                    <?php
+                }
+
+                // Paso 3: Envío real
+                if (isset($_POST['confirm_send'])) {
+                    $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $full_name = $row['full_name'];
+                            $email = $row['email'];
+                            $token = $row['unsubscribe_token'];
+
+                            $mail = new PHPMailer;
+                            $mail->CharSet = 'UTF-8';
+                            $mail->isSMTP();
+                            $mail->SMTPDebug = 0;
+                            $mail->Host = 'smtp.hostinger.com';
+                            $mail->Port = 587;
+                            $mail->SMTPAuth = true;
+
+                            $config = include('../config.php');
+                            $mail->Username = $config['smtp_user'];
+                            $mail->Password = $config['smtp_pass'];
+                            $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+                            $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+                            $mail->addAddress($email);
+                            $mail->Subject = '¡Así fue el Evento de Presentación!';
+
+                            $mail->isHTML(true);
+                            $mail->Body = generarNewsletterHTML($full_name, $token);
+
+                            if (!$mail->send()) {
+                                echo "<p class='text-danger'>Error enviando a $email: {$mail->ErrorInfo}</p>";
                             } else {
-                                echo "No hay usuarios suscritos a la newsletter.";
+                                echo "<p class='text-success'>Correo enviado a $email</p>";
                             }
-
-                            $conn->close();
+                            if (ob_get_level()) ob_flush();
+                            flush();
                         }
-
-                        ?>
-                    </div>
-                </div>
-            </main>
-        </div>
+                    } else {
+                        echo "<p>No hay usuarios suscritos a la newsletter.</p>";
+                    }
+                    $conn->close();
+                }
+                ?>
+            </div>
+        </main>
     </div>
+</div>
 
-    <?php include('../assets/footer.php'); ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php include('../assets/footer.php'); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
