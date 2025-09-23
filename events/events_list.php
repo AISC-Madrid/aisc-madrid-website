@@ -153,7 +153,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                         <td><?= htmlspecialchars($row['location']) ?></td>
                         <td>
                             <a class="btn btn-sm btn-success mb-1" href="events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
-                            <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                            <a class="btn btn-sm btn-danger mb-1" href="events/events_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

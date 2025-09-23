@@ -13,7 +13,7 @@ include('../assets/db.php'); // Your $conn mysqli connection
 
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
-$description_es = $description_en = $location_es = '';
+$description_es = $description_en = $location = '';
 $start_datetime = $end_datetime = $image_path = $google_calendar_url = '';
 $speaker = '';
 
@@ -36,7 +36,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $speaker = $event['speaker'];
         $description_es = $event['description_es'];
         $description_en = $event['description_en'];
-        $location_es = $event['location'];
+        $location = $event['location'];
         $start_datetime = $event['start_datetime'];
         $end_datetime = $event['end_datetime'];
         $image_path = $event['image_path'];
@@ -109,7 +109,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Location -->
                     <div class="mb-3">
                         <label class="form-label">Ubicación</label>
-                        <input type="text" name="location_es" class="form-control" value="<?= htmlspecialchars($location_es) ?>">
+                        <input type="text" name="location" class="form-control" value="<?= htmlspecialchars($location) ?>">
                     </div>
 
                     <!-- Start date/time -->
