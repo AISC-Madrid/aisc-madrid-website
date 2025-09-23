@@ -6,12 +6,12 @@ include('../assets/db.php'); // Your $conn mysqli connection
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+    $mail = $_POST['mail'] ?? '';
     $password = $_POST['password'] ?? '';
 
     // Prepare and execute query
-    $stmt = $conn->prepare("SELECT id, username, password_hash, role FROM members WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT id, mail, password_hash, role FROM members WHERE mail = ?");
+    $stmt->bind_param("s", $mail);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -20,16 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password_hash'])) {
             // Start session
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['mail'] = $user['mail'];
             $_SESSION['activated'] = true;
             $_SESSION['role'] = $user['role'];
             header("Location: ../dashboard/dashboard.php"); // Redirect after login
             exit();
         } else {
-            $error = "Invalid username or password.";
+            $error = "Invalid mail or password.";
         }
     } else {
-        $error = "Invalid username or password.";
+        $error = "Invalid mail or password.";
     }
 
     $stmt->close();
@@ -54,8 +54,8 @@ $conn->close();
             <?php endif; ?>
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" required>
+                    <label class="form-label">Mail</label>
+                    <input type="text" name="mail" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
