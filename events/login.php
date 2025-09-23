@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Prepare and execute query
-    $stmt = $conn->prepare("SELECT id, username, password_hash FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, username, password_hash, role FROM members WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Start session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['activated'] = true;
+            $_SESSION['role'] = $user['role'];
             header("Location: ../dashboard/dashboard.php"); // Redirect after login
             exit();
         } else {

@@ -7,9 +7,9 @@ error_reporting(E_ALL);
 session_start();
 include("../assets/db.php");
 
-// Check if logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+// Check if the user is logged in
+if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
+    header("Location: events/login.php");
     exit();
 }
 ?>

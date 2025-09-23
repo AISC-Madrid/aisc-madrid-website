@@ -1,12 +1,11 @@
 <?php
 session_start(); // Start the session
-
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    // Not logged in, redirect to login page
-    header("Location: login.php");
+if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
+    header("Location: events/login.php");
     exit();
 }
+
 include("../assets/head.php");
 include("../assets/db.php");
 
