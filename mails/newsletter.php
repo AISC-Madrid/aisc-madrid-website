@@ -44,7 +44,7 @@ function generarNewsletterHTML($full_name, $token) {
             <!-- Image -->
             <tr>
                 <td align='center' style='padding:20px;'>
-                    <img src='https://aiscmadrid.com/images/events/event5/ConoceAISC_new.png'
+                    <img src='https://aiscmadrid.com/images/events/event5/ConoceAISC.png'
                         alt='AISC Madrid - Evento de Presentación' width='100%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
@@ -202,7 +202,6 @@ function generarNewsletterHTML($full_name, $token) {
                 // Newsletter Preview
                 if (isset($_POST['preview'])) {
                     $htmlPreview = generarNewsletterHTML("Miembro AISC", "previewtoken123");
-
                     echo "<h4 class='text-success'>Vista previa de la Newsletter:</h4>";
                     echo "<iframe srcdoc=\"" . htmlspecialchars($htmlPreview) . "\" 
                             style='width:100%; height:600px; border:1px solid #ccc;'>
