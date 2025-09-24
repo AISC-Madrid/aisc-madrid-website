@@ -55,7 +55,7 @@ function generarNewsletterHTML($full_name, $token) {
             <!-- Main text -->
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Hola ' . explode(' ', $full_name)[0] . ', en esta newsletter te contamos los próximos eventos con empresas como Hugging Face o Milfshakes y un <span style = 'color:#EB178E'> cambio de día </span> en nuestro próximo taller: Introducción a la IA & ML II: Regresión. </strong></p>
+                    <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . ", en esta newsletter te contamos los próximos eventos con empresas como Hugging Face o Milfshakes y un <span style = 'color:#EB178E'> cambio de día </span> en nuestro próximo taller: Introducción a la IA & ML II: Regresión. </strong></p>
                 </td>                
             </tr>
 
@@ -282,7 +282,7 @@ function generarNewsletterHTML($full_name, $token) {
                             $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
                             $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
                             $mail->addAddress($email);
-                            $mail->Subject = '¡Así fue el Evento de Presentación!';
+                            $mail->Subject = '¡Hugging Face viene al campus!';
 
                             $mail->isHTML(true);
                             $mail->Body = generarNewsletterHTML($full_name, $token);
