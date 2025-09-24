@@ -38,6 +38,7 @@
             <tr>
                 <td align="center" style="padding:20px; color:#EB178E;"> 
                     <h1 style="margin:0; font-size:24px;"><strong>Tema 1</strong></h1>
+                    <div style="margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;"></div>
                 </td>
             </tr>
 
@@ -57,6 +58,7 @@
             <tr>
                 <td align="center" style="padding:20px; color:#EB178E;"> 
                     <h1 style="margin:0; font-size:24px;"><strong>Próximamente en AISC</strong></h1>
+                    <div style="margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;"></div>
                 </td>
             </tr>
 
@@ -104,17 +106,46 @@
                 </td>
             </tr>
 
-            <!-- Footer -->
+                    <tr>
+            <td style='padding:20px; color:#333333; font-size:16p; line-height:1.5;'> 
+                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
+            </td>
+        </tr>    
+        <!-- Buttons Row -->
+        <tr>
+        <td align="center" style="padding:20px;">
+            <table border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td style="padding:20px; font-size:12px; color:#777777;" align="center"> 
-                        Síguenos en <a href="https://instagram.com/aisc_madrid"
-                        style="color:#007BFF; text-decoration:none;">Instagram</a>
-                        <a href="https://www.linkedin.com/company/ai-student-collective-madrid/"
-                        style="color:#007BFF; text-decoration:none;">LinkedIn</a>
-        <br><br>
-                    <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                <!-- Web -->
+                <td style="padding:0 5px;">
+                <a href="https://aiscmadrid.com/" target='_blank' rel='noopener noreferrer'
+                    style="background-color:#333333; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;">
+                    Nuestra Web
+                </a>
+                </td>
+                <!-- Instagram -->
+                <td style="padding:0 5px;">
+                <a href="https://www.instagram.com/aisc_madrid/" target='_blank' rel='noopener noreferrer'
+                    style="background-color:#c13584; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;">
+                    Instagram
+                </a>
+                </td>
+                <!-- LinkedIn -->
+                <td style="padding:0 5px;">
+                <a href="https://www.linkedin.com/company/ai-student-collective-madrid/" target='_blank' rel='noopener noreferrer'
+                    style="background-color:#0077B5; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;">
+                    LinkedIn
+                </a>
                 </td>
             </tr>
+            </table>
+        </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding:20px;">
+                    <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+            </td>
+        </tr>
         </table>
     </body>
 </html>
