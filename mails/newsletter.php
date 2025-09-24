@@ -260,7 +260,31 @@ function generarNewsletterHTML($full_name, $token) {
                 // Send newsletter
                 // failed emails in newsletter 3
                     $failedEmails = [
-                        "100498982@alumnos.uc3m.es"
+                        "100563906@alumnos.uc3m.es",
+                        "100496029@alumnos.uc3m.es",
+                        "100583589@alumnos.uc3m.es",
+                        "100584042@alumnos.uc3m.es",
+                        "100529239@alumnos.uc3m.es",
+                        "100583726@alumnos.uc3m.es",
+                        "100550275@alumnos.uc3m.es",
+                        "100550246@alumnos.uc3m.es",
+                        "100581613@alumnos.uc3m.es",
+                        "100523010@alumnos.uc3m.es",
+                        "100550156@alumnos.uc3m.es",
+                        "shengyu.chan7@gmail.com",
+                        "100583945@alumnos.uc3m.es",
+                        "luzomolero2007@gmail.com",
+                        "100585113@alumnos.uc3m.es",
+                        "drondybss@gmail.com",
+                        "100496537@alumnos.uc3m.es",
+                        "torresdiego2371@gmail.com",
+                        "andreasuarezmartin101@gmail.com",
+                        "lina.lin@hotmail.com",
+                        "100472113@alumnos.uc3m.es",
+                        "enriquecogolludoglvz@gmail.com",
+                        "100550727@alumnos.uc3m.es",
+                        "100583970@alumnos.uc3m.es",
+                        "100498985@alumnos.uc3m.es"
                     ];
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
