@@ -211,7 +211,7 @@ function generarNewsletterHTML($full_name, $token) {
         </tr>
         <tr>
             <td align='center' style='padding:20px;'>
-                    <a href= https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                    <a href= 'https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
             </td>
         </tr>
         </table>
