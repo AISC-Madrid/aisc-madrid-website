@@ -46,8 +46,8 @@ function generarNewsletterHTML($full_name, $token) {
             <tr>
                 <td align='center' style='padding:20px;'>
                     <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event6/Sergio Paniego Hugging Face.png'
-                        alt='AISC Madrid - Jornada de Bienvenida' width='80%'
+                    <img src='https://aiscmadrid.com/images/events/event6/SergioPaniegoHuggingFace.png'
+                        alt='AISC Madrid Hugging Face - Sergio Paniego Blanco' width='80%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
             </tr>
@@ -138,7 +138,7 @@ function generarNewsletterHTML($full_name, $token) {
             </td>
         </tr>    
 
-        <!-- Oportunities Section -->>
+        <!-- Oportunities Section -->
         <tr>
                 <td align='center' style='padding:20px; color:#EB178E;'> 
                     <h1 style='margin:0; font-size:24px;'><strong> Oportunidades
@@ -211,7 +211,7 @@ function generarNewsletterHTML($full_name, $token) {
         </tr>
         <tr>
             <td align='center' style='padding:20px;'>
-                    <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                    <a href= 'https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
             </td>
         </tr>
         </table>
@@ -258,6 +258,34 @@ function generarNewsletterHTML($full_name, $token) {
                 }
 
                 // Send newsletter
+                // failed emails in newsletter 3
+                    $failedEmails = [
+                        "100563906@alumnos.uc3m.es",
+                        "100496029@alumnos.uc3m.es",
+                        "100583589@alumnos.uc3m.es",
+                        "100584042@alumnos.uc3m.es",
+                        "100529239@alumnos.uc3m.es",
+                        "100583726@alumnos.uc3m.es",
+                        "100550275@alumnos.uc3m.es",
+                        "100550246@alumnos.uc3m.es",
+                        "100581613@alumnos.uc3m.es",
+                        "100523010@alumnos.uc3m.es",
+                        "100550156@alumnos.uc3m.es",
+                        "shengyu.chan7@gmail.com",
+                        "100583945@alumnos.uc3m.es",
+                        "luzomolero2007@gmail.com",
+                        "100585113@alumnos.uc3m.es",
+                        "drondybss@gmail.com",
+                        "100496537@alumnos.uc3m.es",
+                        "torresdiego2371@gmail.com",
+                        "andreasuarezmartin101@gmail.com",
+                        "lina.lin@hotmail.com",
+                        "100472113@alumnos.uc3m.es",
+                        "enriquecogolludoglvz@gmail.com",
+                        "100550727@alumnos.uc3m.es",
+                        "100583970@alumnos.uc3m.es",
+                        "100498985@alumnos.uc3m.es"
+                    ];
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
@@ -267,6 +295,11 @@ function generarNewsletterHTML($full_name, $token) {
                             $full_name = $row['full_name'];
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
+
+                            // Skip emails that did not fail in the last newsletter
+                            if (!in_array($email, $failedEmails)) {
+                                continue;
+                            }
 
                             $mail = new PHPMailer;
                             $mail->CharSet = 'UTF-8';
