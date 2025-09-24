@@ -37,15 +37,17 @@ function generarNewsletterHTML($full_name, $token) {
             <!-- Head -->
             <tr>
                 <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                    <h1 style='margin:0; font-size:24px;'>" . explode(' ', $full_name)[0] . ", así fue el Evento de Presentación </h1>
+                    <h1 style='margin:0; font-size:24px;'> Hugging Face estará en el campus y Cambio de fecha en nuestro próximo taller
+ </h1>
                 </td>
             </tr>
 
             <!-- Image -->
             <tr>
                 <td align='center' style='padding:20px;'>
-                    <img src='https://aiscmadrid.com/images/events/event5/ConoceAISC.png'
-                        alt='AISC Madrid - Evento de Presentación' width='100%'
+                    <!-- Substitute by image path -->
+                    <img src='https://aiscmadrid.com/images/events/event6/Sergio Paniego Hugging Face.png'
+                        alt='AISC Madrid - Jornada de Bienvenida' width='80%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
             </tr>
@@ -53,116 +55,150 @@ function generarNewsletterHTML($full_name, $token) {
             <!-- Main text -->
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Estamos muy contentos con vuestro interés por la asociación.</strong></p>
-                        <p>En el Evento de Presentación pudimos conoceros a todos y contaros más sobre AISC.</p>
-                        <p>Gracias por darnos vuestro feedback sobre lo qué esperáis de AISC
-                            y por hacernos sentir vuestro interés e ilusión por la asociación.</p>
-                        <br>
-                        <p>
-                        ¡Os esperamos a todos en los próximos eventos y talleres! Y recordad rellenar el 
-                        <a href='https://aiscmadrid.com/join.php'
-                            target='_blank' rel='noopener noreferrer'>
-                            formulario de interés
-                        </a> si queréis
-                        uniros al equipo de AISC Madrid.</p>    
+                    <p align='center'><strong>Hola ' . explode(' ', $full_name)[0] . ', en esta newsletter te contamos los próximos eventos con empresas como Hugging Face o Milfshakes y un <span style = 'color:#EB178E'> cambio de día </span> en nuestro próximo taller: Introducción a la IA & ML II: Regresión. </strong></p>
                 </td>                
-            </tr>
-            
-            <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
-                </td>
-            </tr>
-            
-            <!-- Workshops -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Workshops</strong></p>
-                        <p><strong>Introducción a la IA & ML: Data Preprocessing</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 15 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 14:00h - 14:45h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
-
-                        <p><strong>Introducción a la IA & ML: Regression</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 2 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 19:00h - 19:45h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Por confirmar</p>
-                </td>                
-            </tr>
-
-            <!-- Events -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Events</strong></p>
-                        <p><strong>AISC x Hugging Face 🤗 | Sergio Paniego Blanco ML Engineer</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 22 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> Por confirmar</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Por confirmar</p>
-                        <p>Pincha el botón para más información!</p>
-                </td>                
-            </tr>
-
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                        <p><strong>AISC x Spotify | Silvia Hernández Fernández Data Engineer</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 19 de noviembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> Por confirmar</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Por confirmar</p>
-                </td>                
-            </tr>
-
-            <tr>
-                <td>
-                    <p>
-                        <a href='https://aiscmadrid.com/#events'
-                            target='_blank' rel='noopener noreferrer'>
-                            Pincha para más información
-                        </a>
-                    </p>
-                </td>
             </tr>
 
             <tr>
                 <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Únete al equipo de AISC Madrid</strong></h1>
+                    <h1 style='margin:0; font-size:24px;'><strong>Cambio de fecha en el taller Introducción a la IA & ML II: Regresión
+                    </strong></h1>
+                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
                 </td>
             </tr>
 
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
-                    <p>Si además de asistir a los talleres y los eventos quieres formar parte activamente de la asociación, estamos buscando nuevos miembros para nuestro equipo.
-                        Buscamos todo tipo de perfiles, tanto técnicos como no técnicos, con más y menos experiencia.
-                    
-                        <p style='margin:8px 0;'>📣 <strong>Redes Sociales, Diseño y Marketing</strong></p>
-                        <p style='margin:8px 0;'>💻 <strong>Desarrollo Web</strong></p>
-                        <p style='margin:8px 0;'>👥 <strong>Eventos y Talleres</strong></p>
-                        <br>
-                        <p>
-                            <a href='https://aiscmadrid.com/join.php'
-                                target='_blank' rel='noopener noreferrer'>
-                                Aplica aquí para unirte al equipo.
-                            </a>
-                        </p>
+                    <p>
+                        Debido a Foroempleo, hemos decidido cambiar la fecha del próximo taller.
+                        <strong><span style = 'color:#EB178E'>Nueva fecha:</span></strong>
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align='center' style='padding:20px; color:#EB178E;'> 
+                    <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
+                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
                 </td>
             </tr>
 
-        <!-- Botones -->
+            <!-- Workshops section -->
+            <tr>
+                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                    <p align='center'><strong>Workshops</strong></p>
+                        <p><strong>Introducción a la IA & ML II: Regresión</strong>
+                        <br><span style = 'color:#EB178E'> Cambio de fecha: </span>
+                        </p>
+
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
+
+                        <p><strong>Introducción a la IA & ML III: Redes Neuronales</strong></p>
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 14 de octubre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
+                </td>                
+            </tr>
+
+            <!-- Events section -->
+            <tr>
+                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                    <p align='center'><strong>Eventos</strong></p>
+                        <p><strong>🤗 Hugging Face AISC: Sergio Paniego ML Engineer</strong></p>
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 22 de octubre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
+
+                        <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software Developer </strong></p>
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30 - 14:30h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula por confimar</p>
+                </td>                
+            </tr>
+
+
+            <!-- Button -->
+            <tr>
+                <td align='center' style='padding:20px;'>
+                    <a href='https://aiscmadrid.com/#events'
+                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
+                        target = '_blank'>
+                        Ver próximos eventos
+                    </a>
+                </td>
+            </tr>
+
+                    <tr>
+            <td style='padding:20px; color:#333333; font-size:16p; line-height:1.5;'> 
+                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
+            </td>
+        </tr>    
+
+        <!-- Oportunities Section -->>
+        <tr>
+                <td align='center' style='padding:20px; color:#EB178E;'> 
+                    <h1 style='margin:0; font-size:24px;'><strong> Oportunidades
+                    </strong></h1>
+                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                        <p>
+                        Os compartimos dos oportunidades muy interesantes que creemos os pueden interesar.
+                        </p>
+                        <p><strong>👨‍💻 Madrid AI, ML and Computer Vision Meetup</strong>
+                        <br>Ponte al día con las últimas novedades en AI, ML y CV. Con ponencias de empresas como Hugging Face o Intel.
+                        </p>
+
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 26 de octubre de 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 18:30h - 22:00h</p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Google For Startups Campus</p>
+                        <a href=' https://voxel51.com/events/madrid-ai-ml-and-computer-vision-meetup-september-26-2025'
+                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
+                        target = '_blank'>
+                        Más Información
+                        </a>
+
+                        <p><strong>🛰 Hackathon NASA Space Apps</strong>
+                        <br>Participa en uno de los hackathones más grandes del mundo, organizado por la NASA.
+                        </p>
+                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 3, 4 y 5 de octubre 2025</p>
+                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> todo el día </p>
+                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Escuela de Competencias Digitales - San Blas Digital</p>
+                        <a href='https://www.spaceappschallenge.org/'
+                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
+                        target = '_blank'>
+                        Más Información
+                        </a>
+                </td> 
+            </tr>
+
+        <!-- Buttons Row -->
         <tr>
         <td align='center' style='padding:20px;'>
             <table border='0' cellspacing='0' cellpadding='0'>
             <tr>
+                <!-- Web -->
                 <td style='padding:0 5px;'>
-                <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=ac_t' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#25d366; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    Únete a la comunidad de Whatsapp
+                <a href='https://aiscmadrid.com/' target='_blank' rel='noopener noreferrer'
+                    style='background-color:#333333; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
+                    Nuestra Web
                 </a>
                 </td>
+                <!-- Instagram -->
                 <td style='padding:0 5px;'>
                 <a href='https://www.instagram.com/aisc_madrid/' target='_blank' rel='noopener noreferrer'
                     style='background-color:#c13584; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
                     Instagram
                 </a>
                 </td>
+                <!-- LinkedIn -->
                 <td style='padding:0 5px;'>
                 <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' rel='noopener noreferrer'
                     style='background-color:#0077B5; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
@@ -173,15 +209,12 @@ function generarNewsletterHTML($full_name, $token) {
             </table>
         </td>
         </tr>
-
-        <!-- Footer -->
-        <tr> 
-        <td style='padding:20px; font-size:12px; color:#777777;' align='center'> 
-            <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>
-                Cancelar suscripción Newsletter</a>
-         </td> 
+        <tr>
+            <td align='center' style='padding:20px;'>
+                    <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+            </td>
         </tr>
-
+        </table>
     </body>
 </html>";
 }
