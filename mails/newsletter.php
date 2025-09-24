@@ -138,7 +138,7 @@ function generarNewsletterHTML($full_name, $token) {
             </td>
         </tr>    
 
-        <!-- Oportunities Section -->>
+        <!-- Oportunities Section -->
         <tr>
                 <td align='center' style='padding:20px; color:#EB178E;'> 
                     <h1 style='margin:0; font-size:24px;'><strong> Oportunidades
