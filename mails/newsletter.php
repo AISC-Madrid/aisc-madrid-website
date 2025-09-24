@@ -46,8 +46,8 @@ function generarNewsletterHTML($full_name, $token) {
             <tr>
                 <td align='center' style='padding:20px;'>
                     <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event6/Sergio Paniego Hugging Face.png'
-                        alt='AISC Madrid - Jornada de Bienvenida' width='80%'
+                    <img src='https://aiscmadrid.com/images/events/event6/SergioPaniegoHuggingFace.png'
+                        alt='AISC Madrid Hugging Face - Sergio Paniego Blanco' width='80%'
                         style='max-width:560px; border-radius:6px; display:block;'>
                 </td>
             </tr>
@@ -211,7 +211,7 @@ function generarNewsletterHTML($full_name, $token) {
         </tr>
         <tr>
             <td align='center' style='padding:20px;'>
-                    <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=' . urlencode($token) . '' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+                    <a href= https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
             </td>
         </tr>
         </table>
@@ -258,6 +258,10 @@ function generarNewsletterHTML($full_name, $token) {
                 }
 
                 // Send newsletter
+                // failed emails in newsletter 3
+                    $failedEmails = [
+                        "100498982@alumnos.uc3m.es"
+                    ];
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
@@ -267,6 +271,11 @@ function generarNewsletterHTML($full_name, $token) {
                             $full_name = $row['full_name'];
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
+
+                            // Skip emails that did not fail in the last newsletter
+                            if (!in_array($email, $failedEmails)) {
+                                continue;
+                            }
 
                             $mail = new PHPMailer;
                             $mail->CharSet = 'UTF-8';
