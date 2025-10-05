@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
         <h1>Generador de Hash</h1>
-        <img src="/images/logos/PNG/AISC Logo" alt="AISC Logo" style="height: 60px; margin-bottom: 10px;">
+        <img src="/images/logos/PNG/AISC Logo Color.png" alt="AISC Logo" style="height: 60px; margin-bottom: 10px;">
         <form method="post" autocomplete="off">
             <input name="password" type="text" placeholder="Introduce la contraseña">
             <button type="submit">Generar</button>
