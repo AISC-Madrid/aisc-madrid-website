@@ -59,7 +59,7 @@ if (!$event) {
                     <p class="text-decoration-none mt-2" style="color: white;"
                         data-en="Speaker: <?= htmlspecialchars($event['speaker']) ?>"
                         data-es="Ponente: <?= htmlspecialchars($event['speaker']) ?>">
-                        <?= htmlspecialchars($event['speaker']) ?>
+                        Ponente: <?= htmlspecialchars($event['speaker']) ?>
                     </p>
                 </div>
             </div>
