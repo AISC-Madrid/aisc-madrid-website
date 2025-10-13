@@ -36,7 +36,6 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
     <table class="table table-striped table-bordered align-middle">
         <thead class="table-dark">
             <tr>    
-
                 <th>ID</th>
                 <th>Nombre y Apellidos</th>
                 <th>Posición (ES/EN)</th>
@@ -54,32 +53,27 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                         <td><?= $row['id'] ?></td>
                         <td>
                             <?= htmlspecialchars($row['full_name']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['full_name']) ?></small>
                         </td>
                         <td>
                             <?= htmlspecialchars($row['position_es']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['position_es']) ?></small>
+                            <small class="text-muted"><?= htmlspecialchars($row['position_en']) ?></small>
                         </td>
                         <td>
                             <?= htmlspecialchars($row['mail']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['mail']) ?></small>
                         </td>
                         <td>
                             <?= htmlspecialchars($row['phone']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['phone']) ?></small>
                         </td>
     
                         <td>
                             <?= htmlspecialchars($row['socials']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['socials']) ?></small>
                         </td>
                         <td>
                             <?= htmlspecialchars($row['active']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['active']) ?></small>
                         </td>
                         <td>
                         <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/create_team_member.php?id=<?= $row['id'] ?>">Editar</a>
-                        <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                        <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este miembro?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
