@@ -70,6 +70,7 @@ while ($row = $result->fetch_assoc()) {
     <?php include('assets/footer.php'); ?>
 
     <script src="js/language.js"></script>
+    <script src="js/navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
