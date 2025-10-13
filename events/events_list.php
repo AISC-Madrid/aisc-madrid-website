@@ -64,7 +64,6 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                         </td>
                         <td>
                             <?= htmlspecialchars($row['speaker']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['speaker']) ?></small>
                         </td>
                         <td>
                             <?= date("d/m/Y H:i", strtotime($row['start_datetime'])) ?>
