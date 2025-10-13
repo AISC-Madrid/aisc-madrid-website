@@ -35,7 +35,9 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
 
     <table class="table table-striped table-bordered align-middle">
         <thead class="table-dark">
-            <tr>
+            <tr>    
+
+                <th>ID</th>
                 <th>Nombre y Apellidos</th>
                 <th>Posición (ES/EN)</th>
                 <th>Mail</th>
