@@ -37,9 +37,8 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
         <thead class="table-dark">
             <tr>
                 <th>Nombre y Apellidos</th>
-                <th>Mail</th>
                 <th>Posición (ES/EN)</th>
-                <th>Position (ES/EN)</th>
+                <th>Mail</th>
                 <th>Tfno.</th>
                 <th>Redes</th>
                 <th>Activo</th>
