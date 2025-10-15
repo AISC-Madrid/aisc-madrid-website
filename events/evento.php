@@ -23,6 +23,14 @@ $result = $stmt->get_result();
 $event = $result->fetch_assoc();
 $stmt->close();
 
+$youtubeUrl = $event['youtube_url'] ?? '';
+
+$youtubeId = null;
+if (!empty($youtubeUrl)) {
+    preg_match("/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/", $youtubeUrl, $matches);
+    $youtubeId = $matches[1] ?? null;
+}
+
 if (!$event) {
     die("❌ Event not found");
 }
@@ -191,6 +199,18 @@ if (!$event) {
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($youtubeId)): ?>
+                <div class="my-4">
+                    <iframe width="1077" height="602"
+                            src="https://www.youtube.com/embed/<?= htmlspecialchars($youtubeId) ?>?autoplay=0"
+                            title="Video del evento"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
                 </div>
             <?php endif; ?>
                 <section id="article-body" style="padding: 2rem; white-space: pre-line;"
