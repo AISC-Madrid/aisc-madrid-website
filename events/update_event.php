@@ -65,6 +65,7 @@ $sql = "UPDATE events SET
     start_datetime = ?, end_datetime = ?,
     image_path = ?, gallery_paths = ?,
     google_calendar_url = ?
+    youtube_url = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -88,6 +89,7 @@ $stmt->bind_param(
     $mainImagePath,
     $galleryPathsJson,
     $_POST['google_calendar_url'],
+    $_POST['youtube_url'],
     $event_id
 );
 

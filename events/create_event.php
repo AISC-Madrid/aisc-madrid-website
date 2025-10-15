@@ -40,6 +40,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $end_datetime = $event['end_datetime'];
         $image_path = $event['image_path'];
         $google_calendar_url = $event['google_calendar_url'];
+        $youtube_url = $event['youtube_url'];
     }
 }
 ?>
@@ -139,6 +140,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="mb-3">
                         <label class="form-label">URL Google Calendar</label>
                         <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url) ?>">
+                    </div>
+
+                    <!-- Youtube URL -->
+                    <div class="mb-3">
+                        <label class="form-label">YT URL (empty if none)</label>
+                        <input type="url" name="youtube_url" class="form-control" value="<?= htmlspecialchars($youtube_url) ?>">
                     </div>
 
                     <!-- Submit -->

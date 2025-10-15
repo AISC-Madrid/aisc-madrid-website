@@ -11,13 +11,13 @@ $sql = "INSERT INTO events (
     location,
     start_datetime, end_datetime,
     google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "sssssssssss",
+    "ssssssssssss",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -28,7 +28,8 @@ $stmt->bind_param(
     $_POST['location'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
-    $_POST['google_calendar_url']
+    $_POST['google_calendar_url'],
+    $_POST['youtube_url']
 );
 
 if (!$stmt->execute()) {
