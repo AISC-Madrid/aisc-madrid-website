@@ -77,7 +77,7 @@ $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 
 $stmt->bind_param(
-    "ssssssssssssi",
+    "ssssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
