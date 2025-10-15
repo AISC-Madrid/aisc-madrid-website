@@ -7,9 +7,10 @@ $sql = "INSERT INTO members (
     position_es, position_en,
     phone,
     socials,
+    board,
     active,
     image_path
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -20,13 +21,14 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "ssssssss",
+    "sssssssss",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
     $_POST['position_en'],
     $_POST['phone'],
     $_POST['socials'],
+    $_POST['board'],
     $_POST['active'],
     $_POST['image_path'],
 );

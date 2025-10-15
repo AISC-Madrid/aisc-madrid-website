@@ -47,7 +47,6 @@ while ($row = $result->fetch_assoc()) {
 <!-- Auto load members test -->
  <div class="mt-5 row">
         <?php foreach ($active_members as $member): ?>
-            <!--  -->
         <div class="col-sm-6 col-lg-3">
           <div class="team-box text-center">
             <div class="team-wrapper">

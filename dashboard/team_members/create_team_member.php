@@ -31,6 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $position_en = $member['position_en'];
         $phone = $member['phone'];
         $socials = $member['socials'];
+        $board = $member['board'];
         $active = $member['active'];
         $image_path = $member['image_path'];
        
@@ -89,6 +90,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="mb-3 col-6">
             <label class="form-label">Redes Sociales</label>
             <textarea name="socials" class="form-control" rows="4"><?= htmlspecialchars($socials) ?></textarea>
+        </div>
+
+        <!-- board -->
+        <div class="mb-3 col-6">
+            <label class="form-label">Board</label>
+            <select name="board" class="form-select">
+                <option value="yes" <?= ($active === 'yes') ? 'selected' : '' ?>>Yes</option>
+                <option value="no" <?= ($active === 'no') ? 'selected' : '' ?>>No</option>
+            </select>
         </div>
 
         <!-- active -->
