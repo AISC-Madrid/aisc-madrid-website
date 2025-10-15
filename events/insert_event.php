@@ -22,7 +22,7 @@ $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssssssi",
+    "ssssssssssss",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -33,11 +33,8 @@ $stmt->bind_param(
     $_POST['location'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
-    $mainImagePath,
-    $galleryPathsJson,
-    $googleCalendarUrl,
-    $youtubeUrl,
-    $event_id
+    $youtube_url,
+    $google_calendar_url
 );
 
 
