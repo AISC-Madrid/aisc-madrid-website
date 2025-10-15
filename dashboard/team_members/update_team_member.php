@@ -15,6 +15,7 @@ $sql = "UPDATE members SET
     position_es = ?, position_en = ?,
     phone = ?,
     socials = ?,
+    board = ?,
     active = ?,
     image_path = ?
 WHERE id = ?";
@@ -28,13 +29,14 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "ssssssssi",
+    "sssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
     $_POST['position_en'],
     $_POST['phone'],
     $_POST['socials'],
+    $_POST['board'],
     $_POST['active'],
     $_POST['image_path'],
     $id
