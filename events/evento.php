@@ -202,9 +202,16 @@ if (!$event) {
                 </div>
             <?php endif; ?>
 
+                <section id="article-body" style="padding: 2rem; white-space: pre-line;"
+                    data-en="<?= htmlspecialchars_decode($event['description_en']) ?>"
+                    data-es="<?= htmlspecialchars_decode($event['description_es']) ?>">
+                    <?= nl2br(htmlspecialchars_decode($event['description_es'])) ?>
+
+                </section>
+
             <?php if (!empty($youtubeId)): ?>
                 <div class="my-4">
-                    <iframe width="1077" height="602"
+                    <iframe width="420" height="315"
                             src="https://www.youtube.com/embed/<?= htmlspecialchars($youtubeId) ?>?autoplay=0"
                             title="Video del evento"
                             frameborder="0"
@@ -213,12 +220,6 @@ if (!$event) {
                     </iframe>
                 </div>
             <?php endif; ?>
-                <section id="article-body" style="padding: 2rem; white-space: pre-line;"
-                    data-en="<?= htmlspecialchars_decode($event['description_en']) ?>"
-                    data-es="<?= htmlspecialchars_decode($event['description_es']) ?>">
-                    <?= nl2br(htmlspecialchars_decode($event['description_es'])) ?>
-
-                </section>
 
             </div>
         </div>
