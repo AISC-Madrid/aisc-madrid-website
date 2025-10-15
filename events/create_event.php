@@ -145,7 +145,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Youtube URL -->
                     <div class="mb-3">
                         <label class="form-label">YT URL (empty if none)</label>
-                        <input type="url" name="youtube_url" class="form-control" value="<?= htmlspecialchars($youtube_url) ?>">
+                        <input type="url" name="youtube_url" class="form-control" 
+                        value="<?= htmlspecialchars($youtube_url ?? '') ?>">
                     </div>
 
                     <!-- Submit -->
