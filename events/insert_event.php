@@ -17,6 +17,10 @@ $sql = "INSERT INTO events (
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
+$youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
+
 $stmt->bind_param(
     "ssssssssssss",
     $_POST['title_es'],
