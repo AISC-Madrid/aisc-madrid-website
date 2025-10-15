@@ -246,66 +246,40 @@ include("assets/head.php");
     </h2>
     <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
-    <!-- Board members row -->
-    <div class="mt-5 row">
+    <!-- Board members row. Get info from DB -->
 
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
-                <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
-              </a>
+        <?php
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    include("assets/db.php");
+
+
+    // Retrieve all members from the db
+    $result = $conn->query("SELECT * FROM members WHERE board = 'yes' ORDER BY id ASC");
+    // Get length for later display
+    $num_board_members = $result->num_rows;
+    ?>
+    <!-- Board members row. Display info -->
+     <div class="mt-5 row">
+        <?php foreach ($result as $board_member): ?>
+        <div class="col-sm-6" style="flex: 0 0 <?php echo 100 / $num_board_members; ?>%; max-width: <?php echo 100 / $num_board_members; ?>%;">
+          <div class="team-box text-center">
+            <div class="team-wrapper">
+              <div class="team-board_member">
+                <a href="<?= $board_member['socials'] ?>" target="_blank">
+                  <img src="<?= htmlspecialchars($board_member['image_path']) ?>" alt="<?= $board_member['full_name'] ?>" class="img-fluid rounded">
+                </a>
+              </div>
             </div>
+            <h5 class="mt-3" style="color: var(--background)"><?= $board_member['full_name'] ?></h5>
+            <p class="text-muted" data-en="<?= htmlspecialchars($board_member['position_en']) ?>" data-es="<?= htmlspecialchars($board_member['position_es']) ?>">
+                <?= htmlspecialchars($board_member['position_es']) ?></p>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Hugo Centeno Sanz</h5>
-          <p class="text-muted" data-en="President" data-es="Presidente">Presidente</p>
         </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
-                <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Alfonso Mayoral Montero</h5>
-          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
-                <img src="images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Lauren Gallego Ropero</h5>
-          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/alejandrobarrosobueso/" target="_blank">
-                <img src="images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
-          <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
-        </div>
-      </div>
-
-    </div><!-- End board members row -->
+        <?php endforeach; ?>
+    </div>
+    <!-- End board members row -->
 
     <!-- Button aligned with first column on desktop, full-width on mobile -->
     <div class="row mt-4">
