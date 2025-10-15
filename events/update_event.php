@@ -64,7 +64,7 @@ $sql = "UPDATE events SET
     location = ?,
     start_datetime = ?, end_datetime = ?,
     image_path = ?, gallery_paths = ?,
-    google_calendar_url = ?
+    google_calendar_url = ?,
     youtube_url = ?
 WHERE id = ?";
 
