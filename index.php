@@ -202,7 +202,12 @@ include("assets/head.php");
             </div>
         <?php endforeach; ?>
 
-        <?php foreach ($past_events as $event): ?>
+        <?php
+        //Order past events by most recent first
+        usort($past_events, function($a, $b) {
+        return strtotime($b['start_datetime']) <=> strtotime($a['start_datetime']);
+        });
+        foreach ($past_events as $event): ?>
             <div class="col-md-6 col-lg-4 event-past">
                 <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
                     <div class="card h-100 w-100 shadow-sm">
