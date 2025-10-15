@@ -77,7 +77,7 @@ $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 
 $stmt->bind_param(
-    "ssssssssssi",
+    "ssssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -90,10 +90,11 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $mainImagePath,
     $galleryPathsJson,
-    $googleCalendarUrl,
-    $youtubeUrl,
+    $googleCalendarUrl,  // can be NULL
+    $youtubeUrl,         // can be NULL
     $event_id
 );
+
 
 
 // Execute
