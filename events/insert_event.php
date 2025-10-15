@@ -2,6 +2,10 @@
 include("../assets/db.php");
 include("upload_image.php");
 
+// Initialize variables in case they are null
+$youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
     title_es, title_en,
@@ -12,14 +16,10 @@ $sql = "INSERT INTO events (
     start_datetime, end_datetime,
     youtube_url,
     google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
-
-$youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
-$google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
-
 
 $stmt->bind_param(
     "ssssssssssss",
