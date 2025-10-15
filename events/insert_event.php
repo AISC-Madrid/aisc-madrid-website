@@ -29,9 +29,10 @@ $stmt->bind_param(
     $_POST['location'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
-    $_POST['google_calendar_url'],
-    $_POST['youtube_url']
+    $youtube_url,
+    $google_calendar_url
 );
+
 
 if (!$stmt->execute()) {
     die("<p style='color:red;'>❌ Error al insertar el evento: " . $stmt->error . "</p>");
