@@ -73,9 +73,11 @@ if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
 
-// Bind parameters
+$youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
 $stmt->bind_param(
-    "sssssssssssssi",
+    "ssssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -88,10 +90,11 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $mainImagePath,
     $galleryPathsJson,
-    $_POST['google_calendar_url'],
-    $_POST['youtube_url'],
+    $googleCalendarUrl,
+    $youtubeUrl,
     $event_id
 );
+
 
 // Execute
 if ($stmt->execute()) {
