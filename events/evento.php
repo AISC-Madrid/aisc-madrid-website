@@ -210,7 +210,7 @@ if (!$event) {
                 </section>
 
             <?php if (!empty($youtubeId)): ?>
-                <div class="my-4">
+                <div class="my-4" align-items="center">
                     <iframe width="420" height="315"
                             src="https://www.youtube.com/embed/<?= htmlspecialchars($youtubeId) ?>?autoplay=0"
                             title="Video del evento"
