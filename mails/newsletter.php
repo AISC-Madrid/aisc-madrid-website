@@ -65,7 +65,7 @@ function generarNewsletterHTML($full_name, $token) {
       <!-- Sección 1: Promo Hugging Face -->
       <tr>
         <td align='center' style='padding:20px; color:#EB178E;'>
-          <h2 style='margin:0; font-size:22px;'><strong>¡Eventazo con Hugging Face!</strong></h2>
+          <h2 style='margin:0; font-size:22px;'><strong>¡Eventazo con Hugging Face 🤗!</strong></h2>
           <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
         </td>
       </tr>
@@ -134,7 +134,14 @@ function generarNewsletterHTML($full_name, $token) {
                     </a>
                 </td>
             </tr>
-
+            <tr>
+              <td align='center' style='padding:20px;'>
+                <!-- Substitute by image path -->
+                <img src='https://aiscmadrid.com/images/events/event7/workshop.png'
+                    alt='AISC Madrid - Hugging Face Visit' width='80%'
+                    style='max-width:560px; border-radius:6px; display:block;'>
+              </td> 
+            </tr>
         </td>
       </tr>
 
