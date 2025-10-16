@@ -137,7 +137,7 @@ function generarNewsletterHTML($full_name, $token) {
             <tr>
               <td align='center' style='padding:20px;'>
                 <!-- Substitute by image path -->
-                <img src='https://aiscmadrid.com/images/events/event7/workshop.png'
+                <img src='https://aiscmadrid.com/images/events/event7/Workshop.png'
                     alt='AISC Madrid - Hugging Face Visit' width='80%'
                     style='max-width:560px; border-radius:6px; display:block;'>
               </td> 
