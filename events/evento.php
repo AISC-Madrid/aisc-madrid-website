@@ -129,7 +129,7 @@ if (!$event) {
 
                     <?php if ($event['requires_registration']): ?>
                     <div class="my-3">
-                        <a href="../join.php" class="btn btn-primary">Inscribirse</a>
+                        <a href="../join.php" class="btn btn-custom text-light px-4 fw-semibold">Inscribirse al evento</a>
                     </div>
                     <?php endif; ?>
 
