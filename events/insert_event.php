@@ -10,14 +10,15 @@ $sql = "INSERT INTO events (
     description_es, description_en,
     location,
     start_datetime, end_datetime,
-    google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    google_calendar_url,
+    requires_registration
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssss",
+    "sssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -29,7 +30,8 @@ $stmt->bind_param(
     $_POST['start_datetime'],
     $_POST['end_datetime'],
     $_POST['google_calendar_url'],
-    $_POST['youtube_url']
+    $_POST['youtube_url'],
+    isset($_POST['requires_registration']) ? 1 : 0
 );
 
 if (!$stmt->execute()) {

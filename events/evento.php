@@ -127,6 +127,12 @@ if (!$event) {
                         <?php endif; ?>
                     </div>
 
+                    <?php if ($event['requires_registration']): ?>
+                    <div class="my-3">
+                        <a href="../join.php" class="btn btn-primary">Inscribirse</a>
+                    </div>
+                    <?php endif; ?>
+
                     <div class="mt-3 mb-5">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
