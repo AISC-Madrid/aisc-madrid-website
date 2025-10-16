@@ -68,6 +68,16 @@ if (!$event) {
                         data-en="Speaker: <?= htmlspecialchars($event['speaker']) ?>"
                         data-es="Ponente: <?= htmlspecialchars($event['speaker']) ?>">
                         Ponente: <?= htmlspecialchars($event['speaker']) ?>
+
+                        <?php if ($event['requires_registration']): ?>
+                        <div class="my-3">
+                            <a href="events/event_registration.php?id=<?= $event_id ?>" class="btn btn-custom text-light px-4 fw-semibold"
+                               data-en="Register for event"
+                               data-es="Inscribirse al evento">
+                                Inscribirse al evento
+                            </a>
+                        </div>
+                        <?php endif; ?>
                     </p>
                 </div>
             </div>
@@ -126,12 +136,6 @@ if (!$event) {
                             </a>
                         <?php endif; ?>
                     </div>
-
-                    <?php if ($event['requires_registration']): ?>
-                    <div class="my-3">
-                        <a href="../join.php" class="btn btn-custom text-light px-4 fw-semibold">Inscribirse al evento</a>
-                    </div>
-                    <?php endif; ?>
 
                     <div class="mt-3 mb-5">
                         <div class="btn-group">
