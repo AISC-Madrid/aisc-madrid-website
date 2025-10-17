@@ -12,7 +12,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $event_id = (int) $_GET['id'];
 
 // Prepare SQL to get event details
-$stmt = $conn->prepare("SELECT title_es FROM events WHERE id = ?");
+$stmt = $conn->prepare("SELECT title_es, image_path FROM events WHERE id = ?");
 if (!$stmt) {
     die("❌ Prepare failed: " . $conn->error);
 }
@@ -38,9 +38,14 @@ if (!$event) {
         <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Event Registration" data-es="Inscripción al Evento">
             Inscripción al Evento
         </h2>
-        <h4 class="text-primary fw-bold"><?= htmlspecialchars($event['title_es']) ?></h4>
+        <h4 class="text-primary fw-bold" style="color: var(--secondary);"><?= htmlspecialchars($event['title_es']) ?></h4>
         <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-        <p class="text-muted">Rellena el formulario para asegurar tu plaza en el evento.</p>
+        <!-- Event image if exists -->
+        <?php if (!empty($event['path_image'])): ?>
+        <img src="<?= htmlspecialchars($event['path_image']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 100%; height: auto;">
+        <?php endif; ?>
+        <p class="text-muted" data-en="Fill out the form to secure your spot at the event." data-es="Rellena el formulario para asegurar tu plaza en el evento.">
+            Rellena el formulario para asegurar tu plaza en el evento.</p>
     </div>
 
     <section class="container-fluid mb-5">
@@ -60,21 +65,24 @@ if (!$event) {
                             <input type="hidden" name="event_id" value="<?= $event_id ?>">
 
                             <div class="mb-3">
-                                <label for="name" class="form-label" style="color: black">Nombre y apellidos</label>
+                                <label for="name" class="form-label" style="color: black" data-en="Full name" data-es="Nombre y apellidos">Nombre y apellidos</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Michael Scott" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label" style="color: black">Correo electrónico</label>
+                                <label for="email" class="form-label" style="color: black" data-en="Email" data-es="Correo electrónico">Correo electrónico</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-                                <label class="form-check-label form-text" for="consent">
+                                <label class="form-check-label form-text" for="consent" data-en="I give my consent for AISC Madrid to store my data for the management of this event." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este evento.">
                                     Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este evento.
                                 </label>
+                                <a class="form-check-label form-text" href="../terms_conditions.php" target="_blank" data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
+                                    (Leer términos y condiciones)
+                                </a>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary form-btn fw-semibold">Inscribirme</button>
+                                <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Register" data-es="Inscribirme">Inscribirme</button>
                             </div>
                         </form>
                     </div>
