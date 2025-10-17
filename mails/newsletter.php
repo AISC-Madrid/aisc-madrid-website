@@ -239,7 +239,7 @@ function generarNewsletterHTML($full_name, $token) {
             <tr>
               <td align='center' style='padding:10px; padding-left:40px'>
                 <a href='https://aiscmadrid.com/' target='_blank'>
-                  <img src='https://aiscmadrid.com/images/logos/SVG/AISCMadridLogoAndLetters.svg' alt='Logo Footer' width='300'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/AISCMadridLogoAndLetters.png' alt='Logo Footer' width='300'>
                 </a>
               </td>
             </tr>
