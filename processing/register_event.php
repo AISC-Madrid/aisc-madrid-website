@@ -41,6 +41,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $stmt->close();
+        // Fall into the newsletter dwell if user wasn't already
+        $checkForm = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
+        $checkForm->bind_param("s", $email);
+        $checkForm->execute();
+        $checkForm->store_result();
+
+        if ($checkForm->num_rows === 0) {
+            $checkForm->close();
+
+            $unsubscribe_token = bin2hex(random_bytes(16)); 
+
+            $stmt2 = $conn->prepare("INSERT INTO form_submissions (full_name, email, unsubscribe_token) VALUES (?, ?, ?)");
+            $stmt2->bind_param("sss", $name, $email, $unsubscribe_token);
+            $stmt2->execute();
+            $stmt2->close();
+        } else {
+            $checkForm->close();
+        }
+
+        $conn->close();
+
         header("Location: /events/event_registration.php?id=$event_id&success=1");
         exit;
     } else {
