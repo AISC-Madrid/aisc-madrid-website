@@ -2,7 +2,7 @@
 // login.php
 session_start();
 include('../assets/db.php'); // Your $conn mysqli connection
-include("assets/head.php");
+include("/assets/head.php");
 
 $error = '';
 
