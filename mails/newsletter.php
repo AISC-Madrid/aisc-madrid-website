@@ -298,41 +298,9 @@ function generarNewsletterHTML($full_name, $token) {
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
-                                    /* Temporal due to fail in newsletter 4 */
+                      /* Add mails to not sent the newsletter to */
                     $excludedEmails = [
-                    "zoesbin@gmail.com",
-                    "efraim.centeno@gmail.com",
-                    "javiercalvoartaso@gmail.com",
-                    "100451778@alumnos.uc3m.es",
-                    "100581326@alumnos.uc3m.es",
-                    "irene.casadogracia@gmail.com",
-                    "carmen.marrasan@gmail.com",
-                    "100496382@alumnos.uc3m.es",
-                    "marco.gallegoropero@gmail.com",
-                    "pinelguerrac@gmail.com",
-                    "herminia.sanz@gmail.com",
-                    "Barroso20092004@gmail.com",
-                    "alexbb20092004@gmail.com",
-                    "100517107@alumnos.uc3m.es",
-                    "hcienteno@gmail.com",
-                    "100499081@alumnos.uc3m.es",
-                    "yago.cabanes@gmail.com",
-                    "alfonsomayoral29@gmail.com",
-                    "jaimelobator@gmail.com",
-                    "juanjorosales2004@gmail.com",
-                    "albapeerezsanchez99@gmail.com",
-                    "giyermo@duck.com",
-                    "abrilgouveia07@gmail.com",
-                    "100523113@alumnos.uc3m.es",
-                    "100499589@alumnos.uc3m.es",
-                    "100472480@alumnos.uc3m.es",
-                    "100472805@alumnos.uc3m.es",
-                    "100495777@alumnos.uc3m.es",
-                    "100496380@alumnos.uc3m.es",
-                    "100466636@alumnos.uc3m.es",
-                    "100495770@alumnos.uc3m.es",
-                    "wjiaohu005@gmail.com"
-                ];
+                    ];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $full_name = $row['full_name'];
