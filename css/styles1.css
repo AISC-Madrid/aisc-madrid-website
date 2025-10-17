@@ -330,3 +330,46 @@ html {
   transition: color 0.2s ease;
 }
 
+/* Project styling */
+.project-btn-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.project-btn{
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.project-btn:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: white;
+}
+
+.project-filter-btn.active {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: white;
+  transform: scale(1.15);
+}
+
+.project-filter-btn {
+  display: inline-block;
+  transition: 
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  will-change: transform, background-color, border-color;
+}
+
+  /* Project button styling */
+.bg-aisc-project {
+  background-color: #20CCF1;
+  color: white;
+}
