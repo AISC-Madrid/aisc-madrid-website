@@ -44,7 +44,7 @@ include("assets/head.php");
         <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
-          <a href="#" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!" data-es="¡Participa!">¡Participa!</a>
+          <a href="join.php" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!" data-es="¡Participa!">¡Participa!</a>
         </div>
       </div>
       <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
@@ -247,23 +247,32 @@ include("assets/head.php");
     <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
     <!-- Board members row. Get info from DB -->
-
-        <?php
-
+    <?php
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     include("assets/db.php");
 
-
-    // Retrieve all members from the db
+    // Retrieve all board members
     $result = $conn->query("SELECT * FROM members WHERE board = 'yes' ORDER BY id ASC");
-    // Get length for later display
     $num_board_members = $result->num_rows;
+
+    // Determine Bootstrap column class dynamically
+    if ($num_board_members <= 1) {
+        $col_class = 'col-lg-12';
+    } elseif ($num_board_members == 2) {
+        $col_class = 'col-lg-6';
+    } elseif ($num_board_members == 3) {
+        $col_class = 'col-lg-4';
+    } elseif ($num_board_members == 4) {
+        $col_class = 'col-lg-3';
+    } else {
+        $col_class = 'col-lg-2'; // 5 or more members
+    }
     ?>
-    <!-- Board members row. Display info -->
-     <div class="mt-5 row">
-        <?php foreach ($result as $board_member): ?>
-        <div class="col-sm-6" style="flex: 0 0 <?php echo 100 / $num_board_members; ?>%; max-width: <?php echo 100 / $num_board_members; ?>%;">
+
+    <div class="mt-5 row justify-content-center">
+      <?php foreach ($result as $board_member): ?>
+        <div class="col-12 col-sm-6 col-md-4 <?= $col_class ?> mb-4">
           <div class="team-box text-center">
             <div class="team-wrapper">
               <div class="team-board_member">
@@ -273,19 +282,20 @@ include("assets/head.php");
               </div>
             </div>
             <h5 class="mt-3" style="color: var(--background)"><?= $board_member['full_name'] ?></h5>
-            <p class="text-muted" data-en="<?= htmlspecialchars($board_member['position_en']) ?>" data-es="<?= htmlspecialchars($board_member['position_es']) ?>">
-                <?= htmlspecialchars($board_member['position_es']) ?></p>
+            <p class="text-muted" 
+              data-en="<?= htmlspecialchars($board_member['position_en']) ?>" 
+              data-es="<?= htmlspecialchars($board_member['position_es']) ?>">
+              <?= htmlspecialchars($board_member['position_es']) ?>
+            </p>
           </div>
         </div>
-        <?php endforeach; ?>
+      <?php endforeach; ?>
     </div>
     <!-- End board members row -->
 
     <!-- Button aligned with first column on desktop, full-width on mobile -->
     <div class="row mt-4">
-      <!-- Contenedor del botón en móvil ocupa el mismo ancho que la fila de tarjetas -->
       <div class="col-12 d-flex justify-content-center justify-content-lg-start">
-        <!-- El botón mantiene su ancho natural en escritorio y ancho completo en móvil -->
         <a class="btn btn-custom w-100 w-lg-auto" href="team.php" role="button" data-en="See all members" data-es="Ver todos los miembros">
           Ver todos los miembros
         </a>
