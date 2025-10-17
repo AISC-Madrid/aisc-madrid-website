@@ -65,7 +65,8 @@ $sql = "UPDATE events SET
     start_datetime = ?, end_datetime = ?,
     image_path = ?, gallery_paths = ?,
     google_calendar_url = ?,
-    youtube_url = ?
+    youtube_url = ?,
+    requires_registration = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -73,11 +74,13 @@ if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
 
+// ✅ CORRECCIÓN: Guardar el valor del checkbox en una variable primero
+$requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 
 $stmt->bind_param(
-    "ssssssssssssssi",
+    "ssssssssssssssii",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -92,9 +95,10 @@ $stmt->bind_param(
     $galleryPathsJson,
     $googleCalendarUrl,
     $youtubeUrl,
+    // ✅ CORRECCIÓN: Pasar la variable en lugar de la expresión
+    $requires_registration,
     $event_id
 );
-
 
 // Execute
 if ($stmt->execute()) {

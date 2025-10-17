@@ -1,0 +1,93 @@
+<?php
+// Show errors for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include('../assets/db.php');
+include("../assets/head.php");
+
+// Validate and get the event ID from URL
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("❌ Invalid event ID");
+}
+$event_id = (int) $_GET['id'];
+
+// Prepare SQL to get event details
+$stmt = $conn->prepare("SELECT title_es FROM events WHERE id = ?");
+if (!$stmt) {
+    die("❌ Prepare failed: " . $conn->error);
+}
+$stmt->bind_param("i", $event_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$event = $result->fetch_assoc();
+$stmt->close();
+
+if (!$event) {
+    die("❌ Event not found");
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<body class="d-flex flex-column min-vh-100">
+
+<?php include("../assets/nav.php"); ?>
+
+<div class="container scroll-margin" style="margin-top: 5rem;">
+    <div class="text-center mb-5 px-3 px-md-5">
+        <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Event Registration" data-es="Inscripción al Evento">
+            Inscripción al Evento
+        </h2>
+        <h4 class="text-primary fw-bold"><?= htmlspecialchars($event['title_es']) ?></h4>
+        <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+        <p class="text-muted">Rellena el formulario para asegurar tu plaza en el evento.</p>
+    </div>
+
+    <section class="container-fluid mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="border-0 form-card no-hover">
+                    <div class="card-body bg-muted p-4">
+                        
+                        <?php
+                        // Mensajes de éxito o error
+                        if (isset($_GET['success'])) echo '<div class="alert alert-success">¡Gracias! Te has inscrito correctamente.</div>';
+                        if (isset($_GET['error_duplicate'])) echo '<div class="alert alert-danger">Ya existe una inscripción con este correo para este evento.</div>';
+                        if (isset($_GET['error_validation'])) echo '<div class="alert alert-danger">Por favor, completa todos los campos correctamente.</div>';
+                        ?>
+
+                        <form method="POST" action="/processing/register_event.php">
+                            <input type="hidden" name="event_id" value="<?= $event_id ?>">
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label" style="color: black">Nombre y apellidos</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Michael Scott" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label" style="color: black">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+                                <label class="form-check-label form-text" for="consent">
+                                    Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este evento.
+                                </label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary form-btn fw-semibold">Inscribirme</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?php include('../assets/footer.php'); ?>
+
+<script src="/js/language.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
