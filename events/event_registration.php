@@ -38,11 +38,11 @@ if (!$event) {
         <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Event Registration" data-es="Inscripción al Evento">
             Inscripción al Evento
         </h2>
-        <h4 class="fw-bold" style="color: var(--secondary);"><?= htmlspecialchars($event['title_es']) ?></h4>
+        <h4 class="fw-bold" style="color: var(--primary);"><?= htmlspecialchars($event['title_es']) ?></h4>
         <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
         <!-- Event image if exists -->
         <?php if (!empty($event['image_path'])): ?>
-        <img src="<?= htmlspecialchars($event['image_path']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 100%; height: auto;">
+        <img src="<?= htmlspecialchars($event['image_path']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 80%; height: auto;">
         <?php endif; ?>
         <p class="text-muted" data-en="Fill out the form to secure your spot at the event." data-es="Rellena el formulario para asegurar tu plaza en el evento.">
             Rellena el formulario para asegurar tu plaza en el evento.</p>
