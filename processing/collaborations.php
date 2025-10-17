@@ -56,7 +56,7 @@ if ($checkStmt->num_rows > 0) {
 $checkStmt->close();
 
 // Inserta into DB
-$stmt = $conn->prepare("INSERT INTO collaborations (full_name, email, event_name, description, language) VALUES (?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO collaborations (name, email, event_name, description, language) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("sssss", $name, $email, $event_name, $description, $language);
 $stmt->execute();
 $stmt->close();
