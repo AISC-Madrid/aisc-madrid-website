@@ -24,199 +24,220 @@ include("../assets/db.php");
 // Función para generar el HTML de la newsletter
 function generarNewsletterHTML($full_name, $token) {
     return "
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset='UTF-8'>
-        <title>Newsletter AISC Madrid</title>
-    </head>
-    <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
-        <table align='center' width='600'
-            style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Newsletter AISC Madrid</title>
+  </head>
+  <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
+    <table align='center' width='600' style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
-            <!-- Head -->
-            <tr>
-                <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                    <h1 style='margin:0; font-size:24px;'> Hugging Face estará en el campus y Cambio de fecha en nuestro próximo taller
- </h1>
-                </td>
-            </tr>
+      <!-- Head -->
+      <tr>
+        <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
+          <h1 style='margin:0; font-size:24px;'>Hugging Face x AISC Madrid</h1>
+        </td>
+      </tr>
 
-            <!-- Image -->
-            <tr>
-                <td align='center' style='padding:20px;'>
-                    <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event6/SergioPaniegoHuggingFace.png'
-                        alt='AISC Madrid Hugging Face - Sergio Paniego Blanco' width='80%'
-                        style='max-width:560px; border-radius:6px; display:block;'>
-                </td>
-            </tr>
+      <!-- Image -->
+      <tr>
+            <td align='center' style='padding:20px;'>
+                <!-- Substitute by image path -->
+                <img src='https://aiscmadrid.com/images/events/event6/SergioPaniegoHuggingFace.png'
+                    alt='AISC Madrid - Hugging Face Visit' width='80%'
+                    style='max-width:560px; border-radius:6px; display:block;'>
+            </td>
+        </tr>
 
-            <!-- Main text -->
+        <tr>
             <tr>
                 <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . ", en esta newsletter te contamos los próximos eventos con empresas como Hugging Face o Milfshakes y un <span style = 'color:#EB178E'> cambio de día </span> en nuestro próximo taller: Introducción a la IA & ML II: Regresión. </strong></p>
+                    <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . ", la semana que viene es nuestro primer evento, y ¡tenemos muchas ganas!
+                      <br>
+                      Descubre el trabajo de un <span style = 'color:#EB178E'>ML Engineer</span> y la alternativa abierta
+                      para el mundo de la IA con la visita de Sergio Paniego Blanco, ML Engineer @Hugging Face
+                    </p>
                 </td>                
-            </tr>
-
-            <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Cambio de fecha en el taller Introducción a la IA & ML II: Regresión
-                    </strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
-                    <p>
-                        Debido a Foroempleo, hemos decidido cambiar la fecha del próximo taller.
-                        <strong><span style = 'color:#EB178E'>Nueva fecha:</span></strong>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-                </td>
-            </tr>
+            </tr>              
+      </tr>
             
-            <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
+      <!-- Sección 1: Promo Hugging Face -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>¡Eventazo con Hugging Face 🤗!</strong></h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p align='center'>
+              ¡Comenzamos el curso con una visita muy especial! 🎉
+              <br>  
+              En nuestro primer evento del año recibimos a 
+              <strong style='color:#EB178E;'>Sergio Paniego Blanco</strong>, 
+              <em>Machine Learning Engineer en Hugging Face</em>.
+          </p>
+          <p align='left'>
+              Durante la charla, exploraremos el día a día de un ingeniero de Machine Learning:
+              cómo trabaja, qué retos afronta y qué habilidades son esenciales para 
+              desenvolverse en el sector de la inteligencia artificial.
+          </p>
+          <p align='left'>
+              De la mano de Sergio descubriremos <strong style='color:#EB178E;'>Hugging Face</strong>,  un ecosistema con miles de modelos,
+              datasets y herramientas accesibles de forma abierta. Entre su amplio catálogo se encuentran los mejores modelos del mundo, como los desarrollados por <strong>OpenAI, NVIDIA, Microsoft, IBM o DeepSeek</strong> y otros líderes del sector.
+          </p>
+          <p align='left'>
+              Cerraremos la sesión con una <strong>demostración práctica</strong> en la que Sergio 
+              mostrará lo sencillo que es empezar a crear con <strong>inteligencia artificial</strong> gracias al ecosistema de Hugging Face.
+          </p>
+        </td>    
+      </tr>
 
-            <!-- Workshops section -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Workshops</strong></p>
-                        <p><strong>Introducción a la IA & ML II: Regresión</strong>
-                        <br><span style = 'color:#EB178E'> Cambio de fecha: </span>
-                        </p>
+      <!-- Sección 2: FIN SERIE INTRO TO AI & ML -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>Fin de la serie Intro to AI & ML</strong></h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p align='left'>
+            Durante los meses de <strong>septiembre y octubre</strong>, la asociación ha celebrado tres 
+            <strong>workshops introductorios</strong> sobre <em>Inteligencia Artificial</em> y 
+            <em>Machine Learning</em>.
+            </p>
 
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
+          <p align='left'>
+            <ul>
+              <li><strong style='color:#EB178E;'>I Data Preprocessing:</strong> aprendimos ideas básicas de limpieza de datos y EDA (Exploratory Data Analysis) con <strong>Numpy, Pandas, Matplotlib y Seaborn</strong></li>
+              <li><strong style='color:#EB178E;'>II Regression:</strong></li>
+              <li><strong style='color:#EB178E;'>III Neural Networks:</strong> entendimos conceptos como forward pass, back-propagation o qué son las funciones de activación. Además hicimos nuestra primer Red Neuronal de 0 con <strong>Numpy</strong> y la comparamos con una hecha con <strong>PyTorch</strong></li>
+            </ul>
+            </p>
 
-                        <p><strong>Introducción a la IA & ML III: Redes Neuronales</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 14 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
-                </td>                
-            </tr>
-
-            <!-- Events section -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Eventos</strong></p>
-                        <p><strong>🤗 Hugging Face AISC: Sergio Paniego ML Engineer</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 22 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-
-                        <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software Developer </strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30 - 14:30h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula por confimar</p>
-                </td>                
-            </tr>
-
-
-            <!-- Button -->
+          <p align='left'>
+            Con esta serie damos por finalizada la serie
+            <strong>Introducción a la IA & ML.</strong>
+            Si te perdiste alguno de los talleres, recuerda que tienes todos los recursos en la web.
+            <br> 
+            <a href='https://aiscmadrid.com/events/evento.php?id=9' target='_blank'>Accede a los recursos</a>
+            </p>
+                        <!-- Button -->
             <tr>
                 <td align='center' style='padding:20px;'>
-                    <a href='https://aiscmadrid.com/#events'
+                    <a href='https://aiscmadrid.com#events  '
                         style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
                         target = '_blank'>
-                        Ver próximos eventos
+                        ¡No te pierdas los siguientes!
                     </a>
                 </td>
             </tr>
-
-                    <tr>
-            <td style='padding:20px; color:#333333; font-size:16p; line-height:1.5;'> 
-                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
-            </td>
-        </tr>    
-
-        <!-- Oportunities Section -->
-        <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong> Oportunidades
-                    </strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
-
             <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                        <p>
-                        Os compartimos dos oportunidades muy interesantes que creemos os pueden interesar.
-                        </p>
-                        <p><strong>👨‍💻 Madrid AI, ML and Computer Vision Meetup</strong>
-                        <br>Ponte al día con las últimas novedades en AI, ML y CV. Con ponencias de empresas como Hugging Face o Intel.
-                        </p>
-
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 26 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 18:30h - 22:00h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Google For Startups Campus</p>
-                        <a href=' https://voxel51.com/events/madrid-ai-ml-and-computer-vision-meetup-september-26-2025'
-                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
-                        target = '_blank'>
-                        Más Información
-                        </a>
-
-                        <p><strong>🛰 Hackathon NASA Space Apps</strong>
-                        <br>Participa en uno de los hackathones más grandes del mundo, organizado por la NASA.
-                        </p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 3, 4 y 5 de octubre 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> todo el día </p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Escuela de Competencias Digitales - San Blas Digital</p>
-                        <a href='https://www.spaceappschallenge.org/'
-                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
-                        target = '_blank'>
-                        Más Información
-                        </a>
-                </td> 
+              <td align='center' style='padding:20px;'>
+                <!-- Substitute by image path -->
+                <img src='https://aiscmadrid.com/images/events/event7/Workshop.png'
+                    alt='AISC Madrid - Hugging Face Visit' width='80%'
+                    style='max-width:560px; border-radius:6px; display:block;'>
+              </td> 
             </tr>
-
-        <!-- Buttons Row -->
-        <tr>
-        <td align='center' style='padding:20px;'>
-            <table border='0' cellspacing='0' cellpadding='0'>
-            <tr>
-                <!-- Web -->
-                <td style='padding:0 5px;'>
-                <a href='https://aiscmadrid.com/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#333333; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    Nuestra Web
-                </a>
-                </td>
-                <!-- Instagram -->
-                <td style='padding:0 5px;'>
-                <a href='https://www.instagram.com/aisc_madrid/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#c13584; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    Instagram
-                </a>
-                </td>
-                <!-- LinkedIn -->
-                <td style='padding:0 5px;'>
-                <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#0077B5; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    LinkedIn
-                </a>
-                </td>
-            </tr>
-            </table>
         </td>
-        </tr>
-        <tr>
-            <td align='center' style='padding:20px;'>
-                    <a href= 'https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
-            </td>
-        </tr>
-        </table>
-    </body>
-</html>";
+      </tr>
+
+      <!-- SECCIÓN 3: BUSCAMOS UNA PERSONA PARA REDES -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>¡Estamos buscando a un nuevo miembro!</strong></h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p><strong> Buscamos una persona para 📣 Redes Sociales, Diseño y Marketing</strong></p>
+          <p align='left'>
+            Impulsa nuestra presencia con <strong>contenido, branding y materiales</strong> para eventos.
+            </p>
+
+            <p align='left'>
+            <em>Se valora positivamente:</em>
+            </p>
+            <ul align='left'>
+            <li><em>Creatividad e iniciativa</em></li>
+            <li><em>Gestión de Instagram / LinkedIn / Comunidad de WhatsApp</em></li>
+            <li><em>Edición foto / vídeo</em></li>
+            </ul>
+          <p>Si te interesa, envía un correo a:<strong style='color:#EB178E;'>aisc.asoc@uc3m.es</strong>
+
+          </p>
+        </td>
+      </tr>
+
+      <!-- SECCIÓN 4: OPORTUNIDAD GEMINI AI PRO -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>Aprovecha Gemini AI Pro</strong></h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p>¿Sabías que por ser universitario en España tienes <strong>1 año gratis de Gemini PRO?</strong></p>
+          <p>Te da acceso a:</p>
+          <ul>
+            <li>Gemini 2.5 Pro</li>
+            <li>Veo 3.1</li>
+            <li>2 TB de almacenamiento en Google</li>
+          </ul>
+          <a href='https://gemini.google/es/students/?hl=es' target='_blank'>No dejes pasar esta oportunidad</a>
+        </td>
+      </tr>
+      <!-- Newsletter Footer -->
+      <tr>
+        <td align='center' style='padding:0 20px;'>
+          <table role='presentation' width='550' cellpadding='0' cellspacing='0' align='center' border='0'
+            style='border-top:5px solid #EB178E; margin-top:20px; padding-top:20px; font-family:Arial, sans-serif; font-size:14px; color:#555555;'>
+            
+            <tr>
+              <td style='padding:0px; color:#333333; font-size:16px; line-height:1.5;'> 
+                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td align='center' style='padding:10px 0;'>
+                <a href='https://aiscmadrid.com/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/internet-rosa.png' width='32' height='32'>
+                </a>
+                <a href='https://www.instagram.com/aisc_madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/instagram-rosa.png' width='32' height='32'>
+                </a>
+                <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/linkedin-rosa.png' width='32' height='32'>
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td align='center' style='padding:10px; padding-left:40px'>
+                <a href='https://aiscmadrid.com/' target='_blank'>
+                  <img src='https://aiscmadrid.com/images/logos/SVG/AISCMadridLogoAndLetters.svg' alt='Logo Footer' width='300'>
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td align='center' style='padding:10px;'>
+                <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+";
 }
 ?>
 <!DOCTYPE html>

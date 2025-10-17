@@ -2,6 +2,10 @@
 include("../assets/db.php");
 include("upload_image.php");
 
+// Initialize variables in case they are null
+$youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
     title_es, title_en,
@@ -10,6 +14,7 @@ $sql = "INSERT INTO events (
     description_es, description_en,
     location,
     start_datetime, end_datetime,
+    youtube_url,
     google_calendar_url,
     requires_registration
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -18,7 +23,7 @@ $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "sssssssssssi",
+    "ssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -29,10 +34,11 @@ $stmt->bind_param(
     $_POST['location'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
-    $_POST['google_calendar_url'],
-    $_POST['youtube_url'],
+    $youtube_url,
+    $google_calendar_url,
     isset($_POST['requires_registration']) ? 1 : 0
 );
+
 
 if (!$stmt->execute()) {
     die("<p style='color:red;'>❌ Error al insertar el evento: " . $stmt->error . "</p>");

@@ -288,6 +288,8 @@ include("assets/head.php");
               <?= htmlspecialchars($board_member['position_es']) ?>
             </p>
           </div>
+          <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
+          <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
         </div>
       <?php endforeach; ?>
     </div>
