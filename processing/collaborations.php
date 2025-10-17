@@ -62,7 +62,7 @@ $stmt->execute();
 $stmt->close();
 
 // Fall into the newsletter dwell if user wasn't already
-$checkForm = $conn->prepare("SELECT id FROM collaborations WHERE email = ?");
+$checkForm = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
 $checkForm->bind_param("s", $email);
 $checkForm->execute();
 $checkForm->store_result();
