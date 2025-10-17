@@ -121,14 +121,12 @@ function generarNewsletterHTML($full_name, $token) {
           <p align='left'>
             <ul>
               <li><strong style='color:#EB178E;'>I Data Preprocessing:</strong> aprendimos ideas básicas de limpieza de datos y EDA (Exploratory Data Analysis) con <strong>Numpy, Pandas, Matplotlib y Seaborn</strong></li>
-              <li><strong style='color:#EB178E;'>II Regression:</strong></li>
+              <li><strong style='color:#EB178E;'>II Regression:</strong> vimos cómo dividir nuestros datos en <strong>entrenamiento</strong> y <strong>prueba</strong>. Entrenamos modelos con <strong>Scikit-Learn</strong> y los evaluamos comparando diferentes métricas</li>
               <li><strong style='color:#EB178E;'>III Neural Networks:</strong> entendimos conceptos como forward pass, back-propagation o qué son las funciones de activación. Además hicimos nuestra primer Red Neuronal de 0 con <strong>Numpy</strong> y la comparamos con una hecha con <strong>PyTorch</strong></li>
             </ul>
             </p>
 
           <p align='left'>
-            Con esta serie damos por finalizada la serie
-            <strong>Introducción a la IA & ML.</strong>
             Si te perdiste alguno de los talleres, recuerda que tienes todos los recursos en la web.
             <br> 
             <a href='https://aiscmadrid.com/events/evento.php?id=9' target='_blank'>Accede a los recursos</a>
@@ -239,7 +237,7 @@ function generarNewsletterHTML($full_name, $token) {
             <tr>
               <td align='center' style='padding:10px; padding-left:40px'>
                 <a href='https://aiscmadrid.com/' target='_blank'>
-                  <img src='https://aiscmadrid.com/images/logos/SVG/AISCMadridLogoAndLetters.svg' alt='Logo Footer' width='300'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/AISCMadridLogoAndLetters.png' alt='Logo Footer' width='300'>
                 </a>
               </td>
             </tr>
@@ -300,16 +298,50 @@ function generarNewsletterHTML($full_name, $token) {
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
-
+                                    /* Temporal due to fail in newsletter 4 */
+                    $excludedEmails = [
+                    "zoesbin@gmail.com",
+                    "efraim.centeno@gmail.com",
+                    "javiercalvoartaso@gmail.com",
+                    "100451778@alumnos.uc3m.es",
+                    "100581326@alumnos.uc3m.es",
+                    "irene.casadogracia@gmail.com",
+                    "carmen.marrasan@gmail.com",
+                    "100496382@alumnos.uc3m.es",
+                    "marco.gallegoropero@gmail.com",
+                    "pinelguerrac@gmail.com",
+                    "herminia.sanz@gmail.com",
+                    "Barroso20092004@gmail.com",
+                    "alexbb20092004@gmail.com",
+                    "100517107@alumnos.uc3m.es",
+                    "hcienteno@gmail.com",
+                    "100499081@alumnos.uc3m.es",
+                    "yago.cabanes@gmail.com",
+                    "alfonsomayoral29@gmail.com",
+                    "jaimelobator@gmail.com",
+                    "juanjorosales2004@gmail.com",
+                    "albapeerezsanchez99@gmail.com",
+                    "giyermo@duck.com",
+                    "abrilgouveia07@gmail.com",
+                    "100523113@alumnos.uc3m.es",
+                    "100499589@alumnos.uc3m.es",
+                    "100472480@alumnos.uc3m.es",
+                    "100472805@alumnos.uc3m.es",
+                    "100495777@alumnos.uc3m.es",
+                    "100496380@alumnos.uc3m.es",
+                    "100466636@alumnos.uc3m.es",
+                    "100495770@alumnos.uc3m.es",
+                    "wjiaohu005@gmail.com"
+                ];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $full_name = $row['full_name'];
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
-                            /* Skip emails that did not fail in the last newsletter
-                            if (!in_array($email, $failedEmails)) {
+                            /* Skip emails that did not fail in the last newsletter*/
+                            if (in_array($email, $excludedEmails)) {
                                 continue;
-                            }  */
+                            }
 
 
                             $mail = new PHPMailer;
