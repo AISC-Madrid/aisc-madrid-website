@@ -300,6 +300,9 @@ function generarNewsletterHTML($full_name, $token) {
                     $result = $conn->query($sql);
                                     /* Temporal due to fail in newsletter 4 */
                     $excludedEmails = [
+                    "hcienteno@gmail.com",
+                    "100498982@alumnos.ucm3.es",
+                    "aisc.asoc@uc3m.es"
                 ];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
@@ -307,7 +310,7 @@ function generarNewsletterHTML($full_name, $token) {
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
                             /* Skip emails that did not fail in the last newsletter*/
-                            if (in_array($email, $excludedEmails)) {
+                            if (!in_array($email, $excludedEmails)) {
                                 continue;
                             }
 
@@ -316,14 +319,14 @@ function generarNewsletterHTML($full_name, $token) {
                             $mail->CharSet = 'UTF-8';
                             $mail->isSMTP();
                             $mail->SMTPDebug = 0;
-                            $mail->Host = 'smtp.hostinger.com';
+                            $mail->Host = 'smtp.uc3m.es';
                             $mail->Port = 587;
                             $mail->SMTPAuth = true;
 
                             $config = include('../config.php');
                             $mail->Username = $config['smtp_user'];
                             $mail->Password = $config['smtp_pass'];
-                            $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+                            $mail->setFrom('aisc.asoc@uc3m.es', 'AISC Madrid');
                             $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
                             $mail->addAddress($email);
                             $mail->Subject = '¡Hugging Face viene al campus!';
