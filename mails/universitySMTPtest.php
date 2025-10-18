@@ -321,6 +321,7 @@ function generarNewsletterHTML($full_name, $token) {
                             $mail->SMTPDebug = 0;
                             $mail->Host = 'smtp.uc3m.es';
                             $mail->Port = 587;
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                             $mail->SMTPAuth = true;
 
                             $config = include('../config.php');
