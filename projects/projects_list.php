@@ -2,7 +2,7 @@
 session_start(); // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+    header("Location: projects/login.php");
     exit();
 }
 
@@ -11,20 +11,20 @@ include("../assets/db.php");
 
 // Handle delete action
 if (isset($_GET['delete'])) {
-    $event_id = intval($_GET['delete']);
-    $conn->query("DELETE FROM events WHERE id = $event_id");
-    header("Location: events_list.php");
+    $project_id = intval($_GET['delete']);
+    $conn->query("DELETE FROM projects WHERE id = $project_id");
+    header("Location: projects_list.php");
     exit();
 }
 
-// Retrieve events
-$result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
+// Retrieve projects
+$result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Eventos</title>
+    <title>Lista de Proyectos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -33,8 +33,8 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="m-0">Lista de Eventos</h2>
-        <a href="events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
+        <h2 class="m-0">Lista de Proyectos</h2>
+        <a href="projects/create_project.php" class="btn btn-primary">+ Crear Nuevo Proyecto</a>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
@@ -43,9 +43,8 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 <th>ID</th>
                 <th>Título (ES/EN)</th>
                 <th>Tipo (ES/EN)</th>
-                <th>Ponente</th>
                 <th>Fecha Inicio - Fin</th>
-                <th>Ubicación</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -63,22 +62,19 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                             <small class="text-muted"><?= htmlspecialchars($row['type_en']) ?></small>
                         </td>
                         <td>
-                            <?= htmlspecialchars($row['speaker']) ?><br>
-                        </td>
-                        <td>
-                            <?= date("d/m/Y H:i", strtotime($row['start_datetime'])) ?>
+                            <?= date("d/m/Y", strtotime($row['start_date'])) ?>
                             -
-                            <?= date("d/m/Y H:i", strtotime($row['end_datetime'])) ?>
+                            <?= date("d/m/Y", strtotime($row['end_date'])) ?>
                         </td>
-                        <td><?= htmlspecialchars($row['location']) ?></td>
+                        <td><?= htmlspecialchars($row['status']) ?></td>
                         <td>
-                            <a class="btn btn-sm btn-success mb-1" href="events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
-                            <a class="btn btn-sm btn-danger mb-1" href="events/events_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                            <a class="btn btn-sm btn-success mb-1" href="projects/create_project.php?id=<?= $row['id'] ?>">Editar</a>
+                            <a class="btn btn-sm btn-danger mb-1" href="projects/projects_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este proyecto?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="6" class="text-center">No se encontraron eventos.</td></tr>
+                <tr><td colspan="6" class="text-center">No se encontraron proyectos.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>

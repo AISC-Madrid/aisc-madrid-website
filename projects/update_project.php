@@ -4,15 +4,15 @@ include("upload_image.php");
 
 // Make sure ID is provided
 if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
-    die("<p style='color:red;'>❌ Error: ID del evento no proporcionado.</p>");
+    die("<p style='color:red;'>❌ Error: ID del proyecto no proporcionado.</p>");
 }
 
-$event_id = (int)$_POST['id'];
+$project_id = (int)$_POST['id'];
 
 // Get current image paths from DB in case no new images are uploaded
-$result = $conn->query("SELECT image_path, gallery_paths FROM events WHERE id = $event_id");
+$result = $conn->query("SELECT image_path, gallery_paths FROM projects WHERE id = $project_id");
 if (!$result || $result->num_rows === 0) {
-    die("<p style='color:red;'>❌ Evento no encontrado.</p>");
+    die("<p style='color:red;'>❌ proyecto no encontrado.</p>");
 }
 $current = $result->fetch_assoc();
 $currentMainImage = $current['image_path'];
@@ -22,23 +22,23 @@ $currentGallery = $current['gallery_paths'];
 $mainImagePath = $currentMainImage;
 if (!empty($_FILES['image']['name'])) {
     // Delete old main image folder
-    $eventFolder = __DIR__ . "/../images/events/event$event_id";
-    if (is_dir($eventFolder)) {
+    $projectFolder = __DIR__ . "/../images/projects/project$project_id";
+    if (is_dir($projectFolder)) {
         $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
+            new RecursiveDirectoryIterator($projectFolder, RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
         );
         foreach ($files as $fileinfo) {
             $fileinfo->isDir() ? rmdir($fileinfo) : unlink($fileinfo);
         }
-        rmdir($eventFolder);
+        rmdir($projectFolder);
     }
 
     // Create fresh folder
-    mkdir($eventFolder, 0755, true);
+    mkdir($projectFolder, 0755, true);
 
     // Upload main image
-    $mainImage = handleImageUpload('image', $eventFolder);
+    $mainImage = handleImageUpload('image', $projectFolder);
     if (isset($mainImage['error'])) {
         die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
     }
@@ -48,7 +48,7 @@ if (!empty($_FILES['image']['name'])) {
 // 2. Handle gallery upload (optional)
 $galleryPathsJson = $currentGallery; // default: keep existing
 if (!empty($_FILES['images']['name'][0])) {
-    $gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
+    $gallery = handleMultipleImageUpload('images', "$projectFolder/gallery");
     $galleryPaths = array_map(function($path) {
         return str_replace(__DIR__ . "/../", "", $path);
     }, $gallery['paths']);
@@ -56,15 +56,14 @@ if (!empty($_FILES['images']['name'][0])) {
 }
 
 // 3. Prepare SQL for UPDATE including optional images
-$sql = "UPDATE events SET
+$sql = "UPDATE projects SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
-    speaker = ?,
+    short_description_es = ?, short_description_en = ?,
     description_es = ?, description_en = ?,
-    location = ?,
-    start_datetime = ?, end_datetime = ?,
+    status = ?, category = ?,
+    start_date = ?, end_date = ?,
     image_path = ?, gallery_paths = ?,
-    google_calendar_url = ?,
     youtube_url = ?
 WHERE id = ?";
 
@@ -74,7 +73,6 @@ if (!$stmt) {
 }
 
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
-$googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 
 $stmt->bind_param(
     "ssssssssssssssi",
@@ -82,24 +80,25 @@ $stmt->bind_param(
     $_POST['title_en'],
     $_POST['type_es'],
     $_POST['type_en'],
-    $_POST['speaker'],
+    $_POST['short_description_es'],
+    $_POST['short_description_en'],
     $_POST['description_es'],
     $_POST['description_en'],
-    $_POST['location'],
+    $_POST['status'],
+    $_POST['category'],
     $_POST['start_datetime'],
     $_POST['end_datetime'],
     $mainImagePath,
     $galleryPathsJson,
-    $googleCalendarUrl,
     $youtubeUrl,
-    $event_id
+    $project_id
 );
 
 
 // Execute
 if ($stmt->execute()) {
-    echo "<p style='color:green;'>✅ Evento actualizado correctamente.</p>";
-    echo "<a href='events_list.php'>Volver al formulario</a>";
+    echo "<p style='color:green;'>✅ proyecto actualizado correctamente.</p>";
+    echo "<a href='projects_list.php'>Volver al formulario</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar: " . $stmt->error . "</p>";
 }
