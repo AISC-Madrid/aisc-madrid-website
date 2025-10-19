@@ -37,7 +37,7 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $youtube_url,
     $google_calendar_url,
-    isset($_POST['requires_registration']) ? 1 : 0
+    $requires_registration
 );
 
 

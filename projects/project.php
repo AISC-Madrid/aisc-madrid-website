@@ -95,8 +95,8 @@ if (!$project) {
                 <div style="width:70%;">
                     <?php
                     // Crear objetos de fecha (solo si existen)
-                    $start = !empty($project['start_date']) ? new Date($project['start_date']) : null;
-                    $end   = !empty($project['end_date']) ? new Date($project['end_date']) : null;
+                    $start = !empty($project['start_date']) ? new DateTime($project['start_date']) : null;
+                    $end   = !empty($project['end_date']) ? new DateTime($project['end_date']) : null;
                     ?>
                     <div id="article-date" class="mb-3">
                         <i class="fas fa-calendar me-2"></i>
