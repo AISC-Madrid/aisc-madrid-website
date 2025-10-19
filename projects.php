@@ -6,10 +6,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include("assets/db.php");
 
-// Get current datetime
-$now = date("Y-m-d H:i:s");
+// Get current date
+$now = date("Y-m-d");
 
-// Retrieve all projects ordered by start_datetime
+// Retrieve all projects ordered by start_date
 $result_projects = $conn->query("SELECT * FROM projects ORDER BY start_date ASC");
 
 // Separate future and past projects
@@ -82,10 +82,9 @@ include("assets/head.php");
                                     </h5>
                                     <p class="card-text">
                                         <i class="fas fa-calendar me-2"></i>
-                                        <strong><?= date("d/m/Y", strtotime($project['start_datetime'])) ?></strong><br>
-                                        <?= date("H:i", strtotime($project['start_datetime'])) ?> - <?= date("H:i", strtotime($project['end_datetime'])) ?>
+                                        <strong><?= date("d/m/Y", strtotime($project['start_date'])) ?></strong><br>
+                                        <?= date("H:i", strtotime($project['start_date'])) ?> - <?= date("H:i", strtotime($project['end_date'])) ?>
                                     </p>
-                                    <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($project['location']) ?></span></p>
                                 </div>
                                 <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
                             </div>
@@ -97,7 +96,7 @@ include("assets/head.php");
             <?php
             //Order past projects by most recent first
             usort($past_projects, function($a, $b) {
-            return strtotime($b['start_datetime']) <=> strtotime($a['start_datetime']);
+            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
             });
             foreach ($past_projects as $project): ?>
                 <div class="col-md-6 col-lg-4 project-past">
@@ -113,10 +112,8 @@ include("assets/head.php");
                                     </h5>
                                     <p class="card-text">
                                         <i class="fas fa-calendar me-2"></i>
-                                        <strong><?= date("d/m/Y", strtotime($project['start_datetime'])) ?></strong><br>
-                                        <?= date("H:i", strtotime($project['start_datetime'])) ?> - <?= date("H:i", strtotime($project['end_datetime'])) ?>
+                                        <strong><?= date("d/m/Y", strtotime($project['start_date'])) ?></strong><br>
                                     </p>
-                                    <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($project['location']) ?></span></p>
                                 </div>
                                 <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
                             </div>
