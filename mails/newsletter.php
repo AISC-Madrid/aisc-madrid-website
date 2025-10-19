@@ -298,9 +298,9 @@ function generarNewsletterHTML($full_name, $token) {
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
-                                    /* Temporal due to fail in newsletter 4 */
+                      /* Add mails to not sent the newsletter to */
                     $excludedEmails = [
-                ];
+                    ];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $full_name = $row['full_name'];
