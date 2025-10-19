@@ -57,9 +57,9 @@ $result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
                             <small class="text-muted"><?= htmlspecialchars($row['title_en']) ?></small>
                         </td>
                         <td>
-                            <?= date("d/m/Y", strtotime($row['start_date'])) ?>
+                            <?= DateTime("d/m/Y", strtotime($row['start_date'])) ?>
                             -
-                            <?= date("d/m/Y", strtotime($row['end_date'])) ?>
+                            <?= DateTime("d/m/Y", strtotime($row['end_date'])) ?>
                         </td>
                         <td><?= htmlspecialchars($row['status']) ?></td>
                         <td>
