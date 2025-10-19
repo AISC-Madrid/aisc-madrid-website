@@ -42,7 +42,7 @@ if (!$event) {
         <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
         <!-- Event image if exists -->
         <?php if (!empty($event['image_path'])): ?>
-        <img src="<?= htmlspecialchars($event['image_path']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 50%; height: auto;">
+        <img src="<?= htmlspecialchars($event['image_path']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 80%; height: auto;">
         <?php endif; ?>
         <p class="text-muted" data-en="Fill out the form to secure your spot at the event." data-es="Rellena el formulario para asegurar tu plaza en el evento.">
             Rellena el formulario para asegurar tu plaza en el evento.</p>

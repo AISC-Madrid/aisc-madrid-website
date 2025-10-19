@@ -5,6 +5,7 @@ include("upload_image.php");
 // Initialize variables in case they are null
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+$requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
@@ -36,7 +37,7 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $youtube_url,
     $google_calendar_url,
-    isset($_POST['requires_registration']) ? 1 : 0
+    $requires_registration
 );
 
 
