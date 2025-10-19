@@ -30,8 +30,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($project) {
         $title_es = $project['title_es'];
         $title_en = $project['title_en'];
-        $type_es = $project['type_es'];
-        $type_en = $project['type_en'];
         // Descripción breve (para listados o cards)
         $short_description_es = $project['short_description_es'];
         $short_description_en = $project['short_description_en'];
@@ -77,18 +75,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="mb-3 col-6">
                         <label class="form-label">Title (English)</label>
                         <input type="text" name="title_en" class="form-control" required value="<?= htmlspecialchars($title_en) ?>">
-                    </div>
-
-                    <!-- Spanish type -->
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Tipo (Español)</label>
-                        <input type="text" name="type_es" class="form-control" value="<?= htmlspecialchars($type_es) ?>">
-                    </div>
-
-                    <!-- English type -->
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Type (English)</label>
-                        <input type="text" name="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
                     </div>
 
                     <!-- Spanish short description -->

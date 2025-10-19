@@ -19,7 +19,20 @@ if (isset($_GET['delete'])) {
 
 // Retrieve projects
 $result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
+
+
+// Function to format date
+function fmt_date(?string $s): string {
+    if (empty($s) || $s === '0000-00-00') return '—';
+    try {
+        return (new DateTime($s))->format('d/m/Y');
+    } catch (Exception $e) {
+        return '—';
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,7 +55,6 @@ $result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
             <tr>
                 <th>ID</th>
                 <th>Título (ES/EN)</th>
-                <th>Tipo (ES/EN)</th>
                 <th>Fecha Inicio - Fin</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -52,24 +64,18 @@ $result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= $row['id'] ?></td>
+                        <td><?= (int)$row['id'] ?></td>
                         <td>
-                            <?= htmlspecialchars($row['title_es']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['title_en']) ?></small>
+                            <?= htmlspecialchars($row['title_es'] ?? '') ?><br>
+                            <small class="text-muted"><?= htmlspecialchars($row['title_en'] ?? '') ?></small>
                         </td>
+                        <td><?= fmt_date($row['start_date'] ?? null) ?> - <?= fmt_date($row['end_date'] ?? null) ?></td>
+                        <td><?= htmlspecialchars($row['status'] ?? '') ?></td>
                         <td>
-                            <?= htmlspecialchars($row['type_es']) ?><br>
-                            <small class="text-muted"><?= htmlspecialchars($row['type_en']) ?></small>
-                        </td>
-                        <td>
-                            <?= date("d/m/Y", strtotime($row['start_date'])) ?>
-                            -
-                            <?= date("d/m/Y", strtotime($row['end_date'])) ?>
-                        </td>
-                        <td><?= htmlspecialchars($row['status']) ?></td>
-                        <td>
-                            <a class="btn btn-sm btn-success mb-1" href="projects/create_project.php?id=<?= $row['id'] ?>">Editar</a>
-                            <a class="btn btn-sm btn-danger mb-1" href="projects/projects_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este proyecto?')">Eliminar</a>
+                            <a class="btn btn-sm btn-success mb-1" href="projects/create_project.php?id=<?= (int)$row['id'] ?>">Editar</a>
+                            <a class="btn btn-sm btn-danger mb-1"
+                            href="projects/projects_list.php?delete=<?= (int)$row['id'] ?>"
+                            onclick="return confirm('¿Seguro que quieres eliminar este proyecto?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

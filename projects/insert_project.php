@@ -9,13 +9,12 @@ $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 // 1. Insert project WITHOUT image paths first
 $sql = "INSERT INTO projects (
     title_es, title_en,
-    type_es, type_en,
     short_description_es, short_description_en,
     description_es, description_en,
     status, category,
     start_date, end_date,
     youtube_url, open_registration
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
@@ -25,8 +24,6 @@ $stmt->bind_param(
     "ssssssssssss",
     $_POST['title_es'],
     $_POST['title_en'],
-    $_POST['type_es'],
-    $_POST['type_en'],
     $_POST['short_description_es'],
     $_POST['short_description_en'],
     $_POST['description_es'],

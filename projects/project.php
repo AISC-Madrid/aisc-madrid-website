@@ -2,12 +2,14 @@
 // Show errors for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 include('../assets/db.php');
 include("../assets/head.php");
 
 
 // Validate and get the project ID from URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    http_response_code(400);
     die("❌ Invalid project ID");
 }
 $project_id = (int) $_GET['id'];
@@ -15,13 +17,18 @@ $project_id = (int) $_GET['id'];
 // Prepare SQL
 $stmt = $conn->prepare("SELECT * FROM projects WHERE id = ?");
 if (!$stmt) {
-    die("❌ Prepare failed: " . $mysqli->error);
+    die("❌ Prepare failed: " . $conn->error);
 }
 $stmt->bind_param("i", $project_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $project = $result->fetch_assoc();
 $stmt->close();
+
+if (!$project) {
+    http_response_code(404);
+    die("❌ Project not found");
+}
 
 $youtubeUrl = $project['youtube_url'] ?? '';
 
@@ -36,6 +43,8 @@ if (!$project) {
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,29 +63,25 @@ if (!$project) {
             </div>
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
                 <div class="mb-3">
-                    <a class="badge bg-aisc-project text-decoration-none"
-                        data-en="<?= htmlspecialchars($project['type_en']) ?>"
-                        data-es="<?= htmlspecialchars($project['type_es']) ?>">
-                        <?= htmlspecialchars($project['type_es']) ?>
-                    </a>
                     <h1 id="article-title" class="text-light display-5 fw-bold mt-2"
-                        data-en="<?= htmlspecialchars($project['title_en']) ?>"
-                        data-es="<?= htmlspecialchars($project['title_es']) ?>">
-                        <?= nl2br(htmlspecialchars($project['title_es'])) ?>
+                        data-en="<?= htmlspecialchars($project['title_en']) ?? '' ?>"
+                        data-es="<?= htmlspecialchars($project['title_es']) ?? '' ?>">
+                        <?= nl2br(htmlspecialchars($project['title_es'] ?? '')) ?>
                     </h1>
                     <p class="text-decoration-none mt-2" style="color: white;"
-                        data-en="Description: <?= htmlspecialchars($project['short_description_en']) ?>"
-                        data-es="Descripción: <?= htmlspecialchars($project['short_description_es']) ?>">
-                        Descripción: <?= htmlspecialchars($project['short_description_es']) ?>
+                        data-en="<?= htmlspecialchars($project['description_en'] ?? '') ?>"
+                        data-es="<?= htmlspecialchars($project['description_es'] ?? '') ?>">
+                        Descripción: <?= nl2br(htmlspecialchars($project['description_es'] ?? '')) ?>
 
                         <?php if ($project['open_registration']): ?>
-                        <div class="my-3">
-                            <a href="projects/project_registration.php?id=<?= $project_id ?>" class="btn btn-custom text-light px-4 fw-semibold"
-                               data-en="Register for project"
-                               data-es="Inscribirse al proyecto">
-                                Inscribirse al proyecto
-                            </a>
-                        </div>
+                            <div class="my-3">
+                                <a href="/projects/project_registration.php?id=<?= $project_id ?>" 
+                                class="btn btn-custom text-light px-4 fw-semibold"
+                                data-en="Register for project"
+                                data-es="Inscribirse al proyecto">
+                                    Inscribirse al proyecto
+                                </a>
+                            </div>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -99,24 +104,21 @@ if (!$project) {
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
                     <?php
-                    // Crear objetos de fecha (solo si existen)
-                    $start = !empty($project['start_date']) ? new DateTime($project['start_date']) : null;
-                    $end   = !empty($project['end_date']) ? new DateTime($project['end_date']) : null;
+                    $start = (!empty($project['start_date']) && $project['start_date'] !== '0000-00-00')
+                        ? new DateTime($project['start_date'])
+                        : null;
+
+                    $end = (!empty($project['end_date']) && $project['end_date'] !== '0000-00-00')
+                        ? new DateTime($project['end_date'])
+                        : null;
                     ?>
                     <div id="article-date" class="mb-3">
-                        <i class="fas fa-calendar me-2"></i>
+                    <i class="fas fa-calendar me-2"></i>
                         <?php
-                        if (!$end || $end->format('Y-m-d') === '0000-00-00') {
-                            // Solo fecha de inicio
-                            if ($start) {
-                                echo '<strong>' . $start->format('d/m/Y') . '</strong>';
-                            }
-                        } elseif ($start && $start->format('Y-m-d') === $end->format('Y-m-d')) {
-                            // Mismo día
-                            echo '<strong>' . $start->format('d/m/Y') . '</strong>';
-                        } else {
-                            // Rango de fechas
+                        if ($start && $end && $start->format('Y-m-d') !== $end->format('Y-m-d')) {
                             echo '<strong>' . $start->format('d/m/Y') . '</strong> - <strong>' . $end->format('d/m/Y') . '</strong>';
+                        } elseif ($start) {
+                            echo '<strong>' . $start->format('d/m/Y') . '</strong>';
                         }
                         ?>
                     </div>
