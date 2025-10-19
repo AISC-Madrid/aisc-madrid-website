@@ -46,6 +46,13 @@
           </a>
         </li>
 
+        <!-- Projects -->
+        <li class="nav-item">
+          <a class="nav-link" href="../projects/projects_list.php">
+            <i class="bi bi-calendar-event me-1"></i> Proyectos
+          </a>
+        </li>
+
         <!-- Recruiting -->
         <li class="nav-item">
           <a class="nav-link" href="recruiting/recruiting_list.php">
