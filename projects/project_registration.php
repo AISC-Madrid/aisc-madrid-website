@@ -42,7 +42,7 @@ if (!$project) {
         <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
         <!-- project image if exists -->
         <?php if (!empty($project['image_path'])): ?>
-        <img src="<?= htmlspecialchars($project['image_path']) ?>" alt="<?= htmlspecialchars($project['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 50%; height: auto;">
+        <img src="<?= htmlspecialchars($project['image_path']) ?>" alt="<?= htmlspecialchars($project['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 80%; height: auto;">
         <?php endif; ?>
         <p class="text-muted" data-en="Fill out the form to secure your spot at the project." data-es="Rellena el formulario para asegurar tu plaza en el proyecto.">
             Rellena el formulario para asegurar tu plaza en el proyecto.</p>

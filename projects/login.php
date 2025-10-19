@@ -2,6 +2,7 @@
 // login.php
 session_start();
 include('../assets/db.php'); // Your $conn mysqli connection
+include("../assets/head.php");
 
 $error = '';
 
@@ -37,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,23 +47,32 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-<div class="container my-5">
+<div class="container my-5 px-3">
     <div class="row justify-content-center">
-        <div class="col-md-4 bg-white p-4 rounded shadow">
-            <h3 class="mb-4 text-center">Login</h3>
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 bg-white p-4 rounded shadow">
+
+            <div class="d-flex align-items-center justify-content-center mb-4 flex-wrap text-center">
+                <img src="/images/logos/PNG/AISC Logo Color.png" alt="Logo AISC Madrid"
+                     class="me-2 mb-2"
+                     style="width: 14vw; max-width: 60px; min-width: 45px; height: auto; object-fit: contain;">
+                <h3 class="m-0 fs-5 fs-md-4">Login Portal AISC Madrid</h3>
+            </div>
+
             <?php if ($error): ?>
-                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+                <div class="alert alert-danger text-center py-2">
+                    <?= htmlspecialchars($error) ?>
+                </div>
             <?php endif; ?>
             <form action="" method="POST">
                 <div class="mb-3">
                     <label class="form-label">NIA</label>
-                    <input type="text" name="mail" class="form-control" required>
+                    <input type="text" name="mail" class="form-control form-control-lg" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" required>
+                    <input type="password" name="password" class="form-control form-control-lg" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <button type="submit" class="btn btn-primary form-btn w-100">Login</button>
             </form>
         </div>
     </div>

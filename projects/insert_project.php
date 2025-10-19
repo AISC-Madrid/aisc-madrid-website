@@ -2,6 +2,10 @@
 include("../assets/db.php");
 include("upload_image.php");
 
+// Initialize variables in case they are null
+$youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$open_registration = isset($_POST['open_registration']) ? 1 : 0;
+
 // 1. Insert project WITHOUT image paths first
 $sql = "INSERT INTO projects (
     title_es, title_en,
@@ -15,6 +19,7 @@ $sql = "INSERT INTO projects (
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
+
 
 $stmt->bind_param(
     "ssssssssssss",
@@ -31,7 +36,7 @@ $stmt->bind_param(
     $_POST['start_date'],
     $_POST['end_date'],
     $youtube_url,
-    isset($_POST['open_registration']) ? 1 : 0
+    $open_registration
 );
 
 if (!$stmt->execute()) {
