@@ -68,6 +68,16 @@ if (!$project) {
                         data-en="Description: <?= htmlspecialchars($project['short_description_en']) ?>"
                         data-es="Descripción: <?= htmlspecialchars($project['short_description_es']) ?>">
                         Descripción: <?= htmlspecialchars($project['short_description_es']) ?>
+
+                        <?php if ($project['open_registration']): ?>
+                        <div class="my-3">
+                            <a href="projects/project_registration.php?id=<?= $project_id ?>" class="btn btn-custom text-light px-4 fw-semibold"
+                               data-en="Register for project"
+                               data-es="Inscribirse al proyecto">
+                                Inscribirse al proyecto
+                            </a>
+                        </div>
+                        <?php endif; ?>
                     </p>
                 </div>
             </div>

@@ -64,7 +64,8 @@ $sql = "UPDATE projects SET
     status = ?, category = ?,
     start_date = ?, end_date = ?,
     image_path = ?, gallery_paths = ?,
-    youtube_url = ?
+    youtube_url = ?,
+    open_registration = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -72,6 +73,7 @@ if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
 
+$open_registration = isset($_POST['open_registration']) ? 1 : 0;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 
 $stmt->bind_param(
@@ -91,6 +93,7 @@ $stmt->bind_param(
     $mainImagePath,
     $galleryPathsJson,
     $youtubeUrl,
+    $open_registration,
     $project_id
 );
 

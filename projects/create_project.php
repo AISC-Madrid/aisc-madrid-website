@@ -43,6 +43,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $end_date = $project['end_date'];
         $image_path = $project['image_path'];
         $youtube_url = $project['youtube_url'];
+        $open_registration = $project['open_registration'];
     }
 }
 ?>
@@ -165,17 +166,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
                     </div>
 
-                    <!-- Google Calendar URL -->
-                    <div class="mb-3">
-                        <label class="form-label">URL Google Calendar</label>
-                        <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url) ?>">
-                    </div>
-
                     <!-- Youtube URL -->
                     <div class="mb-3">
                         <label class="form-label">YT URL (empty if none)</label>
                         <input type="url" name="youtube_url" class="form-control" 
                         value="<?= htmlspecialchars($youtube_url ?? '') ?>">
+                    </div>
+
+                    <!-- Open Registration -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="open_registration" class="form-check-input" id="open_registration" value="1" <?= !empty($requires_registration) && $requires_registration ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="open_registration">Inscripciones Abiertas</label>
                     </div>
 
                     <!-- Submit -->

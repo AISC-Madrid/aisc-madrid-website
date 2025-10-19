@@ -10,7 +10,7 @@ $sql = "INSERT INTO projects (
     description_es, description_en,
     status, category,
     start_date, end_date,
-    youtube_url
+    youtube_url, open_registration
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
@@ -30,7 +30,8 @@ $stmt->bind_param(
     $_POST['category'],
     $_POST['start_date'],
     $_POST['end_date'],
-    $_POST['youtube_url']
+    $youtube_url,
+    isset($_POST['open_registration']) ? 1 : 0
 );
 
 if (!$stmt->execute()) {
