@@ -105,7 +105,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class = "mb-3 col-6">
                         <label class="form-label">Estado del Proyecto</label>
                         <select class="form-control" name="form-status" required>
-                            <option value="">Selecciona una opción...</option>
+                            <option value="" disabled selected>Selecciona una opción...</option>
                             <option value="idea">Idea</option>
                             <option value="in curse">En Curso</option>
                             <option value="finished">Finalizado</option>

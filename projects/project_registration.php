@@ -45,7 +45,7 @@ if (!$project) {
         <img src="<?= htmlspecialchars($project['image_path']) ?>" alt="<?= htmlspecialchars($project['title_es']) ?>" class="img-fluid rounded mb-4" style="max-width: 80%; height: auto;">
         <?php endif; ?>
         <p class="text-muted" data-en="Fill out the form to secure your spot at the project." data-es="Rellena el formulario para asegurar tu plaza en el proyecto.">
-            Rellena el formulario para asegurar tu plaza en el proyecto.</p>
+            Rellena el formulario para solicitar tu plaza en el proyecto.</p>
     </div>
 
     <section class="container-fluid mb-5">
