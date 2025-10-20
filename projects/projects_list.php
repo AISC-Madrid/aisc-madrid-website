@@ -9,16 +9,23 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
 include("../assets/head.php");
 include("../assets/db.php");
 
-// Handle delete action
-if (isset($_GET['delete'])) {
-    $project_id = intval($_GET['delete']);
-    $conn->query("DELETE FROM projects WHERE id = $project_id");
-    header("Location: projects_list.php");
-    exit();
-}
+try {
+    // Handle delete action
+    if (isset($_GET['delete'])) {
+        $project_id = intval($_GET['delete']);
+        $check = $conn->query("SELECT id FROM projects WHERE id = $project_id");
+        if ($check && $check->num_rows > 0) {
+            $conn->query("DELETE FROM projects WHERE id = $project_id");
+        }
+        header("Location: projects_list.php");
+        exit();
+    }
 
-// Retrieve projects
-$result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
+    // Retrieve projects
+    $result = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
+} finally {
+    $conn->close();
+}
 
 
 // Function to format date
@@ -80,7 +87,7 @@ function fmt_date(?string $s): string {
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="6" class="text-center">No se encontraron proyectos.</td></tr>
+                <tr><td colspan="5" class="text-center">No se encontraron proyectos.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
@@ -90,7 +97,3 @@ function fmt_date(?string $s): string {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
