@@ -89,7 +89,7 @@ include("assets/head.php");
 
     <!-- Projects section -->
 
-    <section class="section scroll-margin w-100 px-3 px-md-5" id="projects">
+    <section class="section w-100 px-3 px-md-5" id="projects">
       <div class="container-fluid">
         <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
@@ -100,367 +100,368 @@ include("assets/head.php");
             <button type="button" class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="paused" data-en="Paused" data-es="En pausa">En pausa</button>
         </div>
 
-        <!-- Idea de Proyecto -->
-        <div class="project-group wish row g-4" style="width:100%;">
-          <?php
+      <!-- Idea de Proyecto -->
+      <div class="project-group wish row g-4" style="width:100%;">
+        <?php
           // Ordenar ideas por fecha
           usort($wish_projects, function($a, $b) {
               return strtotime($b['start_date']) <=> strtotime($a['start_date']);
           });
+        ?>
+
+        <?php foreach ($wish_projects as $project): ?>
+          <?php
+            $id         = (int)$project['id'];
+            $title_es   = htmlspecialchars($project['title_es'] ?? '');
+            $title_en   = htmlspecialchars($project['title_en'] ?? '');
+            $image_path = htmlspecialchars($project['image_path'] ?? '');
+            $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+            $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
+            $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
+            $categories = $project['categories'] ?? '';
+            $categories_list = is_string($categories)
+              ? array_filter(array_map('trim', explode(',', $categories)))
+              : (is_array($categories) ? $categories : []);
           ?>
 
-          <?php foreach ($wish_projects as $project): ?>
-            <?php
-              $id         = (int)$project['id'];
-              $title_es   = htmlspecialchars($project['title_es'] ?? '');
-              $title_en   = htmlspecialchars($project['title_en'] ?? '');
-              $image_path = htmlspecialchars($project['image_path'] ?? '');
-              $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
-              $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
-              $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
-              $categories = $project['categories'] ?? '';
-              $categories_list = is_string($categories)
-                ? array_filter(array_map('trim', explode(',', $categories)))
-                : (is_array($categories) ? $categories : []);
-            ?>
+          <div class="col-12 col-md-6 col-lg-4">
+            <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+              <div class="card h-100 shadow-sm horizontal-card position-relative">
+                <div class="row g-0 align-items-stretch h-100">
 
-            <div class="col-12 col-md-6 col-lg-4">
-              <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-                <div class="card h-100 shadow-sm horizontal-card position-relative">
-                  <div class="row g-0 align-items-stretch h-100">
+                  <!-- LEFT: Info -->
+                  <div class="col-12 col-sm-7">
+                    <div class="h-100 d-flex flex-column p-3 p-md-4">
+                      <h5 class="fw-bold mb-2"
+                          data-en="<?= $title_en ?>"
+                          data-es="<?= $title_es ?>">
+                        <?= $title_es ?>
+                      </h5>
 
-                    <!-- LEFT: Info -->
-                    <div class="col-12 col-sm-7">
-                      <div class="h-100 d-flex flex-column p-3 p-md-4">
-                        <h5 class="fw-bold mb-2"
-                            data-en="<?= $title_en ?>"
-                            data-es="<?= $title_es ?>">
-                          <?= $title_es ?>
-                        </h5>
-
-                        <?php if (!empty($categories_list)): ?>
-                          <div class="mb-2">
-                            <?php foreach ($categories_list as $cat): ?>
-                              <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
-                            <?php endforeach; ?>
-                          </div>
-                        <?php endif; ?>
-
-                        <?php if ($start_date): ?>
-                          <div class="mb-2 text-muted">
-                            <i class="fas fa-calendar me-2"></i>
-                            <strong><?= $start_date ?></strong>
-                          </div>
-                        <?php endif; ?>
-
-                        <?php if ($desc_es): ?>
-                          <p class="mb-0 flex-grow-1"
-                            data-en="<?= $desc_en ?>"
-                            data-es="<?= $desc_es ?>">
-                            <?= $desc_es ?>
-                          </p>
-                        <?php endif; ?>
-
-                        <div class="mt-3">
-                          <span class="btn btn-sm btn-outline-primary"
-                                data-es="Saber más" data-en="More Information">Saber más</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- RIGHT: Image -->
-                    <div class="col-12 col-sm-5 img-side">
-                      <?php if ($image_path): ?>
-                        <img src="<?= $image_path ?>" alt="<?= $title_es ?>"
-                            style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
-                      <?php else: ?>
-                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
-                          Sin imagen
+                      <?php if (!empty($categories_list)): ?>
+                        <div class="mb-2">
+                          <?php foreach ($categories_list as $cat): ?>
+                            <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                          <?php endforeach; ?>
                         </div>
                       <?php endif; ?>
-                    </div>
 
+                      <?php if ($start_date): ?>
+                        <div class="mb-2 text-muted">
+                          <i class="fas fa-calendar me-2"></i>
+                          <strong><?= $start_date ?></strong>
+                        </div>
+                      <?php endif; ?>
+
+                      <?php if ($desc_es): ?>
+                        <p class="mb-0 flex-grow-1"
+                          data-en="<?= $desc_en ?>"
+                          data-es="<?= $desc_es ?>">
+                          <?= $desc_es ?>
+                        </p>
+                      <?php endif; ?>
+
+                      <div class="mt-3">
+                        <span class="btn btn-sm btn-outline-primary"
+                              data-es="Saber más" data-en="More Information">Saber más</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- RIGHT: Image -->
+                  <div class="col-12 col-sm-5 img-side">
+                    <?php if ($image_path): ?>
+                      <img src="<?= $image_path ?>" alt="<?= $title_es ?>"
+                          style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                    <?php else: ?>
+                      <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                        Sin imagen
+                      </div>
+                    <?php endif; ?>
+                  </div>
+
+                </div>
+              </div>
+            </a>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Proyecto en Curso -->
+      <div class="project-group current row g-4" style="width:100%;">
+        <?php
+          //Order past projects by most recent first
+          usort($current_projects, function($a, $b) {
+          return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+          });
+        ?>
+        <?php foreach ($current_projects as $project): ?>
+        <?php
+          // Safe helpers / fallbacks
+          $id           = (int)$project['id'];
+          $title_es     = htmlspecialchars($project['title_es'] ?? '');
+          $title_en     = htmlspecialchars($project['title_en'] ?? '');
+          $image_path   = htmlspecialchars($project['image_path'] ?? '');
+          $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+          $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+          $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+          $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+          // Normalize categories to array
+          if (is_string($categories)) {
+            $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+          } elseif (is_array($categories)) {
+            $categories_list = $categories;
+          } else {
+            $categories_list = [];
+          }
+        ?>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+            <div class="card h-100 shadow-sm horizontal-card position-relative">
+              <div class="row g-0 align-items-stretch h-100">
+
+                <!-- LEFT: Info -->
+                <div class="col-12 col-sm-7">
+                  <div class="h-100 d-flex flex-column p-3 p-md-4">
+                    <h5 class="fw-bold mb-2"
+                      data-en="<?= $title_en ?>"
+                      data-es="<?= $title_es ?>">
+                      <?= $title_es ?>
+                    </h5>
+
+                    <?php if (!empty($categories_list)): ?>
+                      <div class="mb-2">
+                        <?php foreach ($categories_list as $cat): ?>
+                          <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                        <?php endforeach; ?>
+                      </div>
+                    <?php endif; ?>
+
+                    <?php if ($start_date): ?>
+                      <div class="mb-2 text-muted">
+                        <i class="fas fa-calendar me-2"></i>
+                        <strong><?= $start_date ?></strong>
+                      </div>
+                    <?php endif; ?>
+
+                    <?php if ($desc_es): ?>
+                      <p class="mb-0 flex-grow-1"
+                        data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                        data-es="<?= htmlspecialchars($desc_es) ?>">
+                        <?= htmlspecialchars($desc_es) ?>
+                      </p>
+                    <?php endif; ?>
+
+                    <div class="mt-3">
+                      <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
+                    </div>
                   </div>
                 </div>
-              </a>
+
+                <!-- RIGHT: Image -->
+                <div class="col-12 col-sm-5 img-side">
+                  <?php if ($image_path): ?>
+                    <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                  <?php else: ?>
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                      Sin imagen
+                    </div>
+                  <?php endif; ?>
+                </div>
+
+              </div>
             </div>
-          <?php endforeach; ?>
+          </a>
         </div>
+        <?php endforeach; ?>
+      </div>
 
-            <!-- Proyecto en Curso -->
-            <div class="project-group current row g-4" style="width:100%;">
-            <?php
-            //Order past projects by most recent first
-            usort($current_projects, function($a, $b) {
-            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
-            });
-            foreach ($current_projects as $project): ?>
-                <?php
-                // Safe helpers / fallbacks
-                $id           = (int)$project['id'];
-                $title_es     = htmlspecialchars($project['title_es'] ?? '');
-                $title_en     = htmlspecialchars($project['title_en'] ?? '');
-                $image_path   = htmlspecialchars($project['image_path'] ?? '');
-                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
-                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
-                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-                // Normalize categories to array
-                if (is_string($categories)) {
-                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-                } elseif (is_array($categories)) {
-                  $categories_list = $categories;
-                } else {
-                  $categories_list = [];
-                }
-              ?>
 
-              <div class="col-12 col-md-6">
-                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-                  <div class="card h-100 shadow-sm horizontal-card position-relative">
-                    <div class="row g-0 align-items-stretch h-100">
+      <!-- Proyecto Terminado -->
+      <div class="project-group finished row g-4" style="width:100%;">
+      <?php
+      //Order past projects by most recent first
+      usort($finished_projects, function($a, $b) {
+      return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+      });
+      foreach ($finished_projects as $project): ?>
+          <?php
+          // Safe helpers / fallbacks
+          $id           = (int)$project['id'];
+          $title_es     = htmlspecialchars($project['title_es'] ?? '');
+          $title_en     = htmlspecialchars($project['title_en'] ?? '');
+          $image_path   = htmlspecialchars($project['image_path'] ?? '');
+          $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+          $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+          $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+          $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+          // Normalize categories to array
+          if (is_string($categories)) {
+            $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+          } elseif (is_array($categories)) {
+            $categories_list = $categories;
+          } else {
+            $categories_list = [];
+          }
+        ?>
 
-                      <!-- LEFT: Info -->
-                      <div class="col-12 col-sm-7">
-                        <div class="h-100 d-flex flex-column p-3 p-md-4">
-                          <h5 class="fw-bold mb-2"
-                              data-en="<?= $title_en ?>"
-                              data-es="<?= $title_es ?>">
-                            <?= $title_es ?>
-                          </h5>
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+            <div class="card h-100 shadow-sm horizontal-card position-relative">
+              <div class="row g-0 align-items-stretch h-100">
 
-                          <?php if (!empty($categories_list)): ?>
-                            <div class="mb-2">
-                              <?php foreach ($categories_list as $cat): ?>
-                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
-                              <?php endforeach; ?>
-                            </div>
-                          <?php endif; ?>
+                <!-- LEFT: Info -->
+                <div class="col-12 col-sm-7">
+                  <div class="h-100 d-flex flex-column p-3 p-md-4">
+                    <h5 class="fw-bold mb-2"
+                        data-en="<?= $title_en ?>"
+                        data-es="<?= $title_es ?>">
+                      <?= $title_es ?>
+                    </h5>
 
-                          <?php if ($start_date): ?>
-                            <div class="mb-2 text-muted">
-                              <i class="fas fa-calendar me-2"></i>
-                              <strong><?= $start_date ?></strong>
-                            </div>
-                          <?php endif; ?>
-
-                          <?php if ($desc_es): ?>
-                            <p class="mb-0 flex-grow-1"
-                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
-                              data-es="<?= htmlspecialchars($desc_es) ?>">
-                              <?= htmlspecialchars($desc_es) ?>
-                            </p>
-                          <?php endif; ?>
-
-                          <!-- Optional CTA -->
-                          <div class="mt-3">
-                            <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
-                          </div>
-                        </div>
+                    <?php if (!empty($categories_list)): ?>
+                      <div class="mb-2">
+                        <?php foreach ($categories_list as $cat): ?>
+                          <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                        <?php endforeach; ?>
                       </div>
+                    <?php endif; ?>
 
-                      <!-- RIGHT: Image -->
-                      <div class="col-12 col-sm-5 img-side">
-                        <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
-                        <?php else: ?>
-                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
-                            Sin imagen
-                          </div>
-                        <?php endif; ?>
+                    <?php if ($start_date): ?>
+                      <div class="mb-2 text-muted">
+                        <i class="fas fa-calendar me-2"></i>
+                        <strong><?= $start_date ?></strong>
                       </div>
+                    <?php endif; ?>
 
+                    <?php if ($desc_es): ?>
+                      <p class="mb-0 flex-grow-1"
+                        data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                        data-es="<?= htmlspecialchars($desc_es) ?>">
+                        <?= htmlspecialchars($desc_es) ?>
+                      </p>
+                    <?php endif; ?>
+
+                    <!-- Optional CTA -->
+                    <div class="mt-3">
+                      <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
                     </div>
                   </div>
-                </a>
+                </div>
+
+                <!-- RIGHT: Image -->
+                <div class="col-12 col-sm-5 img-side">
+                  <?php if ($image_path): ?>
+                    <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                  <?php else: ?>
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                      Sin imagen
+                    </div>
+                  <?php endif; ?>
+                </div>
+
               </div>
-            <?php endforeach; ?>
             </div>
+          </a>
+        </div>
+      <?php endforeach; ?>
+      </div>
 
 
-            <!-- Proyecto Terminado -->
-            <div class="project-group finished row g-4" style="width:100%;">
-            <?php
-            //Order past projects by most recent first
-            usort($finished_projects, function($a, $b) {
-            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
-            });
-            foreach ($finished_projects as $project): ?>
-                <?php
-                // Safe helpers / fallbacks
-                $id           = (int)$project['id'];
-                $title_es     = htmlspecialchars($project['title_es'] ?? '');
-                $title_en     = htmlspecialchars($project['title_en'] ?? '');
-                $image_path   = htmlspecialchars($project['image_path'] ?? '');
-                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
-                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
-                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-                // Normalize categories to array
-                if (is_string($categories)) {
-                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-                } elseif (is_array($categories)) {
-                  $categories_list = $categories;
-                } else {
-                  $categories_list = [];
-                }
-              ?>
+        <!-- Proyecto en Pausa -->
+        <div class="project-group paused row g-4" style="width:100%;">
+        <?php
+        //Order past projects by most recent first
+        usort($paused_projects, function($a, $b) {
+        return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+        }); ?>
+        
+        <?php foreach ($paused_projects as $project): ?>
+          <?php
+            // Safe helpers / fallbacks
+            $id           = (int)$project['id'];
+            $title_es     = htmlspecialchars($project['title_es'] ?? '');
+            $title_en     = htmlspecialchars($project['title_en'] ?? '');
+            $image_path   = htmlspecialchars($project['image_path'] ?? '');
+            $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+            $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+            $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+            $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+            // Normalize categories to array
+            if (is_string($categories)) {
+              $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+            } elseif (is_array($categories)) {
+              $categories_list = $categories;
+            } else {
+              $categories_list = [];
+            }
+          ?>
 
-              <div class="col-12 col-md-6">
-                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-                  <div class="card h-100 shadow-sm horizontal-card position-relative">
-                    <div class="row g-0 align-items-stretch h-100">
+          <div class="col-12 col-md-6 col-lg-4">
+            <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+              <div class="card h-100 shadow-sm horizontal-card position-relative">
+                <div class="row g-0 align-items-stretch h-100">
 
-                      <!-- LEFT: Info -->
-                      <div class="col-12 col-sm-7">
-                        <div class="h-100 d-flex flex-column p-3 p-md-4">
-                          <h5 class="fw-bold mb-2"
-                              data-en="<?= $title_en ?>"
-                              data-es="<?= $title_es ?>">
-                            <?= $title_es ?>
-                          </h5>
+                  <!-- LEFT: Info -->
+                  <div class="col-12 col-sm-7">
+                    <div class="h-100 d-flex flex-column p-3 p-md-4">
+                      <h5 class="fw-bold mb-2"
+                          data-en="<?= $title_en ?>"
+                          data-es="<?= $title_es ?>">
+                        <?= $title_es ?>
+                      </h5>
 
-                          <?php if (!empty($categories_list)): ?>
-                            <div class="mb-2">
-                              <?php foreach ($categories_list as $cat): ?>
-                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
-                              <?php endforeach; ?>
-                            </div>
-                          <?php endif; ?>
-
-                          <?php if ($start_date): ?>
-                            <div class="mb-2 text-muted">
-                              <i class="fas fa-calendar me-2"></i>
-                              <strong><?= $start_date ?></strong>
-                            </div>
-                          <?php endif; ?>
-
-                          <?php if ($desc_es): ?>
-                            <p class="mb-0 flex-grow-1"
-                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
-                              data-es="<?= htmlspecialchars($desc_es) ?>">
-                              <?= htmlspecialchars($desc_es) ?>
-                            </p>
-                          <?php endif; ?>
-
-                          <!-- Optional CTA -->
-                          <div class="mt-3">
-                            <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
-                          </div>
+                      <?php if (!empty($categories_list)): ?>
+                        <div class="mb-2">
+                          <?php foreach ($categories_list as $cat): ?>
+                            <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                          <?php endforeach; ?>
                         </div>
-                      </div>
+                      <?php endif; ?>
 
-                      <!-- RIGHT: Image -->
-                      <div class="col-12 col-sm-5 img-side">
-                        <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
-                        <?php else: ?>
-                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
-                            Sin imagen
-                          </div>
-                        <?php endif; ?>
-                      </div>
-
-                    </div>
-                  </div>
-                </a>
-              </div>
-            <?php endforeach; ?>
-            </div>
-
-
-            <!-- Proyecto en Pausa -->
-            <div class="project-group paused row g-4" style="width:100%;">
-            <?php
-            //Order past projects by most recent first
-            usort($paused_projects, function($a, $b) {
-            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
-            }); ?>
-            
-            <?php foreach ($paused_projects as $project): ?>
-              <?php
-                // Safe helpers / fallbacks
-                $id           = (int)$project['id'];
-                $title_es     = htmlspecialchars($project['title_es'] ?? '');
-                $title_en     = htmlspecialchars($project['title_en'] ?? '');
-                $image_path   = htmlspecialchars($project['image_path'] ?? '');
-                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
-                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
-                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-                // Normalize categories to array
-                if (is_string($categories)) {
-                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-                } elseif (is_array($categories)) {
-                  $categories_list = $categories;
-                } else {
-                  $categories_list = [];
-                }
-              ?>
-
-              <div class="col-12 col-md-6">
-                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-                  <div class="card h-100 shadow-sm horizontal-card position-relative">
-                    <div class="row g-0 align-items-stretch h-100">
-
-                      <!-- LEFT: Info -->
-                      <div class="col-12 col-sm-7">
-                        <div class="h-100 d-flex flex-column p-3 p-md-4">
-                          <h5 class="fw-bold mb-2"
-                              data-en="<?= $title_en ?>"
-                              data-es="<?= $title_es ?>">
-                            <?= $title_es ?>
-                          </h5>
-
-                          <?php if (!empty($categories_list)): ?>
-                            <div class="mb-2">
-                              <?php foreach ($categories_list as $cat): ?>
-                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
-                              <?php endforeach; ?>
-                            </div>
-                          <?php endif; ?>
-
-                          <?php if ($start_date): ?>
-                            <div class="mb-2 text-muted">
-                              <i class="fas fa-calendar me-2"></i>
-                              <strong><?= $start_date ?></strong>
-                            </div>
-                          <?php endif; ?>
-
-                          <?php if ($desc_es): ?>
-                            <p class="mb-0 flex-grow-1"
-                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
-                              data-es="<?= htmlspecialchars($desc_es) ?>">
-                              <?= htmlspecialchars($desc_es) ?>
-                            </p>
-                          <?php endif; ?>
-
-                          <!-- Optional CTA -->
-                          <div class="mt-3">
-                            <span class="btn btn-sm btn-outline-primary" data-es = "Saber más" data-en = "More Information">Saber más</span>
-                          </div>
+                      <?php if ($start_date): ?>
+                        <div class="mb-2 text-muted">
+                          <i class="fas fa-calendar me-2"></i>
+                          <strong><?= $start_date ?></strong>
                         </div>
-                      </div>
+                      <?php endif; ?>
 
-                      <!-- RIGHT: Image -->
-                      <div class="col-12 col-sm-5 img-side">
-                        <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
-                        <?php else: ?>
-                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
-                            Sin imagen
-                          </div>
-                        <?php endif; ?>
+                      <?php if ($desc_es): ?>
+                        <p class="mb-0 flex-grow-1"
+                          data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                          data-es="<?= htmlspecialchars($desc_es) ?>">
+                          <?= htmlspecialchars($desc_es) ?>
+                        </p>
+                      <?php endif; ?>
+
+                      <!-- Optional CTA -->
+                      <div class="mt-3">
+                        <span class="btn btn-sm btn-outline-primary" data-es = "Saber más" data-en = "More Information">Saber más</span>
                       </div>
                     </div>
                   </div>
-                </a>
+
+                  <!-- RIGHT: Image -->
+                  <div class="col-12 col-sm-5 img-side">
+                    <?php if ($image_path): ?>
+                      <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                    <?php else: ?>
+                      <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                        Sin imagen
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
               </div>
-            <?php endforeach; ?>
+            </a>
           </div>
-
-                      
+        <?php endforeach; ?>
+      </div>
+    </section>
   </div>
+
+  
 
 
   <!-- Footer include -->
