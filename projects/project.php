@@ -69,9 +69,9 @@ if (!$project) {
                         <?= nl2br(htmlspecialchars($project['title_es'] ?? '')) ?>
                     </h1>
                     <p class="text-decoration-none mt-2" style="color: white;"
-                        data-en="<?= htmlspecialchars($project['description_en'] ?? '') ?>"
-                        data-es="<?= htmlspecialchars($project['description_es'] ?? '') ?>">
-                        Descripción: <?= nl2br(htmlspecialchars($project['description_es'] ?? '')) ?>
+                        data-en="<?= htmlspecialchars($project['short_description_en'] ?? '') ?>"
+                        data-es="<?= htmlspecialchars($project['short_description_es'] ?? '') ?>">
+                        Descripción: <?= nl2br(htmlspecialchars($project['short_description_es'] ?? '')) ?>
 
                         <?php if ($project['open_registration']): ?>
                             <div class="my-3">
