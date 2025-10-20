@@ -35,7 +35,7 @@ $stmt->bind_param(
     $_POST['short_description_en'],
     $_POST['description_es'],
     $_POST['description_en'],
-    $_POST['status'],
+    $status,
     $_POST['category'],
     $_POST['start_date'],
     $_POST['end_date'],

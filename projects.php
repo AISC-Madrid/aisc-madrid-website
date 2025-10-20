@@ -169,7 +169,6 @@ include("assets/head.php");
                             </p>
                           <?php endif; ?>
 
-                          <!-- Optional CTA -->
                           <div class="mt-3">
                             <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
                           </div>
@@ -179,7 +178,7 @@ include("assets/head.php");
                       <!-- RIGHT: Image -->
                       <div class="col-12 col-sm-5 img-side">
                         <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
                         <?php else: ?>
                           <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
                             Sin imagen
@@ -269,7 +268,7 @@ include("assets/head.php");
                       <!-- RIGHT: Image -->
                       <div class="col-12 col-sm-5 img-side">
                         <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
                         <?php else: ?>
                           <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
                             Sin imagen
@@ -360,7 +359,7 @@ include("assets/head.php");
                       <!-- RIGHT: Image -->
                       <div class="col-12 col-sm-5 img-side">
                         <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
                         <?php else: ?>
                           <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
                             Sin imagen
@@ -452,7 +451,7 @@ include("assets/head.php");
                       <!-- RIGHT: Image -->
                       <div class="col-12 col-sm-5 img-side">
                         <?php if ($image_path): ?>
-                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
                         <?php else: ?>
                           <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
                             Sin imagen
