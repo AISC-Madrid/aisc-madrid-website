@@ -44,6 +44,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $open_registration = $project['open_registration'];
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,13 +81,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Spanish short description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Descripción Corta (Español)</label>
-                        <textarea name="description_es" class="form-control" rows="4"><?= htmlspecialchars($short_description_es) ?></textarea>
+                        <textarea name="short_description_es" class="form-control" rows="4"><?= htmlspecialchars($short_description_es) ?></textarea>
                     </div>
 
                     <!-- English short description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Short Description (English)</label>
-                        <textarea name="description_en" class="form-control" rows="4"><?= htmlspecialchars($short_description_en) ?></textarea>
+                        <textarea name="short_description_en" class="form-control" rows="4"><?= htmlspecialchars($short_description_en) ?></textarea>
                     </div>
 
                     <!-- Spanish description -->
@@ -104,19 +105,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Status -->
                     <div class = "mb-3 col-6">
                         <label class="form-label">Estado del Proyecto</label>
-                        <select class="form-control" name="form-status" required>
+                        <select class="form-control" name="status" required>
                             <option value="" disabled selected>Selecciona una opción...</option>
                             <option value="idea">Idea</option>
-                            <option value="in curse">En Curso</option>
-                            <option value="finished">Finalizado</option>
-                            <option value="paused">Pausado</option>
+                            <option value="en curso">En Curso</option>
+                            <option value="finalizado">Finalizado</option>
+                            <option value="pausado">Pausado</option>
                         </select>
                     </div>
 
                     <!-- Category -->
                     <div class = "mb-3 col-6">
                         <label class="form-label">Categoria del Proyecto</label>
-                        <select class="form-control" name="form-categories" multiple size="5">
+                        <select class="form-control" name="categories" multiple size="5">
                             <option value="ai">Inteligencia Artificial</option>
                             <option value="climate">Cambio Climático</option>
                             <option value="health">Salud</option>
