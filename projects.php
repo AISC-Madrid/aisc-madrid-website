@@ -2,8 +2,11 @@
 <html lang="en">
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Enable error reporting only in development (disable in production)
+if (getenv('APP_ENV') === 'development') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
 include("assets/db.php");
 
 // Get current date
@@ -13,14 +16,40 @@ $now = date("Y-m-d");
 $result_projects = $conn->query("SELECT * FROM projects ORDER BY start_date ASC");
 
 // Separate future and past projects
+
+// Fetch all projects into an array
+$all_projects = [];
+while ($row = $result_projects->fetch_assoc()) {
+    $all_projects[] = $row;
+}
+
+// Separate future and past projects
 $future_projects = [];
 $past_projects = [];
 
-while ($row = $result_projects->fetch_assoc()) {
+foreach ($all_projects as $row) {
     if ($row['end_date'] >= $now) {
         $future_projects[] = $row;
     } else {
         $past_projects[] = $row;
+    }
+}
+
+// Separate projects by status
+$wish_projects = [];
+$current_projects = [];
+$finished_projects = [];
+$paused_projects = [];
+
+foreach ($all_projects as $row) {
+    if ($row['status'] === 'idea') {
+        $wish_projects[] = $row;
+    } else if ($row['status'] === 'en curso') {
+        $current_projects[] = $row;
+    } else if ($row['status'] === 'finalizado') {
+        $finished_projects[] = $row;
+    } else {
+        $paused_projects[] = $row;
     }
 }
 
@@ -38,20 +67,25 @@ include("assets/head.php");
 
   <!-- Main container -->
   <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-    <!-- Landing -->
-    <header class="row mx-2 scroll-margin" style="min-height:85vh; width:90vw;">
-      <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column align-items-start justify-content-center pt-5">
-        <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective <br> <span style="color:var(--secondary);">Madrid</span></h1>
-        <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
-        Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
-        <div class="mt-4 d-flex gap-2">
-          <a href="#" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!" data-es="¡Participa!">¡Participa!</a>
+    
+    <!-- Header section -->
+    <section class="section" id="projects-header"> 
+      <div class="container scroll-margin">
+        <div class="text-center mb-5 px-3 px-md-5">
+          <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Our Projects" data-es="Nuestros Proyectos">
+            Nuestros Proyectos
+          </h2>
+
+          <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+
+          <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
+            data-en="At AISC Madrid we believe in the power of artificial intelligence to transform the world. Our projects reflect our commitment to innovation, education, and positive social impact."
+            data-es="En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo. Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.">
+            En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo.
+            Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.
+          </h6>
         </div>
-      </div>
-      <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
-        <img style="width: 75%;" src="images/logos/PNG/AISC Logo Color.png" alt="Logotipo de la asociación AISC">
-      </div>
-    </header>
+    </section>
 
     <!-- Projects section -->
 
@@ -63,117 +97,376 @@ include("assets/head.php");
         <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
         <div class="project-btn-container mb-4 text-center">
-            <button class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="future" data-en="Future Projects" data-es="Proyectos Futuros">Proyectos Futuros</button>
-            <button class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="past" data-en="Past Projects" data-es="Proyectos Pasados">Proyectos Pasados</button>
+            <button type="button" class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="wish" data-en="Idea" data-es="Idea">Idea</button>
+            <button type="button" class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="current" data-en="In progress" data-es="En curso">En curso</button>
+            <button type="button" class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="finished" data-en="Finished" data-es="Finalizado">Finalizado</button>
+            <button type="button" class="btn btn-primary project-btn fw-semibold project-filter-btn" data-filter="paused" data-en="Paused" data-es="En pausa">En pausa</button>
         </div>
 
+        <!-- Idea de Proyecto -->
         <div class="row g-4" style="width:100%;">
-            <?php foreach ($future_projects as $project): ?>
-                <div class="col-md-6 col-lg-4 project-future">
-                    <a href="/projects/project.php?id=<?= $project['id'] ?>" class="text-decoration-none text-reset">
-                        <div class="card h-100 w-100 shadow-sm">
-                            <div class="card-body p-0 position-relative">
-                                <div class="img-container">
-                                    <img src="<?= htmlspecialchars($project['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($project['title_es']) ?>" style="object-fit: cover;">
-                                </div>
-                                <div class="p-3 pb-5">
-                                    <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($project['title_en']) ?>" data-es="<?= htmlspecialchars($project['title_es']) ?>">
-                                        <?= htmlspecialchars($project['title_es']) ?>
-                                    </h5>
-                                    <p class="card-text">
-                                        <i class="fas fa-calendar me-2"></i>
-                                        <strong><?= date("d/m/Y", strtotime($project['start_date'])) ?></strong><br>
-                                        <?= date("H:i", strtotime($project['start_date'])) ?> - <?= date("H:i", strtotime($project['end_date'])) ?>
-                                    </p>
-                                </div>
-                                <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-
+            <div class="project-group wish">
             <?php
             //Order past projects by most recent first
-            usort($past_projects, function($a, $b) {
+            usort($wish_projects, function($a, $b) {
+            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+            }); ?>
+            <?php foreach ($wish_projects as $project): ?>
+              <?php
+                // Safe helpers / fallbacks
+                $id           = (int)$project['id'];
+                $title_es     = htmlspecialchars($project['title_es'] ?? '');
+                $title_en     = htmlspecialchars($project['title_en'] ?? '');
+                $image_path   = htmlspecialchars($project['image_path'] ?? '');
+                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+                // Normalize categories to array
+                if (is_string($categories)) {
+                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+                } elseif (is_array($categories)) {
+                  $categories_list = $categories;
+                } else {
+                  $categories_list = [];
+                }
+              ?>
+
+              <div class="col-12 col-md-6">
+                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm horizontal-card position-relative">
+                    <div class="row g-0 align-items-stretch h-100">
+
+                      <!-- LEFT: Info -->
+                      <div class="col-12 col-sm-7">
+                        <div class="h-100 d-flex flex-column p-3 p-md-4">
+                          <h5 class="fw-bold mb-2"
+                              data-en="<?= $title_en ?>"
+                              data-es="<?= $title_es ?>">
+                            <?= $title_es ?>
+                          </h5>
+
+                          <?php if (!empty($categories_list)): ?>
+                            <div class="mb-2">
+                              <?php foreach ($categories_list as $cat): ?>
+                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                              <?php endforeach; ?>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($start_date): ?>
+                            <div class="mb-2 text-muted">
+                              <i class="fas fa-calendar me-2"></i>
+                              <strong><?= $start_date ?></strong>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($desc_es): ?>
+                            <p class="mb-0 flex-grow-1"
+                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                              data-es="<?= htmlspecialchars($desc_es) ?>">
+                              <?= htmlspecialchars($desc_es) ?>
+                            </p>
+                          <?php endif; ?>
+
+                          <!-- Optional CTA -->
+                          <div class="mt-3">
+                            <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- RIGHT: Image -->
+                      <div class="col-12 col-sm-5 img-side">
+                        <?php if ($image_path): ?>
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                        <?php else: ?>
+                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                            Sin imagen
+                          </div>
+                        <?php endif; ?>
+                      </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <?php endforeach; ?>
+            </div>
+
+            <!-- Proyecto en Curso -->
+            <div class="project-group current">
+            <?php
+            //Order past projects by most recent first
+            usort($current_projects, function($a, $b) {
             return strtotime($b['start_date']) <=> strtotime($a['start_date']);
             });
-            foreach ($past_projects as $project): ?>
-                <div class="col-md-6 col-lg-4 project-past">
-                    <a href="/projects/project.php?id=<?= $project['id'] ?>" class="text-decoration-none text-reset">
-                        <div class="card h-100 w-100 shadow-sm">
-                            <div class="card-body p-0 position-relative">
-                                <div class="img-container">
-                                    <img src="<?= htmlspecialchars($project['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($project['title_es']) ?>" style="object-fit: cover;">
-                                </div>
-                                <div class="p-3 pb-5">
-                                    <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($project['title_en']) ?>" data-es="<?= htmlspecialchars($project['title_es']) ?>">
-                                        <?= htmlspecialchars($project['title_es']) ?>
-                                    </h5>
-                                    <p class="card-text">
-                                        <i class="fas fa-calendar me-2"></i>
-                                        <strong><?= date("d/m/Y", strtotime($project['start_date'])) ?></strong><br>
-                                    </p>
-                                </div>
-                                <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
+            foreach ($current_projects as $project): ?>
+                <?php
+                // Safe helpers / fallbacks
+                $id           = (int)$project['id'];
+                $title_es     = htmlspecialchars($project['title_es'] ?? '');
+                $title_en     = htmlspecialchars($project['title_en'] ?? '');
+                $image_path   = htmlspecialchars($project['image_path'] ?? '');
+                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+                // Normalize categories to array
+                if (is_string($categories)) {
+                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+                } elseif (is_array($categories)) {
+                  $categories_list = $categories;
+                } else {
+                  $categories_list = [];
+                }
+              ?>
+
+              <div class="col-12 col-md-6">
+                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm horizontal-card position-relative">
+                    <div class="row g-0 align-items-stretch h-100">
+
+                      <!-- LEFT: Info -->
+                      <div class="col-12 col-sm-7">
+                        <div class="h-100 d-flex flex-column p-3 p-md-4">
+                          <h5 class="fw-bold mb-2"
+                              data-en="<?= $title_en ?>"
+                              data-es="<?= $title_es ?>">
+                            <?= $title_es ?>
+                          </h5>
+
+                          <?php if (!empty($categories_list)): ?>
+                            <div class="mb-2">
+                              <?php foreach ($categories_list as $cat): ?>
+                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                              <?php endforeach; ?>
                             </div>
+                          <?php endif; ?>
+
+                          <?php if ($start_date): ?>
+                            <div class="mb-2 text-muted">
+                              <i class="fas fa-calendar me-2"></i>
+                              <strong><?= $start_date ?></strong>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($desc_es): ?>
+                            <p class="mb-0 flex-grow-1"
+                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                              data-es="<?= htmlspecialchars($desc_es) ?>">
+                              <?= htmlspecialchars($desc_es) ?>
+                            </p>
+                          <?php endif; ?>
+
+                          <!-- Optional CTA -->
+                          <div class="mt-3">
+                            <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
+                          </div>
                         </div>
-                    </a>
-                </div>
+                      </div>
+
+                      <!-- RIGHT: Image -->
+                      <div class="col-12 col-sm-5 img-side">
+                        <?php if ($image_path): ?>
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                        <?php else: ?>
+                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                            Sin imagen
+                          </div>
+                        <?php endif; ?>
+                      </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
             <?php endforeach; ?>
-        </div>
-      </div>
-    </section>
-    <?php $conn->close(); ?>
-    
-    <!-- Newsletter section -->
-    <section class="container-fluid mb-5 scroll-margin" id="newsletter">
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-          <div class=" border-0 form-card no-hover">
-            <div id="form-error" class="card-body bg-muted p-4">
-              <h4 class="fw-bold text-center mb-3" style="color: var(--secondary);" data-en="Don't miss a thing!" data-es="¡Mantente al tanto!">¡Mantente al tanto!</h4>
-              <p class="text-muted text-center mb-4 form-subtext" data-en="Send your name and email to stay informed and join our AI community at UC3M." data-es="Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.">
-                Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.
-              </p>
-
-              <form method="POST" action="processing/phpmailer.php" class="needs-validation" novalidate>
-                <!-- Nombre -->
-                <div class="mb-3">
-                  <label for="name" class="form-label" data-en="Full name" data-es="Nombre y apellidos">Nombre y apellidos</label>
-                  <input type="text" class="form-control form-input" id="name" name="name" data-es="Nombre y apellido(s)" data-en="Full name" placeholder="Michael Scott" required>
-                  <div class="invalid-feedback" data-en="Please, introduce your name and surname." data-es="Por favor, introduce tu nombre y apellido(s).">Por favor, introduce tu nombre y apellido(s).</div>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                  <label for="email" class="form-label" data-en="E-mail" data-es="Correo electrónico">Correo electrónico</label>
-                  <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com" data-es="nombre@ejemplo.com" placeholder="name@example.com" required>
-                  <div class="invalid-feedback" data-en="Please, introduce a valid e-mail" data-es="Por favor, introduce un correo válido.">Por favor, introduce un correo válido.</div>
-                </div>
-
-                <!-- Consentimiento -->
-                <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-                  <label class="form-check-label form-text" for="consent" data-en="I consent to AISC Madrid storing my submitted data to contact me." data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
-                    Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
-                  </label>
-                      <a class="form-check-label form-text" href="terms_conditions.php" target="_blank" data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
-                        (Leer términos y condiciones)
-                      </a>
-                  <div class="invalid-feedback" data-en="You must give permission to continue" data-es="Debes dar tu consentimiento para continuar. ">Debes dar tu consentimiento para continuar.</div>
-                </div>
-
-                <!-- Enviar -->
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Send" data-es="Enviar">Enviar</button>
-                </div>
-              </form>
             </div>
+
+
+            <!-- Proyecto Terminado -->
+            <div class="project-group finished">
+            <?php
+            //Order past projects by most recent first
+            usort($finished_projects, function($a, $b) {
+            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+            });
+            foreach ($finished_projects as $project): ?>
+                <?php
+                // Safe helpers / fallbacks
+                $id           = (int)$project['id'];
+                $title_es     = htmlspecialchars($project['title_es'] ?? '');
+                $title_en     = htmlspecialchars($project['title_en'] ?? '');
+                $image_path   = htmlspecialchars($project['image_path'] ?? '');
+                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+                // Normalize categories to array
+                if (is_string($categories)) {
+                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+                } elseif (is_array($categories)) {
+                  $categories_list = $categories;
+                } else {
+                  $categories_list = [];
+                }
+              ?>
+
+              <div class="col-12 col-md-6">
+                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm horizontal-card position-relative">
+                    <div class="row g-0 align-items-stretch h-100">
+
+                      <!-- LEFT: Info -->
+                      <div class="col-12 col-sm-7">
+                        <div class="h-100 d-flex flex-column p-3 p-md-4">
+                          <h5 class="fw-bold mb-2"
+                              data-en="<?= $title_en ?>"
+                              data-es="<?= $title_es ?>">
+                            <?= $title_es ?>
+                          </h5>
+
+                          <?php if (!empty($categories_list)): ?>
+                            <div class="mb-2">
+                              <?php foreach ($categories_list as $cat): ?>
+                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                              <?php endforeach; ?>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($start_date): ?>
+                            <div class="mb-2 text-muted">
+                              <i class="fas fa-calendar me-2"></i>
+                              <strong><?= $start_date ?></strong>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($desc_es): ?>
+                            <p class="mb-0 flex-grow-1"
+                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                              data-es="<?= htmlspecialchars($desc_es) ?>">
+                              <?= htmlspecialchars($desc_es) ?>
+                            </p>
+                          <?php endif; ?>
+
+                          <!-- Optional CTA -->
+                          <div class="mt-3">
+                            <span class="btn btn-sm btn-outline-primary" data-es="Saber más" data-en="More Information">Saber más</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- RIGHT: Image -->
+                      <div class="col-12 col-sm-5 img-side">
+                        <?php if ($image_path): ?>
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                        <?php else: ?>
+                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                            Sin imagen
+                          </div>
+                        <?php endif; ?>
+                      </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <?php endforeach; ?>
+            </div>
+
+
+            <!-- Proyecto en Pausa -->
+            <div class="project-group paused">
+            <?php
+            //Order past projects by most recent first
+            usort($paused_projects, function($a, $b) {
+            return strtotime($b['start_date']) <=> strtotime($a['start_date']);
+            }); ?>
+            
+            <?php foreach ($paused_projects as $project): ?>
+              <?php
+                // Safe helpers / fallbacks
+                $id           = (int)$project['id'];
+                $title_es     = htmlspecialchars($project['title_es'] ?? '');
+                $title_en     = htmlspecialchars($project['title_en'] ?? '');
+                $image_path   = htmlspecialchars($project['image_path'] ?? '');
+                $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+                $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
+                $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
+                $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
+                // Normalize categories to array
+                if (is_string($categories)) {
+                  $categories_list = array_filter(array_map('trim', explode(',', $categories)));
+                } elseif (is_array($categories)) {
+                  $categories_list = $categories;
+                } else {
+                  $categories_list = [];
+                }
+              ?>
+
+              <div class="col-12 col-md-6">
+                <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 shadow-sm horizontal-card position-relative">
+                    <div class="row g-0 align-items-stretch h-100">
+
+                      <!-- LEFT: Info -->
+                      <div class="col-12 col-sm-7">
+                        <div class="h-100 d-flex flex-column p-3 p-md-4">
+                          <h5 class="fw-bold mb-2"
+                              data-en="<?= $title_en ?>"
+                              data-es="<?= $title_es ?>">
+                            <?= $title_es ?>
+                          </h5>
+
+                          <?php if (!empty($categories_list)): ?>
+                            <div class="mb-2">
+                              <?php foreach ($categories_list as $cat): ?>
+                                <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                              <?php endforeach; ?>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($start_date): ?>
+                            <div class="mb-2 text-muted">
+                              <i class="fas fa-calendar me-2"></i>
+                              <strong><?= $start_date ?></strong>
+                            </div>
+                          <?php endif; ?>
+
+                          <?php if ($desc_es): ?>
+                            <p class="mb-0 flex-grow-1"
+                              data-en="<?= htmlspecialchars($desc_en ?? '') ?>"
+                              data-es="<?= htmlspecialchars($desc_es) ?>">
+                              <?= htmlspecialchars($desc_es) ?>
+                            </p>
+                          <?php endif; ?>
+
+                          <!-- Optional CTA -->
+                          <div class="mt-3">
+                            <span class="btn btn-sm btn-outline-primary" data-es = "Saber más" data-en = "More Information">Saber más</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- RIGHT: Image -->
+                      <div class="col-12 col-sm-5 img-side">
+                        <?php if ($image_path): ?>
+                          <img src="<?= $image_path ?>" alt="<?= $title_es ?>">
+                        <?php else: ?>
+                          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                            Sin imagen
+                          </div>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <?php endforeach; ?>
           </div>
-        </div>
-      </div>
-    </section>
+
+                      
   </div>
 
 
@@ -181,16 +474,19 @@ include("assets/head.php");
   <?php include('assets/footer.php'); ?>
 
   <!-- Bootstrap validation script -->
-  <script src="js/index.js"></script>
-  <script src="js/navbar.js"></script>
+  <script src="js/index.js" defer></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/language.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  
+  <!-- Bootstrap Bundle JS (includes Popper) -->
+  <!-- Removed duplicate Bootstrap Bundle JS inclusion -->
+
+</body>
+
+<?php $conn->close(); ?>
+</html>
   <script src="js/language.js"></script>
   
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-</body>
-
-</html>
-

@@ -6,6 +6,13 @@ include("upload_image.php");
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 
+$status = trim($_POST['status'] ?? ''); // name del <select>
+
+$allowed = ['idea','en curso','finalizado','pausado'];
+if (!in_array($status, $allowed, true)) {
+    $status = 'idea'; // default seguro
+}
+
 // 1. Insert project WITHOUT image paths first
 $sql = "INSERT INTO projects (
     title_es, title_en,
@@ -14,7 +21,7 @@ $sql = "INSERT INTO projects (
     status, category,
     start_date, end_date,
     youtube_url, open_registration
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
