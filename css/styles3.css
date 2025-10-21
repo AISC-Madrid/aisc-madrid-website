@@ -402,24 +402,37 @@ html {
 }
 
 .category-badge {
-  font-size: .75rem;
-  background: rgba(0,0,0,.06);
-  border-radius: 999px;
-  padding: .25rem .5rem;
-  margin-right: .35rem;
-  margin-bottom: .35rem;
-  display: inline-block;
-  white-space: nowrap;
+  display: inline-block;          /* se colocan uno al lado del otro */
+  padding: 0.35rem 0.75rem;       /* tamaño tipo botón */
+  margin: 0.2rem;                 /* separa los botones entre sí */
+  border-radius: 999px;     
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;                  /* texto blanco */
+  cursor: default;                /* no parece clicable */
+  user-select: none;              /* evita seleccionar el texto */
+  text-transform: capitalize;     /* primera letra en mayúscula */
+  transition: transform 0.1s ease-in-out;
 }
 
-.category-ai        { background-color: #e3f2fd; color: #0d47a1; }
-.category-climate   { background-color: #e8f5e9; color: #1b5e20; }
-.category-health    { background-color: #fff3e0; color: #e65100; }
-.category-education { background-color: #f3e5f5; color: #4a148c; }
-.category-vision    { background-color: #e0f7fa; color: #006064; }
-.category-nlp       { background-color: #fce4ec; color: #880e4f; }
-.category-robotics  { background-color: #ede7f6; color: #311b92; }
-.category-ethics    { background-color: #fafafa; color: #424242; }
+.category-badge:hover {
+  transform: scale(1.05);         /* ligera animación al pasar el ratón */
+}
+
+/* 🎨 Colores distintos según la categoría */
+.category-ai        { background-color: #0d47a1; } /* azul oscuro */
+.category-climate   { background-color: #2e7d32; } /* verde */
+.category-health    { background-color: #d32f2f; } /* rojo */
+.category-education { background-color: #f9a825; } /* amarillo */
+.category-vision    { background-color: #0288d1; } /* azul claro */
+.category-nlp       { background-color: #6a1b9a; } /* morado */
+.category-robotics  { background-color: #00897b; } /* turquesa */
+.category-ethics    { background-color: #5d4037; } /* marrón */
+
+/* color por defecto si no coincide con ninguno */
+.category-badge:not([class*="category-"]) {
+  background-color: #757575; /* gris */
+}
 
 /* "Saber más" corner badge (optional, similar to your original) */
 .card-more-badge {
