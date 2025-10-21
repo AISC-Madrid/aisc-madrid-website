@@ -8,7 +8,7 @@ $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 
 $status = trim($_POST['status'] ?? ''); // name del <select>
 
-$categories = $_POST['category'] ?? [];
+$categories = $_POST['categories'] ?? [];
 $categories_str = implode(',', $categories);        // Convert array to comma-separated string
 
 $allowed = ['idea','en curso','finalizado','pausado'];

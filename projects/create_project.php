@@ -117,7 +117,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Category -->
                     <div class = "mb-3 col-6">
                         <label class="form-label">Categoria del Proyecto</label>
-                        <select class="form-control" name="category" multiple size="5">
+                        <select class="form-control" name="categories[]" multiple size="5">
                             <option value="ai">Inteligencia Artificial</option>
                             <option value="climate">Cambio Climático</option>
                             <option value="health">Salud</option>
