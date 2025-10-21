@@ -74,6 +74,8 @@ if (!$stmt) {
 
 $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$categories = $_POST['categories'] ?? [];
+$categories_str = implode(',', $categories);        // Convert array to comma-separated string
 
 $stmt->bind_param(
     "ssssssssssssssi",
@@ -84,7 +86,7 @@ $stmt->bind_param(
     $_POST['description_es'],
     $_POST['description_en'],
     $_POST['status'],
-    $_POST['category'],
+    $categories_str,
     $_POST['start_date'],
     $_POST['end_date'],
     $mainImagePath,

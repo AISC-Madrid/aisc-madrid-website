@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     Object.keys(groups).forEach(key => {
       const el = groups[key];
       if (!el) return;
-      el.style.display = (filter === key) ? 'block' : 'none';
+      el.style.display = (filter === key) ? 'inline-block' : 'none';
     });
   };
 
