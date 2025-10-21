@@ -118,10 +118,7 @@ include("assets/head.php");
             $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
             $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
             $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
-            $categories = $project['categories'] ?? '';
-            $categories_list = is_string($categories)
-              ? array_filter(array_map('trim', explode(',', $categories)))
-              : (is_array($categories) ? $categories : []);
+            $category     = array_map('trim', explode(',', $project['category']));
           ?>
 
           <div class="col-12 col-md-6 col-lg-4">
@@ -138,10 +135,10 @@ include("assets/head.php");
                         <?= $title_es ?>
                       </h5>
 
-                      <?php if (!empty($categories_list)): ?>
+                      <?php if (!empty($category)): ?>
                         <div class="mb-2">
-                          <?php foreach ($categories_list as $cat): ?>
-                            <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                          <?php foreach ($category as $cat): ?>
+                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
                           <?php endforeach; ?>
                         </div>
                       <?php endif; ?>
@@ -205,15 +202,7 @@ include("assets/head.php");
           $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
           $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
           $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-          $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-          // Normalize categories to array
-          if (is_string($categories)) {
-            $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-          } elseif (is_array($categories)) {
-            $categories_list = $categories;
-          } else {
-            $categories_list = [];
-          }
+          $category     = array_map('trim', explode(',', $project['category']));
         ?>
 
         <div class="col-12 col-md-6 col-lg-4">
@@ -230,10 +219,10 @@ include("assets/head.php");
                       <?= $title_es ?>
                     </h5>
 
-                    <?php if (!empty($categories_list)): ?>
+                    <?php if (!empty($category)): ?>
                       <div class="mb-2">
-                        <?php foreach ($categories_list as $cat): ?>
-                          <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                        <?php foreach ($category as $cat): ?>
+                          <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
                         <?php endforeach; ?>
                       </div>
                     <?php endif; ?>
@@ -295,15 +284,7 @@ include("assets/head.php");
           $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
           $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
           $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-          $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-          // Normalize categories to array
-          if (is_string($categories)) {
-            $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-          } elseif (is_array($categories)) {
-            $categories_list = $categories;
-          } else {
-            $categories_list = [];
-          }
+          $category     = array_map('trim', explode(',', $project['category']));
         ?>
 
         <div class="col-12 col-md-6 col-lg-4">
@@ -320,10 +301,10 @@ include("assets/head.php");
                       <?= $title_es ?>
                     </h5>
 
-                    <?php if (!empty($categories_list)): ?>
+                    <?php if (!empty($category)): ?>
                       <div class="mb-2">
-                        <?php foreach ($categories_list as $cat): ?>
-                          <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                        <?php foreach ($category as $cat): ?>
+                          <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
                         <?php endforeach; ?>
                       </div>
                     <?php endif; ?>
@@ -387,15 +368,7 @@ include("assets/head.php");
             $start_date   = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
             $desc_es      = htmlspecialchars($project['short_description_es'] ?? $project['short_description'] ?? '');
             $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
-            $categories   = $project['categories'] ?? ''; // Can be comma-separated string or array
-            // Normalize categories to array
-            if (is_string($categories)) {
-              $categories_list = array_filter(array_map('trim', explode(',', $categories)));
-            } elseif (is_array($categories)) {
-              $categories_list = $categories;
-            } else {
-              $categories_list = [];
-            }
+            $category     = array_map('trim', explode(',', $project['category']));
           ?>
 
           <div class="col-12 col-md-6 col-lg-4">
@@ -412,10 +385,10 @@ include("assets/head.php");
                         <?= $title_es ?>
                       </h5>
 
-                      <?php if (!empty($categories_list)): ?>
+                      <?php if (!empty($category)): ?>
                         <div class="mb-2">
-                          <?php foreach ($categories_list as $cat): ?>
-                            <span class="category-badge"><?= htmlspecialchars($cat) ?></span>
+                          <?php foreach ($category as $cat): ?>
+                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
                           <?php endforeach; ?>
                         </div>
                       <?php endif; ?>

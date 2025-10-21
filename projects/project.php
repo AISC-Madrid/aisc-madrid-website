@@ -111,6 +111,8 @@ if (!$project) {
                     $end = (!empty($project['end_date']) && $project['end_date'] !== '0000-00-00')
                         ? new DateTime($project['end_date'])
                         : null;
+
+                    $category = array_map('trim', explode(',', $project['category']));
                     ?>
                     <div id="article-date" class="mb-3">
                     <i class="fas fa-calendar me-2"></i>
@@ -123,6 +125,13 @@ if (!$project) {
                         ?>
                     </div>
 
+                    <?php if (!empty($category)): ?>
+                        <div class="mb-2">
+                          <?php foreach ($category as $cat): ?>
+                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
+                          <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="mt-3 mb-5">
                         <div class="btn-group">
