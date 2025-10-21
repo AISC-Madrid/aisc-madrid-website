@@ -8,6 +8,9 @@ $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 
 $status = trim($_POST['status'] ?? ''); // name del <select>
 
+$categories = $_POST['category'] ?? [];
+$categories_str = implode(',', $categories);        // Convert array to comma-separated string
+
 $allowed = ['idea','en curso','finalizado','pausado'];
 if (!in_array($status, $allowed, true)) {
     $status = 'idea'; // default seguro
@@ -36,7 +39,7 @@ $stmt->bind_param(
     $_POST['description_es'],
     $_POST['description_en'],
     $status,
-    $_POST['category'],
+    $categories_str,
     $_POST['start_date'],
     $_POST['end_date'],
     $youtube_url,

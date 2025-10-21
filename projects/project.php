@@ -69,9 +69,9 @@ if (!$project) {
                         <?= nl2br(htmlspecialchars($project['title_es'] ?? '')) ?>
                     </h1>
                     <p class="text-decoration-none mt-2" style="color: white;"
-                        data-en="<?= htmlspecialchars($project['description_en'] ?? '') ?>"
-                        data-es="<?= htmlspecialchars($project['description_es'] ?? '') ?>">
-                        Descripción: <?= nl2br(htmlspecialchars($project['description_es'] ?? '')) ?>
+                        data-en="<?= htmlspecialchars($project['short_description_en'] ?? '') ?>"
+                        data-es="<?= htmlspecialchars($project['short_description_es'] ?? '') ?>">
+                        Descripción: <?= nl2br(htmlspecialchars($project['short_description_es'] ?? '')) ?>
 
                         <?php if ($project['open_registration']): ?>
                             <div class="my-3">
@@ -111,6 +111,8 @@ if (!$project) {
                     $end = (!empty($project['end_date']) && $project['end_date'] !== '0000-00-00')
                         ? new DateTime($project['end_date'])
                         : null;
+
+                    $category = array_map('trim', explode(',', $project['category']));
                     ?>
                     <div id="article-date" class="mb-3">
                     <i class="fas fa-calendar me-2"></i>
@@ -123,6 +125,13 @@ if (!$project) {
                         ?>
                     </div>
 
+                    <?php if (!empty($category)): ?>
+                        <div class="mb-2">
+                          <?php foreach ($category as $cat): ?>
+                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
+                          <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="mt-3 mb-5">
                         <div class="btn-group">
