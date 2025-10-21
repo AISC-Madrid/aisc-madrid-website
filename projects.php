@@ -108,7 +108,6 @@ include("assets/head.php");
               return strtotime($b['start_date']) <=> strtotime($a['start_date']);
           });
         ?>
-º      <div class="col-12 col-md-6">
           <?php foreach ($wish_projects as $project): ?>
             <?php
               $id         = (int)$project['id'];
@@ -120,7 +119,7 @@ include("assets/head.php");
               $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
               $category   = array_map('trim', explode(',', $project['category']));
             ?>
-
+            <div class="col-12 col-md-6 project-wish">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -179,8 +178,8 @@ include("assets/head.php");
                 </div>
               </div>
             </a>
+            </div>
           <?php endforeach; ?>
-        </div>
       </div>
 
       <!-- Proyecto en Curso -->
@@ -191,7 +190,6 @@ include("assets/head.php");
           return strtotime($b['start_date']) <=> strtotime($a['start_date']);
           });
         ?>
-        <div class="col-12 col-md-6">
           <?php foreach ($current_projects as $project): ?>
             <?php
               // Safe helpers / fallbacks
@@ -204,7 +202,7 @@ include("assets/head.php");
               $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
               $category     = array_map('trim', explode(',', $project['category']));
             ?>
-
+            <div class="col-12 col-md-6 project-current">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -261,8 +259,8 @@ include("assets/head.php");
                 </div>
               </div>
             </a>
+            </div>
           <?php endforeach; ?>
-        </div>  
       </div>
 
 
@@ -273,7 +271,6 @@ include("assets/head.php");
       usort($finished_projects, function($a, $b) {
       return strtotime($b['start_date']) <=> strtotime($a['start_date']);
       }); ?>
-      <div class="col-12 col-md-6">
         <?php foreach ($finished_projects as $project): ?>
           <?php
           // Safe helpers / fallbacks
@@ -286,7 +283,7 @@ include("assets/head.php");
           $desc_en      = htmlspecialchars($project['short_description_en'] ?? $project['short_description'] ?? '');
           $category     = array_map('trim', explode(',', $project['category']));
           ?>
-
+          <div class="col-12 col-md-6 project-finished">
           <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
             <div class="card h-100 shadow-sm horizontal-card position-relative">
               <div class="row g-0 align-items-stretch h-100">
@@ -344,8 +341,8 @@ include("assets/head.php");
               </div>
             </div>
           </a>
+          </div>
         <?php endforeach; ?>
-      </div>
     </div>
 
 
@@ -356,7 +353,6 @@ include("assets/head.php");
         usort($paused_projects, function($a, $b) {
         return strtotime($b['start_date']) <=> strtotime($a['start_date']);
         }); ?>
-        <div class="col-12 col-md-6">
           <?php foreach ($paused_projects as $project): ?>
             <?php
               // Safe helpers / fallbacks
@@ -370,7 +366,7 @@ include("assets/head.php");
               $category     = array_map('trim', explode(',', $project['category']));
             ?>
 
-          
+            <div class="col-12 col-md-6 project-paused">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -427,8 +423,8 @@ include("assets/head.php");
                 </div>
               </div>
             </a>
+            </div>
           <?php endforeach; ?>
-        </div>
       </div>
     </section>
   </div>
