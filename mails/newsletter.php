@@ -41,9 +41,11 @@ function generarNewsletterHTML($full_name, $token) {
 
       <tr>
           <td align='center' style='padding:20px;'>
+          <a href="https://aiscmadrid.com/events/evento.php?id=13" target="_blank">
               <img src='https://aiscmadrid.com/images/events/event8/EnriqueAlcocerMilfshakes.png'
                   alt='AISC Madrid - Milfshakes' width='80%'
                   style='max-width:560px; border-radius:6px; display:block;'>
+        </a>
           </td>
       </tr>
 
@@ -64,13 +66,6 @@ function generarNewsletterHTML($full_name, $token) {
       </tr>
       <tr>
         <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
-          <p align='center'>
-              ¡Comenzamos el curso con una visita muy especial! 🎉
-              <br>  
-              En nuestro primer evento del año recibimos a 
-              <strong style='color:#EB178E;'>Sergio Paniego Blanco</strong>, 
-              <em>Machine Learning Engineer en Hugging Face</em>.
-          </p>
           <p align='center'>
               Enrique nos contará su experiencia al frente del desarrollo web de <strong>una de las empresas más de moda en España.</strong>
                           Cómo compaginó trabajar en una startup tan frenética con sus estudios de Ingeniería Informática, su papel a la hora
