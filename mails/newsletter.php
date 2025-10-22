@@ -24,7 +24,7 @@ include("../assets/db.php");
 // Función para generar el HTML de la newsletter
 function generarNewsletterHTML($full_name, $token) {
     return "
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset='UTF-8'>
@@ -111,39 +111,39 @@ function generarNewsletterHTML($full_name, $token) {
         <td align='center' style='padding:20px;'>
             <table border='0' cellspacing='0' cellpadding='0'>
             <tr>
-                <!-- Web -->
-                <td style='padding:0 5px;'>
-                <a href='https://aiscmadrid.com/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#333333; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    Nuestra Web
+              <td align='center' style='padding:10px 0;'>
+                <a href='https://aiscmadrid.com/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/internet-rosa.png' width='32' height='32'>
                 </a>
-                </td>
-                <!-- Instagram -->
-                <td style='padding:0 5px;'>
-                <a href='https://www.instagram.com/aisc_madrid/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#c13584; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    Instagram
+                <a href='https://www.instagram.com/aisc_madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/instagram-rosa.png' width='32' height='32'>
                 </a>
-                </td>
-                <!-- LinkedIn -->
-                <td style='padding:0 5px;'>
-                <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' rel='noopener noreferrer'
-                    style='background-color:#0077B5; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:5px; display:inline-block; font-size:16px;'>
-                    LinkedIn
+                <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/linkedin-rosa.png' width='32' height='32'>
                 </a>
-                </td>
+              </td>
             </tr>
-            </table>
+
+            <tr>
+              <td align='center' style='padding:10px; padding-left:40px'>
+                <a href='https://aiscmadrid.com/' target='_blank'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/AISCMadridLogoAndLetters.png' alt='Logo Footer' width='300'>
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td align='center' style='padding:10px;'>
+                <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+              </td>
+            </tr>
+          </table>
         </td>
-        </tr>
-        <tr>
-            <td align='center' style='padding:20px;'>
-                    <a href= 'https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
-            </td>
-        </tr>
-        </table>
-    </body>
-</html>";
+      </tr>
+    </table>
+  </body>
+</html>
+";
 }
 ?>
 <!DOCTYPE html>
@@ -188,16 +188,18 @@ function generarNewsletterHTML($full_name, $token) {
                 if (isset($_POST['confirm_send'])) {
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
-
+                      /* Add mails to not sent the newsletter to */
+                    $excludedEmails = [
+                    ];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $full_name = $row['full_name'];
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
-                            /* Skip emails that did not fail in the last newsletter
-                            if (!in_array($email, $failedEmails)) {
+                            /* Skip emails that did not fail in the last newsletter*/
+                            if (in_array($email, $excludedEmails)) {
                                 continue;
-                            }  */
+                            }
 
 
                             $mail = new PHPMailer;

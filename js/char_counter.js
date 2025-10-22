@@ -1,10 +1,12 @@
-  const reasonInput = document.getElementById('reason');
-  const charCount = document.getElementById('char-count');
+document.querySelectorAll('textarea[maxlength]').forEach(textarea => {
+  const max = textarea.maxLength;
 
-  // Initialize character count on page load
-  charCount.textContent = reasonInput.value.length + ' / 1000 characters';
+  const charCount = textarea.parentElement.querySelector('.form-text');
 
-  reasonInput.addEventListener('input', () => {
-    const len = reasonInput.value.length;
-    charCount.textContent = len + ' / 1000 characters';
+  charCount.textContent = `${textarea.value.length} / ${max} characters`;
+
+  // Update count on input
+  textarea.addEventListener('input', () => {
+    charCount.textContent = `${textarea.value.length} / ${max} characters`;
   });
+});
