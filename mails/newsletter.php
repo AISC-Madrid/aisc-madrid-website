@@ -41,7 +41,7 @@ function generarNewsletterHTML($full_name, $token) {
 
       <tr>
           <td align='center' style='padding:20px;'>
-          <a href="https://aiscmadrid.com/events/evento.php?id=13" target="_blank">
+          <a href='https://aiscmadrid.com/events/evento.php?id=13' target='_blank'>
               <img src='https://aiscmadrid.com/images/events/event8/EnriqueAlcocerMilfshakes.png'
                   alt='AISC Madrid - Milfshakes' width='80%'
                   style='max-width:560px; border-radius:6px; display:block;'>
