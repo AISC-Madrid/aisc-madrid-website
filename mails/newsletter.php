@@ -26,159 +26,86 @@ function generarNewsletterHTML($full_name, $token) {
     return "
     <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset='UTF-8'>
-        <title>Newsletter AISC Madrid</title>
-    </head>
-    <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
-        <table align='center' width='600'
-            style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Newsletter AISC Madrid</title>
+  </head>
+  <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
+    <table align='center' width='600' style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
-            <!-- Head -->
-            <tr>
-                <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-                    <h1 style='margin:0; font-size:24px;'> Hugging Face estará en el campus y Cambio de fecha en nuestro próximo taller
- </h1>
-                </td>
-            </tr>
+      <tr>
+        <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
+          <h1 style='margin:0; font-size:24px;'>Milfshakes x AISC Madrid</h1>
+        </td>
+      </tr>
 
-            <!-- Image -->
-            <tr>
-                <td align='center' style='padding:20px;'>
-                    <!-- Substitute by image path -->
-                    <img src='https://aiscmadrid.com/images/events/event6/SergioPaniegoHuggingFace.png'
-                        alt='AISC Madrid Hugging Face - Sergio Paniego Blanco' width='80%'
-                        style='max-width:560px; border-radius:6px; display:block;'>
-                </td>
-            </tr>
+      <tr>
+          <td align='center' style='padding:20px;'>
+              <img src='https://aiscmadrid.com/images/events/event8/EnriqueAlcocerMilfshakes.png'
+                  alt='AISC Madrid - Milfshakes' width='80%'
+                  style='max-width:560px; border-radius:6px; display:block;'>
+          </td>
+      </tr>
 
-            <!-- Main text -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . ", en esta newsletter te contamos los próximos eventos con empresas como Hugging Face o Milfshakes y un <span style = 'color:#EB178E'> cambio de día </span> en nuestro próximo taller: Introducción a la IA & ML II: Regresión. </strong></p>
-                </td>                
-            </tr>
-
-            <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Cambio de fecha en el taller Introducción a la IA & ML II: Regresión
-                    </strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; text-align:left; line-height:1.6;'>
-                    <p>
-                        Debido a Foroempleo, hemos decidido cambiar la fecha del próximo taller.
-                        <strong><span style = 'color:#EB178E'>Nueva fecha:</span></strong>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-                </td>
-            </tr>
+      <tr>
+          <tr>
+              <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                  <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . ", la semana que viene es nuestro segundo evento, y ¡tenemos muchas ganas!
+                      <br>
+                      Conoce a Enrique Alcocer, la persona detrás del desarrollo web del e-commerce de moda: <span style = 'color:#EB178E'>Milfshakes</span> 🥤                      
+                  </p>
+              </td>                    
+          </tr>                
+    </tr>
             
-            <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong>Próximamente en AISC</strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>Enrique Alcocer, Software Developer en Milfshakes 🥤</strong></h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p align='center'>
+              ¡Comenzamos el curso con una visita muy especial! 🎉
+              <br>  
+              En nuestro primer evento del año recibimos a 
+              <strong style='color:#EB178E;'>Sergio Paniego Blanco</strong>, 
+              <em>Machine Learning Engineer en Hugging Face</em>.
+          </p>
+          <p align='center'>
+              Enrique nos contará su experiencia al frente del desarrollo web de <strong>una de las empresas más de moda en España.</strong>
+                          Cómo compaginó trabajar en una startup tan frenética con sus estudios de Ingeniería Informática, su papel a la hora
+                          de transformar ideas creativas y locas en código y la importancia de la creatividad y adaptabilidad necesarias
+                          para estar al frente de un proyecto como Milfshakes.
+          </p>
+          <p align='center'>
+              Además, Enrique nos contará en detalle <strong>creativo y técnico</strong> cómo fue el paso a paso para el lanzamiento de unos de los <strong>drops</strong> de la marca que más impacto tuvo.
+          </p>
+          <p align='center'>
+              Si te interesa el <strong>desarrollo web, los procesos creativos, el mundo de las startups o si eres fan de Milfshakes</strong>, ¡este evento es para ti!
+                  </p>
+        </td>
+      </tr>
 
-            <!-- Workshops section -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Workshops</strong></p>
-                        <p><strong>Introducción a la IA & ML II: Regresión</strong>
-                        <br><span style = 'color:#EB178E'> Cambio de fecha: </span>
-                        </p>
+      <tr>
+          <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+                  <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software developer</strong></p>
+                  <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
+                  <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
+                  <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
+          </td>      
+      </tr>
 
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 30 de septiembre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.0.E02, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-
-                        <p><strong>Introducción a la IA & ML III: Redes Neuronales</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 14 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:15h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
-                </td>                
-            </tr>
-
-            <!-- Events section -->
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                    <p align='center'><strong>Eventos</strong></p>
-                        <p><strong>🤗 Hugging Face AISC: Sergio Paniego ML Engineer</strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 22 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-
-                        <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software Developer </strong></p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30 - 14:30h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula por confimar</p>
-                </td>                
-            </tr>
-
-
-            <!-- Button -->
-            <tr>
-                <td align='center' style='padding:20px;'>
-                    <a href='https://aiscmadrid.com/#events'
-                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
-                        target = '_blank'>
-                        Ver próximos eventos
-                    </a>
-                </td>
-            </tr>
-
-                    <tr>
-            <td style='padding:20px; color:#333333; font-size:16p; line-height:1.5;'> 
-                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
-            </td>
-        </tr>    
-
-        <!-- Oportunities Section -->
-        <tr>
-                <td align='center' style='padding:20px; color:#EB178E;'> 
-                    <h1 style='margin:0; font-size:24px;'><strong> Oportunidades
-                    </strong></h1>
-                    <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                        <p>
-                        Os compartimos dos oportunidades muy interesantes que creemos os pueden interesar.
-                        </p>
-                        <p><strong>👨‍💻 Madrid AI, ML and Computer Vision Meetup</strong>
-                        <br>Ponte al día con las últimas novedades en AI, ML y CV. Con ponencias de empresas como Hugging Face o Intel.
-                        </p>
-
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 26 de octubre de 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 18:30h - 22:00h</p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Google For Startups Campus</p>
-                        <a href=' https://voxel51.com/events/madrid-ai-ml-and-computer-vision-meetup-september-26-2025'
-                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
-                        target = '_blank'>
-                        Más Información
-                        </a>
-
-                        <p><strong>🛰 Hackathon NASA Space Apps</strong>
-                        <br>Participa en uno de los hackathones más grandes del mundo, organizado por la NASA.
-                        </p>
-                        <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 3, 4 y 5 de octubre 2025</p>
-                        <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> todo el día </p>
-                        <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Escuela de Competencias Digitales - San Blas Digital</p>
-                        <a href='https://www.spaceappschallenge.org/'
-                        style='background-color:#20CCF1; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px;'
-                        target = '_blank'>
-                        Más Información
-                        </a>
-                </td> 
-            </tr>
-
+  <tr>
+              <td align='center' style='padding:20px;'>
+                  <a href='https://aiscmadrid.com/events/event_registration.php?id=13'
+                      style='background-color:#EB178E; color:#000000; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px; font-weight: bold;'
+                      target = '_blank'>
+                      ¡Regístrate para el evento aquí!
+                  </a>
+              </td>
+          </tr>
         <!-- Buttons Row -->
         <tr>
         <td align='center' style='padding:20px;'>
