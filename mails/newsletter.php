@@ -50,7 +50,7 @@ function generarNewsletterHTML($full_name, $token) {
       <tr>
           <tr>
               <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                  <p align='center'><strong>" . explode(' ', $full_name)[0] . ", ¿te gustaría conocer a la persona detrás del desarrollo web del e-commerce de moda: <span style = 'color:#EB178E'>Milfshakes</span> 🥤</strong>                      
+                  <p align='center'><strong>" . explode(' ', $full_name)[0] . ", ¿te gustaría conocer a la persona detrás del desarrollo web del e-commerce de moda: <span style = 'color:#EB178E'>Milfshakes</span> 🥤?</strong>                      
                   </p>
               </td>                    
           </tr>                
