@@ -111,6 +111,9 @@ function generarNewsletterHTML($full_name, $token) {
                 <a href='https://www.instagram.com/aisc_madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
                   <img src='https://aiscmadrid.com/images/logos/PNG/instagram-rosa.png' width='32' height='32'>
                 </a>
+                <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=wwt' target='_blank' style='margin:0 20px; display:inline-block;'>
+                  <img src='https://aiscmadrid.com/images/logos/PNG/whatsapp-rosa.png' width='32' height='32'>
+                </a>
                 <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
                   <img src='https://aiscmadrid.com/images/logos/PNG/linkedin-rosa.png' width='32' height='32'>
                 </a>
