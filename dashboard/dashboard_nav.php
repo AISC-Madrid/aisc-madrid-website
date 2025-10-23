@@ -46,6 +46,13 @@
           </a>
         </li>
 
+        <!-- Escanear asistencia de eventos -->
+        <li class="nav-item">
+          <a class="nav-link" href="../dashboard/scan_attendance.php">
+            <i class="bi bi-qr-code me-1"></i> Escanear Asistencia
+          </a>
+        </li>
+
         <!-- Projects -->
         <li class="nav-item">
           <a class="nav-link" href="../projects/projects_list.php">
