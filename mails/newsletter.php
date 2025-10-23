@@ -212,7 +212,7 @@ function generarNewsletterHTML($full_name, $token) {
                             $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
                             $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
                             $mail->addAddress($email);
-                            $mail->Subject = '¡Hugging Face viene al campus!';
+                            $mail->Subject = '¡Milfshakes viene al campus!';
 
                             $mail->isHTML(true);
                             $mail->Body = generarNewsletterHTML($full_name, $token);
