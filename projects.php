@@ -101,7 +101,7 @@ include("assets/head.php");
         </div>
 
       <!-- Idea de Proyecto -->
-      <div class="project-group wish row g-4">
+      <div class="project-group-wish row g-4">
         <?php
           // Ordenar ideas por fecha
           usort($wish_projects, function($a, $b) {
@@ -121,7 +121,7 @@ include("assets/head.php");
             ?>
             <div class="col-12 col-md-6 project-wish">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-              <div class="card h-100 shadow-sm horizontal-card position-relative">
+              <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
 
                   <!-- LEFT: Info -->
@@ -183,7 +183,7 @@ include("assets/head.php");
       </div>
 
       <!-- Proyecto en Curso -->
-      <div class="project-group current row g-4" style="width:100%;">
+      <div class="project-group-current row g-4" style="width:100%;">
         <?php
           //Order past projects by most recent first
           usort($current_projects, function($a, $b) {
@@ -204,7 +204,7 @@ include("assets/head.php");
             ?>
             <div class="col-12 col-md-6 project-current">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-              <div class="card h-100 shadow-sm horizontal-card position-relative">
+              <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
 
                   <!-- LEFT: Info -->
@@ -265,7 +265,7 @@ include("assets/head.php");
 
 
       <!-- Proyecto Terminado -->
-      <div class="project-group finished row g-4" style="width:100%;">
+      <div class="project-group-finished row g-4" style="width:100%;">
       <?php
       //Order past projects by most recent first
       usort($finished_projects, function($a, $b) {
@@ -285,7 +285,7 @@ include("assets/head.php");
           ?>
           <div class="col-12 col-md-6 project-finished">
           <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-            <div class="card h-100 shadow-sm horizontal-card position-relative">
+            <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
               <div class="row g-0 align-items-stretch h-100">
 
                 <!-- LEFT: Info -->
@@ -347,7 +347,7 @@ include("assets/head.php");
 
 
         <!-- Proyecto en Pausa -->
-        <div class="project-group paused row g-4" style="width:100%;">
+        <div class="project-group-paused row g-4" style="width:100%;">
         <?php
         //Order past projects by most recent first
         usort($paused_projects, function($a, $b) {
@@ -368,7 +368,7 @@ include("assets/head.php");
 
             <div class="col-12 col-md-6 project-paused">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
-              <div class="card h-100 shadow-sm horizontal-card position-relative">
+              <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
 
                   <!-- LEFT: Info -->
