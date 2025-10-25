@@ -1,13 +1,17 @@
 <?php
 session_start();
-// Include necessary files for dashboard header and navigation
 include_once '../assets/head.php';
 include_once 'dashboard_nav.php';
+
+if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
+    header("Location: events/login.php");
+    exit();
+}
 ?>
 
 <div class="container mt-4 scroll-margin">
-    <h2>Escanear asistencia</h2>
-    <p>Utiliza la cámara de tu dispositivo para escanear códigos QR y registrar la asistencia.</p>
+    <h2 class="text-center text-dark">Escanear asistencia</h2>
+    <p class="text-center text-dark">Utiliza la cámara de tu dispositivo para escanear códigos QR y registrar la asistencia.</p>
 
     <div id="qr-reader" style="width: 500px"></div>
     <div id="qr-reader-results"></div>
