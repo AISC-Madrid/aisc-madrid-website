@@ -46,12 +46,27 @@
           </a>
         </li>
 
-        <!-- Projects -->
+        <!-- Escanear asistencia de eventos -->
         <li class="nav-item">
+          <a class="nav-link" href="/dashboard/scan_attendance.php">
+            <i class="bi bi-qr-code me-1"></i> Escanear Asistencia
+          </a>
+        </li>
+
+
+        <!-- Probar envío de correo -->
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/send_test_email.php">
+            <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
+          </a>
+        </li>
+
+        <!-- Projects -->
+        <!-- <li class="nav-item">
           <a class="nav-link" href="../projects/projects_list.php">
             <i class="bi bi-diagram-3 me-1"></i> Proyectos
           </a>
-        </li>
+        </li> -->
 
         <!-- Recruiting -->
         <li class="nav-item">
