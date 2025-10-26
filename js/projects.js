@@ -1,28 +1,74 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const buttons = document.querySelectorAll('.project-filter-btn');
-  const groups = {
-    wish: document.querySelector('.project-group.wish'),
-    current: document.querySelector('.project-group.current'),
-    finished: document.querySelector('.project-group.finished'),
-    paused: document.querySelector('.project-group.paused'),
-  };
+document.addEventListener('DOMContentLoaded', function () { 
+    'use strict';
 
-  const showGroup = (filter) => {
-    Object.keys(groups).forEach(key => {
-      const el = groups[key];
-      if (!el) return;
-      el.style.display = (filter === key) ? 'block' : 'none';
+    // ------------------------------------------
+    // 1. BOOTSTRAP FORM VALIDATION (Keep as is)
+    // ------------------------------------------
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
     });
-  };
 
-  // default, show all or a specific group
-  showGroup('wish'); // or 'all' with small tweak
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      showGroup(filter);
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    // ------------------------------------------
+    // 2. PROJECT FILTERING (Refactored)
+    // ------------------------------------------
+
+    const filterButtons = document.querySelectorAll('.project-filter-btn');
+    
+    // Map status keys (from data-filter) to their corresponding DOM elements
+    // NOTE: This targets the individual project items (e.g., the <div> containing the card)
+    const projectsMap = {
+        'wish': document.querySelectorAll('.project-wish'),
+        'current': document.querySelectorAll('.project-current'),
+        'finished': document.querySelectorAll('.project-finished'),
+        'paused': document.querySelectorAll('.project-paused'),
+    };
+    
+    // Helper function to show/hide items and set the active button style
+    const applyFilter = (filterKey) => {
+        let activeIndex = -1;
+
+        // Loop through all project keys to control visibility
+        Object.keys(projectsMap).forEach((key, index) => {
+            const displayStyle = (key === filterKey) ? 'block' : 'none';
+            
+            // Loop through all elements belonging to this status group
+            projectsMap[key].forEach(element => {
+                element.style.display = displayStyle;
+            });
+            
+            // Identify the index of the current filter button for styling
+            if (key === filterKey) {
+                // Find the index of the button corresponding to the filterKey
+                filterButtons.forEach((btn, idx) => {
+                    if (btn.dataset.filter === filterKey) {
+                        activeIndex = idx;
+                    }
+                });
+            }
+        });
+        
+        // Update active button styling
+        filterButtons.forEach(b => b.classList.remove('active'));
+        if (activeIndex !== -1) {
+            filterButtons[activeIndex].classList.add('active');
+        }
+    };
+    
+    // Initialization: Show 'current' projects by default
+    applyFilter('current'); 
+    
+    // Attach a single event listener to all filter buttons
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterKey = btn.dataset.filter; // Get the status key (e.g., 'wish')
+            applyFilter(filterKey);
+        });
     });
-  });
-}); 
+});
