@@ -384,16 +384,27 @@ html {
 }
 
 /* Horizontal card tweaks */
-.horizontal-card .img-side {
-  min-height: 180px;            /* Ensures a decent image height on md+ */
+.horizontal-card {
+    height: 350px !important; 
+
+    overflow: hidden;
 }
+.horizontal-card .row {
+    height: 100%;
+}
+
+.horizontal-card .img-side {
+    height: 100%;
+}
+
 .horizontal-card .img-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;            
-  display: block;
-  border-top-right-radius: var(--bs-card-inner-border-radius);
-  border-bottom-right-radius: var(--bs-card-inner-border-radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    border-top-right-radius: var(--bs-card-inner-border-radius);
+    border-bottom-right-radius: var(--bs-card-inner-border-radius);
+    /* border-radius: 0 .5rem .5rem 0; */
 }
 
 /* If your Bootstrap doesn't expose the CSS var above, fallback: */
