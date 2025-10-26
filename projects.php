@@ -101,7 +101,7 @@ include("assets/head.php");
         </div>
 
       <!-- Idea de Proyecto -->
-      <div class="project-group-wish row g-4">
+      <div class="project-group-wish row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
           // Ordenar ideas por fecha
           usort($wish_projects, function($a, $b) {
@@ -183,7 +183,7 @@ include("assets/head.php");
       </div>
 
       <!-- Proyecto en Curso -->
-      <div class="project-group-current row g-4" style="width:100%;">
+      <div class="project-group-current row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
           //Order past projects by most recent first
           usort($current_projects, function($a, $b) {
@@ -265,7 +265,7 @@ include("assets/head.php");
 
 
       <!-- Proyecto Terminado -->
-      <div class="project-group-finished row g-4" style="width:100%;">
+      <div class="project-group-finished row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
       <?php
       //Order past projects by most recent first
       usort($finished_projects, function($a, $b) {
@@ -347,7 +347,7 @@ include("assets/head.php");
 
 
         <!-- Proyecto en Pausa -->
-        <div class="project-group-paused row g-4" style="width:100%;">
+        <div class="project-group-paused row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
         //Order past projects by most recent first
         usort($paused_projects, function($a, $b) {
