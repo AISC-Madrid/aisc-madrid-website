@@ -408,7 +408,8 @@ html {
   border-radius: 999px;     
   font-size: 0.85rem;
   font-weight: 600;
-  color: #fff;                  /* texto blanco */
+  color: #fff;
+  background-color: #495057;
   cursor: default;                /* no parece clicable */
   user-select: none;              /* evita seleccionar el texto */
   text-transform: capitalize;     /* primera letra en mayúscula */

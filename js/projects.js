@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // default, show all or a specific group
   showGroup('wish'); // or 'all' with small tweak
-
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
@@ -26,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.classList.add('active');
     });
   });
-});
+}); 
