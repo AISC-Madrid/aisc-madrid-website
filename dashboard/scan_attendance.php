@@ -26,9 +26,29 @@ include_once '../assets/footer.php';
     function onScanSuccess(decodedText, decodedResult) {
         // Handle on success condition with the decoded text and result.
         console.log(`Code matched = ${decodedText}`, decodedResult);
-        document.getElementById('qr-reader-results').innerHTML += `<div>Scanned: ${decodedText}</div>`;
-        // Optionally, stop the scanner after a successful scan
-        // html5QrcodeScanner.clear();
+        document.getElementById('qr-reader-results').innerHTML += `<h3 class="text-dark">✅ Escaneado correctamente: ${decodedText}</h3>`;
+
+        // Actualizar la asistencia del evento en la base de datos
+        var parts = decodedText.split(';');
+        var email = parts[0];
+        var event_id = parts[1];
+
+        fetch('../processing/update_attendance.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, event_id: event_id })
+        })
+
+
+        // Stop the scanner after a successful scan
+        html5QrcodeScanner.clear();
+        // Optionally, you can restart the scanner after a delay
+        setTimeout(function() {
+            document.getElementById('qr-reader-results').innerHTML = '';
+            html5QrcodeScanner.render(onScanSuccess, onScanError);
+        }, 2000); // Restart after 2 seconds
     }
 
     function onScanError(errorMessage) {

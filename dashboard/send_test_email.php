@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     $email_search = (string)$_POST['email_search'];
     $mail_template = $_POST['mail_template'];
     $mail_subject = $_POST['mail_subject'];
-
+    $event_id = (int)$_POST['event_search'];
     
 
     switch ($recipient_group) {
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
             $stmt = $conn->prepare("SELECT fs.email, fs.full_name AS full_name
                                     FROM form_submissions fs
                                     JOIN event_registrations er ON fs.email = er.email COLLATE utf8mb4_unicode_ci
-                                    WHERE er.event_id = ?");
+                                    WHERE er.event_id = ? AND er.qr_email_sent = 0");
             $stmt->bind_param("i", $event_id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -109,6 +109,7 @@ if (isset($_POST['submit'])) {
     } else {
         $mail = new PHPMailer(true);
         $subject = $mail_subject;
+        $event_id = (int)$event_id;
 
         try {
             $mail->CharSet = 'UTF-8';
@@ -135,7 +136,7 @@ if (isset($_POST['submit'])) {
 
             $mail->SMTPKeepAlive = true; 
 
-            $mail->setFrom($config['smtp_user'], 'AISC Madrid Test');
+            $mail->setFrom($config['smtp_user'], 'AISC Madrid');
             $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
             
             $mail->isHTML(true);
@@ -163,11 +164,24 @@ if (isset($_POST['submit'])) {
                     $htmlContent = $baseHtmlContent;
                     $htmlContent = str_replace('$full_name[0]', $name, $htmlContent);
                     $htmlContent = str_replace('{{mail}}', urlencode($recipientEmail), $htmlContent);
+
+                    $htmlContent = str_replace('{{event_id}}', $event_id, $htmlContent);
                     
                     $mail->Body = $htmlContent;
 
                     $mail->send();
                     $message .= '<p class="text-success">Mensaje enviado a ' . $recipientEmail . '</p>';
+
+                    // Update qr_email_sent flag if sending to event users
+                    if ($recipient_group === 'event_users') {
+                        $sql_update_sent = "UPDATE event_registrations SET qr_email_sent = TRUE WHERE event_id = ? AND email = ?";
+                        $stmt_update_sent = $conn->prepare($sql_update_sent);
+                        if ($stmt_update_sent) {
+                            $stmt_update_sent->bind_param("is", $event_id, $recipientEmail);
+                            $stmt_update_sent->execute();
+                            $stmt_update_sent->close();
+                        }
+                    }
 
                 } catch (Exception $e) {
                     $message .= '<p class="text-danger">Error al enviar a ' . $recipientEmail . '. Mailer Error: ' . $mail->ErrorInfo . '</p>';
