@@ -440,7 +440,6 @@ include("assets/head.php");
 
 <?php $conn->close(); ?>
 </html>
-  <script src="js/language.js"></script>
   
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

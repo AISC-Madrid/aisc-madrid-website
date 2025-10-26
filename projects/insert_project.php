@@ -8,8 +8,21 @@ $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 
 $status = trim($_POST['status'] ?? ''); // name del <select>
 
-$categories = $_POST['categories'] ?? [];
-$categories_str = implode(',', $categories);        // Convert array to comma-separated string
+
+$submitted_categories = $_POST['categories'] ?? []; 
+$new_category_text = $_POST['new_category'] ?? '';
+
+if (!empty($new_category_text)) {
+    // 1. Sanitize and standardize the user input
+    $clean_new_category = trim(strtolower($new_category_text)); 
+    $clean_new_category = preg_replace('/\s+/', '-', $clean_new_category); 
+
+    // 2. Add the new category to the list
+    $submitted_categories[] = $clean_new_category;
+}
+
+// 3. Convert the final array to a comma-separated string for the database
+$category_for_db = implode(',', $submitted_categories);
 
 $allowed = ['idea','en curso','finalizado','pausado'];
 if (!in_array($status, $allowed, true)) {
@@ -39,7 +52,7 @@ $stmt->bind_param(
     $_POST['description_es'],
     $_POST['description_en'],
     $status,
-    $categories_str,
+    $category_for_db,
     $_POST['start_date'],
     $_POST['end_date'],
     $youtube_url,
