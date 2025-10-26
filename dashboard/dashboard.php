@@ -25,7 +25,7 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
     $upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE start_datetime > NOW()")->fetch_assoc()['total'];
 
     // ---------- PROJECTS ----------
-    $upcomingProjectsCount = $conn->query("SELECT COUNT(*) AS total FROM projects WHERE start_date > NOW()")->fetch_assoc()['total'];
+    //$upcomingProjectsCount = $conn->query("SELECT COUNT(*) AS total FROM projects WHERE start_date > NOW()")->fetch_assoc()['total'];
 
     // ---------- RECRUITING ----------
     $totalApplicants = $conn->query("SELECT COUNT(*) AS total FROM recruiting_2025")->fetch_assoc()['total'];

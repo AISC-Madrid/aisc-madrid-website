@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt_check_event->close();
 
-    // Intentar añadirlo a la tabla de newsletter (si no está ya)
-    $user_id = null; // Initialize user_id
+    $user_id = null;
     $sql_check_newsletter = "SELECT id FROM form_submissions WHERE email = ?";
     $stmt_check_newsletter = $conn->prepare($sql_check_newsletter);
     $stmt_check_newsletter->bind_param("s", $email);
@@ -58,10 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
     // Inscribir al usuario en el evento
-    $sql_insert_registration = "INSERT INTO event_registrations (event_id, name, email) VALUES (?, ?, ?)";
+    $sql_insert_registration = "INSERT INTO event_registrations (event_id, name, email, attendance_status, qr_email_sent) VALUES (?, ?, ?, ?, ?)";
     $stmt_insert_registration = $conn->prepare($sql_insert_registration);
     if ($stmt_insert_registration) {
-        $stmt_insert_registration->bind_param("iss", $event_id, $name, $email);
+        $attendance_status = 'not_attended';
+        $qr_email_sent = 0;
+        $stmt_insert_registration->bind_param("isssi", $event_id, $name, $email, $attendance_status, $qr_email_sent);
         
         if ($stmt_insert_registration->execute()) {
             // Inserción exitosa, ahora generar QR y enviar correo
@@ -79,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $qr_code_data_uri = $qr_code_result->getDataUri();
 
                 // --- Email Sending ---
+                /*
                 $mail = new PHPMailer(true);
                 try {
                     //Server settings
@@ -120,9 +122,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->AltBody = 'Hola ' . htmlspecialchars($name) . ', gracias por registrarte al evento. Adjunto encontrarás tu código QR de asistencia.';
 
                     $mail->send();
+
+                    // Update the qr_email_sent flag in the database
+                    $sql_update_sent = "UPDATE event_registrations SET qr_email_sent = TRUE WHERE event_id = ? AND email = ?";
+                    $stmt_update_sent = $conn->prepare($sql_update_sent);
+                    if ($stmt_update_sent) {
+                        $stmt_update_sent->bind_param("is", $event_id, $email);
+                        $stmt_update_sent->execute();
+                        $stmt_update_sent->close();
+                    }
                 } catch (Exception $e) {
                     error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
                 }
+                */
             }
 
             // Inserción exitosa, redirigir a la página de éxito

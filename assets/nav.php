@@ -22,10 +22,10 @@
           <a class="nav-link" href="#events" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
-        <!-- Projects Section -->
+<!--          Projects Section 
         <li class="nav-item">
           <a class="nav-link" href="projects.php" data-en="Projects" data-es="Proyectos" title="Próximos proyectos de inteligencia artificial">Proyectos</a>
-        </li>
+        </li> -->
 
         <!-- Team Section -->
         <li class="nav-item">
