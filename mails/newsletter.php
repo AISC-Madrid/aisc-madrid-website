@@ -33,9 +33,19 @@ function generarNewsletterHTML($full_name, $token) {
   <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
     <table align='center' width='600' style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
+      <!-- Head -->
       <tr>
         <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-          <h1 style='margin:0; font-size:24px;'>Milfshakes x AISC Madrid</h1>
+          <h1 style='margin:0; font-size:24px;'>...</h1>
+        </td>
+      </tr>
+
+      <!-- Image -->
+      <tr>
+        <td align='center' style='padding:20px;'>
+          <img src='https://aiscmadrid.com/images/events/event8/EnriqueAlcocerMilfshakes.png'
+              alt='AISC Madrid - Milfshakes' width='80%'
+              style='max-width:560px; border-radius:6px; display:block;'>
         </td>
       </tr>
 
@@ -60,7 +70,68 @@ function generarNewsletterHTML($full_name, $token) {
             
       <tr>
         <td align='center' style='padding:20px; color:#EB178E;'>
-          <h2 style='margin:0; font-size:22px;'><strong>Enrique Alcocer, Software Developer en Milfshakes 🥤</strong></h2>
+          <h2 style='margin:0; font-size:22px;'>Hugging Face</h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p align='center'><strong>Sergio Paniego ML Engineer | AISC x Hugging Face</strong></p>
+          <p align='center'>
+            ¡Así comenzó nuestro curso! 🎉<br>
+            Tuvimos el placer de recibir a 
+            <strong style='color:#EB178E;'>Sergio Paniego Blanco</strong>, 
+            <em>Machine Learning Engineer en Hugging Face</em>, 
+            quien nos compartió su experiencia profesional y nos mostró cómo la IA está transformando el desarrollo tecnológico actual.
+          </p>
+          <p align='center'>
+            Durante la charla, descubrimos cómo se aplican los modelos de Machine Learning en proyectos reales y 
+            qué competencias son esenciales para quienes quieren dedicarse a este campo.
+          </p>
+          <p align='center'>
+            También exploramos el ecosistema de <strong style='color:#EB178E;'>Hugging Face</strong>, una plataforma abierta que reúne 
+            <strong>modelos, datasets y herramientas</strong> de empresas como 
+            <strong>OpenAI, NVIDIA o Microsoft</strong>.
+          </p>
+          <p align='center'>
+            ¡Gracias a todos los asistentes por hacerlo posible!
+          </p>
+        </td>    
+      </tr>
+
+      <!-- Recap 2 Milfshakes -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'>Milfshakes 🥤</h2>
+          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+          <p align='center'><strong>...</strong></p>
+          <p align='center'>
+            ¡Qué gran visita tuvimos en el campus! 🎉<br>
+            <strong style='color:#EB178E;'>Enrique Alcocer</strong>, 
+            <em>Software Developer en Milfshakes</em>, nos acompañó para compartir su experiencia al frente del desarrollo web de 
+            <strong>una de las startups más de moda en España</strong>.
+          </p>
+          <p align='center'>Durante la charla...</p>
+          <p align='center'>
+            También nos explicó en detalle, desde un punto de vista <strong>creativo y técnico</strong>, el proceso detrás de uno de los 
+            <strong>drops</strong> más exitosos de la marca, mostrándonos todo lo que implica lanzar un proyecto de esa magnitud.
+          </p>
+          <p align='center'>
+            Fue una sesión inspiradora para quienes se interesan por el <strong>desarrollo web</strong>, 
+            los <strong>procesos creativos</strong> y el mundo de las <strong>startups</strong>. 
+            ¡Gracias a todos los que asistieron y formaron parte de esta experiencia! 🚀
+          </p>
+        </td>
+      </tr>
+
+      <!-- Introducción a Git y Github -->
+      <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+          <h2 style='margin:0; font-size:22px;'><strong>Introducción a Git y GitHub | AISC x GUL UC3M</strong></h2>
           <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
         </td>
       </tr>
@@ -73,34 +144,24 @@ function generarNewsletterHTML($full_name, $token) {
                           para estar al frente de un proyecto como Milfshakes.
           </p>
           <p align='center'>
-              Además, Enrique nos contará en detalle <strong>creativo y técnico</strong> cómo fue el paso a paso para el lanzamiento de unos de los <strong>drops</strong> de la marca que más impacto tuvo.
+            Terminaremos con un <strong>ejercicio práctico</strong> en el que simularemos un trabajo en equipo: 
+            crearás un repositorio, gestionarás ramas, resolverás conflictos y subirás tus aportes al remoto.  
+            🔧 Todo lo necesario para desenvolverte como un profesional en cualquier empresa.
           </p>
-          <p align='center'>
-              Si te interesa el <strong>desarrollo web, los procesos creativos, el mundo de las startups o si eres fan de Milfshakes</strong>, ¡este evento es para ti!
-                  </p>
+        </td>
+      </tr>
+      <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+          <p><strong>💡 Introducción a Git y GitHub | AISC x GUL UC3M</strong></p>
+          <p style='margin:8px 0;'>👥 <strong>Ponentes:</strong> Hugo Centeno Sanz (AISC), Guillermo González (GUL), Albert Giurgiu (GUL)</p>
+          <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 12 de noviembre de 2025</p>
+          <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:00h - 14:30h</p>
+          <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 2.3.A03B, Edificio Sabatini EPS Universidad Carlos III</p>
         </td>
       </tr>
 
+      <!-- Button -->
       <tr>
-          <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                  <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software developer</strong></p>
-                  <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
-                  <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
-                  <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-          </td>      
-      </tr>
-
-  <tr>
-              <td align='center' style='padding:20px;'>
-                  <a href='https://aiscmadrid.com/events/event_registration.php?id=13'
-                      style='background-color:#EB178E; color:#000000; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px; font-weight: bold;'
-                      target = '_blank'>
-                      ¡Regístrate para el evento aquí!
-                  </a>
-              </td>
-          </tr>
-        <!-- Buttons Row -->
-        <tr>
         <td align='center' style='padding:20px;'>
             <table border='0' cellspacing='0' cellpadding='0'>
             <tr>
@@ -142,6 +203,7 @@ function generarNewsletterHTML($full_name, $token) {
 ";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <?php include("../assets/head.php"); ?>
