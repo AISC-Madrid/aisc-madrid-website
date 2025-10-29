@@ -2,8 +2,10 @@
 // Cargar las clases de PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
-require 'vendor/autoload.php'; 
+require '../vendor/autoload.php'; 
 
 include_once '../assets/db.php';
 
@@ -33,32 +35,108 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt_check_event->close();
 
-    // Intentar añadirlo a la tabla de newsletter (si no está ya)
+    $user_id = null;
     $sql_check_newsletter = "SELECT id FROM form_submissions WHERE email = ?";
     $stmt_check_newsletter = $conn->prepare($sql_check_newsletter);
     $stmt_check_newsletter->bind_param("s", $email);
     $stmt_check_newsletter->execute();
     $stmt_check_newsletter->store_result();
 
-    if ($stmt_check_newsletter->num_rows <= 0) {
+    if ($stmt_check_newsletter->num_rows > 0) {
+        $stmt_check_newsletter->bind_result($user_id);
+        $stmt_check_newsletter->fetch();
+    } else {
         $token = bin2hex(random_bytes(16));
         $stmtInsert = $conn->prepare("INSERT INTO form_submissions (full_name, email, newsletter, unsubscribe_token) VALUES (?, ?, 'yes', ?)");
-        $stmtInsert->bind_param("sss", $full_name, $email , $token);
+        $stmtInsert->bind_param("sss", $name, $email , $token);
         if ($stmtInsert->execute()) {
             $user_id = $stmtInsert->insert_id;
-            $name = $full_name;
-            
         }
     }
+    $stmt_check_newsletter->close();
 
         
     // Inscribir al usuario en el evento
-    $sql_insert_registration = "INSERT INTO event_registrations (event_id, name, email) VALUES (?, ?, ?)";
+    $sql_insert_registration = "INSERT INTO event_registrations (event_id, name, email, attendance_status, qr_email_sent) VALUES (?, ?, ?, ?, ?)";
     $stmt_insert_registration = $conn->prepare($sql_insert_registration);
     if ($stmt_insert_registration) {
-        $stmt_insert_registration->bind_param("iss", $event_id, $name, $email);
+        $attendance_status = 'not_attended';
+        $qr_email_sent = 0;
+        $stmt_insert_registration->bind_param("isssi", $event_id, $name, $email, $attendance_status, $qr_email_sent);
         
         if ($stmt_insert_registration->execute()) {
+            // Inserción exitosa, ahora generar QR y enviar correo
+
+            // --- QR Code Generation ---
+            if ($user_id) {
+                $qr_data = "user_id:" . $user_id . ",event_id:" . $event_id;
+                
+                $qrCode = QrCode::create($qr_data)
+                    ->setSize(300)
+                    ->setMargin(10);
+
+                $writer = new PngWriter();
+                $qr_code_result = $writer->write($qrCode);
+                $qr_code_data_uri = $qr_code_result->getDataUri();
+
+                // --- Email Sending ---
+                /*
+                $mail = new PHPMailer(true);
+                try {
+                    //Server settings
+                    $mail->isSMTP();
+                    $mail->Host       = 'smtp.hostinger.com'; // From phpmailer.php
+                    $mail->SMTPAuth   = true;
+                    $config = include('../config.php');
+                    $mail->Username   = $config['smtp_user'];
+                    $mail->Password   = $config['smtp_pass'];
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
+
+                    //Recipients
+                    $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+                    $mail->addAddress($email, $name); // Add a recipient
+                    $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+
+                    // Content
+                    $mail->isHTML(true);
+                    $mail->Subject = '¡Gracias por registrarte al evento!';
+                    
+                    $htmlContent = file_get_contents('../mails/registration/gracias_registro.html');
+                    $htmlContent = str_replace('{{user_name}}', $name, $htmlContent);
+                    
+                    $sql_event = "SELECT name, event_date, location FROM events WHERE id = ?";
+                    $stmt_event = $conn->prepare($sql_event);
+                    $stmt_event->bind_param("i", $event_id);
+                    $stmt_event->execute();
+                    $result_event = $stmt_event->get_result();
+                    $event = $result_event->fetch_assoc();
+                    $stmt_event->close();
+
+                    $htmlContent = str_replace('{{event_name}}', $event['name'], $htmlContent);
+                    $htmlContent = str_replace('{{event_date}}', $event['event_date'], $htmlContent);
+                    $htmlContent = str_replace('{{event_location}}', $event['location'], $htmlContent);
+                    $htmlContent = str_replace('{{qr_code_url}}', $qr_code_data_uri, $htmlContent);
+                    
+                    $mail->Body = $htmlContent;
+                    $mail->AltBody = 'Hola ' . htmlspecialchars($name) . ', gracias por registrarte al evento. Adjunto encontrarás tu código QR de asistencia.';
+
+                    $mail->send();
+
+                    // Update the qr_email_sent flag in the database
+                    $sql_update_sent = "UPDATE event_registrations SET qr_email_sent = TRUE WHERE event_id = ? AND email = ?";
+                    $stmt_update_sent = $conn->prepare($sql_update_sent);
+                    if ($stmt_update_sent) {
+                        $stmt_update_sent->bind_param("is", $event_id, $email);
+                        $stmt_update_sent->execute();
+                        $stmt_update_sent->close();
+                    }
+                } catch (Exception $e) {
+                    error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+                }
+                */
+            }
+
             // Inserción exitosa, redirigir a la página de éxito
             header("Location: /events/event_registration.php?id=$event_id&success=1");
         } else {

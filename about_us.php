@@ -34,7 +34,7 @@
     </p>
   </div>
   <div class="story-image">
-    <img src="images/resources/AISC Davis.jpeg" alt="AISC Davis">
+    <img src="images/resources/AISC_con_Enrique.jpeg" alt="AISC con Enrique">
   </div>
 </section>
 

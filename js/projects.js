@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () { 
     'use strict';
 
+    
     // ------------------------------------------
     // 1. BOOTSTRAP FORM VALIDATION (Keep as is)
     // ------------------------------------------
@@ -30,15 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
         'paused': document.querySelectorAll('.project-paused'),
     };
     
-    // Helper function to show/hide items and set the active button style
+    // Helper function to hide/show groups and set active button
     const applyFilter = (filterKey) => {
         let activeIndex = -1;
 
-        // Loop through all project keys to control visibility
+        // Loop through all project groups
         Object.keys(projectsMap).forEach((key, index) => {
             const displayStyle = (key === filterKey) ? 'block' : 'none';
-            
-            // Loop through all elements belonging to this status group
             projectsMap[key].forEach(element => {
                 element.style.display = displayStyle;
             });
@@ -61,13 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
     
-    // Initialization: Show 'current' projects by default
+    // Initialize: Show 'current' projects by default
     applyFilter('current'); 
     
-    // Attach a single event listener to all filter buttons
+    // Attach single event listener to all buttons
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const filterKey = btn.dataset.filter; // Get the status key (e.g., 'wish')
+            const filterKey = btn.dataset.filter; // Get the 'data-filter' attribute value (e.g., 'wish', 'current')
             applyFilter(filterKey);
         });
     });
