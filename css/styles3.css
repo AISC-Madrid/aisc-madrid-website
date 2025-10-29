@@ -434,16 +434,3 @@ html {
 .category-badge:not([class*="category-"]) {
   background-color: #757575; /* gris */
 }
-
-/* "Saber más" corner badge (optional, similar to your original) */
-.card-more-badge {
-  position: absolute;
-  right: .75rem;
-  bottom: .75rem;
-  font-weight: 600;
-  font-size: .9rem;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 999px;
-  padding: .35rem .65rem;
-}
