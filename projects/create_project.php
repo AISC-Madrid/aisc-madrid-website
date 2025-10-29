@@ -7,17 +7,28 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-
 include('../assets/db.php'); // Your $conn mysqli connection
 
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
 $description_es = $description_en = $short_description_es = $short_description_en = '';
 $start_date = $end_date = $image_path = '';
-$status = $category = $youtube_url = '';
+$status = $youtube_url = '';
+$open_registration = 0; // Initialize checkbox for new project
+
+// --- CATEGORY INITIALIZATION ---
+// This fixed array defines the options in your <select>
+$standard_categories = [
+    'ai', 'climate', 'health', 'education', 
+    'vision', 'nlp', 'robotics', 'ethics'
+];
+// Variables to be used in the form fields
+$custom_category_value = '';
+$selected_categories = []; // Initialize for new project mode
+// -------------------------------
 
 
-// Check if an ID is passed
+// Check if an ID is passed (EDIT MODE)
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $project_id = (int)$_GET['id'];
 
@@ -28,20 +39,36 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $project = $result->fetch_assoc();
 
     if ($project) {
+        // --- Standard Variable Assignments ---
         $title_es = $project['title_es'];
         $title_en = $project['title_en'];
-        // Descripción breve (para listados o cards)
         $short_description_es = $project['short_description_es'];
         $short_description_en = $project['short_description_en'];
         $description_es = $project['description_es'];
         $description_en = $project['description_en'];
-        $status = $project['status'];            // 'idea', 'en curso', 'finalizado', 'pausado'
-        $category = $project['category'];        // 'educación', 'salud', 'tecnología', etc.
+        $status = $project['status'];
         $start_date = $project['start_date'];
         $end_date = $project['end_date'];
         $image_path = $project['image_path'];
         $youtube_url = $project['youtube_url'];
-        $open_registration = $project['open_registration'];
+        $open_registration = $project['open_registration']; // Load checkbox value
+        
+        
+        // --- CATEGORY PROCESSING (FIXED LOCATION) ---
+        // This is the core logic that was misplaced
+        $category_string = $project['category'];
+        $saved_categories_array = explode(',', $category_string);
+        
+        // 1. Categories to select in the dropdown
+        $selected_categories = array_intersect($saved_categories_array, $standard_categories);
+        
+        // 2. Custom category for the text input
+        $custom_categories = array_diff($saved_categories_array, $standard_categories);
+
+        if (!empty($custom_categories)) {
+            // Take the first custom category and assign it to the value for the text box
+            $custom_category_value = reset($custom_categories);
+        }
     }
 }
 
@@ -107,26 +134,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <label class="form-label">Estado del Proyecto</label>
                         <select class="form-control" name="status" required>
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option value="idea">Idea</option>
-                            <option value="en curso">En Curso</option>
-                            <option value="finalizado">Finalizado</option>
-                            <option value="pausado">Pausado</option>
+                            <option value="idea" <?= $status == 'idea' ? 'selected' : '' ?> >Idea</option>
+                            <option value="en curso" <?= $status == 'en curso' ? 'selected' : '' ?> >En Curso</option>
+                            <option value="finalizado" <?= $status == 'finalizado' ? 'selected' : '' ?> >Finalizado</option>
+                            <option value="pausado" <?= $status == 'pausado' ? 'selected' : '' ?> >Pausado</option>
                         </select>
                     </div>
 
                     <!-- Category -->
-                    <div class = "mb-3 col-6">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Categoria del Proyecto</label>
                         <select class="form-control" name="categories[]" multiple size="5">
-                            <option value="ai">Inteligencia Artificial</option>
-                            <option value="climate">Cambio Climático</option>
-                            <option value="health">Salud</option>
-                            <option value="education">Educación</option>
-                            <option value="vision">Visión por computador</option>
-                            <option value="nlp">Procesamiento del lenguaje natural</option>
-                            <option value="robotics">Robótica</option>
-                            <option value="ethics">Ética y regulación</option>
+                            <?php $cats = $selected_categories; // Use the processed array ?>
+                            
+                            <option value="ai" <?= in_array('ai', $cats) ? 'selected' : '' ?>>Inteligencia Artificial</option>
+                            <option value="climate" <?= in_array('climate', $cats) ? 'selected' : '' ?>>Cambio Climático</option>
+                            <option value="health" <?= in_array('health', $cats) ? 'selected' : '' ?>>Salud</option>
+                            <option value="education" <?= in_array('education', $cats) ? 'selected' : '' ?>>Educación</option>
+                            <option value="vision" <?= in_array('vision', $cats) ? 'selected' : '' ?>>Visión por computador</option>
+                            <option value="nlp" <?= in_array('nlp', $cats) ? 'selected' : '' ?>>Procesamiento del lenguaje natural</option>
+                            <option value="robotics" <?= in_array('robotics', $cats) ? 'selected' : '' ?>>Robótica</option>
+                            <option value="ethics" <?= in_array('ethics', $cats) ? 'selected' : '' ?>>Ética y regulación</option>
+                        
                         </select>
+                    </div>
+
+                    <div class="mb-3" id="other_category_input">
+                        <label class="form-label">Añadir nueva categoría (opcional)</label>
+                        <input type="text" name="new_category" class="form-control" placeholder="Ej: Blockchain" value="<?= htmlspecialchars($custom_category_value) ?>">
                     </div>
 
                     <!-- Start date/time -->
@@ -162,7 +197,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                     <!-- Open Registration -->
                     <div class="mb-3 form-check">
-                        <input type="checkbox" name="open_registration" class="form-check-input" id="open_registration" value="1" <?= !empty($requires_registration) && $requires_registration ? 'checked' : '' ?>>
+                        <input type="checkbox" name="open_registration" class="form-check-input" id="open_registration" value="1" 
+                            <?= (isset($open_registration) && $open_registration == 1) ? 'checked' : '' ?>>
                         <label class="form-check-label" for="open_registration">Inscripciones Abiertas</label>
                     </div>
 

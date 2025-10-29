@@ -23,35 +23,27 @@ while ($row = $result_projects->fetch_assoc()) {
     $all_projects[] = $row;
 }
 
-// Separate future and past projects
-$future_projects = [];
-$past_projects = [];
-
-foreach ($all_projects as $row) {
-    if ($row['end_date'] >= $now) {
-        $future_projects[] = $row;
-    } else {
-        $past_projects[] = $row;
-    }
-}
-
 // Separate projects by status
-$wish_projects = [];
-$current_projects = [];
-$finished_projects = [];
-$paused_projects = [];
+$status_projects = [
+    'idea' => [],
+    'en curso' => [],
+    'finalizado' => [],
+    'pausado' => [],
+];
 
 foreach ($all_projects as $row) {
-    if ($row['status'] === 'idea') {
-        $wish_projects[] = $row;
-    } else if ($row['status'] === 'en curso') {
-        $current_projects[] = $row;
-    } else if ($row['status'] === 'finalizado') {
-        $finished_projects[] = $row;
-    } else {
-        $paused_projects[] = $row;
+    $status_key = $row['status'];
+    // Use array key to categorize directly. Ensure key exists or use a fallback.
+    if (isset($status_projects[$status_key])) {
+        $status_projects[$status_key][] = $row;
     }
 }
+
+// Assign variables for use in HTML (optional, but keeps old variable names)
+$wish_projects = $status_projects['idea'];
+$current_projects = $status_projects['en curso'];
+$finished_projects = $status_projects['finalizado'];
+$paused_projects = $status_projects['pausado'];
 
 ?>
 
@@ -101,7 +93,7 @@ include("assets/head.php");
         </div>
 
       <!-- Idea de Proyecto -->
-      <div class="project-group-wish row g-4">
+      <div class="project-group wish row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
           // Ordenar ideas por fecha
           usort($wish_projects, function($a, $b) {
@@ -183,7 +175,7 @@ include("assets/head.php");
       </div>
 
       <!-- Proyecto en Curso -->
-      <div class="project-group-current row g-4" style="width:100%;">
+      <div class="project-group current row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
           //Order past projects by most recent first
           usort($current_projects, function($a, $b) {
@@ -265,7 +257,7 @@ include("assets/head.php");
 
 
       <!-- Proyecto Terminado -->
-      <div class="project-group-finished row g-4" style="width:100%;">
+      <div class="project-group finished row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
       <?php
       //Order past projects by most recent first
       usort($finished_projects, function($a, $b) {
@@ -347,7 +339,7 @@ include("assets/head.php");
 
 
         <!-- Proyecto en Pausa -->
-        <div class="project-group-paused row g-4" style="width:100%;">
+        <div class="project-group paused row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
         <?php
         //Order past projects by most recent first
         usort($paused_projects, function($a, $b) {
@@ -448,7 +440,6 @@ include("assets/head.php");
 
 <?php $conn->close(); ?>
 </html>
-  <script src="js/language.js"></script>
   
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
