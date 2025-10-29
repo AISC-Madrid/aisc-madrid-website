@@ -46,11 +46,11 @@ if (isset($_POST['submit'])) {
 
     switch ($recipient_group) {
         case 'all':
-            $sql = "SELECT mail, full_name FROM form_submissions";
+            $sql = "SELECT mail, full_name, unsubscribe_token FROM form_submissions";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    $recipients[] = ['email' => $row['mail'], 'full_name' => $row['full_name']];
+                    $recipients[] = ['email' => $row['mail'], 'full_name' => $row['full_name'], 'unsubscribe_token' => $row['unsubscribe_token']];
                 }
             }
             break;
@@ -147,6 +147,8 @@ if (isset($_POST['submit'])) {
             foreach ($recipients as $recipient) {
                 $recipientEmail = (string)$recipient['email'];
                 $fullName = (string)$recipient['full_name'];
+                $unsubscribe_token = (string)($recipient['unsubscribe_token'] ?? '');
+
 
                 $name = explode(' ', $fullName)[0];
 
@@ -163,6 +165,10 @@ if (isset($_POST['submit'])) {
 
                     $htmlContent = $baseHtmlContent;
                     $htmlContent = str_replace('$full_name[0]', $name, $htmlContent);
+                    if (!empty($unsubscribe_token)) {
+                        $htmlContent = str_replace('$unsubscribe_token[0]', $unsubscribe_token, $htmlContent);
+                    }
+
                     $htmlContent = str_replace('{{mail}}', urlencode($recipientEmail), $htmlContent);
 
                     $htmlContent = str_replace('{{event_id}}', $event_id, $htmlContent);
