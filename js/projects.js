@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () { 
     'use strict';
+
     
     // ------------------------------------------
     // 1. BOOTSTRAP FORM VALIDATION (Keep as is)
@@ -21,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const filterButtons = document.querySelectorAll('.project-filter-btn');
     
-    // Map status names to their corresponding element NodeLists
+    // Map status keys (from data-filter) to their corresponding DOM elements
+    // NOTE: This targets the individual project items (e.g., the <div> containing the card)
     const projectsMap = {
         'wish': document.querySelectorAll('.project-wish'),
         'current': document.querySelectorAll('.project-current'),
@@ -40,9 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.style.display = displayStyle;
             });
             
-            // Track the index of the active button for styling
+            // Identify the index of the current filter button for styling
             if (key === filterKey) {
-                activeIndex = index;
+                // Find the index of the button corresponding to the filterKey
+                filterButtons.forEach((btn, idx) => {
+                    if (btn.dataset.filter === filterKey) {
+                        activeIndex = idx;
+                    }
+                });
             }
         });
         

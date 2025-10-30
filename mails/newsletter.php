@@ -28,117 +28,188 @@ function generarNewsletterHTML($full_name, $token) {
 <html>
   <head>
     <meta charset='UTF-8'>
-    <title>Newsletter AISC Madrid</title>
+    <title>Newsletter - AISC Madrid</title>
   </head>
   <body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;'>
     <table align='center' width='600' style='border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;'>
 
+      <!-- Head -->
       <tr>
         <td align='center' style='padding:20px; background-color:#EB178E; color:#ffffff;'>
-          <h1 style='margin:0; font-size:24px;'>Milfshakes x AISC Madrid</h1>
+          <h1 style='margin:0; font-size:24px;'>Newsletter AISC Madrid</h1>
         </td>
       </tr>
 
+<!-- Images Row -->
+<tr>
+  <td align='center' style='padding:20px;'>
+    <!-- Sub-table with two images side by side -->
+    <table role='presentation' border='0' cellpadding='0' cellspacing='0' align='center'>
       <tr>
-          <td align='center' style='padding:20px;'>
-          <a href='https://aiscmadrid.com/events/evento.php?id=13' target='_blank'>
-              <img src='https://aiscmadrid.com/images/events/event8/EnriqueAlcocerMilfshakes.png'
-                  alt='AISC Madrid - Milfshakes' width='80%'
-                  style='max-width:560px; border-radius:6px; display:block;'>
-        </a>
-          </td>
-      </tr>
-
-      <tr>
-          <tr>
-              <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                  <p align='center'><strong>" . explode(' ', $full_name)[0] . ", ¿te gustaría conocer a la persona detrás del desarrollo web del e-commerce de moda: <span style = 'color:#EB178E'>Milfshakes</span> 🥤?</strong>                      
-                  </p>
-              </td>                    
-          </tr>                
-    </tr>
-            
-      <tr>
-        <td align='center' style='padding:20px; color:#EB178E;'>
-          <h2 style='margin:0; font-size:22px;'><strong>Enrique Alcocer, Software Developer en Milfshakes 🥤</strong></h2>
-          <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        <td align='center' style='padding:10px;'>
+          <img src='https://www.aiscmadrid.com/images/events/event6/Sergio_speaking.png'
+               alt='Sergio Paniego - Hugging Face'
+               style='max-width:350px; border-radius:6px; display:block;'>
         </td>
-      </tr>
-      <tr>
-        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
-          <p align='center'>
-              Enrique nos contará su experiencia al frente del desarrollo web de <strong>una de las empresas más de moda en España.</strong>
-                          Cómo compaginó trabajar en una startup tan frenética con sus estudios de Ingeniería Informática, su papel a la hora
-                          de transformar ideas creativas y locas en código y la importancia de la creatividad y adaptabilidad necesarias
-                          para estar al frente de un proyecto como Milfshakes.
-          </p>
-          <p align='center'>
-              Además, Enrique nos contará en detalle <strong>creativo y técnico</strong> cómo fue el paso a paso para el lanzamiento de unos de los <strong>drops</strong> de la marca que más impacto tuvo.
-          </p>
-          <p align='center'>
-              Si te interesa el <strong>desarrollo web, los procesos creativos, el mundo de las startups o si eres fan de Milfshakes</strong>, ¡este evento es para ti!
-                  </p>
-        </td>
-      </tr>
-
-      <tr>
-          <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
-                  <p><strong>🥤 Milfshakes AISC: Enrique Alcocer Software developer</strong></p>
-                  <p style='margin:8px 0;'>📅 <strong>Fecha:</strong> 28 de octubre de 2025</p>
-                  <p style='margin:8px 0;'>⏰ <strong>Hora:</strong> 13:30h - 14:30h</p>
-                  <p style='margin:8px 0;'>📍 <strong>Lugar:</strong> Aula 4.1.E04, Edificio Torres Quevedo EPS Universidad Carlos III</p>
-          </td>      
-      </tr>
-
-  <tr>
-              <td align='center' style='padding:20px;'>
-                  <a href='https://aiscmadrid.com/events/event_registration.php?id=13'
-                      style='background-color:#EB178E; color:#000000; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px; font-weight: bold;'
-                      target = '_blank'>
-                      ¡Regístrate para el evento aquí!
-                  </a>
-              </td>
-          </tr>
-        <!-- Buttons Row -->
-        <tr>
-        <td align='center' style='padding:20px;'>
-            <table border='0' cellspacing='0' cellpadding='0'>
-            <tr>
-              <td align='center' style='padding:10px 0;'>
-                <a href='https://aiscmadrid.com/' target='_blank' style='margin:0 20px; display:inline-block;'>
-                  <img src='https://aiscmadrid.com/images/logos/PNG/internet-rosa.png' width='32' height='32'>
-                </a>
-                <a href='https://www.instagram.com/aisc_madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
-                  <img src='https://aiscmadrid.com/images/logos/PNG/instagram-rosa.png' width='32' height='32'>
-                </a>
-                <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=wwt' target='_blank' style='margin:0 20px; display:inline-block;'>
-                  <img src='https://aiscmadrid.com/images/logos/PNG/whatsapp-rosa.png' width='32' height='32'>
-                </a>
-                <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
-                  <img src='https://aiscmadrid.com/images/logos/PNG/linkedin-rosa.png' width='32' height='32'>
-                </a>
-              </td>
-            </tr>
-
-            <tr>
-              <td align='center' style='padding:10px; padding-left:40px'>
-                <a href='https://aiscmadrid.com/' target='_blank'>
-                  <img src='https://aiscmadrid.com/images/logos/PNG/AISCMadridLogoAndLetters.png' alt='Logo Footer' width='300'>
-                </a>
-              </td>
-            </tr>
-
-            <tr>
-              <td align='center' style='padding:10px;'>
-                <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
-              </td>
-            </tr>
-          </table>
+        <td align='center' style='padding:10px;'>
+          <img src='https://www.aiscmadrid.com/images/events/event8/Enrique_speaking.png'
+               alt='Enrique Alcocer - MilfShakes'
+               style='max-width:350px; border-radius:6px; display:block;'>
         </td>
       </tr>
     </table>
-  </body>
+  </td>
+</tr>
+
+        <tr>
+            <tr>
+                <td style='padding:20px; color:#333333; font-size:16px; line-height:1.5;'>
+
+                    <p align='center'><strong>Hola " . explode(' ', $full_name)[0] . " , en esta newsletter te contamos cómo fueron los eventos con Hugging Face y Milfshakes.</strong></p>  
+                    <p align='center'><strong>También informamos de que buscamos una persona para Redes Sociales, Diseño y Marketing.</strong></p>   
+                </td>                
+            </tr>              
+      </tr>
+
+      <!-- Recap 1 Hugging Face -->
+        <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+            <h2 style='margin:0; font-size:22px;'>Sergio Paniego | Hugging Face🤗</h2>
+            <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+        </tr>
+        <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+            <p align='center'><strong>Sergio Paniego ML Engineer @Hugging Face</strong></p>
+            <p align='left'>
+            Como primer evento de la asociación tuvimos el placer de recibir a 
+            <strong style='color:#EB178E;'>Sergio Paniego Blanco</strong>, 
+            <em>Machine Learning Engineer en Hugging Face</em>, 
+            quien nos compartió su experiencia profesional y nos mostró cómo la IA está transformando el desarrollo tecnológico actual.
+            </p>
+            <p align='left'>
+              Dio su visión sobre el potencial de los modelos abiertos y nos contó su implicación en proyectos como <strong>TRL o Transformers.</strong>
+            </p>
+
+            <p align='left'>
+                <a href = 'https://aiscmadrid.com/events/evento.php?id=11' style='color:#EB178E;' target='_blank'>
+                ➡️¡Echa un vistazo al vídeo y a los recursos si te lo perdiste!
+                </a>
+            </p>
+        </td>    
+        </tr>
+
+      <!-- Recap 2 Milfshakes -->
+        <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+            <h2 style='margin:0; font-size:22px;'>Enrique Alcocer | Milfshakes 🥤</h2>
+            <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+        </tr>
+
+        <tr>
+        <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+            <p align='center'><strong>Enrique Alcocer Software Developer @Milfshakes 🥤</strong></p>
+            <strong style='color:#EB178E;'>Enrique Alcocer</strong>, 
+            <em>Software Developer en Milfshakes</em>, nos acompañó para compartir su experiencia al frente del desarrollo web de 
+            <strong>una de las startups más de moda en España</strong>.
+            </p>
+            <p align='left'>
+            Enrique habló de su experiencia como desarrollador, su stack de tecnologías actuales y su visión sobre el futuro de la <strong>UX/UI.</strong> Haciendo hincapié en <strong>Three.js</strong>
+            </p>
+            <p align='left'>
+            También nos explicó en detalle, desde un punto de vista <strong>creativo y técnico</strong>, el proceso de trabajo para los lanzamientos de drops como 
+            <strong>Psycho Milfo o la subasta inversa del cuadro</strong>.
+            </p>
+            <p align='left'>
+                <a href = 'https://aiscmadrid.com/events/evento.php?id=13' style='color:#EB178E;' target='_blank'>
+                ➡️¡Echa un vistazo al vídeo y a los recursos si te lo perdiste!
+                </a>
+            </p>
+        </td>
+        </tr>
+
+        <tr>
+        <td align='center' style='padding:20px; color:#EB178E;'>
+            <h2 style='margin:0; font-size:22px;'>¡Únete a nuestro equipo!</h2>
+            <div style='margin-top:10px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;'></div>
+        </td>
+        </tr>
+        <tr>
+            <td style='padding:20px; color:#333333; font-size:16px; line-height:1.6;'>
+            <p align='center'><strong>Buscamos una persona para el rol de Redes Sociales, Diseño y Marketing</strong></p>
+            <p align='left'>
+            Impulsa nuestra presencia con contenido, branding y materiales para eventos.
+            <em>Se valora positivamente:</em>
+            <ul>
+                <li>Creatividad e iniciativa</li>
+                <li>Gestión de Instagram/LinkedIn/Comunidad de Whatsapp</li>
+                <li>Edición foto/vídeo</li>
+            </ul>
+            <p align='left'>
+                <a href = 'mailto:aisc.asoc@uc3m.es' style='color:#EB178E;' target='_blank'>
+                ➡️Mándanos un mail si te interesa: aisc.asoc@uc3m.es
+                </a>
+
+
+            </p>
+            </td>
+        </tr>
+
+      
+      <!-- Newsletter Footer -->
+            <tr>
+                <td align='center' style='padding:0 20px;'>
+                    <table role='presentation' width='550' cellpadding='0' cellspacing='0' align = 'center' border='0'
+                        style='border-top:5px solid #EB178E; margin-top:20px; padding-top:20px; font-family:Arial, sans-serif; font-size:14px; color:#555555;'>
+                        <tr>
+                            <td style='padding:0px; color:#333333; font-size:16px; line-height:1.5;'>
+                                <p>Para <strong>enterarte de todos los eventos, workshops y oportunidades</strong> te recomendamos que estés atento y nos sigas por:</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align='center' style='padding:10px 0;'>
+                            <!-- Web -->
+                            <a href='https://aiscmadrid.com/' target='_blank' style='margin:0 20px; display:inline-block;'>
+
+                                <img src='https://aiscmadrid.com/images/logos/PNG/internet-rosa.png' alt='Button 1' width='32' height='32' border='0' style='display:block;'>
+                            </a>
+                            <!-- Instagram -->
+                            <a href='https://www.instagram.com/aisc_madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                                <img src='https://aiscmadrid.com/images/logos/PNG/instagram-rosa.png' alt='Button 2' width='32' height='32' border='0' style='display:block;'>
+                            </a>
+                            <!-- WhatsApp -->
+                            <a href='https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=wwt' target='_blank' style='margin:0 20px; display:inline-block;'>
+                                <img src='https://aiscmadrid.com/images/logos/PNG/whatsapp-rosa.png' width='32' height='32'>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href='https://www.linkedin.com/company/ai-student-collective-madrid/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                                <img src='https://aiscmadrid.com/images/logos/PNG/linkedin-rosa.png' alt='Button 3' width='32' height='32' border='0' style='display:block;'>
+                            </a>
+                            </td>
+                        </tr>
+                        <!-- Logo footer-->
+                        <tr>
+                            <td align='center' style='padding:10px; padding-left:40px'>
+                                <a href='https://aiscmadrid.com/' target='_blank' style='margin:0 20px; display:inline-block;'>
+                                    <img src='https://aiscmadrid.com/images/logos/PNG/AISCMadridLogoAndLetters.png' alt='Logo Footer' width='300' border='0' style='display:block;'>
+                                </a>
+                            </td>
+                        </tr>
+                                    <tr>
+              <td align='center' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px; padding:10px;'>
+                <a href='https://aiscmadrid.com/index.php#newsletter' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>¿Te han reenviado la Newsletter? Suscríbete aquí</a>
+                |
+                <a href='https://aiscmadrid.com/processing/unsubscribe.php?token=token=" . urlencode($token) . "' style='color: gray; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;'>Cancelar suscripción Newsletter</a>
+              </td>
+            </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>
+
 ";
 }
 ?>
@@ -193,7 +264,10 @@ function generarNewsletterHTML($full_name, $token) {
                             $email = $row['email'];
                             $token = $row['unsubscribe_token'];
                             /* Skip emails that did not fail in the last newsletter*/
-                            if (in_array($email, $excludedEmails)) {
+                            $excludedEmails = [
+                              
+                            ];
+                            if (!in_array($email, $excludedEmails)) {
                                 continue;
                             }
 
@@ -212,7 +286,7 @@ function generarNewsletterHTML($full_name, $token) {
                             $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
                             $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
                             $mail->addAddress($email);
-                            $mail->Subject = '¡Milfshakes viene al campus!';
+                            $mail->Subject = 'Esta semana en AISC Madrid';
 
                             $mail->isHTML(true);
                             $mail->Body = generarNewsletterHTML($full_name, $token);

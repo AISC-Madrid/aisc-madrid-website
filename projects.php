@@ -23,6 +23,18 @@ while ($row = $result_projects->fetch_assoc()) {
     $all_projects[] = $row;
 }
 
+// Separate future and past projects
+$future_projects = [];
+$past_projects = [];
+
+foreach ($all_projects as $row) {
+    if ($row['end_date'] >= $now) {
+        $future_projects[] = $row;
+    } else {
+        $past_projects[] = $row;
+    }
+}
+
 // Separate projects by status
 $status_projects = [
     'idea' => [],
@@ -440,6 +452,7 @@ include("assets/head.php");
 
 <?php $conn->close(); ?>
 </html>
+  <script src="js/language.js"></script>
   
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
