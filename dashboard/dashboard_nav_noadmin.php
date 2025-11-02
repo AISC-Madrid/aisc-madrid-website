@@ -32,13 +32,6 @@
           </a>
         </li>
 
-        <!-- Newsletter -->
-        <li class="nav-item">
-          <a class="nav-link" href="../mails/newsletter.php">
-            <i class="bi bi-envelope me-1"></i> Newsletter
-          </a>
-        </li>
-
         <!-- Events -->
         <li class="nav-item">
           <a class="nav-link" href="../events/events_list.php">
@@ -50,14 +43,6 @@
         <li class="nav-item">
           <a class="nav-link" href="/dashboard/scan_attendance.php">
             <i class="bi bi-qr-code me-1"></i> Escanear Asistencia
-          </a>
-        </li>
-
-
-        <!-- Probar envío de correo -->
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard/send_test_email.php">
-            <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
           </a>
         </li>
 
@@ -75,34 +60,6 @@
           </a>
         </li>
         -->
-
-        <!-- Equipo -->
-        <li class="nav-item">
-          <a class="nav-link" href="dashboard/team_members/team_members_list.php">
-            <i class="bi bi-cup-hot me-1"></i> Equipo
-          </a>
-        </li>
-        <!-- Divider -->
-
-        <!-- <li class="nav-item mx-2 d-none d-lg-block">
-          <span class="text-light">|</span>
-        </li> -->
-
-        <!-- Profile Dropdown -->
-
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle me-1"></i> Admin
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="profileDropdown">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Configuración</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Perfil</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="logout.php"><i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión</a></li>
-          </ul>
-        </li> -->
-
       </ul>
     </div>
   </div>

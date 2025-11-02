@@ -1,10 +1,14 @@
 <?php
 session_start();
 include_once '../assets/head.php';
-include_once 'dashboard_nav.php';
-
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+if($_SESSION['role'] === 'admin'){
+  include_once 'dashboard_nav.php';
+}else{
+    include_once 'dashboard_nav_noadmin.php';
+}
+$allowed_roles = ['admin', 'events', 'viewer'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
 ?>
