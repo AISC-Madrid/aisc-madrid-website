@@ -8,8 +8,9 @@ session_start();
 include("../assets/db.php");
 
 // Check if the user is logged in
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+$allowed_roles = ['admin', 'events', 'viewer'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
 ?>
@@ -19,7 +20,13 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
 
 <body>
     <!-- Navbar -->
-    <?php include("dashboard_nav.php"); ?>
+    <?php
+        if($_SESSION['role'] === 'admin'){
+    include("dashboard_nav.php"); 
+    }else{
+    include("dashboard_nav_noadmin.php");
+    }
+    ?>
 
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">

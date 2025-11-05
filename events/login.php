@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Prepare and execute query
-    $stmt = $conn->prepare("SELECT id, mail, password_hash, role FROM members WHERE mail = ?");
+    $stmt = $conn->prepare("SELECT id, mail, password_hash, role, full_name FROM members WHERE mail = ?");
     $stmt->bind_param("s", $mail);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password_hash'])) {
             // Start session
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['name'] = strtok($user['full_name'], ' ');
             $_SESSION['mail'] = $user['mail'];
             $_SESSION['activated'] = true;
             $_SESSION['role'] = $user['role'];
