@@ -27,37 +27,76 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
       </h6>
     </div>
 </div>
+    <<section class="section mt-5">
+  <div class="px-3 px-md-5">
 
-<section class="section w-100 px-3 px-md-5 mt-5">
-    <div class="row g-4" style="width:100%;">
-        <?php foreach ($events as $event): ?>
-            <div class="col-md-6 col-lg-4 event-future">
-                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
-                                    <?= htmlspecialchars($event['title_es']) ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
-
+    <!-- Filter Buttons Row -->
+<div class="row mb-3">
+  <div class="col-12 d-flex justify-content-end align-items-center gap-2">
+    <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
+    
+    <div class="filters d-flex gap-2">
+      <button class="active" data-filter="all" data-en="All" data-es="Todos">Todos</button>
+      <button data-filter="event" data-en="Events" data-es="Eventos">Eventos</button>
+      <button data-filter="workshop" data-en="Workshops" data-es="Talleres">Talleres</button>
     </div>
+  </div>
+</div>
+
+
+    <!-- Cards Grid -->
+<div class="row g-4">
+  <?php foreach ($events as $event): ?>
+    <?php
+      $type = strtolower(trim(htmlspecialchars($event['type_en'])));
+      $timeFlag = strtotime($event['end_datetime']);
+    ?>
+    <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date = "<?= $timeFlag ?>">
+      <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body p-0 position-relative">
+            <div class="img-container">
+              <img
+                src="<?= htmlspecialchars($event['image_path']) ?>"
+                class="card-img-top"
+                alt="<?= htmlspecialchars($event['title_es']) ?>"
+                style="object-fit: cover;"
+              >
+            </div>
+
+            <div class="p-3 pb-5">
+              <h5 class="card-title mt-3 fw-bold"
+                  data-en="<?= htmlspecialchars($event['title_en']) ?>"
+                  data-es="<?= htmlspecialchars($event['title_es']) ?>">
+                <?= htmlspecialchars($event['title_es']) ?>
+              </h5>
+
+              <p class="card-text">
+                <i class="fas fa-calendar me-2"></i>
+                <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
+                <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
+              </p>
+
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span><?= htmlspecialchars($event['location']) ?></span>
+              </p>
+            </div>
+
+            <div class="card-more-badge" data-en="More information" data-es="Saber más">
+              Saber más
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  <?php endforeach; ?>
+</div>
+
+
+  </div>
 </section>
+
 <?php $conn->close(); ?>
 
 <?php include("assets/nav.php"); ?>
@@ -66,7 +105,54 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 
 <script src="js/language.js"></script>
 <script src="js/navbar.js"></script>
+<script src="js/filtering_buttons.js"></script>
+<script src="js/ordering_button.js"></script>
 <script src="js/char_counter.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<style>
+#order-btn{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: white;
+  
+
+  }
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: red;
+}
+
+button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #ffffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.active {
+  background-color: #EB178E;
+  color: white;
+}
+
+.item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+
+
+
