@@ -19,7 +19,7 @@
 
         <!-- Events Section -->
         <li class="nav-item">
-          <a class="nav-link" href="#events" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
+          <a class="nav-link" href="events.php" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
 <!--          Projects Section 

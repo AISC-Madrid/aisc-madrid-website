@@ -203,10 +203,11 @@ include("assets/head.php");
         <?php endforeach; ?>
 
         <?php
-        //Order past events by most recent first
-        usort($past_events, function($a, $b) {
-        return strtotime($b['start_datetime']) <=> strtotime($a['start_datetime']);
-        });
+        // Limit to 6 past events. Get them by most recent first
+        if(count($past_events) > 6){
+            $past_events = array_reverse(array_slice($past_events, 0, 6));
+        }
+        //Show 6 first events
         foreach ($past_events as $event): ?>
             <div class="col-md-6 col-lg-4 event-past">
                 <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
@@ -233,6 +234,9 @@ include("assets/head.php");
             </div>
         <?php endforeach; ?>
     </div>
+        <a class="btn btn-custom w-100 w-lg-auto mt-4" href="events.php" role="button" data-en="View all events" data-es="Ver todos los eventos">
+      Ver todos los eventos
+    </a>
   </div>
 </section>
 <?php $conn->close(); ?>
