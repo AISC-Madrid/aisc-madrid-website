@@ -62,11 +62,11 @@
         </li>
 
         <!-- Projects -->
-        <!-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="../projects/projects_list.php">
             <i class="bi bi-diagram-3 me-1"></i> Proyectos
           </a>
-        </li> -->
+        </li>
 
         <!-- Recruiting -->
         <li class="nav-item">
