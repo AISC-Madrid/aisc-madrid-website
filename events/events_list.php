@@ -41,7 +41,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Eventos</h2>
-        <?php if ($_SESSION['role'] === 'admin'): ?>
+        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] == 'events'): ?>
         <a href="events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
         <?php endif; ?>
     </div>
