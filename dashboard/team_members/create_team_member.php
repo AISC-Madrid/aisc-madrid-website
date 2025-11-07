@@ -11,8 +11,8 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
 include(__DIR__ . "/../../assets/db.php");
 
 // Initialize variables for the form
-$full_name = $mail = $position_es = $position_en = '';
-$phone = $socials = $active = $image_path = '';
+$full_name = $mail = $position_es = $position_en = $password = '';
+$phone = $socials = $active = $board = $image_path = '';
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -27,6 +27,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($member) {
         $full_name = $member['full_name'];
         $mail = $member['mail'];
+        $password = $member['password_hash'];
         $position_es = $member['position_es'];
         $position_en = $member['position_en'];
         $phone = $member['phone'];
@@ -67,6 +68,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <label class="form-label">Mail</label>
             <input type="text" name="mail" class="form-control" required value="<?= htmlspecialchars($mail) ?>">
         </div>
+        <!-- Password -->
+        <div>
+            <label class="form-label">Password</label>
+            <input type="text" name="password" class="form-control">
+        </div>
 
         <!-- position_es -->
         <div class="mb-3 col-6">
@@ -96,8 +102,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="mb-3 col-6">
             <label class="form-label">Board</label>
             <select name="board" class="form-select">
-                <option value="yes" <?= ($active === 'yes') ? 'selected' : '' ?>>Yes</option>
-                <option value="no" <?= ($active === 'no') ? 'selected' : '' ?>>No</option>
+                <option value="yes" <?= ($board === 'yes') ? 'selected' : '' ?>>Yes</option>
+                <option value="no" <?= ($board === 'no') ? 'selected' : '' ?>>No</option>
             </select>
         </div>
 

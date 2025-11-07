@@ -1,8 +1,9 @@
 <?php
 session_start(); // Start the session
 // Check if the user is logged in
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+$allowed_roles = ['admin', 'events', 'viewer'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
 
@@ -29,12 +30,20 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 </head>
 <body class="bg-light">
     <!-- Navbar -->
-<?php include("../dashboard/dashboard_nav.php"); ?>
+    <?php
+    if($_SESSION['role'] === 'admin'){
+    include("../dashboard/dashboard_nav.php"); 
+    }else{
+    include("../dashboard/dashboard_nav_noadmin.php");
+    }
+    ?>
 
 <div class="container my-5 scroll-margin">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Eventos</h2>
+        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] == 'events'): ?>
         <a href="events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
+        <?php endif; ?>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
@@ -46,7 +55,9 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 <th>Ponente</th>
                 <th>Fecha Inicio - Fin</th>
                 <th>Ubicación</th>
+                <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'events'): ?>
                 <th>Acciones</th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -71,10 +82,12 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                             <?= date("d/m/Y H:i", strtotime($row['end_datetime'])) ?>
                         </td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
+                        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'events'): ?>
                         <td>
                             <a class="btn btn-sm btn-success mb-1" href="events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
                             <a class="btn btn-sm btn-danger mb-1" href="events/events_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>

@@ -3,7 +3,7 @@
   <div class="container-fluid">
 
     <!-- Brand / Logo -->
-    <a class="navbar-brand" href="/" title="AISC Madrid - Dashboard">
+    <a class="navbar-brand" href="dashboard/dashboard.php" title="AISC Madrid - Dashboard">
       <img src="../images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
       <span class="fw-bold">Dashboard</span>
     </a>
@@ -46,12 +46,35 @@
           </a>
         </li>
 
-        <!-- Recruiting -->
+        <!-- Escanear asistencia de eventos -->
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/scan_attendance.php">
+            <i class="bi bi-qr-code me-1"></i> Escanear Asistencia
+          </a>
+        </li>
+
+
+        <!-- Probar envío de correo -->
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/send_test_email.php">
+            <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
+          </a>
+        </li>
+
+        <!-- Projects -->
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="../projects/projects_list.php">
+            <i class="bi bi-diagram-3 me-1"></i> Proyectos
+          </a>
+        </li> -->
+
+        <!-- Recruiting 
         <li class="nav-item">
           <a class="nav-link" href="recruiting/recruiting_list.php">
             <i class="bi bi-briefcase me-1"></i> Recruiting
           </a>
         </li>
+        -->
 
         <!-- Equipo -->
         <li class="nav-item">

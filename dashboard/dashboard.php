@@ -4,8 +4,9 @@
 session_start(); // Start the session
 
 // Check if the user is logged in
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+$allowed_roles = ['admin', 'events', 'viewer'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
     include("../assets/head.php");
@@ -24,19 +25,26 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
     // ---------- EVENTS ----------
     $upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE start_datetime > NOW()")->fetch_assoc()['total'];
 
+    // ---------- PROJECTS ----------
+    //$upcomingProjectsCount = $conn->query("SELECT COUNT(*) AS total FROM projects WHERE start_date > NOW()")->fetch_assoc()['total'];
+
     // ---------- RECRUITING ----------
     $totalApplicants = $conn->query("SELECT COUNT(*) AS total FROM recruiting_2025")->fetch_assoc()['total'];
 ?>
 <body>
-
-<!-- Navbar -->
-<?php include("dashboard_nav.php"); ?>
-
+<?php
+if($_SESSION['role'] === 'admin'){
+  include("dashboard_nav.php"); 
+}else{
+  include("dashboard_nav_noadmin.php");
+}
+?>
 <div class="container-fluid scroll-margin">
   <div class="row">
 
     <!-- Main content -->
     <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 py-4">
+      <h2 style="color:black">Hola, <?= isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'invitado' ?></h2>
       <h2 class="mb-4 text-dark">Panel de Control</h2>
 
       <!-- Cards Row -->

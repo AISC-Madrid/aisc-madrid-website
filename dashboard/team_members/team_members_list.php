@@ -13,6 +13,23 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
 include(__DIR__ . "/../../assets/head.php");
 include(__DIR__ . "/../../assets/db.php");
 
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']);
+
+    $stmt = $conn->prepare("DELETE FROM members WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        // Redirect to clear the ?delete parameter from the URL
+        header("Location: team_members_list.php");
+        exit();
+    } else {
+        echo "<p style='color:red;'>❌ Error al eliminar: " . htmlspecialchars($stmt->error) . "</p>";
+    }
+
+    $stmt->close();
+}
+
 // Retrieve events
 $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
 ?>
@@ -75,10 +92,12 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                         <td>
                             <?= htmlspecialchars($row['active']) ?><br>
                         </td>
+                        <?php if ($_SESSION['role'] === 'admin'): ?>
                         <td>
                         <a class="btn btn-sm btn-success mb-1" href="dashboard/team_members/create_team_member.php?id=<?= $row['id'] ?>">Editar</a>
-                        <a class="btn btn-sm btn-danger mb-1" href="?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este miembro?')">Eliminar</a>
+                        <a class="btn btn-sm btn-danger mb-1" href="dashboard/team_members/team_members_list.php/?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este miembro?')">Eliminar</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>

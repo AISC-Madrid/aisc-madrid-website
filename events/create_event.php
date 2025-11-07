@@ -2,8 +2,9 @@
 session_start(); // Start the session
 
 // Check if the user is logged in
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+$allowed_roles = ['admin', 'events'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
 
@@ -15,6 +16,7 @@ $title_es = $title_en = $type_es = $type_en = '';
 $description_es = $description_en = $location = '';
 $start_datetime = $end_datetime = $image_path = $google_calendar_url = '';
 $speaker = '';
+$requires_registration = 0;
 
 
 // Check if an ID is passed
@@ -41,6 +43,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $image_path = $event['image_path'];
         $google_calendar_url = $event['google_calendar_url'];
         $youtube_url = $event['youtube_url'];
+        $requires_registration = $event['requires_registration'];
     }
 }
 ?>
@@ -139,7 +142,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Google Calendar URL -->
                     <div class="mb-3">
                         <label class="form-label">URL Google Calendar</label>
-                        <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url) ?>">
+                        <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url ?? '') ?>">
                     </div>
 
                     <!-- Youtube URL -->
@@ -147,6 +150,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <label class="form-label">YT URL (empty if none)</label>
                         <input type="url" name="youtube_url" class="form-control" 
                         value="<?= htmlspecialchars($youtube_url ?? '') ?>">
+                    </div>
+
+                    <!-- Requires Registration -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="requires_registration" class="form-check-input" id="requires_registration" value="1" <?= !empty($requires_registration) && $requires_registration ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="requires_registration">Requiere inscripción</label>
                     </div>
 
                     <!-- Submit -->

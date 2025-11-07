@@ -1,16 +1,18 @@
 <?php
 include(__DIR__ . "/../../assets/db.php");
 // Prepare SQL
+$password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $sql = "INSERT INTO members (
     full_name,
     mail,
+    password_hash,
     position_es, position_en,
     phone,
     socials,
     board,
     active,
     image_path
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -21,16 +23,17 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssssss",
+    "ssssssssss",
     $_POST['full_name'],
     $_POST['mail'],
+    $password_hash,
     $_POST['position_es'],
     $_POST['position_en'],
     $_POST['phone'],
     $_POST['socials'],
     $_POST['board'],
     $_POST['active'],
-    $_POST['image_path'],
+    $_POST['image_path']
 );
 
 // Execute

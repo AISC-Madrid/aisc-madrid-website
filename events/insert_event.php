@@ -5,6 +5,7 @@ include("upload_image.php");
 // Initialize variables in case they are null
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+$requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
@@ -15,14 +16,15 @@ $sql = "INSERT INTO events (
     location,
     start_datetime, end_datetime,
     youtube_url,
-    google_calendar_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    google_calendar_url,
+    requires_registration
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssss",
+    "ssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -34,7 +36,8 @@ $stmt->bind_param(
     $_POST['start_datetime'],
     $_POST['end_datetime'],
     $youtube_url,
-    $google_calendar_url
+    $google_calendar_url,
+    $requires_registration
 );
 
 

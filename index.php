@@ -44,7 +44,7 @@ include("assets/head.php");
         <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
         Gain in-demand skills, connect with industry, and become part of an international community." data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.</h6>
         <div class="mt-4 d-flex gap-2">
-          <a href="#" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!" data-es="¡Participa!">¡Participa!</a>
+          <a href="join.php" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!" data-es="¡Participa!">¡Participa!</a>
         </div>
       </div>
       <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
@@ -203,10 +203,11 @@ include("assets/head.php");
         <?php endforeach; ?>
 
         <?php
-        //Order past events by most recent first
-        usort($past_events, function($a, $b) {
-        return strtotime($b['start_datetime']) <=> strtotime($a['start_datetime']);
-        });
+        // Limit to 6 past events. Get them by most recent first
+        if(count($past_events) > 6){
+            $past_events = array_reverse(array_slice($past_events, 0, 6));
+        }
+        //Show 6 first events
         foreach ($past_events as $event): ?>
             <div class="col-md-6 col-lg-4 event-past">
                 <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
@@ -233,6 +234,9 @@ include("assets/head.php");
             </div>
         <?php endforeach; ?>
     </div>
+        <a class="btn btn-custom w-100 w-lg-auto mt-4" href="events.php" role="button" data-en="View all events" data-es="Ver todos los eventos">
+      Ver todos los eventos
+    </a>
   </div>
 </section>
 <?php $conn->close(); ?>
@@ -246,72 +250,55 @@ include("assets/head.php");
     </h2>
     <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
-    <!-- Board members row -->
-    <div class="mt-5 row">
+    <!-- Board members row. Get info from DB -->
+    <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    include("assets/db.php");
 
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/hugocentenosanz/" target="_blank">
-                <img src="images/members/Hugo Centeno Sanz.png" alt="Hugo Centeno Sanz" class="img-fluid rounded">
-              </a>
+    // Retrieve all board members
+    $result = $conn->query("SELECT * FROM members WHERE board = 'yes' ORDER BY id ASC");
+    $num_board_members = $result->num_rows;
+
+    // Determine Bootstrap column class dynamically
+    if ($num_board_members <= 1) {
+        $col_class = 'col-lg-12';
+    } elseif ($num_board_members == 2) {
+        $col_class = 'col-lg-6';
+    } elseif ($num_board_members == 3) {
+        $col_class = 'col-lg-4';
+    } elseif ($num_board_members == 4) {
+        $col_class = 'col-lg-3';
+    } else {
+        $col_class = 'col-lg-2'; // 5 or more members
+    }
+    ?>
+
+    <div class="mt-5 row justify-content-center">
+      <?php foreach ($result as $board_member): ?>
+        <div class="col-12 col-sm-6 col-md-4 <?= $col_class ?> mb-4">
+          <div class="team-box text-center">
+            <div class="team-wrapper">
+              <div class="team-board_member">
+                <a href="<?= $board_member['socials'] ?>" target="_blank">
+                  <img src="<?= htmlspecialchars($board_member['image_path']) ?>" alt="<?= $board_member['full_name'] ?>" class="img-fluid rounded">
+                </a>
+              </div>
             </div>
+            <h5 class="mt-3" style="color: var(--background)"><?= $board_member['full_name'] ?></h5>
+            <p class="text-muted" 
+              data-en="<?= htmlspecialchars($board_member['position_en']) ?>" 
+              data-es="<?= htmlspecialchars($board_member['position_es']) ?>">
+            </p>
           </div>
-          <h5 class="mt-3" style="color: var(--background)">Hugo Centeno Sanz</h5>
-          <p class="text-muted" data-en="President" data-es="Presidente">Presidente</p>
         </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/alfonso-mayoral-montero-9834702b2/" target="_blank">
-                <img src="images/members/Alfonso Mayoral Montero.png" alt="Alfonso Mayoral Montero" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Alfonso Mayoral Montero</h5>
-          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/lauren-gallego-ropero/" target="_blank">
-                <img src="images/members/Lauren Gallego Ropero.png" alt="Lauren Gallego Ropero" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Lauren Gallego Ropero</h5>
-          <p class="text-muted" data-en="Vicepresident" data-es="Vicepresidente">Vicepresidente</p>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-3">
-        <div class="team-box text-center">
-          <div class="team-wrapper">
-            <div class="team-member">
-              <a href="https://www.linkedin.com/in/alejandrobarrosobueso/" target="_blank">
-                <img src="images/members/Alejandro Barroso Bueso.png" alt="Alejandro Barroso Bueso" class="img-fluid rounded">
-              </a>
-            </div>
-          </div>
-          <h5 class="mt-3" style="color: var(--background)">Alejandro Barroso Bueso</h5>
-          <p class="text-muted" data-en="Webmaster" data-es="Administrador Web">Administrador Web</p>
-        </div>
-      </div>
-
-    </div><!-- End board members row -->
+      <?php endforeach; ?>
+    </div>
+    <!-- End board members row -->
 
     <!-- Button aligned with first column on desktop, full-width on mobile -->
     <div class="row mt-4">
-      <!-- Contenedor del botón en móvil ocupa el mismo ancho que la fila de tarjetas -->
       <div class="col-12 d-flex justify-content-center justify-content-lg-start">
-        <!-- El botón mantiene su ancho natural en escritorio y ancho completo en móvil -->
         <a class="btn btn-custom w-100 w-lg-auto" href="team.php" role="button" data-en="See all members" data-es="Ver todos los miembros">
           Ver todos los miembros
         </a>
