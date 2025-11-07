@@ -12,7 +12,7 @@ include(__DIR__ . "/../../assets/db.php");
 
 // Initialize variables for the form
 $full_name = $mail = $position_es = $position_en = $password = '';
-$phone = $socials = $active = $image_path = '';
+$phone = $socials = $active = $board = $image_path = '';
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -71,7 +71,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <!-- Password -->
         <div>
             <label class="form-label">Password</label>
-            <input type="text" name="password" class="form-control" required>
+            <input type="text" name="password" class="form-control">
         </div>
 
         <!-- position_es -->
@@ -102,8 +102,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="mb-3 col-6">
             <label class="form-label">Board</label>
             <select name="board" class="form-select">
-                <option value="yes" <?= ($active === 'yes') ? 'selected' : '' ?>>Yes</option>
-                <option value="no" <?= ($active === 'no') ? 'selected' : '' ?>>No</option>
+                <option value="yes" <?= ($board === 'yes') ? 'selected' : '' ?>>Yes</option>
+                <option value="no" <?= ($board === 'no') ? 'selected' : '' ?>>No</option>
             </select>
         </div>
 
