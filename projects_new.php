@@ -23,7 +23,7 @@ include("assets/db.php");
 $now = date("Y-m-d");
 
 // Retrieve all projects ordered by start_date
-$result_projects = $conn->query("SELECT * FROM projects ORDER BY start_date ASC");
+$result_projects = $conn->query("SELECT * FROM projects ORDER BY start_date DESC");
 
 // Separate future and past projects
 
@@ -84,25 +84,28 @@ include("assets/head.php");
       <div class="container-fluid">
         <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
+
+      <!-- Filter Buttons Row -->
+      <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-end align-items-center gap-2">
+          <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
+        </div>
+      </div>
+
       <div class="project-group row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
-        <?php
-          // Ordenar ideas por fecha
-          usort($all_projects, function($a, $b) {
-              return strtotime($b['start_date']) <=> strtotime($a['start_date']);
-          });
-        ?>
-          <?php foreach ($all_projects as $project): ?>
-            <?php
-              $id         = (int)$project['id'];
-              $title_es   = htmlspecialchars($project['title_es'] ?? '');
-              $title_en   = htmlspecialchars($project['title_en'] ?? '');
-              $image_path = htmlspecialchars($project['image_path'] ?? '');
-              $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
-              $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
-              $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
-              $category   = array_map('trim', explode(',', $project['category']));
-            ?>
-            <div class="col-12 col-md-6 project">
+        <?php foreach ($all_projects as $project): ?>
+          <?php
+            $id         = (int)$project['id'];
+            $title_es   = htmlspecialchars($project['title_es'] ?? '');
+            $title_en   = htmlspecialchars($project['title_en'] ?? '');
+            $image_path = htmlspecialchars($project['image_path'] ?? '');
+            $sort_timestamp = !empty($project['start_date']) ? strtotime($project['start_date']) : 0;
+            $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
+            $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
+            $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
+            $category   = array_map('trim', explode(',', $project['category']));
+          ?>
+            <div class="col-12 col-md-6 project-card" date = "<?= $sort_timestamp ?>">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -167,27 +170,67 @@ include("assets/head.php");
     </section>
   </div>
 
-  
 
 
-  <!-- Footer include -->
-  <?php include('assets/footer.php'); ?>
 
-  <!-- Bootstrap validation script -->
-  <script src="js/index.js" defer></script>
-  <script src="js/navbar.js" defer></script>
-  <script src="js/language.js" defer></script>
-  <script src="js/projects.js" defer></script>
-  
-  <!-- Bootstrap Bundle JS (includes Popper) -->
-  <!-- Removed duplicate Bootstrap Bundle JS inclusion -->
-
-</body>
 
 
 <?php $conn->close(); ?>
-</html>
+
+
+  <?php include('assets/footer.php'); ?>
+  <?php include("assets/nav.php"); ?>
+
+
   <script src="js/language.js"></script>
-  
+  <script src="js/index.js" defer></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/language.js" defer></script>
+  <script src="js/projects.js" defer></script>  
   <!-- Bootstrap Bundle JS (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>                   
+
+</body>
+</html>
+
+<style>
+#order-btn{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: white;
+  
+
+  }
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: red;
+}
+
+button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #ffffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.active {
+  background-color: #EB178E;
+  color: white;
+}
+
+.item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
