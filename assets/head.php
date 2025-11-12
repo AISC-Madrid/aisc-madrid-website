@@ -44,11 +44,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/styles3.css">
+    <link rel="stylesheet" href="./css/styles3.css">
 
     <!-- Base URL -->
-    <base href="/" />
 
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<style>
+    html{
+        height:100vh;
+    }
+    body{
+    min-height: 100%;
+    display: flex;
+    direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+    }
+    .scroll-margin > :first-child {
+    padding-top: 8px;
+}
+</style>
