@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.history.replaceState({}, document.title, window.location.pathname + '#get-involved');
   }
 
-
+  /*
   // Event filter script 
   const buttons = document.querySelectorAll('.event-filter-btn');
   const pastEvents = document.querySelectorAll('.event-past');
@@ -74,4 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons.forEach(b => b.classList.remove('active'));
     buttons[1].classList.add('active');
   });
+  */
+ 
 });
