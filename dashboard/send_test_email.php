@@ -118,9 +118,10 @@ if (isset($_POST['submit'])) {
             $mail->Debugoutput = 'html';
 
             // Configuración del servidor
-            $mail->Host = 'smtp.hostinger.com';
+            $mail->Host = 'smtp.gmail.com';
             $mail->Port = 587;
             $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'tls';
             $mail->Username = $config['smtp_user'];
             $mail->Password = $config['smtp_pass'];
 
