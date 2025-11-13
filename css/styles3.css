@@ -445,3 +445,17 @@ html {
 .category-badge:not([class*="category-"]) {
   background-color: #757575; /* gris */
 }
+
+.filter-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #ffffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.active {
+  background-color: #EB178E;
+  color: white;
+}
