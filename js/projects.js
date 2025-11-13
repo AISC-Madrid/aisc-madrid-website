@@ -93,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para actualizar el ícono del botón
     function updateButton(order) {
         if (order === 'desc') {
-        orderBtn.innerHTML = '<i class="bi bi-arrow-down"></i>';
+        orderBtn.innerHTML = '<i class="bi bi-sort-down"></i>';
         orderBtn.title = 'Orden descendente';
         } else {
-        orderBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
+        orderBtn.innerHTML = '<i class="bi bi-sort-up"></i>';
         orderBtn.title = 'Orden ascendente';
         }
     }

@@ -71,7 +71,7 @@ include("assets/head.php");
           </div>
 
           <div class="col-md-5 text-center"> 
-            <img src="images/projects/Projects-main.png" alt="AI ML Projects" class="img-fluid">
+            <img src="images/projects/projects-main.svg" alt="AI ML Projects" class="img-fluid">
           </div>
 
         </div>
@@ -99,13 +99,13 @@ include("assets/head.php");
             $title_es   = htmlspecialchars($project['title_es'] ?? '');
             $title_en   = htmlspecialchars($project['title_en'] ?? '');
             $image_path = htmlspecialchars($project['image_path'] ?? '');
-            $sort_timestamp = !empty($project['start_date']) ? strtotime($project['start_date']) : 0;
+            $sort_timestamp = strtotime($project['start_date']);
             $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
             $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
             $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
             $category   = array_map('trim', explode(',', $project['category']));
           ?>
-            <div class="col-12 col-md-6 project-card" date = "<?= $sort_timestamp ?>">
+            <div class="project-card col-12 col-md-6" date="<?=$sort_timestamp?>">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
