@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Title and Description -->
-    <title>AISC Madrid – AI Student Collective at UC3M</title>
+    <title>AISC Madrid - AI Student Collective at UC3M</title>
     <meta name="description" content="AISC Madrid is the Artificial Intelligence Student Collective at UC3M. We organize AI events, workshops, and talks to explore real-world applications of AI in university and beyond. Join the AI movement in Madrid.">
 
     <!-- Canonical URL -->
@@ -16,7 +16,7 @@
     <meta name="keywords" content="AISC Madrid, AI student group, Artificial Intelligence UC3M, AI talks, AI workshops, UC3M events, Student collective AI">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="AISC Madrid – AI Student Collective at UC3M">
+    <meta property="og:title" content="AISC Madrid - AI Student Collective at UC3M">
     <meta property="og:description" content="Artificial Intelligence talks, workshops, and events for students at UC3M. Join the AISC community in Madrid.">
     <meta property="og:image" content="https://aiscmadrid.com/images/logos/PNG/AISC Logo Square.png">
     <meta property="og:url" content="https://aiscmadrid.com/">
@@ -24,8 +24,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AISC Madrid – AI Student Collective at UC3M">
-    <meta name="twitter:description" content="Join Madrid’s AI student movement at UC3M. Attend events, talks, and workshops on Artificial Intelligence.">
+    <meta name="twitter:title" content="AISC Madrid - AI Student Collective at UC3M">
+    <meta name="twitter:description" content="Join Madrid's AI student movement at UC3M. Attend events, talks, and workshops on Artificial Intelligence.">
     <meta name="twitter:image" content="https://aiscmadrid.com/images/logos/PNG/AISC Logo Square.png">
 
     <!-- Bootstrap CSS (v5.3 via CDN) -->
@@ -45,9 +45,11 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/styles3.css">
+    <!-- <link rel="stylesheet" href="/aisc-madrid-website/css/styles3.css"> -->
 
     <!-- Base URL -->
     <base href="/" />
+    <!-- <base href="/aisc-madrid-website/" /> -->
 
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
