@@ -49,8 +49,10 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
     <?php
       $type = strtolower(trim(htmlspecialchars($event['type_en'])));
       $timeFlag = strtotime($event['end_datetime']);
+      $is_future = strtotime($event['end_datetime']) >= time();
+      $event_class = $is_future ? 'event-future' : 'event-past';
     ?>
-    <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date = "<?= $timeFlag ?>">
+    <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date = "<?= $timeFlag ?>" <?= $event_class ?>>
       <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
         <div class="card h-100 shadow-sm">
           <div class="card-body p-0 position-relative">
@@ -62,6 +64,10 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 style="object-fit: cover;"
               >
             </div>
+            <?php if ($is_future): ?>
+                <span class="badge rounded-pill position-absolute m-2 upcoming-badge" 
+                      data-en="Upcoming" data-es="Próximo">Próximamente</span>
+            <?php endif; ?>
 
             <div class="p-3 pb-5">
               <h5 class="card-title mt-3 fw-bold"
