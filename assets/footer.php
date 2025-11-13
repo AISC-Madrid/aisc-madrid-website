@@ -1,4 +1,4 @@
-<footer>
+<footer class="mt-5">
   <div class="footer-container d-flex justify-content-between align-items-center flex-wrap">
     <!-- Logo -->
     <div class="footer-left mb-2">

@@ -2,6 +2,16 @@
 <html lang="en">
 <?php
 
+/*
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
+    header("Location: projects/login.php");
+    exit();
+}
+
+*/
 // Enable error reporting only in development (disable in production)
 if (getenv('APP_ENV') === 'development') {
     error_reporting(E_ALL);
@@ -73,22 +83,33 @@ include("assets/head.php");
   <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     
     <!-- Header section -->
-    <section class="section" id="projects-header"> 
+    <section class="section" id="projects-header">
       <div class="container scroll-margin">
-        <div class="text-center mb-5 px-3 px-md-5">
-          <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Our Projects" data-es="Nuestros Proyectos">
-            Nuestros Proyectos
-          </h2>
+        <div class="row align-items-center">
 
-          <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+          <div class="col-md-7 mb-4 mb-md-0"> 
+            <div class="text-center text-md-start px-3 px-md-5"> 
+              <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Our Projects" data-es="Nuestros Proyectos">
+                Nuestros Proyectos
+              </h2>
 
-          <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px"
-            data-en="At AISC Madrid we believe in the power of artificial intelligence to transform the world. Our projects reflect our commitment to innovation, education, and positive social impact."
-            data-es="En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo. Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.">
-            En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo.
-            Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.
-          </h6>
+              <div class="mx-auto mx-md-0 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
+              
+              <h6 class="lh-lg text-muted mx-auto mx-md-0" style="max-width: 700px"
+                data-en="At AISC Madrid we believe in the power of artificial intelligence to transform the world. Our projects reflect our commitment to innovation, education, and positive social impact."
+                data-es="En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo. Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.">
+                En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo.
+                Nuestros proyectos reflejan nuestro compromiso con la innovación, la educación y el impacto social positivo.
+              </h6>
+            </div>
+          </div>
+
+          <div class="col-md-5 text-center"> 
+            <img src="images/projects/Projects-main.png" alt="AI ML Projects" class="img-fluid">
+          </div>
+
         </div>
+      </div>
     </section>
 
     <!-- Projects section -->
@@ -449,6 +470,7 @@ include("assets/head.php");
   <!-- Removed duplicate Bootstrap Bundle JS inclusion -->
 
 </body>
+
 
 <?php $conn->close(); ?>
 </html>
