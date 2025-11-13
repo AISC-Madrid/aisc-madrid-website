@@ -459,3 +459,17 @@ html {
     background: linear-gradient(135deg, rgba(235, 23, 142, .15), rgba(32, 204, 241, .15)) !important;
     margin: 10px;
   }
+
+.filter-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #ffffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.active {
+  background-color: #EB178E;
+  color: white;
+}

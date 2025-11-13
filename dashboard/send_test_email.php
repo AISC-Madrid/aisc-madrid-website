@@ -118,9 +118,10 @@ if (isset($_POST['submit'])) {
             $mail->Debugoutput = 'html';
 
             // Configuración del servidor
-            $mail->Host = 'smtp.hostinger.com';
+            $mail->Host = 'smtp.gmail.com';
             $mail->Port = 587;
             $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'tls';
             $mail->Username = $config['smtp_user'];
             $mail->Password = $config['smtp_pass'];
 
@@ -144,7 +145,12 @@ if (isset($_POST['submit'])) {
 
             $baseHtmlContent = file_get_contents($mail_template);
 
-            foreach ($recipients as $recipient) {
+            $totalEmails = count($recipients);
+            $batchSize = 20;
+            $pauseDuration = 5; // seconds
+
+            for ($i = 0; $i < $totalEmails; $i++) {
+                $recipient = $recipients[$i];
                 $recipientEmail = (string)$recipient['email'];
                 $fullName = (string)$recipient['full_name'];
                 $unsubscribe_token = (string)($recipient['unsubscribe_token'] ?? '');
@@ -176,7 +182,7 @@ if (isset($_POST['submit'])) {
                     $mail->Body = $htmlContent;
 
                     $mail->send();
-                    $message .= '<p class="text-success">Mensaje enviado a ' . $recipientEmail . '</p>';
+                    $message .= '<p class="text-success">Mensaje enviado a ' . $recipientEmail . ' (' . ($i + 1) . '/' . $totalEmails . ')</p>';
 
                     // Update qr_email_sent flag if sending to event users
                     if ($recipient_group === 'event_users') {
@@ -192,9 +198,18 @@ if (isset($_POST['submit'])) {
                 } catch (Exception $e) {
                     $message .= '<p class="text-danger">Error al enviar a ' . $recipientEmail . '. Mailer Error: ' . $mail->ErrorInfo . '</p>';
                 }
+
+                // Pause between batches
+                if (($i + 1) % $batchSize == 0 && ($i + 1) < $totalEmails) {
+                    $message .= "<p class='text-info'>Pausando por $pauseDuration segundos antes del siguiente lote...</p>";
+                    if (ob_get_level()) ob_flush();
+                    flush();
+                    sleep($pauseDuration);
+                }
             }
 
             $mail->smtpClose();
+            $message .= "<p class='text-success'><strong>¡Todos los correos han sido enviados!</strong></p>";
 
         } catch (Exception $e) {
             $message .= '<p class="text-danger">Error fatal de PHPMailer: ' . $mail->ErrorInfo . '</p>';

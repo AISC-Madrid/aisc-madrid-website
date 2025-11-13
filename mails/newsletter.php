@@ -214,9 +214,15 @@ function generarNewsletterHTML($full_name, $token) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="height:100vh">
 <?php include("../assets/head.php"); ?>
-<body>
+<body style="
+    min-height: 100%;
+    display: flex;
+    direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+">
 <?php include("../dashboard/dashboard_nav.php"); ?>
 
 <div class="container-fluid" style="margin-top:90px;">
