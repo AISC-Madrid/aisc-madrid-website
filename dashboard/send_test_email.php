@@ -61,6 +61,7 @@ if (isset($_POST['submit'])) {
                 $emails = preg_split("/[;,]+/", $email_search);
                 $emails = array_map('trim', $emails);
                 $emails = array_filter($emails);
+                echo($email_search);
                 print_r($emails);
                 if (!empty($emails)) {
 
