@@ -51,9 +51,9 @@ include("assets/head.php");
     <!-- Header section -->
     <section class="section" id="projects-header">
       <div class="container scroll-margin">
-        <div class="row align-items-center">
+        <div class="row align-items-center m-5">
 
-          <div class="col-md-7 mb-4 mb-md-0"> 
+          <div class="col-md-7 mb-4 mb-md-0 mb-3"> 
             <div class="text-center text-md-start px-3 px-md-5"> 
               <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="Our Projects" data-es="Nuestros Proyectos">
                 Nuestros Proyectos
