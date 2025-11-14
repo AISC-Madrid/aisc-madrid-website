@@ -56,16 +56,37 @@ if (isset($_POST['submit'])) {
             break;
         case 'search':
             if (!empty($email_search)) {
-                $stmt = $conn->prepare("SELECT email, full_name FROM form_submissions WHERE email = ?");
-                $stmt->bind_param("s", $email_search);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        $recipients[] = ['email' => $row['email'], 'full_name' => $row['full_name']];
+
+                // Split input into an array by ";" or "," and trim spaces
+                $emails = preg_split("/[;,]+/", $email_search);
+                $emails = array_map('trim', $emails);
+
+                // Remove any empty values
+                $emails = array_filter($emails);
+
+                if (!empty($emails)) {
+                    // Create placeholders
+                    $placeholders = implode(',', array_fill(0, count($emails), '?'));
+
+                    $sql = "SELECT email, full_name FROM form_submissions WHERE email IN ($placeholders)";
+                    $stmt = $conn->prepare($sql);
+                    $types = str_repeat('s', count($emails));
+                    $stmt->bind_param($types, ...$emails);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    // Build recipients
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $recipients[] = [
+                                'email' => $row['email'],
+                                'full_name' => $row['full_name']
+                            ];
+                        }
                     }
+
+                    $stmt->close();
                 }
-                $stmt->close();
             }
             break;
         case 'team':
