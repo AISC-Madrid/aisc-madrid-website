@@ -54,3 +54,28 @@
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<style>
+        height:100vh;
+        height: 100vh;
+    }
+
+    body {
+        min-height: 100%;
+        display: flex;
+        direction: column;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .scroll-margin> :first-child {
+        padding-top: 8px;
+    }
+
+    .card {
+        transition: none !important;
+    }
+
+    .card:hover:not(.no-hover) {
+        transform: none !important;
+    }
+</style>
