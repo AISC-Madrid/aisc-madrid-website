@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
                                 'full_name' => $row['full_name']
                             ];
                         }
-                        echo($recipients);
+                        print_r($recipients);
                     }
 
                     $stmt->close();
