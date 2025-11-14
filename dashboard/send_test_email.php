@@ -57,36 +57,37 @@ if (isset($_POST['submit'])) {
         case 'search':
             if (!empty($email_search)) {
 
-                // Split input into an array by ";" or "," and trim spaces
+                // Split input
                 $emails = preg_split("/[;,]+/", $email_search);
                 $emails = array_map('trim', $emails);
-
-                // Remove any empty values
                 $emails = array_filter($emails);
 
                 if (!empty($emails)) {
-                    // Create placeholders
-                    $placeholders = implode(',', array_fill(0, count($emails), '?'));
 
-                    $sql = "SELECT email, full_name FROM form_submissions WHERE email IN ($placeholders)";
-                    $stmt = $conn->prepare($sql);
-                    $types = str_repeat('s', count($emails));
-                    $stmt->bind_param($types, ...$emails);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+                    // Escape emails safely
+                    $safe_emails = array_map(function($email) use ($conn) {
+                        return "'" . $conn->real_escape_string($email) . "'";
+                    }, $emails);
 
-                    // Build recipients
+                    // Create IN list
+                    $inList = implode(",", $safe_emails);
+
+                    // Run the query
+                    $sql = "SELECT email, full_name, unsubscribe_token
+                            FROM form_submissions
+                            WHERE email IN ($inList)";
+
+                    $result = $conn->query($sql);
+
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $recipients[] = [
                                 'email' => $row['email'],
-                                'full_name' => $row['full_name']
+                                'full_name' => $row['full_name'],
+                                'unsubscribe_token' => $row['unsubscribe_token'] ?? ''
                             ];
                         }
-                        print_r($recipients);
                     }
-
-                    $stmt->close();
                 }
             }
             break;
