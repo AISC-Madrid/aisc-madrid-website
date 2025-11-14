@@ -56,16 +56,40 @@ if (isset($_POST['submit'])) {
             break;
         case 'search':
             if (!empty($email_search)) {
-                $stmt = $conn->prepare("SELECT email, full_name FROM form_submissions WHERE email = ?");
-                $stmt->bind_param("s", $email_search);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        $recipients[] = ['email' => $row['email'], 'full_name' => $row['full_name']];
+
+                // Split input
+                $emails = preg_split("/[;,]+/", $email_search);
+                $emails = array_map('trim', $emails);
+                $emails = array_filter($emails);
+                echo($email_search);
+                print_r($emails);
+                if (!empty($emails)) {
+
+                    // Escape emails safely
+                    $safe_emails = array_map(function($email) use ($conn) {
+                        return "'" . $conn->real_escape_string($email) . "'";
+                    }, $emails);
+
+                    // Create IN list
+                    $inList = implode(",", $safe_emails);
+
+                    // Run the query
+                    $sql = "SELECT email, full_name, unsubscribe_token
+                            FROM form_submissions
+                            WHERE email IN ($inList)";
+
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $recipients[] = [
+                                'email' => $row['email'],
+                                'full_name' => $row['full_name'],
+                                'unsubscribe_token' => $row['unsubscribe_token'] ?? ''
+                            ];
+                        }
                     }
                 }
-                $stmt->close();
             }
             break;
         case 'team':
