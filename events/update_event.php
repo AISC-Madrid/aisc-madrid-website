@@ -109,7 +109,7 @@ $end_datetime = $_POST['end_datetime'] ?? '';
     }
     
     if (!empty($speaker)) {
-        $description .= "\n\nSpeaker: " . $speaker;
+        $description_es .= "\n\nSpeaker: " . $speaker;
     }
 
     $params = array(
