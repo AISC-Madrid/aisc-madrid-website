@@ -1,13 +1,14 @@
 <?php
 // login.php
 session_start();
-include('../assets/db.php'); // Your $conn mysqli connection
-include("../assets/head.php");
 $allowed_roles = ['admin', 'events', 'viewer'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location:https://aiscmadrid.com/dashboard/dashboard.php");
     exit();
 }
+include('../assets/db.php'); // Your $conn mysqli connection
+include("../assets/head.php");
+
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
