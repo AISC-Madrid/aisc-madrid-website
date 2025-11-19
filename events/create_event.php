@@ -41,10 +41,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $start_datetime = $event['start_datetime'];
         $end_datetime = $event['end_datetime'];
         $image_path = $event['image_path'];
-        $google_calendar_url = $event['google_calendar_url'];
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];
     }
+    
 }
 ?>
 <!DOCTYPE html>
@@ -100,13 +100,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Spanish description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Descripción (Español)</label>
-                        <textarea name="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
+                        <textarea required name="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
                     </div>
 
                     <!-- English description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Description (English)</label>
-                        <textarea name="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
+                        <textarea required name="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
                     </div>
 
                     <!-- Location -->
@@ -137,12 +137,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="mb-3">
                         <label class="form-label">Fotos del evento</label>
                         <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
-                    </div>
-
-                    <!-- Google Calendar URL -->
-                    <div class="mb-3">
-                        <label class="form-label">URL Google Calendar</label>
-                        <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url ?? '') ?>">
                     </div>
 
                     <!-- Youtube URL -->

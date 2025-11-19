@@ -78,7 +78,53 @@ if (!$stmt) {
 // ✅ CORRECCIÓN: Guardar el valor del checkbox en una variable primero
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
-$googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
+/* Creation of Google Calendar URL link based on passed information */
+    
+    // Base Google Calendar URL
+$url = 'http://www.google.com/calendar/event?action=TEMPLATE';
+$title_es = $_POST['title_es'] ?? ''; // Use English title for Google Calendar
+$speaker = $_POST['speaker'] ?? '';
+$description_es = $_POST['description_es'] ?? '';
+$location = $_POST['location'] ?? '';
+$youtube_url = $_POST['youtube_url'] ?? ''; // Re-fetch the raw URL
+$start_datetime = $_POST['start_datetime'] ?? '';
+$end_datetime = $_POST['end_datetime'] ?? '';
+    // Dates in the format YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS 
+        
+    try {
+        $start_dt = new DateTime($start_datetime);
+        $end_dt = new DateTime($end_datetime);
+        
+        // Format to YYYYMMDDTHHMMSSZ
+        $start_format = $start_dt->format('Ymd') . 'T' . $start_dt->format('His');
+        $end_format = $end_dt->format('Ymd') . 'T' . $end_dt->format('His');
+        
+        $dates_param = $start_format . '/' . $end_format;
+        
+    } catch (Exception $e) {
+        // Handle case where date parsing fails
+        $dates_param = ''; 
+        // Log or display an error if necessary
+        error_log("Date parsing failed: " . $e->getMessage());
+    }
+    
+    if (!empty($speaker)) {
+        $description_es .= "\n\nSpeaker: " . $speaker;
+    }
+
+    $params = array(
+        'text' => $title_es,
+        'dates' => $dates_param,
+        'details' => $description_es,
+        'location' => $location,
+    );
+    $clean_params = array_filter($params);
+    
+    // Use http_build_query to correctly URL-encode all parameters and values
+    $query_string = http_build_query($clean_params);
+    
+    $google_calendar_url = $url . '&' . $query_string;
 
 $stmt->bind_param(
     "ssssssssssssssii",
@@ -94,7 +140,7 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $mainImagePath,
     $galleryPathsJson,
-    $googleCalendarUrl,
+    $google_calendar_url,
     $youtubeUrl,
     // ✅ CORRECCIÓN: Pasar la variable en lugar de la expresión
     $requires_registration,

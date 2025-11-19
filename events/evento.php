@@ -24,6 +24,7 @@ $event = $result->fetch_assoc();
 $stmt->close();
 
 $youtubeUrl = $event['youtube_url'] ?? '';
+$google_calendar_url = $event['google_calendar_url'] ?? '';
 
 $youtubeId = null;
 if (!empty($youtubeUrl)) {
