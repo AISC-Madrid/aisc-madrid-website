@@ -1,9 +1,10 @@
 <?php
 // login.php
 session_start();
-$allowed_roles = ['admin', 'events', 'viewer'];
-if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
-    header("Location:https://aiscmadrid.com/dashboard/dashboard.php");
+
+// If already logged in, redirect
+if (isset($_SESSION['activated']) && in_array($_SESSION['role'] ?? '', ['admin', 'events', 'viewer'])) {
+    header("Location: ../dashboard/dashboard.php");
     exit();
 }
 include('../assets/db.php'); // Your $conn mysqli connection
