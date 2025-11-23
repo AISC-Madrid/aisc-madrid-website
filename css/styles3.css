@@ -385,6 +385,11 @@ html {
   will-change: transform, background-color, border-color;
 }
 
+.project-description {
+  overflow: hidden;
+  height: 90px;
+}
+
 /* Project button styling */
 .bg-aisc-project {
   background-color: #20CCF1;

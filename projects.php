@@ -33,6 +33,17 @@ while ($row = $result_projects->fetch_assoc()) {
     $all_projects[] = $row;
 }
 
+$definedCategories = [
+    'ai',
+    'climate',
+    'health',
+    'education',
+    'vision',
+    'nlp',
+    'robotics',
+    'ethics'
+];
+
 ?>
 
 <?php
@@ -92,7 +103,7 @@ include("assets/head.php");
         </div>
       </div>
 
-      <div class="project-group row g-4" style="width:100%; magin-bottom:30px; margin-top:30px;">
+      <div class="project-group row g-4" style="width:100%; magin-bottom:30px;">
         <?php foreach ($all_projects as $project): ?>
           <?php
             $id         = (int)$project['id'];
@@ -105,7 +116,7 @@ include("assets/head.php");
             $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
             $category   = array_map('trim', explode(',', $project['category']));
           ?>
-            <div class="project-card col-12 col-md-6" date="<?=$sort_timestamp?>">
+            <div class="project-card col-12 col-sm-12 col-lg-6" date="<?=$sort_timestamp?>">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -122,25 +133,48 @@ include("assets/head.php");
                       <?php if (!empty($category)): ?>
                         <div class="mb-2">
                           <?php foreach ($category as $cat): ?>
-                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
+
+                            <?php
+                            if (in_array($cat, $definedCategories)) {
+                                // A specific color class exists in CSS
+                                $style = '';
+                                $class = 'category-' . $cat; // Output: category-ai
+                            } else {
+                                // NO specific color class exists. Generate a random color.
+                                $hue = rand(0, 360);
+                                $saturation = rand(50, 80); // Richer color
+                                $lightness = rand(40, 60);  // Darker color
+                                $randomColor = "hsl($hue, $saturation%, $lightness%)";
+
+                                // Set the inline style with the random color
+                                $style = 'style="background-color: ' . $randomColor . '"';
+                                $class = ''; // No additional category class
+                            }
+                            ?>
+
+                            <span class="category-badge <?= $class ?>" <?= $style ?>>
+                              <?= htmlspecialchars($cat) ?>
+                            </span>
                           <?php endforeach; ?>
                         </div>
                       <?php endif; ?>
 
                       <?php if ($start_date): ?>
                         <div class="mb-2 text-muted">
-                          <i class="fas fa-calendar me-2"></i>
-                          <strong><?= $start_date ?></strong>
+                          <small>
+                            <i class="fas fa-calendar me-2"></i>
+                            <?= $start_date ?>
+                          </small>
                         </div>
                       <?php endif; ?>
 
                       <?php if ($desc_es): ?>
-                        <p class="mb-0 flex-grow-1"
+                        <p class="mb-0 flex-grow-1 project-description"
                           data-en="<?= $desc_en ?>"
                           data-es="<?= $desc_es ?>">
                           <?= $desc_es ?>
                         </p>
-                      <?php endif; ?>
+                      <?php endif; ?> 
 
                       <div class="mt-3">
                         <span class="btn btn-sm btn-outline-primary"
