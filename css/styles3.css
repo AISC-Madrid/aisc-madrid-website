@@ -385,6 +385,11 @@ html {
   will-change: transform, background-color, border-color;
 }
 
+.project-description {
+  overflow: hidden;
+  height: 90px;
+}
+
 /* Project button styling */
 .bg-aisc-project {
   background-color: #20CCF1;
@@ -418,6 +423,28 @@ html {
 /* If your Bootstrap doesn't expose the CSS var above, fallback: */
 .horizontal-card .img-side img { 
   border-radius: 0 .5rem .5rem 0; 
+}
+
+/* Animación de tarjetas */
+.project-card {
+    /* Es fundamental que las tarjetas usen flexbox o grid para animación */
+    display: flex; /* Asegura que la tarjeta se muestre como un bloque flexible */
+    transition: all 0.3s ease-in-out; /* Transición suave para el cambio de opacidad y escala */
+    /* El siguiente padding evita un salto cuando se oculta */
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    margin-top: var(--bs-gutter-y, 1.5rem);
+}
+
+.project-card.hidden {
+    /* Ocultar la tarjeta de forma elegante */
+    opacity: 0;
+    height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform: scale(0.9);
+    pointer-events: none; /* No permite clics cuando está oculta */
 }
 
 .category-badge {
