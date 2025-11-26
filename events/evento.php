@@ -36,6 +36,51 @@ if (!$event) {
     die("❌ Event not found");
 }
 
+    // --- DYNAMIC GOOGLE CALENDAR URL GENERATION ---
+
+$calendar_base_url = 'http://www.google.com/calendar/event?action=TEMPLATE';
+$title_es = $event['title_es'] ?? '';
+$speaker = $event['speaker'] ?? '';
+$description_es = $event['description_es'] ?? '';
+$location = $event['location'] ?? '';
+$start_datetime = $event['start_datetime'] ?? '';
+$end_datetime = $event['end_datetime'] ?? '';
+
+$dates_param = '';
+try {
+    $start_dt = new DateTime($start_datetime, new DateTimeZone('Europe/Madrid')); // Adjust timezone as needed
+    $end_dt = new DateTime($end_datetime, new DateTimeZone('Europe/Madrid'));     // Adjust timezone as needed
+    
+    // Format to YYYYMMDDTHHMMSS
+    // Note: Google Calendar typically prefers UTC format (ending in Z) or timezone-aware format. 
+    // Using YYYYMMDDTHHMMSS for local time without Z often works for simple events.
+    $start_format = $start_dt->format('Ymd') . 'T' . $start_dt->format('His');
+    $end_format = $end_dt->format('Ymd') . 'T' . $end_dt->format('His');
+    
+    $dates_param = $start_format . '/' . $end_format;
+    
+} catch (Exception $e) {
+    error_log("Date parsing failed: " . $e->getMessage());
+}
+
+$description = $description_es;
+if (!empty($speaker)) {
+    // Append speaker info to the description
+    $description .= "\n\nPonente: " . $speaker;
+}
+
+$params = array(
+    'text' => $title_es,
+    'dates' => $dates_param,
+    'details' => $description, // Use the updated description
+    'location' => $location,
+);
+
+$clean_params = array_filter($params);
+$query_string = http_build_query($clean_params);
+
+$google_calendar_url = $calendar_base_url . '&' . $query_string;
+
 ?>
 
 <!DOCTYPE html>
@@ -128,15 +173,15 @@ if (!$event) {
                     </div>
 
                     <div class="my-2">
-                        <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
-                        <?php if (!empty($event['google_calendar_url'])): ?>
-                            <a href="<?= htmlspecialchars($event['google_calendar_url']) ?>"
-                                class="btn btn-sm btn-outline-secondary me-1"
-                                title="Google Calendar" target="_blank">
-                                <i class="bi bi-google"></i>
-                            </a>
-                        <?php endif; ?>
-                    </div>
+    <span class="me-2" data-en="Add to calendar:" data-es="Añadir al calendario:">Añadir al calendario:</span>
+    <?php if (!empty($google_calendar_url)): ?>
+        <a href="<?= htmlspecialchars($google_calendar_url) ?>"
+            class="btn btn-sm btn-outline-secondary me-1"
+            title="Google Calendar" target="_blank">
+            <i class="bi bi-google"></i>
+        </a>
+    <?php endif; ?>
+</div>
 
                     <div class="mt-3 mb-5">
                         <div class="btn-group">
