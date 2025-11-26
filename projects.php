@@ -44,6 +44,16 @@ $definedCategories = [
     'ethics'
 ];
 
+$all_categories_used = [];
+foreach ($all_projects as $project) {
+    if (!empty($project['category'])) {
+        $categories_in_project = array_map('trim', explode(',', $project['category']));
+        $all_categories_used = array_merge($all_categories_used, $categories_in_project);
+    }
+}
+// Obtener categorías que no están en $definedCategories
+$other_categories = array_diff(array_unique($all_categories_used), $definedCategories);
+
 ?>
 
 <?php
@@ -98,9 +108,28 @@ include("assets/head.php");
 
       <!-- Filter Buttons Row -->
       <div class="row mb-3">
-        <div class="col-12 d-flex justify-content-end align-items-center gap-2">
-          <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
-        </div>
+
+          <!-- <div class="col-12 col-md-8 d-flex justify-content-start align-items-center flex-wrap gap-2 mb-3 mb-md-0">
+              <button class="filter-btn active" data-filter="all" data-es="Todas" data-en="All">
+                  Todas
+              </button>
+              <?php foreach ($definedCategories as $cat): ?>
+                  <button class="filter-btn" data-filter="<?= htmlspecialchars($cat) ?>">
+                      <?= htmlspecialchars(ucfirst($cat)) ?>
+                  </button>
+              <?php endforeach; ?>
+              
+              <?php if (!empty($other_categories)): ?>
+                  <button class="filter-btn" data-filter="other" data-es="Otras" data-en="Other">
+                      Otras
+                  </button>
+              <?php endif; ?>
+          </div> -->
+
+          <!-- <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-start align-items-center gap-2"> -->
+          <div>
+              <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
+          </div>
       </div>
 
       <div class="project-group row g-4" style="width:100%; magin-bottom:30px;">
@@ -115,8 +144,20 @@ include("assets/head.php");
             $desc_es    = htmlspecialchars($project['short_description_es'] ?? '');
             $desc_en    = htmlspecialchars($project['short_description_en'] ?? '');
             $category   = array_map('trim', explode(',', $project['category']));
+
+            // Clases de categorías para el filtro
+            $category_classes = '';
+            foreach ($category as $cat) {
+                $cat_slug = htmlspecialchars(trim($cat));
+                if (in_array($cat_slug, $definedCategories)) {
+                    $category_classes .= ' cat-' . $cat_slug;
+                } else {
+                    // Categorías no definidas se marcan con la clase 'other'
+                    $category_classes .= ' cat-other';
+                }
+            }
           ?>
-            <div class="project-card col-12 col-sm-12 col-lg-6" date="<?=$sort_timestamp?>">
+            <div class="project-card col-12 col-sm-12 col-lg-6<?= $category_classes ?>" date="<?=$sort_timestamp?>">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -135,25 +176,25 @@ include("assets/head.php");
                           <?php foreach ($category as $cat): ?>
 
                             <?php
-                            if (in_array($cat, $definedCategories)) {
-                                // A specific color class exists in CSS
-                                $style = '';
-                                $class = 'category-' . $cat; // Output: category-ai
-                            } else {
-                                // NO specific color class exists. Generate a random color.
-                                $hue = rand(0, 360);
-                                $saturation = rand(50, 80); // Richer color
-                                $lightness = rand(40, 60);  // Darker color
-                                $randomColor = "hsl($hue, $saturation%, $lightness%)";
+                            $cat_slug = htmlspecialchars(trim($cat));
+                            $is_defined = in_array($cat_slug, $definedCategories);
 
-                                // Set the inline style with the random color
+                            if ($is_defined) {
+                                $style = '';
+                                $class = 'category-' . $cat_slug;
+                            } else {
+                                // Código para categorías "Otras" (se mantiene tu código de color aleatorio)
+                                $hue = rand(0, 360);
+                                $saturation = rand(50, 80);
+                                $lightness = rand(40, 60);
+                                $randomColor = "hsl($hue, $saturation%, $lightness%)";
                                 $style = 'style="background-color: ' . $randomColor . '"';
-                                $class = ''; // No additional category class
+                                $class = 'category-other'; // Añadir una clase genérica para "Otras"
                             }
                             ?>
 
                             <span class="category-badge <?= $class ?>" <?= $style ?>>
-                              <?= htmlspecialchars($cat) ?>
+                              <?= $cat_slug ?>
                             </span>
                           <?php endforeach; ?>
                         </div>
