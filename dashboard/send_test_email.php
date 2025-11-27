@@ -244,6 +244,17 @@ if (isset($_POST['submit'])) {
                         }
                     }
 
+                    // Update newsletter_logs if sending newsletter
+                    if ($recipient_group === 'newsletter') {
+                        $sql_update_newsletter = "INSERT INTO newsletters_logs (email, template_name, sent_at) VALUES (?, ?, NOW())";
+                        $stmt_update_newsletter = $conn->prepare($sql_update_newsletter);
+                        if ($stmt_update_newsletter) {
+                            $stmt_update_newsletter->bind_param("ss", $recipientEmail, $mail_template);
+                            $stmt_update_newsletter->execute();
+                            $stmt_update_newsletter->close();
+                        }
+                    }
+
                 } catch (Exception $e) {
                     $message .= '<p class="text-danger">Error al enviar a ' . $recipientEmail . '. Mailer Error: ' . $mail->ErrorInfo . '</p>';
                     error_log('PHPMailer Exception: Error enviando correo a ' . $recipientEmail . '. Error: ' . $e->getMessage());
