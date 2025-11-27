@@ -54,6 +54,15 @@ if (isset($_POST['submit'])) {
                 }
             }
             break;
+        case 'newsletter':
+            $sql = "SELECT email, full_name, unsubscribe_token FROM form_submissions";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $recipients[] = ['email' => $row['email'], 'full_name' => $row['full_name'], 'unsubscribe_token' => $row['unsubscribe_token']];
+                }
+            }
+            break;
         case 'search':
             if (!empty($email_search)) {
 
@@ -219,6 +228,7 @@ if (isset($_POST['submit'])) {
 
                 } catch (Exception $e) {
                     $message .= '<p class="text-danger">Error al enviar a ' . $recipientEmail . '. Mailer Error: ' . $mail->ErrorInfo . '</p>';
+                    error_log('PHPMailer Exception: Error enviando correo a ' . $recipientEmail . '. Error: ' . $e->getMessage());
                 }
 
                 // Pause between batches
