@@ -24,7 +24,7 @@ $stmt = $conn->prepare($sql);
 if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "sssssssssssi",
+    "ssssssssssssi",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
