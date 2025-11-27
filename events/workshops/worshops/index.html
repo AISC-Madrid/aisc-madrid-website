@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+
+    <!-- ============================================= -->
+    <!-- IMPORTS (Do not touch these)                  -->
+    <!-- ============================================= -->
+    <!-- 1. BOOTSTRAP: Makes styling easy -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. ICONS: For the cool symbols -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- 3. AOS: For the scrolling animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- 4. OUR CUSTOM CSS: The file where we write our own rules -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ============================================= -->
+    <!-- NAVBAR (Sticky Header)                        -->
+    <!-- ============================================= -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary navbar-shadow">
+        <div class="container">
+            <!-- TODO: CHANGE THIS TO YOUR NAME -->
+            <a class="navbar-brand fw-bold" href="#">Student.Dev</a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    
+                    <!-- THEME SWITCH (Sun/Moon Button) -->
+                    <li class="nav-item ms-2">
+                        <button class="btn border-0 theme-switch" id="theme-toggle" aria-label="Toggle theme">
+                            <div class="switch-handle">
+                                <i class="bi bi-sun-fill" id="theme-icon"></i>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ============================================= -->
+    <!-- HERO SECTION (The Intro)                      -->
+    <!-- ============================================= -->
+    <section class="hero-section py-5 d-flex align-items-center min-vh-75">
+        <div class="container">
+            <div class="row align-items-center reverse-on-mobile">
+
+                <!-- LEFT SIDE: TEXT -->
+                <div class="col-lg-6 text-center text-lg-start" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <!-- TODO: WRITE YOUR NAME HERE -->
+                        Hi, I'm <span class="text-primary">[Your Name]</span>
+                    </h1>
+
+                    <!-- The typing animation text (Managed in script.js) -->
+                    <p class="lead mb-4 text-body-secondary">
+                        <span id="typing"></span>
+                    </p>
+
+                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#projects" class="btn btn-primary btn-lg px-4 rounded-pill">
+                            View My Work
+                        </a>
+                        <!-- TODO: Add Resume Link later -->
+                        <a href="#" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                            <i class="bi bi-download me-2"></i>Download Resume
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: AVATAR IMAGE -->
+                <div class="col-lg-6 text-center mt-5 mt-lg-0" data-aos="fade-left">
+                    <!-- This ID 'random-avatar' uses JS to generate a cartoon face.
+                         You can delete the ID and change 'src' to your own photo. -->
+                    <img id="random-avatar" class="profile-img shadow-lg" alt="Profile Avatar">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================= -->
+    <!-- ABOUT ME SECTION                              -->
+    <!-- ============================================= -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5" data-aos="fade-up">About Me</h2>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <!-- TODO: WRITE A SHORT BIO -->
+                    <p class="lead">
+                        I am a student at [University Name] studying [Your Major]. 
+                        I love solving complex problems and building useful tools.
+                    </p>
+                    <p>
+                        When I'm not coding, I enjoy [Hobby 1], [Hobby 2], and learning about new technologies.
+                    </p>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="p-4 rounded-4 shadow bg-body-tertiary h-100">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-stars me-2"></i>Soft Skills</h5>
+                        <ul>
+                            <li>Problem Solving</li>
+                            <li>Teamwork & Communication</li>
+                            <li>Adaptability</li>
+                            <li>Time Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================= -->
+    <!-- SKILLS SECTION                                -->
+    <!-- ============================================= -->
+    <section id="skills" class="py-5 bg-body-tertiary">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-4" data-aos="fade-up">My Toolbox</h2>
+            <p class="text-center text-body-secondary mb-5">
+                The tools and technologies I use to build things.
+            </p>
+            
+            <div class="row justify-content-center text-center g-3" data-aos="zoom-in">
+                
+                <!-- SKILL BADGE EXAMPLE 1 -->
+                <div class="col-auto">
+                    <span class="badge bg-primary-subtle text-primary-emphasis p-3 rounded-pill">Python</span>
+                </div>
+                
+                <!-- SKILL BADGE EXAMPLE 2 -->
+                <div class="col-auto">
+                    <span class="badge bg-warning-subtle text-warning-emphasis p-3 rounded-pill">JavaScript</span>
+                </div>
+
+                <!-- TODO: COPY AND PASTE THIS BLOCK TO ADD MORE SKILLS -->
+                <div class="col-auto">
+                    <span class="badge bg-success-subtle text-success-emphasis p-3 rounded-pill">HTML & CSS</span>
+                </div>
+
+                <div class="col-auto">
+                    <span class="badge bg-info-subtle text-info-emphasis p-3 rounded-pill">Git</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================= -->
+    <!-- JOURNEY (The Timeline)                        -->
+    <!-- ============================================= -->
+    <section id="journey" class="py-5 overflow-hidden">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5" data-aos="fade-up">My Journey</h2>
+
+            <div class="tech-timeline">
+                <!-- The Vertical Line -->
+                <div class="timeline-line"></div>
+
+                <!-- TIMELINE ITEM 1 (LEFT SIDE) -->
+                <!-- Use class 'content-left' -->
+                <div class="timeline-row">
+                    <div class="timeline-dot" data-aos="zoom-in">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                    <div class="timeline-content content-left" data-aos="fade-right">
+                        <div class="tech-card">
+                            <span class="badge bg-primary mb-2">2023</span>
+                            <h5 class="fw-bold">Started University</h5>
+                            <p class="mb-0 text-body-secondary">
+                                Began my studies in Engineering. Learned the basics of calculus and programming logic.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIMELINE ITEM 2 (RIGHT SIDE) -->
+                <!-- Use class 'content-right' -->
+                <div class="timeline-row">
+                    <div class="timeline-dot" data-aos="zoom-in" data-aos-delay="100">
+                        <i class="bi bi-terminal"></i>
+                    </div>
+                    <div class="timeline-content content-right" data-aos="fade-left" data-aos-delay="100">
+                        <div class="tech-card">
+                            <span class="badge bg-success mb-2">2024</span>
+                            <h5 class="fw-bold">First Script</h5>
+                            <p class="mb-0 text-body-secondary">
+                                Wrote my first Python script to automate file organization. Realized coding is a superpower.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TODO: COPY ONE OF THE BLOCKS ABOVE TO ADD A 3RD STEP -->
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================= -->
+    <!-- PROJECTS SECTION                              -->
+    <!-- ============================================= -->
+    <section id="projects" class="py-5 mb-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5" data-aos="fade-up">My Projects</h2>
+
+            <div class="row g-4">
+
+                <!-- ==== COPY FROM HERE (START CARD) ==== -->
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="card h-100 border-0 shadow-sm project-card rounded-4 overflow-hidden">
+                        <div class="card-body p-4">
+                            
+                            <!-- Icon (Change the class 'bi-robot' to other icons) -->
+                            <div class="mb-3 text-primary fs-3"><i class="bi bi-robot"></i></div>
+                            
+                            <!-- Title & Description -->
+                            <h3 class="card-title fw-bold h5">Project Title 1</h3>
+                            <p class="card-text text-body-secondary">
+                                A brief description of your project. What did it do? What problem did it solve?
+                            </p>
+                            
+                            <!-- Tech Tags -->
+                            <span class="badge rounded-pill text-bg-light me-1">Python</span>
+                            <span class="badge rounded-pill text-bg-light me-1">Arduino</span>
+                        </div>
+                        
+                        <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                            <!-- Link Button -->
+                            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill stretched-link">
+                                View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==== COPY TO HERE (END CARD) ==== -->
+
+
+                <!-- EXAMPLE CARD 2 (To show you how they stack) -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 border-0 shadow-sm project-card rounded-4 overflow-hidden">
+                        <div class="card-body p-4">
+                            <div class="mb-3 text-danger fs-3"><i class="bi bi-controller"></i></div>
+                            <h3 class="card-title fw-bold h5">Game Project</h3>
+                            <p class="card-text text-body-secondary">
+                                A simple 2D game I built to understand object-oriented programming.
+                            </p>
+                            <span class="badge rounded-pill text-bg-light me-1">C++</span>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                            <a href="#" class="btn btn-sm btn-outline-danger rounded-pill stretched-link">
+                                Play Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TODO: PASTE NEW CARDS HERE -->
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================= -->
+    <!-- FOOTER                                        -->
+    <!-- ============================================= -->
+    <footer class="py-4 text-center text-body-secondary border-top">
+        <div class="container">
+            <p class="mb-0">© 2025 – Built with Bootstrap</p>
+        </div>
+    </footer>
+
+
+    <!-- ============================================= -->
+    <!-- SCRIPTS (Logic & Animation)                   -->
+    <!-- ============================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Initialize the Animation Library -->
+    <script>
+        AOS.init({ once: true, offset: 120 });
+    </script>
+
+    <!-- Load our custom logic -->
+    <script src="script.js"></script>
+
+</body>
+</html>
