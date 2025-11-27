@@ -55,13 +55,31 @@ if (isset($_POST['submit'])) {
             }
             break;
         case 'newsletter':
-            $sql = "SELECT email, full_name, unsubscribe_token FROM form_submissions";
-            $result = $conn->query($sql);
+            $sql = "SELECT f.email, f.full_name, f.unsubscribe_token 
+                FROM form_submissions f
+                LEFT JOIN newsletter_logs n 
+                ON f.email = n.email AND n.template_name = ?
+                WHERE n.email IS NULL";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $mail_template);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $recipients = [];
+
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    $recipients[] = ['email' => $row['email'], 'full_name' => $row['full_name'], 'unsubscribe_token' => $row['unsubscribe_token']];
+                    $recipients[] = [
+                        'email' => $row['email'], 
+                        'full_name' => $row['full_name'], 
+                        'unsubscribe_token' => $row['unsubscribe_token']
+                    ];
                 }
             }
+            
+            $stmt->close();
+
             break;
         case 'search':
             if (!empty($email_search)) {
