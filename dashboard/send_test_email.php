@@ -54,6 +54,33 @@ if (isset($_POST['submit'])) {
                 }
             }
             break;
+        case 'newsletter':
+            $sql = "SELECT f.email, f.full_name, f.unsubscribe_token 
+                FROM form_submissions f
+                LEFT JOIN newsletter_logs n 
+                ON f.email = n.email AND n.template_name = ?
+                WHERE n.email IS NULL";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $mail_template);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $recipients = [];
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $recipients[] = [
+                        'email' => $row['email'], 
+                        'full_name' => $row['full_name'], 
+                        'unsubscribe_token' => $row['unsubscribe_token']
+                    ];
+                }
+            }
+            
+            $stmt->close();
+
+            break;
         case 'search':
             if (!empty($email_search)) {
 
@@ -217,8 +244,20 @@ if (isset($_POST['submit'])) {
                         }
                     }
 
+                    // Update newsletter_logs if sending newsletter
+                    if ($recipient_group === 'newsletter') {
+                        $sql_update_newsletter = "INSERT INTO newsletters_logs (email, template_name, sent_at) VALUES (?, ?, NOW())";
+                        $stmt_update_newsletter = $conn->prepare($sql_update_newsletter);
+                        if ($stmt_update_newsletter) {
+                            $stmt_update_newsletter->bind_param("ss", $recipientEmail, $mail_template);
+                            $stmt_update_newsletter->execute();
+                            $stmt_update_newsletter->close();
+                        }
+                    }
+
                 } catch (Exception $e) {
                     $message .= '<p class="text-danger">Error al enviar a ' . $recipientEmail . '. Mailer Error: ' . $mail->ErrorInfo . '</p>';
+                    error_log('PHPMailer Exception: Error enviando correo a ' . $recipientEmail . '. Error: ' . $e->getMessage());
                 }
 
                 // Pause between batches
@@ -279,6 +318,7 @@ $conn->close();
                         <option value="team">Miembros del equipo</option>
                         <option value="web_team">Miembros del equipo web</option>
                         <option value="event_users">Usuarios registrados en el evento</option>
+                        <option value="newsletter">Newsletter</option>
                         <option value="all">Todos</option>
                     </select>
                 </div>
