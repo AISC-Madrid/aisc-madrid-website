@@ -246,7 +246,7 @@ if (isset($_POST['submit'])) {
 
                     // Update newsletter_logs if sending newsletter
                     if ($recipient_group === 'newsletter') {
-                        $sql_update_newsletter = "INSERT INTO newsletters_logs (email, template_name, sent_at) VALUES (?, ?, NOW())";
+                        $sql_update_newsletter = "INSERT INTO newsletter_logs (email, template_name, sent_at) VALUES (?, ?, NOW())";
                         $stmt_update_newsletter = $conn->prepare($sql_update_newsletter);
                         if ($stmt_update_newsletter) {
                             $stmt_update_newsletter->bind_param("ss", $recipientEmail, $mail_template);
