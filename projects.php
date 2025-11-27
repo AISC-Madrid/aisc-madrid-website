@@ -107,27 +107,44 @@ include("assets/head.php");
 
 
       <!-- Filter Buttons Row -->
-      <div class="row mb-3">
-
-          <!-- <div class="col-12 col-md-8 d-flex justify-content-start align-items-center flex-wrap gap-2 mb-3 mb-md-0">
-              <button class="filter-btn active" data-filter="all" data-es="Todas" data-en="All">
-                  Todas
-              </button>
-              <?php foreach ($definedCategories as $cat): ?>
-                  <button class="filter-btn" data-filter="<?= htmlspecialchars($cat) ?>">
-                      <?= htmlspecialchars(ucfirst($cat)) ?>
-                  </button>
-              <?php endforeach; ?>
+      <div class="row mb-3 align-items-center">
+    
+          <div class="col-6 col-md-8 d-flex justify-content-start align-items-center gap-2">
               
-              <?php if (!empty($other_categories)): ?>
-                  <button class="filter-btn" data-filter="other" data-es="Otras" data-en="Other">
-                      Otras
-                  </button>
-              <?php endif; ?>
-          </div> -->
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" 
+                      id="categoryFilterDropdown" data-bs-toggle="dropdown" 
+                      aria-expanded="false" data-es="Filtrar Categorías" data-en="Filter Categories">
+                  Filtrar Categorías
+              </button>
+              
+              <ul class="dropdown-menu" aria-labelledby="categoryFilterDropdown">
+                  <li>
+                      <button class="dropdown-item filter-btn active" data-filter="all">
+                          Todas las Categorías
+                      </button>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
 
-          <!-- <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-start align-items-center gap-2"> -->
-          <div>
+                  <?php foreach ($definedCategories as $cat): ?>
+                      <li>
+                          <button class="dropdown-item filter-btn" data-filter="<?= htmlspecialchars($cat) ?>">
+                              <?= htmlspecialchars(ucfirst($cat)) ?>
+                          </button>
+                      </li>
+                  <?php endforeach; ?>
+                  
+                  <?php if (!empty($other_categories)): ?>
+                      <li>
+                          <button class="dropdown-item filter-btn" data-filter="other">
+                              Otras
+                          </button>
+                      </li>
+                  <?php endif; ?>
+              </ul>
+              
+          </div>
+
+          <div class="col-6 col-md-4 d-flex justify-content-end align-items-center gap-2">
               <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
           </div>
       </div>
@@ -157,7 +174,7 @@ include("assets/head.php");
                 }
             }
           ?>
-            <div class="project-card col-12 col-sm-12 col-lg-6<?= $category_classes ?>" date="<?=$sort_timestamp?>">
+            <div class="project-card col-12 col-sm-12 col-lg-6 <?= $category_classes ?>" date="<?=$sort_timestamp?>">
             <a href="/projects/project.php?id=<?= $id ?>" class="text-decoration-none text-reset">
               <div class="card w-100 h-100 shadow-sm horizontal-card position-relative">
                 <div class="row g-0 align-items-stretch h-100">
@@ -305,7 +322,4 @@ button.active {
   border-radius: 6px;
 }
 
-.hidden {
-  display: none;
-}
 </style>
