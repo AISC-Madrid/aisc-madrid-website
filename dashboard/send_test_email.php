@@ -307,6 +307,7 @@ $conn->close();
                         <option value="team">Miembros del equipo</option>
                         <option value="web_team">Miembros del equipo web</option>
                         <option value="event_users">Usuarios registrados en el evento</option>
+                        <option value="newsletter">Newsletter</option>
                         <option value="all">Todos</option>
                     </select>
                 </div>
