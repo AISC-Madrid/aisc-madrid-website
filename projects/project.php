@@ -42,6 +42,17 @@ if (!$project) {
     die("❌ Project not found");
 }
 
+$definedCategories = [
+    'ai',
+    'climate',
+    'health',
+    'education',
+    'vision',
+    'nlp',
+    'robotics',
+    'ethics'
+];
+
 ?>
 
 
@@ -128,7 +139,29 @@ if (!$project) {
                     <?php if (!empty($category)): ?>
                         <div class="mb-2">
                           <?php foreach ($category as $cat): ?>
-                            <span class="category-badge category-<?=htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></span>
+                            <?php
+
+                            $cat_slug = htmlspecialchars(trim($cat));
+                            $is_defined = in_array($cat_slug, $definedCategories);
+
+                            if ($is_defined) {
+                                $style = '';
+                                $class = 'category-' . $cat_slug;
+                            } else {
+                                // Código para categorías "Otras" (se mantiene tu código de color aleatorio)
+                                $hue = rand(0, 360);
+                                $saturation = rand(50, 80);
+                                $lightness = rand(40, 60);
+                                $randomColor = "hsl($hue, $saturation%, $lightness%)";
+                                $style = 'style="background-color: ' . $randomColor . '"';
+                                $class = 'category-other'; // Añadir una clase genérica para "Otras"
+                            }
+                            ?>
+
+                            <span class="category-badge <?= $class ?>" <?= $style ?>>
+                              <?= $cat_slug ?>
+                            </span>
+
                           <?php endforeach; ?>
                         </div>
                     <?php endif; ?>

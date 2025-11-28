@@ -368,23 +368,6 @@ html {
   color: white;
 }
 
-.project-filter-btn.active {
-  background-color: var(--secondary);
-  border-color: var(--secondary);
-  color: white;
-  transform: scale(1.15);
-}
-
-.project-filter-btn {
-  display: inline-block;
-  transition: 
-    transform 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-  will-change: transform, background-color, border-color;
-}
-
 .project-description {
   overflow: hidden;
   height: 90px;
@@ -398,8 +381,8 @@ html {
 
 /* Horizontal card tweaks */
 .horizontal-card {
-    height: 350px !important; 
-
+    height: 400px !important; 
+    border-radius: 10px;
     overflow: hidden;
 }
 .horizontal-card .row {
@@ -426,17 +409,14 @@ html {
 }
 
 /* Animación de tarjetas */
-.project-card {
-    /* Es fundamental que las tarjetas usen flexbox o grid para animación */
-    display: flex; /* Asegura que la tarjeta se muestre como un bloque flexible */
-    transition: all 0.3s ease-in-out; /* Transición suave para el cambio de opacidad y escala */
-    /* El siguiente padding evita un salto cuando se oculta */
-    padding-left: var(--bs-gutter-x, 0.75rem);
-    padding-right: var(--bs-gutter-x, 0.75rem);
-    margin-top: var(--bs-gutter-y, 1.5rem);
+.card-project {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px !important; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que la imagen respete el borde */
+    height: 100%; /* Ocupa todo el espacio de la columna */
 }
 
-.project-card.hidden {
+.card-project.hidden {
     /* Ocultar la tarjeta de forma elegante */
     opacity: 0;
     height: 0;
@@ -445,6 +425,12 @@ html {
     padding-bottom: 0;
     transform: scale(0.9);
     pointer-events: none; /* No permite clics cuando está oculta */
+}
+
+/* Asegura que el enlace dentro de la tarjeta ocupe todo el espacio */
+.card-project a {
+    display: flex;
+    height: 100%;
 }
 
 .category-badge {

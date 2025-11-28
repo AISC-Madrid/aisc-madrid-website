@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () { 
     'use strict';
-    
+
     // ------------------------------------------
     // 1. BOOTSTRAP FORM VALIDATION (Se mantiene)
     // ------------------------------------------
@@ -15,25 +15,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }, false);
     });
 
+    // ------------------------------------------
+    // INICIALIZACIÓN DE ELEMENTOS GLOBALES
+    // ------------------------------------------
+    const container = document.querySelector('.project-group.row.g-4');
+    const projectCards = document.querySelectorAll('.project-card');
+    const orderBtn = document.querySelector('#order-btn');
+
+    // Salir si no hay proyectos o contenedor (lo cual es crítico para los filtros)
+    if (!container || projectCards.length === 0) return;
+    
     
     // ------------------------------------------
     // 2. PROJECT ORDERING BUTTON (Botón de Ordenación)
     // ------------------------------------------
-    const orderBtn = document.querySelector('#order-btn');
-    const container = document.querySelector('.project-group.row.g-4');
-    
-    // Si no existen, salimos para evitar errores.
-    if (!orderBtn || !container) return;
 
-    const projectCards = document.querySelectorAll('.project-card'); // Elementos a filtrar y ordenar
-    
     // Función para ordenar las tarjetas
     function sortCards(order) {
         const cards = Array.from(container.querySelectorAll('.project-card'));
         cards.sort((a, b) => {
             const da = parseInt(a.getAttribute('date')) || 0;
             const db = parseInt(b.getAttribute('date')) || 0;
-            // Retorna db - da para descendente, da - db para ascendente
             return order === 'desc' ? db - da : da - db;
         });
         cards.forEach(c => container.appendChild(c));
@@ -41,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para actualizar el ícono del botón
     function updateOrderButton(order) {
-        // Asegúrate de tener los iconos de Bootstrap (`bi-sort-down`, `bi-sort-up`) disponibles
         if (order === 'desc') {
             orderBtn.innerHTML = '<i class="bi bi-sort-down"></i>';
             orderBtn.title = 'Orden descendente';
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Inicialización del orden
+    // Inicialización
     let currentOrder = orderBtn.getAttribute('data-order') || 'desc';
     updateOrderButton(currentOrder);
     sortCards(currentOrder);
@@ -66,42 +67,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ------------------------------------------
-    // 3. PROJECT CATEGORY FILTERING (Filtro por Categoría)
+    // 3. PROJECT CATEGORY FILTERING (Filtro por Categoría con Dropdown)
     // ------------------------------------------
 
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    // 'projectCards' ya está definido en la Sección 2
+    const filterButtons = document.querySelectorAll('.filter-btn-cat');
+    const categoryFilterDropdownBtn = document.querySelector('#categoryFilterDropdown');
 
     filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 1. Desactivar todos los botones de categoría y activar el actual
+        button.addEventListener('click', function(e) {
+            
+            e.preventDefault(); 
+            
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // 2. Obtener la categoría a filtrar
             const categoryToFilter = this.getAttribute('data-filter');
+            const selectedText = this.textContent.trim();
+            
+            categoryFilterDropdownBtn.textContent = selectedText;
 
-            // 3. Iterar sobre todas las tarjetas de proyecto para aplicar el filtro
             projectCards.forEach(card => {
                 const cardClasses = card.classList;
+                const requiredClass = 'cat-' + categoryToFilter;
+                
+                // Check if the card should be visible
+                const isMatch = (categoryToFilter === 'all' || cardClasses.contains(requiredClass));
 
-                if (categoryToFilter === 'all') {
-                    // Si es 'Todas', eliminamos la clase 'hidden' para mostrar la tarjeta
-                    card.classList.remove('hidden'); 
+                if (isMatch) {
+                    // Si debe mostrarse:
+                    card.classList.remove('hidden');
+                    card.style.display = 'flex'; 
                 } else {
-                    // La clase de la categoría a buscar es 'cat-SLUG'
-                    const requiredClass = 'cat-' + categoryToFilter;
-                    
-                    if (cardClasses.contains(requiredClass)) {
-                        // Si coincide, eliminamos 'hidden'
-                        card.classList.remove('hidden'); 
-                    } else {
-                        // Si no coincide, añadimos 'hidden'
-                        card.classList.add('hidden'); 
-                    }
+                    // Si debe ocultarse:
+                    card.classList.add('hidden');
+                    card.style.display = 'none';
                 }
             });
-            // Opcional: Reaplicar la ordenación después de filtrar para mantener el orden de la vista
+            
+            // Mantenemos la ordenación
             sortCards(currentOrder); 
         });
     });
