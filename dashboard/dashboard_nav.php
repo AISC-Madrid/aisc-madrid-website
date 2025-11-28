@@ -33,11 +33,11 @@
         </li>
 
         <!-- Newsletter -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="../mails/newsletter.php">
             <i class="bi bi-envelope me-1"></i> Newsletter
           </a>
-        </li>
+        </li> -->
 
         <!-- Events -->
         <li class="nav-item">
