@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 3. PROJECT CATEGORY FILTERING (Filtro por Categoría con Dropdown)
     // ------------------------------------------
 
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    const filterButtons = document.querySelectorAll('.filter-btn-cat');
     const categoryFilterDropdownBtn = document.querySelector('#categoryFilterDropdown');
 
     filterButtons.forEach(button => {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     // Si debe ocultarse:
                     card.classList.add('hidden');
-                    card.style.display = 'flex'; 
+                    card.style.display = 'none';
                 }
             });
             
