@@ -54,7 +54,8 @@
             id="languageDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            aria-label="Cambiar idioma">
+            aria-label="Cambiar idioma"
+            data-en="EN" data-es="ES">
             ES
           </button>
           <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
