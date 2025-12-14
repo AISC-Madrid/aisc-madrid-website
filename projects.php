@@ -109,13 +109,17 @@ include("assets/head.php");
       
             <div class="col-6 col-md-8 d-flex justify-content-start align-items-center gap-2">
                 
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" 
-                        id="categoryFilterDropdown" data-bs-toggle="dropdown" 
-                        aria-expanded="false" data-es="Filtrar Categorías" data-en="Filter Categories">
+                <button class="btn btn-custom dropdown-toggle" 
+                        type="button" 
+                        id="categoryFilterDropdown" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false" 
+                        data-es="Filtrar Categorías" 
+                        data-en="Filter Categories">
                     Filtrar Categorías
                 </button>
                 
-                <ul class="dropdown-menu" aria-labelledby="categoryFilterDropdown">
+                <ul class="dropdown-menu category-menu" aria-labelledby="categoryFilterDropdown">
                     <li>
                         <button class="dropdown-item filter-btn-cat active" data-filter="all">
                             Todas las Categorías
@@ -143,7 +147,7 @@ include("assets/head.php");
             </div>
 
             <div class="col-6 col-md-4 d-flex justify-content-end align-items-center gap-2">
-                <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
+                <button id="order-btn" class="btn btn-custom" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
             </div>
         </div>
 
@@ -232,7 +236,7 @@ include("assets/head.php");
                             <?php endif; ?> 
                             
                             <div class="card-footer bg-transparent border-0 p-0 mt-3">
-                                <span class="btn btn-sm btn-outline-primary"
+                                <span class="btn btn-custom btn-sm btn-outline-primary"
                                     data-es="Saber más" data-en="More Information">Saber más</span>
                             </div>
                         </div> <div class="col-12 col-sm-5 img-side">
@@ -269,11 +273,10 @@ include("assets/head.php");
   <?php include("assets/nav.php"); ?>
 
 
+  <script src="js/index.js"></script>
+  <script src="js/navbar.js"></script>
   <script src="js/language.js"></script>
-  <script src="js/index.js" defer></script>
-  <script src="js/navbar.js" defer></script>
-  <script src="js/language.js" defer></script>
-  <script src="js/projects.js" defer></script>  
+  <script src="js/projects.js"></script>  
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>                   
 
@@ -284,7 +287,6 @@ include("assets/head.php");
 #order-btn{
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
   color: white;
   
 
@@ -303,11 +305,6 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
-}
-
-button.active {
-  background-color: #EB178E;
-  color: white;
 }
 
 .item {

@@ -62,8 +62,13 @@
 
         <!-- Language Selector -->
         <li class="nav-item dropdown">
-          <button class="btn btn-custom dropdown-toggle py-1 mx-2 rounded-pill shadow-sm" type="button"
-            id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Cambiar idioma">
+          <button class="btn btn-custom dropdown-toggle py-1 mx-2 rounded-pill shadow-sm"
+            type="button"
+            id="languageDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            aria-label="Cambiar idioma"
+            data-en="EN" data-es="ES">
             ES
           </button>
           <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown"
