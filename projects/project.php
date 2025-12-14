@@ -167,40 +167,14 @@ $definedCategories = [
                     <?php endif; ?>
 
                     <div class="mt-3 mb-5">
+                    <!-- Future implementation: add authors to DB and display them here 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Share <i class="fas fa-share-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://api.whatsapp.com/send?text=<?= urlencode('¡Mira este Proyecto! https://aiscmadrid.com/projects/project.php?id=' . $project_id) ?>"
-                                        target="_blank">
-                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://www.linkedin.com/shareArticle?mini=true&url=<?= urlencode('https://aiscmadrid.com/projects/project.php?id=' . $project_id) ?>"
-                                        target="_blank">
-                                        <i class="fab fa-linkedin-in me-2"></i>LinkedIn
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://x.com/intent/tweet/?url=<?= urlencode('https://aiscmadrid.com/projects/project.php?id=' . $project_id) ?>"
-                                        target="_blank">
-                                        <i class="fab fa-x-twitter me-2"></i>X
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                            Made by: 
+                        </div> -->
                     </div>
                 </div>
             </div>
-
             
-
             <!-- Main Content -->
             <div class="col-lg-8">
                 <?php if (!empty($gallery)): ?>
