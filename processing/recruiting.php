@@ -81,6 +81,15 @@ if ($checkForm->num_rows === 0) {
 } else {
     $checkForm->close();
 }
+// Get board members for email CC before closing connection
+$boardMembers = [];
+$boardQuery = $conn->prepare("SELECT full_name, mail FROM members WHERE board = 'yes'");
+$boardQuery->execute();
+$boardResult = $boardQuery->get_result();
+while ($row = $boardResult->fetch_assoc()) {
+    $boardMembers[] = ['name' => $row['full_name'], 'email' => $row['mail']];
+}
+$boardQuery->close();
 
 $conn->close();
 
@@ -96,15 +105,18 @@ try {
     $mail->Port = 587;
     $mail->SMTPSecure = 'tls';
     $mail->SMTPAuth = true;
-    $mail->Username = $config['smtp_user'];     // Tu cuenta Gmail
-    $mail->Password = $config['smtp_pass']; // App Password de Gmail
+    $mail->Username = $config['smtp_user'];
+    $mail->Password = $config['smtp_pass'];
 
     $mail->setFrom($config['smtp_user'], 'AISC Madrid Recruiting');
     $mail->addAddress('aisc.asoc@uc3m.es', 'AISC Madrid');
-    $mail->addCC('hugo.centeno@alumnos.uc3m.es', 'Hugo Centeno');
-    $mail->addCC('alfonso.mayoral@alumnos.uc3m.es', 'Alfonso Mayoral');
-    $mail->addCC('100499176@alumnos.uc3m.es', 'Juanjo Rosales');
-    $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro Artano');
+
+    // Add board members as CC dynamically
+    foreach ($boardMembers as $member) {
+        if (!empty($member['email'])) {
+            $mail->addCC($member['email'], $member['name']);
+        }
+    }
 
     $mail->Subject = 'Nueva solicitud Recruiting 2026: ' . $name;
 
