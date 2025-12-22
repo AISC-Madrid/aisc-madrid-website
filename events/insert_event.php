@@ -1,4 +1,11 @@
 <?php
+session_start();
+$allowed_roles = ['admin', 'events'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    http_response_code(403);
+    die("Acceso no autorizado");
+}
+
 include("../assets/db.php");
 include("upload_image.php");
 
@@ -21,7 +28,8 @@ $sql = "INSERT INTO events (
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
-if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
+if (!$stmt)
+    die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
     "ssssssssssssi",
@@ -50,11 +58,13 @@ $eventId = $conn->insert_id;
 
 // 2. Create folders for images (absolute path for PHP)
 $eventFolder = __DIR__ . "/../images/events/event$eventId";
-if (!is_dir($eventFolder)) mkdir($eventFolder, 0755, true);
+if (!is_dir($eventFolder))
+    mkdir($eventFolder, 0755, true);
 
 // Folder for gallery
 $galleryFolder = $eventFolder . "/gallery";
-if (!is_dir($galleryFolder)) mkdir($galleryFolder, 0755, true);
+if (!is_dir($galleryFolder))
+    mkdir($galleryFolder, 0755, true);
 
 // 3. Upload main image
 $mainImage = handleImageUpload('image', $eventFolder);
@@ -66,7 +76,7 @@ $mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']);
 
 // 4. Upload gallery images
 $gallery = handleMultipleImageUpload('images', $galleryFolder);
-$galleryPaths = array_map(function($path) {
+$galleryPaths = array_map(function ($path) {
     return str_replace(__DIR__ . "/../", "", $path);
 }, $gallery['paths']);
 $galleryPathsJson = json_encode($galleryPaths);
