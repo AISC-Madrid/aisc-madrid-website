@@ -18,8 +18,16 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
-// Retrieve events
-$result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
+// Retrieve events with registration count
+$result = $conn->query("
+    SELECT 
+        e.*,
+        COUNT(er.id) AS registration_count
+    FROM events e
+    LEFT JOIN event_registrations er ON e.id = er.event_id
+    GROUP BY e.id
+    ORDER BY e.start_datetime DESC
+");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +50,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Lista de Eventos</h2>
         <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] == 'events'): ?>
-        <a href="events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
+        <a href="/events/create_event.php" class="btn btn-primary">+ Crear Nuevo Evento</a>
         <?php endif; ?>
     </div>
 
@@ -55,6 +63,7 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 <th>Ponente</th>
                 <th>Fecha Inicio - Fin</th>
                 <th>Ubicación</th>
+                <th>Registrados</th>
                 <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'events'): ?>
                 <th>Acciones</th>
                 <?php endif; ?>
@@ -82,16 +91,24 @@ $result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                             <?= date("d/m/Y H:i", strtotime($row['end_datetime'])) ?>
                         </td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
+                        <td class="text-center">
+                            <a href="/events/view_event_registrations.php?event_id=<?= $row['id'] ?>" class="badge bg-primary text-decoration-none" title="Ver registros">
+                                <?= (int)$row['registration_count'] ?>
+                            </a>
+                            <?php if ($row['requires_registration']): ?>
+                                <small class="d-block text-muted">Requiere registro</small>
+                            <?php endif; ?>
+                        </td>
                         <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'events'): ?>
                         <td>
-                            <a class="btn btn-sm btn-success mb-1" href="events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
-                            <a class="btn btn-sm btn-danger mb-1" href="events/events_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
+                            <a class="btn btn-sm btn-success mb-1" href="/events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
+                            <a class="btn btn-sm btn-danger mb-1" href="/events/events_list.php?delete=<?= $row['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                         </td>
                         <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="6" class="text-center">No se encontraron eventos.</td></tr>
+                <tr><td colspan="7" class="text-center">No se encontraron eventos.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>

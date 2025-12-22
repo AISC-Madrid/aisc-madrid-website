@@ -1,0 +1,21 @@
+<?php
+/**
+ * Configuration file for AISC Madrid Website
+ * 
+ * Copy this file to config.php and fill in your actual values
+ * config.php is already in .gitignore and will not be committed
+ */
+
+return [
+    // Database configuration
+    'db_name' => 'your_database_name',
+    'db_user' => 'your_database_user',
+    'db_pass' => 'your_database_password',
+    
+    // SMTP configuration for PHPMailer
+    'smtp_user' => 'your_smtp_username',
+    'smtp_pass' => 'your_smtp_password',
+];
+
+
+

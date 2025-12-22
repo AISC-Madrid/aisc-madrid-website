@@ -2,3 +2,16 @@ config.php
 composer.json
 composer.lock
 /vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Dev Files
+start-server.bat
+start-server.sh
+database.sql
