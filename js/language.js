@@ -5,9 +5,6 @@ function decodeHtml(html) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const languageOptions = document.querySelectorAll('.language-option');
-    const languageBtn = document.getElementById('languageDropdown');
-
     const changeLanguage = (lang) => {
         if (languageBtn) languageBtn.textContent = lang.toUpperCase();
         document.querySelectorAll('[data-en]').forEach(el => {
@@ -24,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const savedLang = localStorage.getItem('lang') || 'es';
-    changeLanguage(savedLang);
+    // Default to 'es' if no language is saved
+    if (!localStorage.getItem('lang')) {
+        localStorage.setItem('lang', 'es');
+    }
+    changeLanguage(localStorage.getItem('lang'));
 });

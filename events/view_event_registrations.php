@@ -36,10 +36,10 @@ $registrations_stmt = $conn->prepare("
         er.name,
         er.email,
         er.attendance_status,
-        er.registered_at
+        er.registration_date
     FROM event_registrations er
     WHERE er.event_id = ?
-    ORDER BY er.registered_at DESC
+    ORDER BY er.registration_date DESC
 ");
 $registrations_stmt->bind_param("i", $event_id);
 $registrations_stmt->execute();
@@ -122,7 +122,7 @@ $count_stmt->close();
                                                 <span class="badge bg-secondary">No confirmado</span>
                                             <?php endif; ?>
                                         </td>
-                                        <td><?= date("d/m/Y H:i", strtotime($reg['registered_at'])) ?></td>
+                                        <td><?= date("d/m/Y H:i", strtotime($reg['registration_date'])) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
