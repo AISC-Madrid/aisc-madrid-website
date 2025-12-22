@@ -24,6 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) changeLanguage(savedLang);
+    const savedLang = localStorage.getItem('lang') || 'es';
+    changeLanguage(savedLang);
 });

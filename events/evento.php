@@ -15,7 +15,7 @@ $event_id = (int) $_GET['id'];
 // Prepare SQL
 $stmt = $conn->prepare("SELECT * FROM events WHERE id = ?");
 if (!$stmt) {
-    die("❌ Prepare failed: " . $mysqli->error);
+    die("❌ Prepare failed: " . $conn->error);
 }
 $stmt->bind_param("i", $event_id);
 $stmt->execute();
