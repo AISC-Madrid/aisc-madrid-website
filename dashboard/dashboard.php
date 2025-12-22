@@ -24,6 +24,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
     // ---------- EVENTS ----------
     $upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE start_datetime > NOW()")->fetch_assoc()['total'];
+    $totalEventRegistrations = $conn->query("SELECT COUNT(*) AS total FROM event_registrations")->fetch_assoc()['total'];
 
     // ---------- PROJECTS ----------
     //$upcomingProjectsCount = $conn->query("SELECT COUNT(*) AS total FROM projects WHERE start_date > NOW()")->fetch_assoc()['total'];
@@ -73,6 +74,7 @@ if($_SESSION['role'] === 'admin'){
               <h5 class="card-title text-muted">Eventos Programados</h5>
               <h2 class="fw-bold"><?= $upcomingEventsCount ?></h2>
               <p class="text-info mb-0"><i class="bi bi-calendar-week"></i> Próximos meses</p>
+              <p class="text-muted mt-2 mb-0"><small>Total registros: <?= $totalEventRegistrations ?></small></p>
             </div>
           </div>
         </div>
