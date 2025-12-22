@@ -1,6 +1,12 @@
 <?php
 // login.php
 session_start();
+
+// If already logged in, redirect
+if (isset($_SESSION['activated']) && in_array($_SESSION['role'] ?? '', ['admin', 'events', 'viewer'])) {
+    header("Location: ../dashboard/dashboard.php");
+    exit();
+}
 include('../assets/db.php'); // Your $conn mysqli connection
 include("../assets/head.php");
 

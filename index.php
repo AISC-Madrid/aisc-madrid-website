@@ -10,19 +10,43 @@ include("assets/db.php");
 $now = date("Y-m-d H:i:s");
 
 // Retrieve all events ordered by start_datetime
-$result = $conn->query("SELECT * FROM events ORDER BY start_datetime ASC");
+$result = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 
 // Separate future and past events
 $future_events = [];
 $past_events = [];
 
 while ($row = $result->fetch_assoc()) {
-    if ($row['end_datetime'] >= $now) {
-        $future_events[] = $row;
+    // Note: Use time() for comparison
+    if (strtotime($row['end_datetime']) >= time()) {
+        $future_events[] = $row; 
     } else {
-        $past_events[] = $row;
+        $past_events[] = $row; 
     }
 }
+
+// To display only 6 events (all future and rest past)
+$limit = 6;
+$events_to_display = [];
+
+// First event to apear should be the soonest upcoming one
+$future_events = array_reverse($future_events);
+
+// Take up to 6 of the newest future events.
+$events_to_display = array_slice($future_events, 0, $limit);
+
+// Calculate how many slots are left.
+$needed_from_past = $limit - count($events_to_display);
+
+// If slots remain, fill them with the most recent past events.
+if ($needed_from_past > 0) {
+    // Take the required number of the newest past events (already sorted DESC).
+    $past_to_add = array_slice($past_events, 0, $needed_from_past);
+
+    // Merge the past events onto the end of the future events array.
+    $events_to_display = array_merge($events_to_display, $past_to_add);
+}
+
 ?>
 
 <?php
@@ -170,71 +194,46 @@ include("assets/head.php");
     </h2>
     <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
-    <div class="event-btn-container mb-4 text-center">
-        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="future" data-en="Future Events" data-es="Eventos Futuros">Eventos Futuros</button>
-        <button class="btn btn-primary event-btn fw-semibold event-filter-btn" data-filter="past" data-en="Past Events" data-es="Eventos Pasados">Eventos Pasados</button>
-    </div>
-
     <div class="row g-4" style="width:100%;">
-        <?php foreach ($future_events as $event): ?>
-            <div class="col-md-6 col-lg-4 event-future">
-                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
-                                    <?= htmlspecialchars($event['title_es']) ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
-
-        <?php
-        // Limit to 6 past events. Get them by most recent first
-        if(count($past_events) > 6){
-            $past_events = array_reverse(array_slice($past_events, 0, 6));
-        }
-        //Show 6 first events
-        foreach ($past_events as $event): ?>
-            <div class="col-md-6 col-lg-4 event-past">
-                <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
-                    <div class="card h-100 w-100 shadow-sm">
-                        <div class="card-body p-0 position-relative">
-                            <div class="img-container">
-                                <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
-                            </div>
-                            <div class="p-3 pb-5">
-                                <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
-                                    <?= htmlspecialchars($event['title_es']) ?>
-                                </h5>
-                                <p class="card-text">
-                                    <i class="fas fa-calendar me-2"></i>
-                                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                                    <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
-                                </p>
-                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
-                            </div>
-                            <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
+      <?php 
+      // Loop through the final list of up to 6 events (future prioritized, newest first)
+      foreach ($events_to_display as $event): 
+          
+          // Determine the appropriate CSS class for styling/scripting
+          // Uses the same logic you used to separate them initially
+          $is_future = strtotime($event['end_datetime']) >= time();
+          $event_class = $is_future ? 'event-future' : 'event-past';
+      ?>
+          <div class="col-md-6 col-lg-4 <?= $event_class ?>">
+              <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
+                  <div class="card h-100 w-100 shadow-sm">
+                      <div class="card-body p-0 position-relative">
+                          <div class="img-container">
+                              <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
+                          </div>
+                          <?php if ($is_future): ?>
+                              <span class="badge rounded-pill position-absolute m-2 upcoming-badge" 
+                                    data-en="Upcoming" data-es="Próximo">Próximamente</span>
+                          <?php endif; ?>
+                          <div class="p-3 pb-5">
+                              <h5 class="card-title mt-3 fw-bold" data-en="<?= htmlspecialchars($event['title_en']) ?>" data-es="<?= htmlspecialchars($event['title_es']) ?>">
+                                  <?= htmlspecialchars($event['title_es']) ?>
+                              </h5>
+                              <p class="card-text">
+                                  <i class="fas fa-calendar me-2"></i>
+                                  <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
+                                  <?= date("H:i", strtotime($event['start_datetime'])) ?> - <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                              </p>
+                              <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span></p>
+                          </div>
+                          <div class="card-more-badge" data-en="More information" data-es="Saber más">Saber más</div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+      <?php endforeach; ?>
     </div>
-        <a class="btn btn-custom w-100 w-lg-auto mt-4" href="events.php" role="button" data-en="View all events" data-es="Ver todos los eventos">
+    <a class="btn btn-custom w-100 w-lg-auto mt-4" href="events.php" role="button" data-en="View all events" data-es="Ver todos los eventos">
       Ver todos los eventos
     </a>
   </div>
@@ -307,7 +306,7 @@ include("assets/head.php");
   </div>
 </section>
 
- <section class="container-fluid mb-5 scroll-margin" id="newsletter">
+<section class="container-fluid mb-5 scroll-margin" id="newsletter">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class=" border-0 form-card no-hover">

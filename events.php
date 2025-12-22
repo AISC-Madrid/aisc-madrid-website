@@ -33,12 +33,11 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
     <!-- Filter Buttons Row -->
 <div class="row mb-3">
   <div class="col-12 d-flex justify-content-end align-items-center gap-2">
-    <button id="order-btn" class="active" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
-    
+    <button class="filter-button active" id="order-btn" data-filter="order" data-order="desc" aria-pressed="false" aria-label="orden" title="Ordenar"></button>
     <div class="filters d-flex gap-2">
-      <button class="active" data-filter="all" data-en="All" data-es="Todos">Todos</button>
-      <button data-filter="event" data-en="Events" data-es="Eventos">Eventos</button>
-      <button data-filter="workshop" data-en="Workshops" data-es="Talleres">Talleres</button>
+      <button class="filter-button active" data-filter="all" data-en="All" data-es="Todos">Todos</button>
+      <button class="filter-button" data-filter="event" data-en="Events" data-es="Eventos">Eventos</button>
+      <button class="filter-button" data-filter="workshop" data-en="Workshops" data-es="Talleres">Talleres</button>
     </div>
   </div>
 </div>
@@ -50,8 +49,10 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
     <?php
       $type = strtolower(trim(htmlspecialchars($event['type_en'])));
       $timeFlag = strtotime($event['end_datetime']);
+      $is_future = strtotime($event['end_datetime']) >= time();
+      $event_class = $is_future ? 'event-future' : 'event-past';
     ?>
-    <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date = "<?= $timeFlag ?>">
+    <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date = "<?= $timeFlag ?>" <?= $event_class ?>>
       <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
         <div class="card h-100 shadow-sm">
           <div class="card-body p-0 position-relative">
@@ -63,6 +64,10 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
                 style="object-fit: cover;"
               >
             </div>
+            <?php if ($is_future): ?>
+                <span class="badge rounded-pill position-absolute m-2 upcoming-badge" 
+                      data-en="Upcoming" data-es="Próximo">Próximamente</span>
+            <?php endif; ?>
 
             <div class="p-3 pb-5">
               <h5 class="card-title mt-3 fw-bold"
@@ -111,48 +116,3 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<style>
-#order-btn{
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  color: white;
-  
-
-  }
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  color: red;
-}
-
-button {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  background-color: #ffffffff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button.active {
-  background-color: #EB178E;
-  color: white;
-}
-
-.item {
-  padding: 10px;
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.hidden {
-  display: none;
-}
-</style>
-
-
-

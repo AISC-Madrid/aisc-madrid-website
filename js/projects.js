@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () { 
     'use strict';
 
-    
     // ------------------------------------------
-    // 1. BOOTSTRAP FORM VALIDATION (Keep as is)
+    // 1. BOOTSTRAP FORM VALIDATION (Se mantiene)
     // ------------------------------------------
     const forms = document.querySelectorAll('.needs-validation');
     Array.from(forms).forEach(form => {
@@ -17,57 +16,97 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ------------------------------------------
-    // 2. PROJECT FILTERING (Refactored)
+    // INICIALIZACIÓN DE ELEMENTOS GLOBALES
+    // ------------------------------------------
+    const container = document.querySelector('.project-group.row.g-4');
+    const projectCards = document.querySelectorAll('.project-card');
+    const orderBtn = document.querySelector('#order-btn');
+
+    // Salir si no hay proyectos o contenedor (lo cual es crítico para los filtros)
+    if (!container || projectCards.length === 0) return;
+    
+    
+    // ------------------------------------------
+    // 2. PROJECT ORDERING BUTTON (Botón de Ordenación)
     // ------------------------------------------
 
-    const filterButtons = document.querySelectorAll('.project-filter-btn');
-    
-    // Map status keys (from data-filter) to their corresponding DOM elements
-    // NOTE: This targets the individual project items (e.g., the <div> containing the card)
-    const projectsMap = {
-        'wish': document.querySelectorAll('.project-wish'),
-        'current': document.querySelectorAll('.project-current'),
-        'finished': document.querySelectorAll('.project-finished'),
-        'paused': document.querySelectorAll('.project-paused'),
-    };
-    
-    // Helper function to hide/show groups and set active button
-    const applyFilter = (filterKey) => {
-        let activeIndex = -1;
+    // Función para ordenar las tarjetas
+    function sortCards(order) {
+        const cards = Array.from(container.querySelectorAll('.project-card'));
+        cards.sort((a, b) => {
+            const da = parseInt(a.getAttribute('date')) || 0;
+            const db = parseInt(b.getAttribute('date')) || 0;
+            return order === 'desc' ? db - da : da - db;
+        });
+        cards.forEach(c => container.appendChild(c));
+    }
 
-        // Loop through all project groups
-        Object.keys(projectsMap).forEach((key, index) => {
-            const displayStyle = (key === filterKey) ? 'block' : 'none';
-            projectsMap[key].forEach(element => {
-                element.style.display = displayStyle;
+    // Función para actualizar el ícono del botón
+    function updateOrderButton(order) {
+        if (order === 'desc') {
+            orderBtn.innerHTML = '<i class="bi bi-sort-down"></i>';
+            orderBtn.title = 'Orden descendente';
+        } else {
+            orderBtn.innerHTML = '<i class="bi bi-sort-up"></i>';
+            orderBtn.title = 'Orden ascendente';
+        }
+    }
+
+    // Inicialización
+    let currentOrder = orderBtn.getAttribute('data-order') || 'desc';
+    updateOrderButton(currentOrder);
+    sortCards(currentOrder);
+
+    // Evento de click para ordenar
+    orderBtn.addEventListener('click', function() {
+        currentOrder = currentOrder === 'desc' ? 'asc' : 'desc';
+        orderBtn.setAttribute('data-order', currentOrder);
+        updateOrderButton(currentOrder);
+        sortCards(currentOrder);
+    });
+
+
+    // ------------------------------------------
+    // 3. PROJECT CATEGORY FILTERING (Filtro por Categoría con Dropdown)
+    // ------------------------------------------
+
+    const filterButtons = document.querySelectorAll('.filter-btn-cat');
+    const categoryFilterDropdownBtn = document.querySelector('#categoryFilterDropdown');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            
+            e.preventDefault(); 
+            
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            const categoryToFilter = this.getAttribute('data-filter');
+            const selectedText = this.textContent.trim();
+            
+            categoryFilterDropdownBtn.textContent = selectedText;
+
+            projectCards.forEach(card => {
+                const cardClasses = card.classList;
+                const requiredClass = 'cat-' + categoryToFilter;
+                
+                // Check if the card should be visible
+                const isMatch = (categoryToFilter === 'all' || cardClasses.contains(requiredClass));
+
+                if (isMatch) {
+                    // Si debe mostrarse:
+                    card.classList.remove('hidden');
+                    card.style.display = 'flex'; 
+                } else {
+                    // Si debe ocultarse:
+                    card.classList.add('hidden');
+                    card.style.display = 'none';
+                }
             });
             
-            // Identify the index of the current filter button for styling
-            if (key === filterKey) {
-                // Find the index of the button corresponding to the filterKey
-                filterButtons.forEach((btn, idx) => {
-                    if (btn.dataset.filter === filterKey) {
-                        activeIndex = idx;
-                    }
-                });
-            }
-        });
-        
-        // Update active button styling
-        filterButtons.forEach(b => b.classList.remove('active'));
-        if (activeIndex !== -1) {
-            filterButtons[activeIndex].classList.add('active');
-        }
-    };
-    
-    // Initialize: Show 'current' projects by default
-    applyFilter('current'); 
-    
-    // Attach single event listener to all buttons
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filterKey = btn.dataset.filter; // Get the 'data-filter' attribute value (e.g., 'wish', 'current')
-            applyFilter(filterKey);
+            // Mantenemos la ordenación
+            sortCards(currentOrder); 
         });
     });
+
 });

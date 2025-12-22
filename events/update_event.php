@@ -19,10 +19,11 @@ $currentMainImage = $current['image_path'];
 $currentGallery = $current['gallery_paths'];
 
 // 1. Handle main image upload (optional)
+
+$eventFolder = __DIR__ . "/../images/events/event$event_id";
 $mainImagePath = $currentMainImage;
 if (!empty($_FILES['image']['name'])) {
     // Delete old main image folder
-    $eventFolder = __DIR__ . "/../images/events/event$event_id";
     if (is_dir($eventFolder)) {
         $files = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
@@ -78,6 +79,7 @@ if (!$stmt) {
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
+
 
 $stmt->bind_param(
     "ssssssssssssssii",
