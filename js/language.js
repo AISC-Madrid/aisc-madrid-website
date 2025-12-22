@@ -5,6 +5,9 @@ function decodeHtml(html) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const languageOptions = document.querySelectorAll('.language-option');
+    const languageBtn = document.getElementById('languageDropdown');
+
     const changeLanguage = (lang) => {
         if (languageBtn) languageBtn.textContent = lang.toUpperCase();
         document.querySelectorAll('[data-en]').forEach(el => {
