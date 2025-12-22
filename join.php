@@ -27,11 +27,11 @@
     </div>
 
     <div class="row mb-5 justify-content-center">
-      <div class="col-md-4 mb-4">
+      <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
-              <i class="bi bi-graph-up-arrow"></i>
+              <i class="bi bi-mortarboard"></i>
             </div>
             <h5 class="mb-0" data-en="Events and workshops" data-es="Eventos y talleres">Eventos y talleres</h5>
           </div>
@@ -51,7 +51,7 @@
             </ul>"></p>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-blue me-3">
@@ -75,7 +75,30 @@
           </p>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-3 mb-4">
+        <div class="role-card h-100">
+          <div class="d-flex align-items-center mb-3">
+            <div class="role-icon-pink me-3">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h5 class="mb-0" data-en="Logistics and finance" data-es="Gestión y finanzas">Gestión y finanzas</h5>
+          </div>
+          <p class="text-muted small mb-0" data-en="Supports the internal operations of AISC by managing new memberships and the association's funding. You will also help establish AISC's presence on the Getafe campus and connect the association with more business-oriented profiles within UC3M.
+            <br><br><i>Highly valued</i>:
+            <br><ul>    
+            <li>Proactivity and initiative</li>
+            <li>Basic administrative knowledge</li>
+            <li>Interest in the business world and its connection to AI</li>
+            </ul>" data-es="Apoya el funcionamiento interno de AISC gestionando nuevas incorporaciones y la financiación de la asociación. También ayudarás a dar presencia a AISC en el campus de Getafe y a conectar la asociación con perfiles más empresariales dentro la UC3M.
+            <br><br><i>Se valora positivamente</i>:
+            <br><ul>
+            <li>Proactividad e iniciativa</li>
+            <li>Conocimientos básicos administrativos</li>
+            <li>Interés por el mundo empresarial y su conexión con la IA</li>
+            </ul>"></p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
@@ -220,6 +243,10 @@
                     <option value="events" <?php echo ($position === 'events') ? 'selected' : ''; ?>
                       data-en="Marketing Digital" data-es="Marketing Digital">
                       Marketing Digital
+                    </option>
+                    <option value="finance" <?php echo ($position === 'finance') ? 'selected' : ''; ?>
+                      data-en="Logistics and finance" data-es="Gestión y finanzas">
+                      Gestión y finanzas
                     </option>
                     <option value="tech" <?php echo ($position === 'tech') ? 'selected' : ''; ?> data-en="Web development"
                       data-es="Desarrollo web">

@@ -1,12 +1,7 @@
 <?php
 session_start();
 include_once '../assets/head.php';
-if($_SESSION['role'] === 'admin'){
-  include_once 'dashboard_nav.php';
-}else{
-    include_once 'dashboard_nav_noadmin.php';
-}
-$allowed_roles = ['admin', 'events', 'viewer'];
+$allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: /");
     exit();
@@ -15,14 +10,16 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 <div class="container mt-4 scroll-margin">
     <h2 class="text-center text-dark">Escanear asistencia</h2>
-    <p class="text-center text-dark">Utiliza la cámara de tu dispositivo para escanear códigos QR y registrar la asistencia.</p>
+    <p class="text-center text-dark">Utiliza la cámara de tu dispositivo para escanear códigos QR y registrar la
+        asistencia.</p>
 
-    <div id="qr-reader" style="width: 500px"></div>
+    <div id="qr-reader" style="width: 500px; margin: 0 auto;"></div>
     <div id="qr-reader-results"></div>
 </div>
 
 <?php
 include_once '../assets/footer.php';
+include("../assets/nav_dashboard.php");
 ?>
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
@@ -49,7 +46,7 @@ include_once '../assets/footer.php';
         // Stop the scanner after a successful scan
         html5QrcodeScanner.clear();
         // Optionally, you can restart the scanner after a delay
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById('qr-reader-results').innerHTML = '';
             html5QrcodeScanner.render(onScanSuccess, onScanError);
         }, 2000); // Restart after 2 seconds
