@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Check if the user is logged in
-$allowed_roles = ['admin', 'events', 'viewer'];
+$allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: /");
     exit();
@@ -9,9 +9,10 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 include("../assets/head.php");
 include("../assets/db.php");
+include("../assets/nav_dashboard.php");
 
 // Get event ID
-$event_id = isset($_GET['event_id']) ? (int)$_GET['event_id'] : 0;
+$event_id = isset($_GET['event_id']) ? (int) $_GET['event_id'] : 0;
 
 if ($event_id <= 0) {
     die("Invalid event ID");
@@ -60,27 +61,21 @@ $count_stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Registros del Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <!-- Navbar -->
-    <?php
-    if($_SESSION['role'] === 'admin'){
-        include("../dashboard/dashboard_nav.php"); 
-    }else{
-        include("../dashboard/dashboard_nav_noadmin.php");
-    }
-    ?>
 
+<body class="bg-light">
     <div class="container my-5 scroll-margin">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="m-0">Registros del Evento</h2>
                 <p class="text-muted mb-0">
-                    <strong data-es="<?= htmlspecialchars($event['title_es']) ?>" data-en="<?= htmlspecialchars($event['title_en']) ?>">
+                    <strong data-es="<?= htmlspecialchars($event['title_es']) ?>"
+                        data-en="<?= htmlspecialchars($event['title_en']) ?>">
                         <?= htmlspecialchars($event['title_es']) ?>
                     </strong>
                 </p>
@@ -138,9 +133,9 @@ $count_stmt->close();
     <?php include('../assets/footer.php'); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <?php
 $conn->close();
 ?>
-
