@@ -2,6 +2,13 @@
 // Archivo: hash_password_web.php
 // Versión minimalista: escribe la contraseña y muestra su hash.
 
+// Check if the user is logged in
+$allowed_roles = ['admin'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
+    exit();
+}
+
 $original = '';
 $hash = '';
 $error = '';
@@ -18,21 +25,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generador de Hash</title>
     <style>
-        body { font-family: sans-serif; background: #f8f8f8; color: #222; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .container { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 6px; width: 340px; text-align: center; }
-        img { height: 40px; margin-bottom: 10px; }
-        input[type="text"] { width: 100%; padding: 8px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { margin-top: 10px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; background: #eee; cursor: pointer; }
-        .result { margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; font-family: monospace; word-break: break-all; text-align: left; }
-        .error { color: #b00; margin-top: 8px; font-size: 0.9em; }
-        .note { font-size: 0.8em; color: #555; margin-top: 10px; }
+        body {
+            font-family: sans-serif;
+            background: #f8f8f8;
+            color: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 340px;
+            text-align: center;
+        }
+
+        img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+            font-family: monospace;
+            word-break: break-all;
+            text-align: left;
+        }
+
+        .error {
+            color: #b00;
+            margin-top: 8px;
+            font-size: 0.9em;
+        }
+
+        .note {
+            font-size: 0.8em;
+            color: #555;
+            margin-top: 10px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
@@ -55,4 +120,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
     </div>
 </body>
+
 </html>

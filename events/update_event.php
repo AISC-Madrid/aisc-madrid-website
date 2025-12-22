@@ -1,4 +1,11 @@
 <?php
+session_start();
+$allowed_roles = ['admin', 'events'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    http_response_code(403);
+    die("Acceso no autorizado");
+}
+
 include("../assets/db.php");
 include("upload_image.php");
 
@@ -7,7 +14,7 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
     die("<p style='color:red;'>❌ Error: ID del evento no proporcionado.</p>");
 }
 
-$event_id = (int)$_POST['id'];
+$event_id = (int) $_POST['id'];
 
 // Get current image paths from DB in case no new images are uploaded
 $result = $conn->query("SELECT image_path, gallery_paths FROM events WHERE id = $event_id");
@@ -50,7 +57,7 @@ if (!empty($_FILES['image']['name'])) {
 $galleryPathsJson = $currentGallery; // default: keep existing
 if (!empty($_FILES['images']['name'][0])) {
     $gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
-    $galleryPaths = array_map(function($path) {
+    $galleryPaths = array_map(function ($path) {
         return str_replace(__DIR__ . "/../", "", $path);
     }, $gallery['paths']);
     $galleryPathsJson = json_encode($galleryPaths);

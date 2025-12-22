@@ -7,6 +7,7 @@ session_start();
 
 $config = include('../config.php');
 require_once '../assets/db.php';
+include("../assets/nav_dashboard.php");
 
 $recipients = [];
 $message = '';
@@ -14,8 +15,9 @@ $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
 
 // Check if the user is logged in
-if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: events/login.php");
+$allowed_roles = ['admin', 'web'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
     exit();
 }
 
@@ -291,8 +293,6 @@ $conn->close();
 <?php include("../assets/head.php"); ?>
 
 <body>
-    <?php include("dashboard_nav.php"); ?>
-
     <main style="flex: 1;" class="scroll-margin">
         <div class="container mt-5">
             <div class="row justify-content-center">

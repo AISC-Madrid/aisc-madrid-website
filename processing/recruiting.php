@@ -123,7 +123,8 @@ try {
     $positionLabels = [
         'marketing' => 'Eventos y talleres',
         'events' => 'Marketing Digital',
-        'tech' => 'Desarrollo Web'
+        'tech' => 'Desarrollo Web',
+        'finance' => 'Gestión y finanzas'
     ];
     $positionDisplay = $positionLabels[$position] ?? $position;
 
