@@ -5,6 +5,13 @@ use PHPMailer\PHPMailer\Exception;
 
 session_start();
 
+// Check if the user is logged in. First thing to do before doing any other loading
+$allowed_roles = ['admin', 'web'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    header("Location: /");
+    exit();
+}
+
 $config = include('../config.php');
 require_once '../assets/db.php';
 include("../assets/nav_dashboard.php");
@@ -13,13 +20,6 @@ $recipients = [];
 $message = '';
 $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
-
-// Check if the user is logged in
-$allowed_roles = ['admin', 'web'];
-if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
-    header("Location: /");
-    exit();
-}
 
 echo '<script>
     document.addEventListener("DOMContentLoaded", function() {
