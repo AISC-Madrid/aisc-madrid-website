@@ -3,16 +3,16 @@
 <?php
 session_start(); // Start the session
 
-// Check if the user is logged in
+// Check if the user is logged in. First thing to do before doing any other loading
 $allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
   header("Location: /");
   exit();
 }
+
 include("../assets/head.php");
 include("../assets/db.php");
 include("../assets/nav_dashboard.php");
-// Check if the user is logged in
 
 // ---------- USERS ----------
 $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM form_submissions")->fetch_assoc()['total'];

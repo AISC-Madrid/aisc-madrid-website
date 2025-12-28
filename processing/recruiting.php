@@ -291,6 +291,9 @@ try {
         }
     }
 
+    //Temporal: add Juanjo and Álvaro until theh have board positions
+    $mail->addCC('juanjose.rosales@alumnos.uc3m.es', 'Juanjo');
+    $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro');
     $mail->Subject = 'Nueva solicitud Recruiting 2026: ' . $name;
 
     $positionLabels = [
@@ -343,10 +346,6 @@ try {
                 <h4 style='margin: 0 0 10px 0; color: #20CCF1;'>Motivación:</h4>
                 <p style='margin: 0; white-space: pre-wrap;'>" . htmlspecialchars($reason) . "</p>
             </div>
-            
-            <p style='margin-top: 30px; font-size: 12px; color: #888;'>
-                Este correo se ha generado automáticamente desde el formulario de recruiting de aiscmadrid.com
-            </p>
         </div>
     </body>
     </html>";
