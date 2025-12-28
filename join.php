@@ -9,7 +9,6 @@
   <div id="loadingOverlay" class="loading-overlay">
     <div class="logo-spinner-container">
       <div class="logo-spinner-ring"></div>
-      <img src="/images/logos/PNG/AISC Logo Color.png" alt="AISC Logo" class="loader-logo">
     </div>
     <div class="loading-text" data-es="Enviando solicitud..." data-en="Sending application...">Enviando solicitud...
     </div>
@@ -296,11 +295,9 @@
 
   <?php include('assets/footer.php'); ?>
 
-  <script src="js/language.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/char_counter.js"></script>
   <script src="js/loading.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
