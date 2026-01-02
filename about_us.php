@@ -16,8 +16,8 @@
 
     <section class="story-block">
       <div class="story-content">
-        <h3 data-es="AI Students Collective" data-en="AI Students Collective">
-          AI Students Collective
+        <h3 data-es="AI Student Collective" data-en="AI Student Collective">
+          AI Student Collective
         </h3>
         <p data-es="AISC Madrid nace como la <strong>primera asociación de IA</strong> en la EPS de la Universidad Carlos III y la primera rama europea de la asociación AISC, inicialmente fundada en <a href='https://www.instagram.com/aiscdavis/' target='_blank'>University of California Davis</a> y actualmente con ramas en <a href='https://www.instagram.com/aiscuw/' target='_blank'>University of Washington</a> y <a href='https://www.instagram.com/aisc_riv/' target='_blank'>University of California Riverside</a>."
           data-en="AISC Madrid was founded as the <strong>first AI association</strong> at the School of Engineering of Universidad Carlos III, and the first European branch of AISC. The association was originally established at <a href='https://www.instagram.com/aiscdavis/' target='_blank'>University of California Davis</a>, and now also has branches at <a href='https://www.instagram.com/aiscuw/' target='_blank'>University of Washington</a> and <a href='https://www.instagram.com/aisc_riv/' target='_blank'>University of California Riverside</a>.">
