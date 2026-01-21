@@ -55,7 +55,7 @@
 
         <!-- Log In Button -->
         <li class="nav-item">
-          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/events/login.php" target="_blank"
+          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/login.php" target="_blank"
             rel="noopener noreferrer" data-en="Log In" data-es="Inicia Sesión" role="button"
             title="Inicia sesión o regístrate">Inicia Sesión</a>
         </li>
