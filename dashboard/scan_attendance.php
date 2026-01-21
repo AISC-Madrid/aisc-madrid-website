@@ -1,10 +1,28 @@
 <?php
 session_start();
-include_once '../assets/head.php';
-$allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing'];
-if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
-    header("Location: /");
+// Allow any authenticated user
+if (!isset($_SESSION['activated'])) {
+    header("Location: /login.php");
     exit();
+}
+include_once '../assets/db.php';
+include_once '../assets/head.php';
+
+
+// If guest, get their allowed events for client-side validation
+$allowedEvents = [];
+$isGuest = ($_SESSION['role'] === 'guest');
+
+if ($isGuest) {
+    $guest_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT event_id FROM event_guest_access WHERE guest_id = ?");
+    $stmt->bind_param("i", $guest_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $allowedEvents[] = $row['event_id'];
+    }
+    $stmt->close();
 }
 ?>
 
@@ -13,8 +31,14 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
     <p class="text-center text-dark">Utiliza la cámara de tu dispositivo para escanear códigos QR y registrar la
         asistencia.</p>
 
-    <div id="qr-reader" style="width: 500px; margin: 0 auto;"></div>
-    <div id="qr-reader-results"></div>
+    <?php if ($isGuest && empty($allowedEvents)): ?>
+        <div class="alert alert-warning text-center">
+            No tienes eventos asignados para escanear. Contacta con el administrador.
+        </div>
+    <?php else: ?>
+        <div id="qr-reader" style="width: 100%; max-width: 500px; margin: 0 auto;"></div>
+        <div id="qr-reader-results" class="mt-3 text-center"></div>
+    <?php endif; ?>
 </div>
 
 <?php
