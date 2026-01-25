@@ -1,4 +1,11 @@
 <?php
+session_start();
+$allowed_roles = ['admin', 'finance'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    http_response_code(403);
+    die("Acceso no autorizado");
+}
+
 include(__DIR__ . "/../../assets/db.php");
 // Prepare SQL
 $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);

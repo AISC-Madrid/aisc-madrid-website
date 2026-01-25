@@ -5,29 +5,22 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-include("../assets/db.php");
 
-// Check if the user is logged in
+// Check if the user is logged in. First thing to do before doing any other loading
 $allowed_roles = ['admin', 'events', 'viewer'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: /");
     exit();
 }
+include("../assets/db.php");
+include("../assets/nav_dashboard.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <?php include("../assets/head.php"); ?>
 
 <body>
-    <!-- Navbar -->
-    <?php
-        if($_SESSION['role'] === 'admin'){
-    include("dashboard_nav.php"); 
-    }else{
-    include("dashboard_nav_noadmin.php");
-    }
-    ?>
-
     <div class="container-fluid" style="margin-top:90px;">
         <div class="row">
 

@@ -1,4 +1,11 @@
 <?php
+session_start();
+$allowed_roles = ['admin', 'events'];
+if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    http_response_code(403);
+    die("Acceso no autorizado");
+}
+
 include("../assets/db.php");
 include("upload_image.php");
 
@@ -9,13 +16,13 @@ $open_registration = isset($_POST['open_registration']) ? 1 : 0;
 $status = trim($_POST['status'] ?? ''); // name del <select>
 
 
-$submitted_categories = $_POST['categories'] ?? []; 
+$submitted_categories = $_POST['categories'] ?? [];
 $new_category_text = $_POST['new_category'] ?? '';
 
 if (!empty($new_category_text)) {
     // 1. Sanitize and standardize the user input
-    $clean_new_category = trim(strtolower($new_category_text)); 
-    $clean_new_category = preg_replace('/\s+/', '-', $clean_new_category); 
+    $clean_new_category = trim(strtolower($new_category_text));
+    $clean_new_category = preg_replace('/\s+/', '-', $clean_new_category);
 
     // 2. Add the new category to the list
     $submitted_categories[] = $clean_new_category;
@@ -24,7 +31,7 @@ if (!empty($new_category_text)) {
 // 3. Convert the final array to a comma-separated string for the database
 $category_for_db = implode(',', $submitted_categories);
 
-$allowed = ['idea','en curso','finalizado','pausado'];
+$allowed = ['idea', 'en curso', 'finalizado', 'pausado'];
 if (!in_array($status, $allowed, true)) {
     $status = 'idea'; // default seguro
 }
@@ -40,7 +47,8 @@ $sql = "INSERT INTO projects (
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
-if (!$stmt) die("Error al preparar la consulta: " . $conn->error);
+if (!$stmt)
+    die("Error al preparar la consulta: " . $conn->error);
 
 
 $stmt->bind_param(
@@ -68,11 +76,13 @@ $projectId = $conn->insert_id;
 
 // 2. Create folders for images (absolute path for PHP)
 $projectFolder = __DIR__ . "/../images/projects/project$projectId";
-if (!is_dir($projectFolder)) mkdir($projectFolder, 0755, true);
+if (!is_dir($projectFolder))
+    mkdir($projectFolder, 0755, true);
 
 // Folder for gallery
 $galleryFolder = $projectFolder . "/gallery";
-if (!is_dir($galleryFolder)) mkdir($galleryFolder, 0755, true);
+if (!is_dir($galleryFolder))
+    mkdir($galleryFolder, 0755, true);
 
 // 3. Upload main image
 $mainImage = handleImageUpload('image', $projectFolder);
@@ -84,7 +94,7 @@ $mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']);
 
 // 4. Upload gallery images
 $gallery = handleMultipleImageUpload('images', $galleryFolder);
-$galleryPaths = array_map(function($path) {
+$galleryPaths = array_map(function ($path) {
     return str_replace(__DIR__ . "/../", "", $path);
 }, $gallery['paths']);
 $galleryPathsJson = json_encode($galleryPaths);
