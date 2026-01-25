@@ -36,6 +36,7 @@ $sql = "UPDATE members SET
     position_es = ?,
     position_en = ?,
     phone = ?,
+    dni = ?,
     password_hash = ?,
     socials = ?,
     board = ?,
@@ -50,12 +51,13 @@ if (!$stmt) {
 }
 
 $stmt->bind_param(
-    "ssssssssssi",
+    "sssssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
     $_POST['position_en'],
     $_POST['phone'],
+    $_POST['dni'],
     $password_hash,
     $_POST['socials'],
     $_POST['board'],
