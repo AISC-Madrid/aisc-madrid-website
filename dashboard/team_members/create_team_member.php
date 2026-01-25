@@ -12,7 +12,7 @@ include(__DIR__ . "/../../assets/db.php");
 
 // Initialize variables for the form
 $full_name = $mail = $position_es = $position_en = $password = '';
-$phone = $socials = $active = $board = $image_path = '';
+$phone = $dni = $socials = $active = $board = $image_path = '';
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -31,11 +31,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $position_es = $member['position_es'];
         $position_en = $member['position_en'];
         $phone = $member['phone'];
+        $dni = $member['dni'];
         $socials = $member['socials'];
         $board = $member['board'];
         $active = $member['active'];
         $image_path = $member['image_path'];
-
     }
 }
 ?>
@@ -93,11 +93,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     </div>
 
                     <!-- phone -->
-                    <div class="mb-3">
+                    <div class="mb-3 col-6">
                         <label class="form-label">phone</label>
                         <input type="text" name="phone" class="form-control" value="<?= htmlspecialchars($phone) ?>">
                     </div>
-
+                  
+                    <!-- dni -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">DNI</label>
+                        <input type="text" name="dni" class="form-control" value="<?= htmlspecialchars($dni) ?>">
+                    </div>  
+                  
                     <!-- socials -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Redes Sociales</label>
