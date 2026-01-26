@@ -58,6 +58,7 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                 <th>Posición (ES/EN)</th>
                 <th>Mail</th>
                 <th>Tfno.</th>
+                <th>DNI</th>
                 <th>Redes</th>
                 <th>Board</th>
                 <th>Activo</th>
@@ -82,7 +83,9 @@ $result = $conn->query("SELECT * FROM members ORDER BY id ASC");
                         <td>
                             <?= htmlspecialchars($row['phone']) ?><br>
                         </td>
-    
+                        <td>
+                            <?= htmlspecialchars($row['dni'] ?? '') ?><br>
+                        </td>
                         <td>
                             <?= htmlspecialchars($row['socials']) ?><br>
                         </td>

@@ -25,17 +25,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $member = $result->fetch_assoc();
 
     if ($member) {
-        $full_name = $member['full_name'];
-        $mail = $member['mail'];
-        $password = $member['password_hash'];
-        $position_es = $member['position_es'];
-        $position_en = $member['position_en'];
-        $phone = $member['phone'];
-        $dni = $member['dni'];
-        $socials = $member['socials'];
-        $board = $member['board'];
-        $active = $member['active'];
-        $image_path = $member['image_path'];
+        $full_name = $member['full_name'] ?? '';
+        $mail = $member['mail'] ?? '';
+        $password = $member['password_hash'] ?? '';
+        $position_es = $member['position_es'] ?? '';
+        $position_en = $member['position_en'] ?? '';
+        $phone = $member['phone'] ?? '';
+        $dni = $member['dni'] ?? '';
+        $socials = $member['socials'] ?? '';
+        $board = $member['board'] ?? '';
+        $active = $member['active'] ?? '';
+        $image_path = $member['image_path'] ?? '';
     }
 }
 ?>
