@@ -1,21 +1,24 @@
 <?php
 // 4 roles are defined, each with different permissions.
 $permisos = [
-  'admin' => ['resumen', 'usuarios', 'eventos', 'scan', 'email', 'proyectos', 'equipo', 'hashing'],
-  'events' => ['resumen', 'eventos', 'scan', 'proyectos'],
+  'admin' => ['resumen', 'usuarios', 'eventos', 'guests', 'scan', 'email', 'proyectos', 'equipo', 'hashing'],
+  'events' => ['resumen', 'eventos', 'guests', 'scan', 'proyectos'],
   'finance' => ['resumen', 'eventos', 'scan', 'proyectos', 'equipo'],
   'marketing' => ['resumen', 'eventos', 'scan', 'proyectos'],
   'web' => ['resumen', 'eventos', 'scan', 'proyectos'],
+  'guest' => ['scan'],
 ];
 
 $rol_actual = $_SESSION['role'];
 $opciones = $permisos[$rol_actual] ?? [];
 
 // Helper function para verificar permisos
-function isAllowed($opcion)
-{
-  global $opciones;
-  return in_array($opcion, $opciones);
+if (!function_exists('isAllowed')) {
+  function isAllowed($opcion)
+  {
+    global $opciones;
+    return in_array($opcion, $opciones);
+  }
 }
 ?>
 <!-- Dashboard Navbar -->
@@ -24,7 +27,7 @@ function isAllowed($opcion)
   <div class="container-fluid">
 
     <!-- Brand / Logo -->
-    <a class="navbar-brand" href="dashboard/dashboard.php" title="AISC Madrid - Dashboard">
+    <a class="navbar-brand" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_dashboard.php' : '/dashboard/dashboard.php'; ?>" title="AISC Madrid - Dashboard">
       <img src="../images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
       <span class="fw-bold">Dashboard</span>
     </a>
@@ -42,7 +45,7 @@ function isAllowed($opcion)
         <?php if (isAllowed('resumen')): ?>
           <!-- Dashboard link -->
           <li class="nav-item">
-            <a class="nav-link active" href="dashboard/dashboard.php">
+            <a class="nav-link active" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_dashboard.php' : '/dashboard/dashboard.php'; ?>">
               <i class="bi bi-house-door me-1"></i> Resumen
             </a>
           </li>
@@ -69,8 +72,17 @@ function isAllowed($opcion)
         <?php if (isAllowed('scan')): ?>
           <!-- Escanear asistencia de eventos -->
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/scan_attendance.php">
+            <a class="nav-link" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_scan.php' : '/dashboard/scan_attendance.php'; ?>">
               <i class="bi bi-qr-code me-1"></i> Escanear Asistencia
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php if (isAllowed('guests')): ?>
+          <!-- Gestión de Guests -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/guests/guests_list.php">
+              <i class="bi bi-person-badge me-1"></i> Guests
             </a>
           </li>
         <?php endif; ?>
