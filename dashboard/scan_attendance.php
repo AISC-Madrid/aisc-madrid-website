@@ -48,32 +48,57 @@ include("../assets/nav_dashboard.php");
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
-    function onScanSuccess(decodedText, decodedResult) {
+    async function onScanSuccess(decodedText, decodedResult) {
         // Handle on success condition with the decoded text and result.
         console.log(`Code matched = ${decodedText}`, decodedResult);
-        document.getElementById('qr-reader-results').innerHTML += `<h3 class="text-dark">✅ Escaneado correctamente: ${decodedText}</h3>`;
+
+        // Stop the scanner immediately to prevent multiple scans
+        html5QrcodeScanner.clear();
 
         // Actualizar la asistencia del evento en la base de datos
         var parts = decodedText.split(';');
+        
+        if (parts.length < 2) {
+             console.error("Invalid QR format");
+             document.getElementById('qr-reader-results').innerHTML = `<h3 class="text-danger">❌ Formato QR inválido</h3>`;
+             restartScanner();
+             return;
+        }
+
         var email = parts[0];
         var event_id = parts[1];
 
-        fetch('../processing/update_attendance.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: email, event_id: event_id })
-        })
+        try {
+            const response = await fetch('../processing/update_attendance.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, event_id: event_id })
+            });
 
+            const data = await response.json();
 
-        // Stop the scanner after a successful scan
-        html5QrcodeScanner.clear();
-        // Optionally, you can restart the scanner after a delay
+            if (response.ok && data.success) {
+                 document.getElementById('qr-reader-results').innerHTML += `<h3 class="text-success">✅ ${data.message || 'Escaneado correctamente'}</h3>`;
+            } else {
+                 document.getElementById('qr-reader-results').innerHTML += `<h3 class="text-danger">❌ ${data.message || 'Error al registrar asistencia'}</h3>`;
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('qr-reader-results').innerHTML += `<h3 class="text-danger">❌ Error de conexión</h3>`;
+        }
+
+        // Restart the scanner after a delay
+        restartScanner();
+    }
+
+    function restartScanner() {
         setTimeout(function () {
             document.getElementById('qr-reader-results').innerHTML = '';
             html5QrcodeScanner.render(onScanSuccess, onScanError);
-        }, 2000); // Restart after 2 seconds
+        }, 3000); // Restart after 3 seconds to give time to read the message
     }
 
     function onScanError(errorMessage) {
