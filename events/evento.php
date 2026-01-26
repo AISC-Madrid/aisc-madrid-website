@@ -15,7 +15,7 @@ $event_id = (int) $_GET['id'];
 // Prepare SQL
 $stmt = $conn->prepare("SELECT * FROM events WHERE id = ?");
 if (!$stmt) {
-    die("❌ Prepare failed: " . $mysqli->error);
+    die("❌ Prepare failed: " . $conn->error);
 }
 $stmt->bind_param("i", $event_id);
 $stmt->execute();
@@ -283,10 +283,7 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
 
     <?php include('../assets/footer.php'); ?>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/navbar.js"></script>
-    <script src="../js/language.js"></script>
 </body>
 
 </html>

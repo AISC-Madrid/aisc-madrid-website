@@ -1,7 +1,8 @@
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top px-4 py-3 shadow-sm" role="navigation" aria-label="Main navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top px-4 py-3 shadow-sm" role="navigation"
+  aria-label="Main navigation">
   <div class="container-fluid">
-    
+
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
       <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
@@ -19,7 +20,8 @@
 
         <!-- Events Section -->
         <li class="nav-item">
-          <a class="nav-link" href="events.php" data-en="Events" data-es="Eventos" title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
+          <a class="nav-link" href="events.php" data-en="Events" data-es="Eventos"
+            title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
         <!-- Projects Section
@@ -29,22 +31,33 @@
 
         <!-- Team Section -->
         <li class="nav-item">
-          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo" title="Conoce al equipo de AISC Madrid">Equipo</a>
+          <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo"
+            title="Conoce al equipo de AISC Madrid">Equipo</a>
         </li>
-             
+
+        <!-- Projects Section -->
+        <li class="nav-item">
+          <a class="nav-link" href="projects.php" data-en="Projects" data-es="Proyectos"
+            title="Conoce los proyectos de AISC Madrid">Proyectos</a>
+        </li>
+
         <!-- Learn more Section -->
         <li class="nav-item">
-          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid" title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
+          <a class="nav-link" href="about_us.php" data-en="About AISC Madrid" data-es="Sobre AISC Madrid"
+            title="Conoce más de AISC Madrid">Sobre AISC Madrid</a>
         </li>
 
         <!-- Get involved Section -->
         <li class="nav-item">
-          <a class="nav-link" href="join.php" data-en="Join" data-es="Participa" title="Cómo ser parte de AISC Madrid">Participa</a>
+          <a class="nav-link" href="join.php" data-en="Join" data-es="Participa"
+            title="Cómo ser parte de AISC Madrid">Participa</a>
         </li>
 
         <!-- Log In Button -->
         <li class="nav-item">
-          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/events/login.php" target="_blank" rel="noopener noreferrer" data-en="Log In" data-es="Inicia Sesión" role="button" title="Inicia sesión o regístrate">Inicia Sesión</a>
+          <a class="btn btn-custom my-2 my-lg-0 ms-lg-3" href="/events/login.php" target="_blank"
+            rel="noopener noreferrer" data-en="Log In" data-es="Inicia Sesión" role="button"
+            title="Inicia sesión o regístrate">Inicia Sesión</a>
         </li>
 
         <!-- Language Selector -->
@@ -58,12 +71,15 @@
             data-en="EN" data-es="ES">
             ES
           </button>
-          <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown" style="min-width: auto !important; left:-10px;">
+          <ul id="language-dropdown" class="dropdown-menu" aria-labelledby="languageDropdown"
+            style="min-width: auto !important; left:-10px;">
             <li>
-              <a class="dropdown-item language-option" href="?lang=en" data-lang="en" lang="en" hreflang="en" title="Switch to English">English</a>
+              <a class="dropdown-item language-option" href="?lang=en" data-lang="en" lang="en" hreflang="en"
+                title="Switch to English">English</a>
             </li>
             <li>
-              <a class="dropdown-item language-option" href="?lang=es" data-lang="es" lang="es" hreflang="es" title="Cambiar a español">Español</a>
+              <a class="dropdown-item language-option" href="?lang=es" data-lang="es" lang="es" hreflang="es"
+                title="Cambiar a español">Español</a>
             </li>
           </ul>
         </li>

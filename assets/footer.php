@@ -12,7 +12,8 @@
       <a href="https://www.instagram.com/aisc_madrid/" target="_blank" class="footer-icon-wrapper">
         <i class="bi bi-instagram footer-icon"></i>
       </a>
-      <a href="https://www.linkedin.com/company/ai-student-collective-madrid" target="_blank" class="footer-icon-wrapper">
+      <a href="https://www.linkedin.com/company/ai-student-collective-madrid" target="_blank"
+        class="footer-icon-wrapper">
         <i class="bi bi-linkedin footer-icon"></i>
       </a>
       <a href="https://github.com/AISC-Madrid" target="_blank" class="footer-icon-wrapper">
@@ -27,8 +28,13 @@
     <div class="footer-terms text-end w-100">
       <a href="/index.php#newsletter" class="footer-link-text">Newsletter</a>
       <a> | </a>
-      <a href="terms_conditions.php" class="footer-link-text" data-en="Terms and Conditions" data-es="Terms and Conditions">Términos y Condiciones</a>
+      <a href="terms_conditions.php" class="footer-link-text" data-en="Terms and Conditions"
+        data-es="Terms and Conditions">Términos y Condiciones</a>
     </div>
     <!-- Newsletter -->
   </div>
 </footer>
+
+<!-- Common JavaScript imports -->
+<script src="/js/language.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
