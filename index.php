@@ -66,144 +66,18 @@ include("assets/head.php");
       <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column align-items-start justify-content-center pt-5">
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective
           <br> <span style="color:var(--secondary);">Madrid</span></h1>
-        <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI.
-        Gain in-demand skills, connect with industry, and become part of an international community."
-          data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la industria y forma parte de una comunidad internacional.">
-          Asociación de Estudiantes de la UC3M interesados en la IA. Adquiere habilidades demandadas, conecta con la
-          industria y forma parte de una comunidad internacional.</h6>
-        <div class="mt-4 d-flex gap-2">
-          <a href="join.php" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!"
-            data-es="¡Participa!">¡Participa!</a>
-        </div>
+        <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI. We organize hands-on workshops focused on acquiring 
+          in-demand skills, industry events, and connect students through an international community."
+          data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Organizamos talleres prácticos orientados 
+          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional.">
+          Asociación de Estudiantes de la UC3M interesados en la IA. Organizamos talleres prácticos orientados 
+          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional.</h6>
       </div>
       <div
         class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
         <img style="width: 75%;" src="images/logos/PNG/AISC Logo Color.png" alt="Logotipo de la asociación AISC">
       </div>
     </header>
-
-    <section class="scroll-margin" id="about">
-      <div class="container py-4">
-        <h2 class="text-center mb-4 fw-bold">
-          <span style="color:var(--muted);" data-en="From AISC Madrid" data-es="Desde AISC Madrid">Desde AISC
-            Madrid</span>
-        </h2>
-        <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-        <div class="row g-4">
-
-          <!-- Card 1 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-pink mb-3">
-                  <i class="bi bi-robot fs-2"></i>
-                </div>
-                <h5 class="card-title" data-en="Engineering and Artificial Intelligence"
-                  data-es="Ingeniería e Inteligencia Artificial">Ingeniería e Inteligencia Artificial</h5>
-                <p class="card-text" data-en="Student Association at University Carlos III of Madrid."
-                  data-es="Asociación de estudiantes en la Universidad Carlos III de Madrid.">
-                  Asociación de estudiantes en la Universidad Carlos III de Madrid.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-pink mb-3">
-                  <i class="bi bi-gear fs-2 "></i>
-                </div>
-                <h5 class="card-title" data-en="Workshops" data-es="Talleres">Talleres</h5>
-                <p class="card-text" data-en="Demystify AI by acquiring practical skills demanded by the industry."
-                  data-es="Desmitifica la IA adquiriendo habilidades prácticas demandas por la industria.">
-                  Desmitifica la IA adquiriendo habilidades prácticas demandas por la industria.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-pink mb-3">
-                  <i class="bi bi-diagram-3 fs-2"></i>
-                </div>
-                <h5 class="card-title" data-en="Events and Connections" data-es="Eventos y Conexiones">Eventos y
-                  Conexiones</h5>
-                <p class="card-text" data-en="Get closer to the job market with students and industry members."
-                  data-es="Acércate al mundo laboral de la mano de estudiantes y miembros del sector.">
-                  Acércate al mundo laboral de la mano de estudiantes y miembros del sector.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-blue mb-3">
-                  <i class="bi bi-people fs-2"></i>
-                </div>
-                <h5 class="card-title" data-en="Community" data-es="Comunidad">Comunidad</h5>
-                <p class="card-text"
-                  data-en="Take the opportunity to meet other students and enjoy the university experience."
-                  data-es="Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.">
-                  Aprovecha para conocer a otros estudiantes y disfrutar de la experiencia universitaria.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-blue mb-3">
-                  <i class="bi bi-globe-americas fs-2"></i>
-                </div>
-                <h5 class="card-title" data-en="International Network" data-es="Red Internacional">Red Internacional
-                </h5>
-                <p class="card-text"
-                  data-en="Be part of the AI Student Collective community, founded at UC Davis, California, and expanded across the US."
-                  data-es="Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por Estados Unidos.">
-                  Forma parte de la comunidad AI Student Collective, fundada en UC Davis, California y expandida por
-                  Estados Unidos.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 6 -->
-          <div class="col-md-4">
-            <div class="card h-100 shadow-sm no-hover">
-              <div class="card-body d-flex flex-column">
-                <div class="role-icon-blue mb-3">
-                  <i class="bi bi-lightbulb fs-2"></i>
-                </div>
-                <h5 class="card-title" data-en="Welcome" data-es="Bienvenid@">Bienvenid@</h5>
-                <p class="card-text" data-en="Join us and enjoy the process!" data-es="¡Únete y disfruta del proceso!">
-                  ¡Únete y disfruta del proceso!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Button -->
-        <div class="row mt-4">
-          <div class="col-12 d-flex justify-content-center justify-content-lg-start">
-            <a class="btn btn-custom w-100 w-lg-auto" href="about_us.php" role="button" data-en="Learn more"
-              data-es="Saber más">
-              Saber más
-            </a>
-          </div>
-        </div>
-
-      </div>
     </section>
 
     <section class="section scroll-margin w-100 px-3 px-md-5" id="events">
