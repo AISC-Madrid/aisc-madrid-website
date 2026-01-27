@@ -1,5 +1,5 @@
 <?php
-// login.php
+// login.php - Centralized login for AISC Madrid
 session_start();
 
 // Destroy any existing session to force fresh login every time
@@ -9,8 +9,7 @@ if (isset($_SESSION['activated'])) {
     session_start(); // Start a new clean session
 }
 
-include('../assets/db.php'); // Your $conn mysqli connection
-include("../assets/head.php");
+include('assets/db.php'); // Your $conn mysqli connection
 
 $error = '';
 
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mail'] = $user['mail'];
             $_SESSION['activated'] = true;
             $_SESSION['role'] = $user['role'];
-            header("Location: ../dashboard/dashboard.php");
+            header("Location: /dashboard/dashboard.php");
             exit();
         } else {
             $error = "Invalid username or password.";
@@ -61,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $guest['username'];
                 $_SESSION['activated'] = true;
                 $_SESSION['role'] = 'guest';
-                header("Location: ../dashboard/guests/guest_dashboard.php");
+                header("Location: /dashboard/guests/guest_dashboard.php");
                 exit();
             } else {
                 $error = "Invalid username or password.";
@@ -81,11 +80,7 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<?php include('assets/head.php'); ?>
 
 <body class="bg-light">
 
@@ -96,7 +91,7 @@ $conn->close();
                 <div class="d-flex align-items-center justify-content-center mb-4 flex-wrap text-center">
                     <img src="/images/logos/PNG/AISC Logo Color.png" alt="Logo AISC Madrid" class="me-2 mb-2"
                         style="width: 14vw; max-width: 60px; min-width: 45px; height: auto; object-fit: contain;">
-                    <h3 class="m-0 fs-5 fs-md-4">Login Portal AISC Madrid</h3>
+                    <h3 class="m-0" style="color: black;">Login Portal AISC Madrid</h3>
                 </div>
 
                 <?php if ($error): ?>
@@ -114,7 +109,7 @@ $conn->close();
                         <label class="form-label">Password</label>
                         <input type="password" name="password" class="form-control form-control-lg" required>
                     </div>
-                    <button type="submit" class="btn btn-primary form-btn w-100">Login</button>
+                    <button type="submit" class="btn form-btn w-100">Login</button>
                 </form>
             </div>
         </div>

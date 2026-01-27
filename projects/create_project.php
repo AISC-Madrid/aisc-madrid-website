@@ -3,7 +3,7 @@ session_start(); // Start the session
 
 // Check if the user is logged in
 if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'admin') {
-    header("Location: projects/login.php");
+    header("Location: /login.php");
     exit();
 }
 
