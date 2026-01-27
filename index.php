@@ -67,34 +67,17 @@ include("assets/head.php");
         <h1 class="text-dark fw-bold display-3"> <span style="color:var(--primary);">AI</span> <br> Student Collective
           <br> <span style="color:var(--secondary);">Madrid</span></h1>
         <h6 class="lh-lg text-muted" data-en="UC3M Student Association Interested in AI. We organize hands-on workshops focused on acquiring 
-          in-demand skills, industry events, and connect students through an international AI community."
+          in-demand skills, industry events, and connect students through an international community."
           data-es="Asociación de Estudiantes de la UC3M interesados en la IA. Organizamos talleres prácticos orientados 
-          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional de IA.">
+          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional.">
           Asociación de Estudiantes de la UC3M interesados en la IA. Organizamos talleres prácticos orientados 
-          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional de IA.</h6>
-        <div class="mt-4 d-flex gap-2">
-          <a href="join.php" class="btn btn-custom text-light px-4 fw-semibold" data-en="Join!"
-            data-es="¡Participa!">¡Participa!</a>
-        </div>
+          a adquirir habilidades demandadas, eventos con la industria y conectamos estudiantes a través de una comunidad internacional.</h6>
       </div>
       <div
         class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
         <img style="width: 75%;" src="images/logos/PNG/AISC Logo Color.png" alt="Logotipo de la asociación AISC">
       </div>
     </header>
-
-
-        <!-- Button -->
-        <div class="row mt-4">
-          <div class="col-12 d-flex justify-content-center justify-content-lg-start">
-            <a class="btn btn-custom w-100 w-lg-auto" href="about_us.php" role="button" data-en="Learn more"
-              data-es="Saber más">
-              Saber más
-            </a>
-          </div>
-        </div>
-
-      </div>
     </section>
 
     <section class="section scroll-margin w-100 px-3 px-md-5" id="events">
