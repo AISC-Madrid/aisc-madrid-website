@@ -98,6 +98,11 @@ $result = $conn->query("
                                 <td>
                                     <a class="btn btn-sm btn-success mb-1"
                                         href="/events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
+                                    <a class="btn btn-sm btn-secondary mb-1" target="_blank"
+                                        href="/processing/export_attendees_pdf.php?event_id=<?= $row['id'] ?>"
+                                        title="Descargar lista de asistentes en PDF">
+                                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                                    </a>
                                     <a class="btn btn-sm btn-danger mb-1" href="/events/events_list.php?delete=<?= $row['id'] ?>"
                                         onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                                 </td>
