@@ -117,6 +117,9 @@ try {
             $mail->addCC($member['email'], $member['name']);
         }
     }
+    //Temporal: add Juanjo and Álvaro until theh have board positions
+    $mail->addCC('juanjose.rosales@alumnos.uc3m.es', 'Juanjo');
+    $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro');
 
     $mail->Subject = 'Nueva solicitud Recruiting 2026: ' . $name;
 
@@ -264,100 +267,6 @@ try {
     $mailApplicant->send();
 } catch (Exception $e) {
     error_log('Confirmation email to applicant error: ' . $e->getMessage());
-}
-
-// Send notification email to AISC team via Gmail SMTP
-try {
-    $config = include('../config.php');
-
-    $mail = new PHPMailer(true);
-    $mail->CharSet = 'UTF-8';
-    $mail->isSMTP();
-    $mail->SMTPDebug = 0;
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 587;
-    $mail->SMTPSecure = 'tls';
-    $mail->SMTPAuth = true;
-    $mail->Username = $config['smtp_user'];
-    $mail->Password = $config['smtp_pass'];
-
-    $mail->setFrom($config['smtp_user'], 'AISC Madrid Recruiting');
-    $mail->addAddress('aisc.asoc@uc3m.es', 'AISC Madrid');
-
-    // Add board members as CC dynamically
-    foreach ($boardMembers as $member) {
-        if (!empty($member['email'])) {
-            $mail->addCC($member['email'], $member['name']);
-        }
-    }
-
-    //Temporal: add Juanjo and Álvaro until theh have board positions
-    $mail->addCC('juanjose.rosales@alumnos.uc3m.es', 'Juanjo');
-    $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro');
-    $mail->Subject = 'Nueva solicitud Recruiting 2026: ' . $name;
-
-    $positionLabels = [
-        'marketing' => 'Eventos y talleres',
-        'events' => 'Marketing Digital',
-        'tech' => 'Desarrollo Web',
-        'finance' => 'Gestión y finanzas'
-    ];
-    $positionDisplay = $positionLabels[$position] ?? $position;
-
-    $campusLabels = [
-        'getafe' => 'Getafe',
-        'leganes' => 'Leganés',
-        'puertatoledo' => 'Puerta de Toledo',
-        'colmenarejo' => 'Colmenarejo'
-    ];
-    $campusDisplay = $campusLabels[$campus] ?? $campus;
-
-    $htmlContent = "
-    <html>
-    <head><title>Nueva solicitud Recruiting 2026</title></head>
-    <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
-        <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-            <h2 style='color: #EB178E; border-bottom: 2px solid #20CCF1; padding-bottom: 10px;'>
-                🎯 Nueva solicitud de Recruiting 2026
-            </h2>
-            
-            <table style='width: 100%; border-collapse: collapse; margin-top: 20px;'>
-                <tr>
-                    <td style='padding: 10px; background: #f5f5f5; font-weight: bold; width: 30%;'>Nombre</td>
-                    <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($name) . "</td>
-                </tr>
-                <tr>
-                    <td style='padding: 10px; background: #f5f5f5; font-weight: bold;'>Email</td>
-                    <td style='padding: 10px; border-bottom: 1px solid #eee;'>
-                        <a href='mailto:" . htmlspecialchars($email) . "'>" . htmlspecialchars($email) . "</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style='padding: 10px; background: #f5f5f5; font-weight: bold;'>Campus</td>
-                    <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($campusDisplay) . "</td>
-                </tr>
-                <tr>
-                    <td style='padding: 10px; background: #f5f5f5; font-weight: bold;'>Posición</td>
-                    <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($positionDisplay) . "</td>
-                </tr>
-            </table>
-            
-            <div style='margin-top: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #20CCF1;'>
-                <h4 style='margin: 0 0 10px 0; color: #20CCF1;'>Motivación:</h4>
-                <p style='margin: 0; white-space: pre-wrap;'>" . htmlspecialchars($reason) . "</p>
-            </div>
-        </div>
-    </body>
-    </html>";
-
-    $mail->isHTML(true);
-    $mail->Body = $htmlContent;
-    $mail->AltBody = "Nueva solicitud Recruiting 2026\n\nNombre: $name\nEmail: $email\nCampus: $campusDisplay\nPosición: $positionDisplay\n\nMotivación:\n$reason";
-
-    $mail->send();
-} catch (Exception $e) {
-    // Log error but don't stop the flow
-    error_log('Recruiting notification email error: ' . $e->getMessage());
 }
 
 // Success redirect
