@@ -54,6 +54,14 @@
         </li>
 
 
+
+        <!-- Maquetar Mails -->
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/mail_creation.php">
+            <i class="bi bi-envelope-plus me-1"></i> Crear Mail
+          </a>
+        </li>
+
         <!-- Probar envío de correo -->
         <li class="nav-item">
           <a class="nav-link" href="/dashboard/send_test_email.php">
