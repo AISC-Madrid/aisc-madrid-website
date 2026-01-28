@@ -1,7 +1,8 @@
 <?php
 session_start();
-// Control de acceso
-$allowed_roles = ['admin', 'events', 'viewer'];
+
+// Check if the user is logged in. First thing to do before doing any other loading
+$allowed_roles = ['admin', 'web'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: /");
     exit();
@@ -90,14 +91,11 @@ include_once '../assets/head.php';
 
 <body>
 
+<?php 
+include("../assets/nav_dashboard.php");
+?>
+
 <div class="main-wrapper scroll-margin">
-    <?php 
-    if($_SESSION['role'] === 'admin'){
-        include_once 'dashboard_nav.php';
-    } else {
-        include_once 'dashboard_nav_noadmin.php';
-    } 
-    ?>
 
     <div class="builder-container">
         
