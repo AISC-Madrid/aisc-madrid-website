@@ -1,11 +1,11 @@
 <?php
 // 4 roles are defined, each with different permissions.
 $permisos = [
-  'admin' => ['resumen', 'usuarios', 'eventos', 'guests', 'scan', 'email', 'proyectos', 'equipo', 'hashing'],
+  'admin' => ['resumen', 'usuarios', 'eventos', 'guests', 'scan', 'email', 'proyectos', 'equipo', 'hashing', 'create-email'],
   'events' => ['resumen', 'eventos', 'guests', 'scan', 'proyectos'],
   'finance' => ['resumen', 'eventos', 'scan', 'proyectos', 'equipo'],
   'marketing' => ['resumen', 'eventos', 'scan', 'proyectos'],
-  'web' => ['resumen', 'eventos', 'scan', 'proyectos'],
+  'web' => ['resumen', 'eventos', 'scan', 'proyectos', 'create-email'],
   'guest' => ['scan'],
 ];
 
@@ -83,6 +83,15 @@ if (!function_exists('isAllowed')) {
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/guests/guests_list.php">
               <i class="bi bi-person-badge me-1"></i> Guests
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php if (isAllowed('create-email')): ?>
+          <!-- Crear correo -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/mail_creation.php">
+              <i class="bi bi-envelope-plus me-1"></i> Crear Email
             </a>
           </li>
         <?php endif; ?>

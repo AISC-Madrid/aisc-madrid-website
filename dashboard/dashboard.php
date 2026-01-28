@@ -19,9 +19,9 @@ $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM form_submissions")->fe
 $activeSubs = $conn->query("SELECT COUNT(*) AS total FROM form_submissions WHERE newsletter = 'yes'")->fetch_assoc()['total'];
 $unsubscribed = $conn->query("SELECT COUNT(*) AS total FROM form_submissions WHERE newsletter = 'no'")->fetch_assoc()['total'];
 $latestSubscribers = $conn->query("SELECT full_name, email, submitted_at, newsletter
-                                       FROM form_submissions 
-                                       ORDER BY submitted_at DESC 
-                                       LIMIT 5");
+                                      FROM form_submissions 
+                                      ORDER BY submitted_at DESC 
+                                      LIMIT 5");
 
 // ---------- EVENTS ----------
 $upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE start_datetime > NOW()")->fetch_assoc()['total'];
