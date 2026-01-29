@@ -13,7 +13,7 @@ if ($event_id <= 0) {
     die("ID de evento inválido");
 }
 
-$event_stmt = $conn->prepare("SELECT title_es, start_datetime, location FROM events WHERE id = ?");
+$event_stmt = $conn->prepare("SELECT title_es, start_datetime, location, speaker FROM events WHERE id = ?");
 $event_stmt->bind_param("i", $event_id);
 if (!$event_stmt->execute()) {
     die("Error al consultar el evento");
@@ -71,16 +71,41 @@ $pdf->AddPage();
 
 // Event Info
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', 'Evento: ' . $event['title_es']), 0, 1);
+$pdf->MultiCell(0, 6, iconv('UTF-8', 'ISO-8859-1', 'Evento: ' . $event['title_es']), 0, 'L');
 $pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(17, 6, iconv('UTF-8', 'ISO-8859-1', 'Ponente: '), 0, 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(0, 6, iconv('UTF-8', 'ISO-8859-1', $event['speaker']), 0, 1);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(13, 6, iconv('UTF-8', 'ISO-8859-1', 'Fecha: '), 0, 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(0, 6, iconv('UTF-8', 'ISO-8859-1', date("d/m/Y H:i", strtotime($event['start_datetime']))), 0, 1);
 
-$pdf->Cell(0, 6, iconv('UTF-8', 'ISO-8859-1', 'Ubicación: ' . $event['location']), 0, 1);
-$pdf->Cell(0, 6, iconv('UTF-8', 'ISO-8859-1', 'Total Registrados: ' . count($registrations)), 0, 1);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(20, 6, iconv('UTF-8', 'ISO-8859-1', 'Ubicación: '), 0, 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(0, 6, iconv('UTF-8', 'ISO-8859-1', $event['location']), 0, 1);
+$attended_count = 0;
+foreach ($registrations as $reg) {
+    if ($reg['attendance_status'] === 'attended') {
+        $attended_count++;
+    }
+}
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(40, 6, iconv('UTF-8', 'ISO-8859-1', 'Personas Registradas: '), 0, 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(0, 6, count($registrations), 0, 1);
+
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(43, 6, iconv('UTF-8', 'ISO-8859-1', 'Personas que Asistieron: '), 0, 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(0, 6, $attended_count, 0, 1);
 $pdf->Ln(10);
 
 // Table Header
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->SetFillColor(200, 220, 255);
+$pdf->SetFillColor(141, 218, 235);
 $pdf->Cell(10, 7, '#', 1, 0, 'C', true);
 $pdf->Cell(70, 7, 'Nombre', 1, 0, 'C', true);
 $pdf->Cell(80, 7, 'Email', 1, 0, 'C', true);
