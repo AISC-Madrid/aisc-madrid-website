@@ -54,7 +54,7 @@ if ($result->num_rows > 0) {
                 $formatted_date .= " - " . date('d/m/Y H:i', strtotime($row['end_datetime']));
             }
             
-            $domain = "https://aiscmadrid.com/"; 
+            $domain = $config['base_url']; 
             $image_url = $domain . ltrim($row['image_path'], '/');
 
             // Generate Calendar Link
@@ -68,7 +68,7 @@ if ($result->num_rows > 0) {
             $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
             $calendar_link .= "&text=" . urlencode("AISC Madrid - " . $row['title_es']);
             $calendar_link .= "&dates=" . $start_utc . "/" . $end_utc;
-            $calendar_link .= "&details=" . urlencode("Más info: https://aiscmadrid.com/events/evento.php?id=" . $row['event_id']);
+            $calendar_link .= "&details=" . urlencode("Más info: " . $config['base_url'] . "events/evento.php?id=" . $row['event_id']);
             $calendar_link .= "&location=" . urlencode($row['location']);
             $calendar_link .= "&sf=true&output=xml";
 
