@@ -139,10 +139,10 @@ if (isset($_POST['submit'])) {
             break;
         case 'event_users':
             $event_id = (int) $_POST['event_search'];
-            $stmt = $conn->prepare("SELECT fs.email, fs.full_name AS full_name
-                                    FROM form_submissions fs
-                                    JOIN event_registrations er ON fs.email = er.email COLLATE utf8mb4_unicode_ci
-                                    WHERE er.event_id = ? AND er.qr_email_sent = 0");
+            // ALL registered users for the event
+            $stmt = $conn->prepare("SELECT email, name AS full_name
+                                    FROM event_registrations
+                                    WHERE event_id = ?");
             $stmt->bind_param("i", $event_id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -153,6 +153,33 @@ if (isset($_POST['submit'])) {
             }
             $stmt->close();
             break;
+
+        case 'pending_qrs':
+            $event_id = (int) $_POST['event_search'];
+            // fetch ONLY pending QR users
+            $stmt = $conn->prepare("SELECT email, name AS full_name
+                                    FROM event_registrations
+                                    WHERE event_id = ? AND qr_email_sent = 0");
+            $stmt->bind_param("i", $event_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $recipients[] = ['email' => $row['email'], 'full_name' => $row['full_name']];
+                }
+            }
+            $stmt->close();
+            break;
+    }
+
+    $event_data = null;
+    if ($event_id > 0) {
+        $stmt_event = $conn->prepare("SELECT title_es, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
+        $stmt_event->bind_param("i", $event_id);
+        $stmt_event->execute();
+        $result_event = $stmt_event->get_result();
+        $event_data = $result_event->fetch_assoc();
+        $stmt_event->close();
     }
 
     if (empty($recipients)) {
@@ -209,10 +236,10 @@ if (isset($_POST['submit'])) {
 
                 $name = explode(' ', $fullName)[0];
 
-                // Validar el email antes de intentar enviar
+                // validar el email antes de intentar enviar
                 if (empty($recipientEmail) || !filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
                     $message .= '<p class="text-warning">Dirección inválida omitida: ' . htmlspecialchars($recipientEmail) . '</p>';
-                    continue; // Saltar a la siguiente persona
+                    continue;
                 }
 
                 try {
@@ -230,13 +257,46 @@ if (isset($_POST['submit'])) {
 
                     $htmlContent = str_replace('{{event_id}}', $event_id, $htmlContent);
 
+                    if ($event_data) {
+                        $user_name_short = explode(' ', $name)[0];
+                        $start_date = date('d/m/Y H:i', strtotime($event_data['start_datetime']));
+                        $formatted_date = $start_date;
+                        if (!empty($event_data['end_datetime'])) {
+                            $end_date = date('d/m/Y H:i', strtotime($event_data['end_datetime']));
+                            $formatted_date .= " - " . $end_date;
+                        }
+                        $domain = "https://aiscmadrid.com/"; 
+                        $image_url = $domain . ltrim($event_data['image_path'], '/');
+
+                        // generate Calendar Link
+                        $start_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']));
+                        if (!empty($event_data['end_datetime'])) {
+                            $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['end_datetime']));
+                        } else {
+                            $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']) + 3600);
+                        }
+                        
+                        $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
+                        $calendar_link .= "&text=" . urlencode("AISC Madrid - " . $event_data['title_es']);
+                        $calendar_link .= "&dates=" . $start_utc . "/" . $end_utc;
+                        $calendar_link .= "&details=" . urlencode("Más info: https://aiscmadrid.com/events/evento.php?id=" . $event_id);
+                        $calendar_link .= "&location=" . urlencode($event_data['location']);
+                        $calendar_link .= "&sf=true&output=xml";
+
+                        $htmlContent = str_replace('{{user_name}}', $user_name_short, $htmlContent);
+                        $htmlContent = str_replace('{{event_name}}', $event_data['title_es'], $htmlContent);
+                        $htmlContent = str_replace('{{event_date}}', $formatted_date, $htmlContent);
+                        $htmlContent = str_replace('{{event_location}}', $event_data['location'], $htmlContent);
+                        $htmlContent = str_replace('{{event_image}}', $image_url, $htmlContent);
+                        $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
+                    }
+
                     $mail->Body = $htmlContent;
 
                     $mail->send();
                     $message .= '<p class="text-success">Mensaje enviado a ' . $recipientEmail . ' (' . ($i + 1) . '/' . $totalEmails . ')</p>';
 
-                    // Update qr_email_sent flag if sending to event users
-                    if ($recipient_group === 'event_users') {
+                    if ($recipient_group === 'pending_qrs') {
                         $sql_update_sent = "UPDATE event_registrations SET qr_email_sent = TRUE WHERE event_id = ? AND email = ?";
                         $stmt_update_sent = $conn->prepare($sql_update_sent);
                         if ($stmt_update_sent) {
@@ -310,8 +370,9 @@ $conn->close();
                             </li>
                             <li><strong>Miembros del equipo web:</strong> Envía un mensaje solo a los miembros del
                                 equipo web.</li>
-                            <li><strong>Usuarios registrados en el evento:</strong> Envía un mensaje solo a los usuarios
+                            <li><strong>Usuarios registrados en el evento:</strong> Envía un mensaje a todos los usuarios
                                 registrados en el evento especificado.</li>
+                            <li><strong>Enviar QR pendientes:</strong> Envía el correo y marca como enviado el QR a los usuarios que aún no lo tienen.</li>
                             <li><strong>Todos:</strong> Envía un mensaje a todos los correos registrados en la base de
                                 datos.</li>
 
@@ -326,6 +387,7 @@ $conn->close();
                                 <option value="team">Miembros del equipo</option>
                                 <option value="web_team">Miembros del equipo web</option>
                                 <option value="event_users">Usuarios registrados en el evento</option>
+                                <option value="pending_qrs">Enviar QR pendientes</option>
                                 <option value="newsletter">Newsletter</option>
                                 <option value="all">Todos</option>
                             </select>
