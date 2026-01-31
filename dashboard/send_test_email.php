@@ -265,7 +265,7 @@ if (isset($_POST['submit'])) {
                             $end_date = date('d/m/Y H:i', strtotime($event_data['end_datetime']));
                             $formatted_date .= " - " . $end_date;
                         }
-                        $domain = "https://aiscmadrid.com/"; 
+                        $domain = $config['base_url']; 
                         $image_url = $domain . ltrim($event_data['image_path'], '/');
 
                         // generate Calendar Link
@@ -279,7 +279,7 @@ if (isset($_POST['submit'])) {
                         $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
                         $calendar_link .= "&text=" . urlencode("AISC Madrid - " . $event_data['title_es']);
                         $calendar_link .= "&dates=" . $start_utc . "/" . $end_utc;
-                        $calendar_link .= "&details=" . urlencode("Más info: https://aiscmadrid.com/events/evento.php?id=" . $event_id);
+                        $calendar_link .= "&details=" . urlencode("Más info: " . $config['base_url'] . "events/evento.php?id=" . $event_id);
                         $calendar_link .= "&location=" . urlencode($event_data['location']);
                         $calendar_link .= "&sf=true&output=xml";
 
