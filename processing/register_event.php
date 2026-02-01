@@ -110,12 +110,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $image_url = $domain . ltrim($event_data['image_path'], '/');
 
                 // Generate Calendar Link
-                $start_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']));
+                $madridTz = new DateTimeZone('Europe/Madrid');
+                $utcTz = new DateTimeZone('UTC');
+
+                $startDate = new DateTime($event_data['start_datetime'], $madridTz);
+                $startDate->setTimezone($utcTz);
+                $start_utc = $startDate->format('Ymd\THis\Z');
+
                 // Default end date to 1 hour later if not set, or use end_datetime
                 if (!empty($event_data['end_datetime'])) {
-                    $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['end_datetime']));
+                    $endDate = new DateTime($event_data['end_datetime'], $madridTz);
+                    $endDate->setTimezone($utcTz);
+                    $end_utc = $endDate->format('Ymd\THis\Z');
                 } else {
-                    $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']) + 3600);
+                    $endDate = clone $startDate;
+                    $endDate->modify('+1 hour');
+                    $end_utc = $endDate->format('Ymd\THis\Z');
                 }
                 
                 $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
