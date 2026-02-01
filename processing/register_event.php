@@ -2,6 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require '../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 include('../assets/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -62,17 +66,98 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $conn->close();
 
+        $config = include('../config.php');
+        $mail = new PHPMailer(true);
+
+        try {
+            include('../assets/db.php'); 
+            
+            $stmt_event = $conn->prepare("SELECT title_es, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
+            $stmt_event->bind_param("i", $event_id);
+            $stmt_event->execute();
+            $result_event = $stmt_event->get_result();
+            $event_data = $result_event->fetch_assoc();
+            $stmt_event->close();
+
+            if ($event_data) {
+                $mail->CharSet = 'UTF-8';
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->Port = 587;
+                $mail->SMTPAuth = true;
+                $mail->SMTPSecure = 'tls';
+                $mail->Username = $config['smtp_user'];
+                $mail->Password = $config['smtp_pass'];
+
+                $mail->setFrom($config['smtp_user'], 'AISC Madrid');
+                $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+                $mail->addAddress($email, $name);
+
+                $mail->isHTML(true);
+                $mail->Subject = '¡Gracias por registrarte al evento!';
+
+                $htmlContent = file_get_contents('../mails/event_registration/qr_code_template.html');
+                
+                $user_name_short = explode(' ', $name)[0];
+                $start_date = date('d/m/Y H:i', strtotime($event_data['start_datetime']));
+                $formatted_date = $start_date;
+                if (!empty($event_data['end_datetime'])) {
+                    $end_date = date('d/m/Y H:i', strtotime($event_data['end_datetime']));
+                    $formatted_date .= " - " . $end_date;
+                }
+                
+                $domain = $config['base_url']; 
+                $image_url = $domain . ltrim($event_data['image_path'], '/');
+
+                // Generate Calendar Link
+                $start_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']));
+                // Default end date to 1 hour later if not set, or use end_datetime
+                if (!empty($event_data['end_datetime'])) {
+                    $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['end_datetime']));
+                } else {
+                    $end_utc = gmdate('Ymd\THis\Z', strtotime($event_data['start_datetime']) + 3600);
+                }
+                
+                $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
+                $calendar_link .= "&text=" . urlencode("AISC Madrid - " . $event_data['title_es']);
+                $calendar_link .= "&dates=" . $start_utc . "/" . $end_utc;
+                $calendar_link .= "&details=" . urlencode("Más info: " . $config['base_url'] . "events/evento.php?id=" . $event_id);
+                $calendar_link .= "&location=" . urlencode($event_data['location']);
+                $calendar_link .= "&sf=true&output=xml";
+
+                $htmlContent = str_replace('{{user_name}}', $user_name_short, $htmlContent);
+                $htmlContent = str_replace('{{event_name}}', $event_data['title_es'], $htmlContent);
+                $htmlContent = str_replace('{{event_date}}', $formatted_date, $htmlContent);
+                $htmlContent = str_replace('{{event_location}}', $event_data['location'], $htmlContent);
+                $htmlContent = str_replace('{{event_image}}', $image_url, $htmlContent);
+                $htmlContent = str_replace('{{event_id}}', $event_id, $htmlContent);
+                $htmlContent = str_replace('{{mail}}', urlencode($email), $htmlContent);
+                $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
+
+                $mail->Body = $htmlContent;
+                $mail->send();
+
+                // update qr_email_sent
+                $stmt_update = $conn->prepare("UPDATE event_registrations SET qr_email_sent = 1 WHERE event_id = ? AND email = ?");
+                $stmt_update->bind_param("is", $event_id, $email);
+                $stmt_update->execute();
+                $stmt_update->close();
+            }
+            $conn->close();
+
+        } catch (Exception $e) {
+            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+        }
+
         header("Location: /events/event_registration.php?id=$event_id&success=1");
         exit;
     } else {
-        // Handle insertion error
         $stmt->close();
         header("Location: /events/event_registration.php?id=$event_id&error_db=1");
         exit;
     }
 
 } else {
-    // Redirect if not a POST request
     header("Location: /index.php");
     exit;
 }
