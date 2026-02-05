@@ -3,14 +3,30 @@ session_start();
 require('../vendor/autoload.php');
 include("../assets/db.php");
 
-$allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing'];
+$allowed_roles = ['admin', 'events', 'web', 'finance', 'marketing', 'guest'];
 if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_roles)) {
     die("Acceso denegado");
 }
 
+// Determinar si se deben censurar los correos (solo para guests)
+$should_censor_emails = ($_SESSION['role'] === 'guest');
+
 $event_id = isset($_GET['event_id']) ? (int) $_GET['event_id'] : 0;
 if ($event_id <= 0) {
     die("ID de evento inválido");
+}
+
+// Si es guest, verificar que tenga acceso al evento
+if ($_SESSION['role'] === 'guest') {
+    $guest_id = $_SESSION['user_id'];
+    $access_stmt = $conn->prepare("SELECT 1 FROM event_guest_access WHERE guest_id = ? AND event_id = ?");
+    $access_stmt->bind_param("ii", $guest_id, $event_id);
+    $access_stmt->execute();
+    $access_result = $access_stmt->get_result();
+    if ($access_result->num_rows === 0) {
+        die("Acceso denegado a este evento");
+    }
+    $access_stmt->close();
 }
 
 $event_stmt = $conn->prepare("SELECT title_es, start_datetime, location, speaker FROM events WHERE id = ?");
@@ -120,14 +136,19 @@ foreach ($registrations as $reg) {
     
     $pdf->Cell(10, 6, $count++, 1, 0, 'C');
     $pdf->Cell(70, 6, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $reg['name']), 1, 0, 'L');
-    $parts = explode('@', $reg['email']);
-    $masked_email = $reg['email'];
-    if (count($parts) === 2) {
-        $local = $parts[0];
-        $visible = strlen($local) > 3 ? substr($local, 0, 3) : substr($local, 0, 1);
-        $masked_email = $visible . '*****@' . $parts[1];
+    
+    // Censurar email solo si es guest
+    $display_email = $reg['email'];
+    if ($should_censor_emails) {
+        $parts = explode('@', $reg['email']);
+        if (count($parts) === 2) {
+            $local = $parts[0];
+            $visible = strlen($local) > 3 ? substr($local, 0, 3) : substr($local, 0, 1);
+            $display_email = $visible . '*****@' . $parts[1];
+        }
     }
-    $pdf->Cell(80, 6, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $masked_email), 1, 0, 'L');
+    
+    $pdf->Cell(80, 6, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $display_email), 1, 0, 'L');
     $pdf->Cell(30, 6, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $status), 1, 1, 'C');
 }
 
