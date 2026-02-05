@@ -137,9 +137,18 @@ if (!empty($event['gallery_paths'])) {
         <!-- Lista de registrados -->
         <div class="row">
             <div class="col-12">
-                <h5 class="fw-bold mb-3">
-                    <i class="bi bi-people-fill me-2" style="color: var(--primary);"></i>Registrados (<?= $registration_count ?>)
-                </h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-people-fill me-2" style="color: var(--primary);"></i>Registrados (<?= $registration_count ?>)
+                    </h5>
+                    <?php if ($registration_count > 0): ?>
+                        <a href="/processing/export_attendees_pdf.php?event_id=<?= $event_id ?>" 
+                           class="btn btn-custom btn-sm" 
+                           target="_blank">
+                            <i class="bi bi-file-earmark-pdf me-1"></i>Exportar PDF
+                        </a>
+                    <?php endif; ?>
+                </div>
                 
                 <?php if (empty($registrations)): ?>
                     <div class="p-5 text-center text-muted bg-white rounded">
