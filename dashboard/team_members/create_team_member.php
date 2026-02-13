@@ -11,7 +11,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 include(__DIR__ . "/../../assets/db.php");
 
 // Initialize variables for the form
-$full_name = $mail = $position_es = $position_en = $password = '';
+$full_name = $mail = $position_es = $position_en = '';
 $phone = $dni = $socials = $active = $board = $image_path = '';
 
 // Check if an ID is passed
@@ -27,7 +27,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($member) {
         $full_name = $member['full_name'] ?? '';
         $mail = $member['mail'] ?? '';
-        $password = $member['password_hash'] ?? '';
         $position_es = $member['position_es'] ?? '';
         $position_en = $member['position_en'] ?? '';
         $phone = $member['phone'] ?? '';
@@ -46,6 +45,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <meta charset="UTF-8">
     <title>Crear/Editar miembro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
 </head>
 
 <body class="bg-light">
@@ -73,9 +74,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             value="<?= htmlspecialchars($mail) ?>">
                     </div>
                     <!-- Password -->
-                    <div>
-                        <label class="form-label">Password</label>
-                        <input type="text" name="password" class="form-control">
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Contraseña<?= isset($id) ? ' (dejar en blanco para mantener la actual)' : ' *' ?></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                            <input type="text" name="password" class="form-control" id="password"
+                                placeholder="Mínimo 6 caracteres" <?= isset($id) ? '' : 'required' ?>>
+                            <button type="button" class="btn btn-outline-secondary" onclick="generatePassword()">
+                                <i class="bi bi-shuffle"></i> Generar
+                            </button>
+                        </div>
                     </div>
 
                     <!-- position_es -->
@@ -146,5 +154,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </div>
     </div>
 </body>
+
+<script>
+    function generatePassword() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+        let password = '';
+        for (let i = 0; i < 10; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('password').value = password;
+    }
+</script>
 
 </html>

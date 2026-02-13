@@ -30,6 +30,9 @@ $query->close();
 
 
 if (!empty($_POST['password'])) {
+    if (strlen($_POST['password']) < 6) {
+        die("<p style='color:red;'>❌ Error: La contraseña debe tener al menos 6 caracteres.</p>");
+    }
     $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 } else {
     // Keep current password if no new password is provided

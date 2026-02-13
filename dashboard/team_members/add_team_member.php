@@ -7,8 +7,18 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include(__DIR__ . "/../../assets/db.php");
+
+$password = $_POST['password'] ?? '';
+if ($password === '') {
+    die("<p style='color:red;'>❌ Error: La contraseña es obligatoria.</p>");
+}
+
+if (strlen($password) < 6) {
+    die("<p style='color:red;'>❌ Error: La contraseña debe tener al menos 6 caracteres.</p>");
+}
+
 // Prepare SQL
-$password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
 $sql = "INSERT INTO members (
     full_name,
     mail,
