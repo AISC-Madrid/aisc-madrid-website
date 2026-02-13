@@ -7,17 +7,19 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
     exit();
 }
 
-include("../assets/head.php");
-include("../assets/db.php");
-include("../assets/nav_dashboard.php");
-
 // Handle delete action
 if (isset($_GET['delete'])) {
+    include("../assets/db.php");
     $event_id = intval($_GET['delete']);
     $conn->query("DELETE FROM events WHERE id = $event_id");
+    $conn->close();
     header("Location: events_list.php");
     exit();
 }
+
+include("../assets/head.php");
+include("../assets/db.php");
+include("../assets/nav_dashboard.php");
 
 // Retrieve events with registration count
 $result = $conn->query("
