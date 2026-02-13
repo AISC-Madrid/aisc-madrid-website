@@ -12,7 +12,7 @@ include(__DIR__ . "/../../assets/db.php");
 
 // Initialize variables for the form
 $full_name = $mail = $position_es = $position_en = '';
-$phone = $dni = $socials = $active = $board = $image_path = '';
+$phone = $dni = $socials = $active = $board = $image_path = $role = '';
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -35,6 +35,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $board = $member['board'] ?? '';
         $active = $member['active'] ?? '';
         $image_path = $member['image_path'] ?? '';
+        $role = $member['role'] ?? '';
     }
 }
 ?>
@@ -114,7 +115,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                   
                     <!-- socials -->
                     <div class="mb-3 col-6">
-                        <label class="form-label">Redes Sociales</label>
+                        <label class="form-label">Link perfil LinkedIn</label>
                         <textarea name="socials" class="form-control"
                             rows="4"><?= htmlspecialchars($socials) ?></textarea>
                     </div>
@@ -134,6 +135,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <select name="active" class="form-select">
                             <option value="yes" <?= ($active === 'yes') ? 'selected' : '' ?>>Yes</option>
                             <option value="no" <?= ($active === 'no') ? 'selected' : '' ?>>No</option>
+                        </select>
+                    </div>
+
+                    <!-- role -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Rol (distintos privilegios en web)</label>
+                        <select name="role" class="form-select" required>
+                            <option value="admin" <?= ($role === 'admin') ? 'selected' : '' ?>>Admin</option>
+                            <option value="events" <?= ($role === 'events') ? 'selected' : '' ?>>Events</option>
+                            <option value="web" <?= ($role === 'web') ? 'selected' : '' ?>>Web</option>
+                            <option value="finance" <?= ($role === 'finance') ? 'selected' : '' ?>>Finance</option>
+                            <option value="marketing" <?= ($role === 'marketing') ? 'selected' : '' ?>>Marketing</option>
                         </select>
                     </div>
 

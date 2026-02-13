@@ -29,8 +29,9 @@ $sql = "INSERT INTO members (
     socials,
     board,
     active,
-    image_path
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    image_path,
+    role
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -41,7 +42,7 @@ if (!$stmt) {
 
 // Bind parameters
 $stmt->bind_param(
-    "sssssssssss",
+    "ssssssssssss",
     $_POST['full_name'],
     $_POST['mail'],
     $password_hash,
@@ -52,7 +53,8 @@ $stmt->bind_param(
     $_POST['socials'],
     $_POST['board'],
     $_POST['active'],
-    $_POST['image_path']
+    $_POST['image_path'],
+    $_POST['role']
 );
 
 // Execute

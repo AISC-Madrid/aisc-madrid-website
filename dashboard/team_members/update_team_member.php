@@ -51,7 +51,8 @@ $sql = "UPDATE members SET
     socials = ?,
     board = ?,
     active = ?,
-    image_path = ?
+    image_path = ?,
+    role = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -61,7 +62,7 @@ if (!$stmt) {
 }
 
 $stmt->bind_param(
-    "sssssssssssi",
+    "ssssssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
@@ -73,6 +74,7 @@ $stmt->bind_param(
     $_POST['board'],
     $_POST['active'],
     $_POST['image_path'],
+    $_POST['role'],
     $id
 );
 
