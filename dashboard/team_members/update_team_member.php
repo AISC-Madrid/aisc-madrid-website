@@ -30,6 +30,9 @@ $query->close();
 
 
 if (!empty($_POST['password'])) {
+    if (strlen($_POST['password']) < 6) {
+        die("<p style='color:red;'>❌ Error: La contraseña debe tener al menos 6 caracteres.</p>");
+    }
     $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 } else {
     // Keep current password if no new password is provided
@@ -48,7 +51,8 @@ $sql = "UPDATE members SET
     socials = ?,
     board = ?,
     active = ?,
-    image_path = ?
+    image_path = ?,
+    role = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -58,7 +62,7 @@ if (!$stmt) {
 }
 
 $stmt->bind_param(
-    "sssssssssssi",
+    "ssssssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
@@ -70,6 +74,7 @@ $stmt->bind_param(
     $_POST['board'],
     $_POST['active'],
     $_POST['image_path'],
+    $_POST['role'],
     $id
 );
 
