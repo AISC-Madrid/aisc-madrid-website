@@ -149,7 +149,7 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
                     $end   = new DateTime($event['end_datetime']);
                     ?>
                     <div id="article-date" class="mb-3">
-                        <i class="fas fa-calendar me-2"></i>
+                        <i class="fas fa-calendar"></i>
                         <?php
                         if ($start->format('d/m/Y') === $end->format('d/m/Y')) {
                             // Same day: date bold, times normal
@@ -168,7 +168,7 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
 
 
                     <div class="mb-3">
-                        <i class="fas fa-map-marker-alt me-2"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                         <span><?= htmlspecialchars($event['location']) ?></span>
                     </div>
 
