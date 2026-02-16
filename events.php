@@ -11,6 +11,26 @@ $now = date("Y-m-d H:i:s");
 
 // Retrieve all events ordered by start_datetime
 $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
+
+// Separate future and past events
+$future_events = [];
+$past_events = [];
+
+while ($row = $events->fetch_assoc()) {
+  // Note: Use time() for comparison
+  if (strtotime($row['end_datetime']) >= time()) {
+    $future_events[] = $row;
+  } else {
+    $past_events[] = $row;
+  }
+}
+
+$events_to_display = [];
+
+// First event to apear should be the soonest upcoming one, after the closest future events, we put all the past ones.
+$future_events = array_reverse($future_events);
+$events_to_display = array_merge($future_events, $past_events);
+
 ?>
 
 <?php include("assets/head.php"); ?>
@@ -34,8 +54,8 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
     <!-- Filter Buttons Row -->
     <div class="row mb-3">
       <div class="col-12 d-flex justify-content-end align-items-center gap-2">
-        <button class="filter-button active" id="order-btn" data-filter="order" data-order="desc" aria-pressed="false"
-          aria-label="orden" title="Ordenar"></button>
+        <!-- <button class="filter-button active" id="order-btn" data-filter="order" data-order="desc" aria-pressed="false"
+          aria-label="orden" title="Ordenar"></button> -->
         <div class="filters d-flex gap-2">
           <button class="filter-button active" data-filter="all" data-en="All" data-es="Todos">Todos</button>
           <button class="filter-button" data-filter="event" data-en="Events" data-es="Eventos">Eventos</button>
@@ -47,7 +67,7 @@ $events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
 
     <!-- Cards Grid -->
     <div class="row g-4">
-      <?php foreach ($events as $event): ?>
+      <?php foreach ($events_to_display as $event): ?>
         <?php
         $type = strtolower(trim(htmlspecialchars($event['type_en'])));
         $timeFlag = strtotime($event['end_datetime']);
