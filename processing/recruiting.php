@@ -63,24 +63,16 @@ $stmt->execute();
 $stmt->close();
 
 // Save in form_submissions (newsletter) table if not already present
-$checkForm = $conn->prepare("SELECT id FROM form_submissions WHERE email = ?");
-$checkForm->bind_param("s", $email);
-$checkForm->execute();
-$checkForm->store_result();
+// Generate unsubscribe token
+$unsubscribe_token = bin2hex(random_bytes(16));
 
-if ($checkForm->num_rows === 0) {
-    $checkForm->close();
-
-    // Generate unsubscribe token
-    $unsubscribe_token = bin2hex(random_bytes(16));
-
-    $stmt2 = $conn->prepare("INSERT INTO form_submissions (full_name, email, unsubscribe_token) VALUES (?, ?, ?)");
-    $stmt2->bind_param("sss", $name, $email, $unsubscribe_token);
-    $stmt2->execute();
-    $stmt2->close();
-} else {
-    $checkForm->close();
-}
+// Insert only if email doesn't exist
+$stmt2 = $conn->prepare("INSERT INTO form_submissions (full_name, email, unsubscribe_token) 
+                         SELECT ?, ?, ? 
+                         WHERE NOT EXISTS (SELECT 1 FROM form_submissions WHERE email = ?)");
+$stmt2->bind_param("ssss", $name, $email, $unsubscribe_token, $email);
+$stmt2->execute();
+$stmt2->close();
 // Get board members for email CC before closing connection
 $boardMembers = [];
 $boardQuery = $conn->prepare("SELECT full_name, mail FROM members WHERE board = 'yes'");
