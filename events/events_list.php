@@ -7,17 +7,19 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
     exit();
 }
 
-include("../assets/head.php");
-include("../assets/db.php");
-include("../assets/nav_dashboard.php");
-
 // Handle delete action
 if (isset($_GET['delete'])) {
+    include("../assets/db.php");
     $event_id = intval($_GET['delete']);
     $conn->query("DELETE FROM events WHERE id = $event_id");
+    $conn->close();
     header("Location: events_list.php");
     exit();
 }
+
+include("../assets/head.php");
+include("../assets/db.php");
+include("../assets/nav_dashboard.php");
 
 // Retrieve events with registration count
 $result = $conn->query("
@@ -98,6 +100,11 @@ $result = $conn->query("
                                 <td>
                                     <a class="btn btn-sm btn-success mb-1"
                                         href="/events/create_event.php?id=<?= $row['id'] ?>">Editar</a>
+                                    <a class="btn btn-sm btn-secondary mb-1" target="_blank"
+                                        href="/processing/export_attendees_pdf.php?event_id=<?= $row['id'] ?>"
+                                        title="Descargar lista de asistentes en PDF">
+                                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                                    </a>
                                     <a class="btn btn-sm btn-danger mb-1" href="/events/events_list.php?delete=<?= $row['id'] ?>"
                                         onclick="return confirm('¿Seguro que quieres eliminar este evento?')">Eliminar</a>
                                 </td>
