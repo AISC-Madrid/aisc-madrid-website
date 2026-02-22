@@ -104,14 +104,8 @@ $is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
                       (Leer términos y condiciones)
                     </a>
                   </div>
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Register"
-                      data-es="Inscribirme">Inscribirme</button>
-                  </div>
-                </form>
-
                 <!-- Link Business Analytics  (Temporal. Hardcoded, not good practice)-->
-                <?php if ((int)$event_id === 31): ?>
+                <?php if (in_array((int)$event_id, [28, 31], true)): ?>
                   <div class="mb-3 mt-3">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSci_2aziFKPrzoLobhedYkS2vpxGRPtWrmY5aRycXieg644aw/viewform" target="_blank"
                       class="form-text fw-bold"
@@ -120,6 +114,11 @@ $is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
                       ¡Apúntate a la mail list de Business Analytics! </a>
                   </div>
                 <?php endif; ?>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Register"
+                      data-es="Inscribirme">Inscribirme</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -176,6 +175,16 @@ $is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
                       (Leer términos y condiciones)
                     </a>
                   </div>
+                <!-- Link Business Analytics  (Temporal. Hardcoded, not good practice)-->
+                <?php if (in_array((int)$event_id, [28, 31], true)): ?>
+                  <div class="mb-3 mt-3">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSci_2aziFKPrzoLobhedYkS2vpxGRPtWrmY5aRycXieg644aw/viewform" target="_blank"
+                      class="form-text fw-bold"
+                      data-es="¡Apúntate a la mail list de Business Analytics!"
+                      data-en="Sign up for the Business Analytics mailing list!">
+                      ¡Apúntate a la mail list de Business Analytics! </a>
+                  </div>
+                <?php endif; ?>
 
                   <!-- Send -->
                   <div class="d-grid">
