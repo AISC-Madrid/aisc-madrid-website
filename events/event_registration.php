@@ -152,8 +152,8 @@ $is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
                       data-es="nombre@ejemplo.com" placeholder="name@example.com" required>
                   </div>
 
-                  <!-- Link Business Analytics -->
-                  <?php if ($event_id === 31): ?>
+                  <!-- Link Business Analytics  (Temporal. Hardcoded, not good practice)-->
+                  <?php if ($event_id == 31): ?>
                     <div class="mb-3">
                       <a href="https://docs.google.com/forms/d/e/1FAIpQLSci_2aziFKPrzoLobhedYkS2vpxGRPtWrmY5aRycXieg644aw/viewform" target="_blank"
                         class="form-text fw-bold" 
