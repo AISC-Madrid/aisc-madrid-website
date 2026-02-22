@@ -151,6 +151,19 @@ $is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
                     <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com"
                       data-es="nombre@ejemplo.com" placeholder="name@example.com" required>
                   </div>
+
+                  <!-- Link Business Analytics -->
+                  <?php if ($event_id === 31): ?>
+                    <div class="mb-3">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSci_2aziFKPrzoLobhedYkS2vpxGRPtWrmY5aRycXieg644aw/viewform" target="_blank"
+                        class="form-text fw-bold" 
+                        data-es="¡Apúntate a la mail list de Business Analytics!"
+                        data-en="Sign up for the Business Analytics mailing list!">
+                        ¡Apúntate a la mail list de Business Analytics! </a>
+                    </div>
+                  <?php endif; ?>
+
+
                   <!-- Consent -->
                   <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
