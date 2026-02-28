@@ -14,7 +14,7 @@ $fecha_objetivo = $hoy->modify('+2 days')->format('Y-m-d');
 
 $query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker 
         FROM event_registrations r
-        JOIN form_submissions u ON r.id = u.id
+        JOIN form_submissions u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
         JOIN events e ON r.event_id = e.id
         WHERE DATE(e.start_datetime) = ? AND r.reminder_sent = 0";
 
@@ -29,17 +29,20 @@ if ($result->num_rows === 0) {
 }
 
 // Configuración base de PHPMailer
-$mail = new PHPMailer;
+$mail = new PHPMailer(true);
 $mail->CharSet = 'UTF-8';
 $mail->isSMTP();
-$mail->Host = 'smtp.hostinger.com';
+$mail->Host = 'smtp.gmail.com';
 $mail->Port = 587;
 $mail->SMTPAuth = true;
+$mail->SMTPSecure = 'tls';
 $mail->Username = $config['smtp_user'];
 $mail->Password = $config['smtp_pass'];
-$mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
+$mail->setFrom($config['smtp_user'], 'AISC Madrid');
 $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
 $mail->isHTML(true);
+
+$baseHtmlContent = file_get_contents(__DIR__ . '/event_reminder_template.html');
 
 $meses = ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
@@ -66,56 +69,50 @@ while ($row = $result->fetch_assoc()) {
     $mail->addAddress($email, $nombre);
     $mail->Subject = "¡Recordatorio! $titulo_es | AISC Madrid";
 
-    // 4. Inyectar el HTML con variables
-    $htmlContent = <<<HTML
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Recordatorio - {$titulo_es} | AISC Madrid</title>
-        </head>
-        <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;">
-            <table align="center" width="600" style="border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;">
-            <tr>
-                <td align="center" style="padding:20px; background-color:#EB178E; color:#ffffff;">
-                <h1 style="margin:0; font-size:24px;">¡Tu evento es en 2 días!</h1>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding:20px; color:#333333; font-size:16px; line-height:1.5;">
-                <p align="center">
-                    <strong>¡Hola {$nombre}!</strong>
-                    <br><br>
-                    Te recordamos que estás registrado/a en el taller <strong>{$titulo_es}</strong>, que tendrá lugar <strong>este próximo {$fecha_texto}</strong>.
-                </p>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" style="padding:10px 20px; color:#EB178E;">
-                <h2 style="margin:0; font-size:22px;"><strong>{$titulo_es}</strong></h2>
-                <div style="margin-top:15px; width:80px; height:4px; background-color:#EB178E; border-radius:2px;"></div>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding:20px; color:#333333; font-size:16px; line-height:1.8;">
-                <p style="margin:8px 0;">📅 <strong>Fecha:</strong> {$inicio} - {$final}</p>
-                <p style="margin:8px 0;">📍 <strong>Aula:</strong> {$lugar}</p>
-                <p style="margin:8px 0;">👥 <strong>Ponentes:</strong> {$ponentes}</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding:0 20px 20px; color:#333333; font-size:14px; line-height:1.5;">
-                <p align="center" style="color:#666666;">
-                    ¡Te esperamos! Si tienes alguna duda, no dudes en contactarnos.
-                    <br><br>
-                    Equipo AISC Madrid
-                </p>
-                </td>
-            </tr>
-            </table>
-        </body>
-        </html>
-    HTML;
+    // replace placeholders
+    $formatted_date = date('d/m/Y H:i', strtotime($row['start_datetime']));
+    if (!empty($row['end_datetime'])) {
+        $formatted_date .= " - " . date('d/m/Y H:i', strtotime($row['end_datetime']));
+    }
+    
+    $domain = $config['base_url']; 
+    $image_url = $domain . ltrim($row['image_path'], '/');
+
+    // Generate Calendar Link
+    $madridTz = new DateTimeZone('Europe/Madrid');
+    $utcTz = new DateTimeZone('UTC');
+
+    $startDate = new DateTime($row['start_datetime'], $madridTz);
+    $startDate->setTimezone($utcTz);
+    $start_utc = $startDate->format('Ymd\THis\Z');
+
+    if (!empty($row['end_datetime'])) {
+        $endDate = new DateTime($row['end_datetime'], $madridTz);
+        $endDate->setTimezone($utcTz);
+        $end_utc = $endDate->format('Ymd\THis\Z');
+    } else {
+        $endDate = clone $startDate;
+        $endDate->modify('+1 hour');
+        $end_utc = $endDate->format('Ymd\THis\Z');
+    }
+    
+    $calendar_link = "https://www.google.com/calendar/render?action=TEMPLATE";
+    $calendar_link .= "&text=" . urlencode("AISC Madrid - " . $row['title_es']);
+    $calendar_link .= "&dates=" . $start_utc . "/" . $end_utc;
+    $calendar_link .= "&details=" . urlencode("Más info: " . $config['base_url'] . "events/evento.php?id=" . $row['event_id']);
+    $calendar_link .= "&location=" . urlencode($row['location']);
+    $calendar_link .= "&sf=true&output=xml";
+
+    $htmlContent = $baseHtmlContent;
+    $htmlContent = str_replace('{{user_name}}', $nombre, $htmlContent);
+    $htmlContent = str_replace('{{event_name}}', $row['title_es'], $htmlContent);
+    $htmlContent = str_replace('{{event_date}}', $formatted_date, $htmlContent);
+    $htmlContent = str_replace('{{event_location}}', $row['location'], $htmlContent);
+    $htmlContent = str_replace('{{event_image}}', $image_url, $htmlContent);
+    $htmlContent = str_replace('{{event_id}}', $row['event_id'], $htmlContent);
+    $htmlContent = str_replace('{{mail}}', urlencode($row['email']), $htmlContent);
+    $htmlContent = str_replace('{{event_speakers}}', htmlspecialchars($row['speaker']), $htmlContent);
+    $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
 
 
     $mail->Body = $htmlContent;
