@@ -74,7 +74,9 @@ $sql = "UPDATE events SET
     image_path = ?, gallery_paths = ?,
     google_calendar_url = ?,
     youtube_url = ?,
-    requires_registration = ?
+    requires_registration = ?,
+    reminder_enabled = ?,
+    reminder_days_before = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -84,12 +86,14 @@ if (!$stmt) {
 
 // ✅ CORRECCIÓN: Guardar el valor del checkbox en una variable primero
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
+$reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
+$reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $googleCalendarUrl = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 
 
 $stmt->bind_param(
-    "ssssssssssssssii",
+    "ssssssssssssssiiii",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -104,8 +108,9 @@ $stmt->bind_param(
     $galleryPathsJson,
     $googleCalendarUrl,
     $youtubeUrl,
-    // ✅ CORRECCIÓN: Pasar la variable en lugar de la expresión
     $requires_registration,
+    $reminder_enabled,
+    $reminder_days_before,
     $event_id
 );
 
