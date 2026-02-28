@@ -17,6 +17,8 @@ $description_es = $description_en = $location = '';
 $start_datetime = $end_datetime = $image_path = $google_calendar_url = '';
 $speaker = '';
 $requires_registration = 0;
+$reminder_enabled = 0;
+$reminder_days_before = 2;
 
 
 // Check if an ID is passed
@@ -44,6 +46,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $google_calendar_url = $event['google_calendar_url'];
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];
+        $reminder_enabled = $event['reminder_enabled'];
+        $reminder_days_before = $event['reminder_days_before'];
     }
     
 }
@@ -157,6 +161,23 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="mb-3 form-check">
                         <input type="checkbox" name="requires_registration" class="form-check-input" id="requires_registration" value="1" <?= !empty($requires_registration) && $requires_registration ? 'checked' : '' ?>>
                         <label class="form-check-label" for="requires_registration">Requiere inscripción</label>
+                    </div>
+
+                    <!-- Reminder Settings -->
+                    <div class="mb-3 p-3 border rounded bg-light">
+                        <h5 class="mb-3">Recordatorio por email</h5>
+                        <div class="form-check mb-2">
+                            <input type="checkbox" name="reminder_enabled" class="form-check-input" id="reminder_enabled" value="1" <?= !empty($reminder_enabled) && $reminder_enabled ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="reminder_enabled">Enviar recordatorio antes del evento</label>
+                        </div>
+                        <div class="mt-2">
+                            <label class="form-label" for="reminder_days_before">Días antes del evento para enviar el recordatorio</label>
+                            <select name="reminder_days_before" id="reminder_days_before" class="form-select" style="max-width: 200px;">
+                                <?php for ($i = 1; $i <= 7; $i++): ?>
+                                    <option value="<?= $i ?>" <?= $reminder_days_before == $i ? 'selected' : '' ?>><?= $i ?> día<?= $i > 1 ? 's' : '' ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Submit -->

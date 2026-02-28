@@ -8,18 +8,19 @@ use PHPMailer\PHPMailer\PHPMailer;
 include(__DIR__ . '/../../assets/db.php');
 $config = include(__DIR__ . '/../../config.php');
 
-// Definir la fecha objetivo (dentro de 2 días)
-$hoy = new DateTime();
-$fecha_objetivo = $hoy->modify('+2 days')->format('Y-m-d');
+// Buscar eventos con recordatorio activado cuyo start_datetime coincide con hoy + reminder_days_before
+$hoy = date('Y-m-d');
 
-$query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker 
+$query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker, e.reminder_days_before 
         FROM event_registrations r
         JOIN form_submissions u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
         JOIN events e ON r.event_id = e.id
-        WHERE DATE(e.start_datetime) = ? AND r.reminder_sent = 0";
+        WHERE e.reminder_enabled = 1
+        AND DATE(e.start_datetime) = DATE_ADD(?, INTERVAL e.reminder_days_before DAY)
+        AND r.reminder_sent = 0";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("s", $fecha_objetivo);
+$stmt->bind_param("s", $hoy);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -113,6 +114,7 @@ while ($row = $result->fetch_assoc()) {
     $htmlContent = str_replace('{{mail}}', urlencode($row['email']), $htmlContent);
     $htmlContent = str_replace('{{event_speakers}}', htmlspecialchars($row['speaker']), $htmlContent);
     $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
+    $htmlContent = str_replace('{{reminder_days}}', $row['reminder_days_before'], $htmlContent);
 
 
     $mail->Body = $htmlContent;
