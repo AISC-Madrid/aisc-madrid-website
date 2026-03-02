@@ -13,6 +13,8 @@ include("upload_image.php");
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $google_calendar_url = !empty($_POST['google_calendar_url']) ? $_POST['google_calendar_url'] : null;
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
+$reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
+$reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
 
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
@@ -24,15 +26,17 @@ $sql = "INSERT INTO events (
     start_datetime, end_datetime,
     youtube_url,
     google_calendar_url,
-    requires_registration
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    requires_registration,
+    reminder_enabled,
+    reminder_days_before
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt)
     die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssssi",
+    "ssssssssssssiii",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -45,7 +49,9 @@ $stmt->bind_param(
     $_POST['end_datetime'],
     $youtube_url,
     $google_calendar_url,
-    $requires_registration
+    $requires_registration,
+    $reminder_enabled,
+    $reminder_days_before
 );
 
 

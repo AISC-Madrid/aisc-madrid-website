@@ -68,33 +68,17 @@ $definedCategories = [
         <div class="row px-3">
             <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
                 <img src="<?= htmlspecialchars($project['image_path']) ?>"
-                    class="card-img-top"
+                    class="card-img-top img-animada"
                     alt="Project Image"
                     style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
             </div>
             <div class="col-lg-8 pt-5 container py-lg-2 d-flex flex-column align-items-start justify-content-center">
                 <div class="mb-3">
-                    <h1 id="article-title" class="text-light display-5 fw-bold mt-2"
+                    <h1 id="article-title" class="text-light display-5 fw-bold mt-2 titulo-animado"
                         data-en="<?= htmlspecialchars($project['title_en']) ?? '' ?>"
                         data-es="<?= htmlspecialchars($project['title_es']) ?? '' ?>">
                         <?= nl2br(htmlspecialchars($project['title_es'] ?? '')) ?>
                     </h1>
-                    <p class="text-decoration-none mt-2" style="color: white;"
-                        data-en="<?= htmlspecialchars($project['short_description_en'] ?? '') ?>"
-                        data-es="<?= htmlspecialchars($project['short_description_es'] ?? '') ?>">
-                        Descripción: <?= nl2br(htmlspecialchars($project['short_description_es'] ?? '')) ?>
-
-                        <?php if ($project['open_registration']): ?>
-                            <div class="my-3">
-                                <a href="/projects/project_registration.php?id=<?= $project_id ?>" 
-                                class="btn btn-custom text-light px-4 fw-semibold"
-                                data-en="Register for project"
-                                data-es="Inscribirse al proyecto">
-                                    Inscribirse al proyecto
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    </p>
                 </div>
             </div>
         </div>
@@ -107,9 +91,7 @@ $definedCategories = [
                     $gallery = $decoded;
                 }
             }
-            ?>
-
-            
+            ?>      
 
             <!-- Sidebar -->
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
@@ -163,6 +145,23 @@ $definedCategories = [
                             </span>
 
                           <?php endforeach; ?>
+
+                        <div class="mt-4 px-2"
+                                data-en="<?= htmlspecialchars($project['short_description_en'] ?? '') ?>"
+                                data-es="<?= htmlspecialchars($project['short_description_es'] ?? '') ?>">
+                                <?= nl2br(htmlspecialchars($project['short_description_es'] ?? '')) ?>
+
+                                <?php if ($project['open_registration']): ?>
+                                    <div class="my-3">
+                                        <a href="/projects/project_registration.php?id=<?= $project_id ?>" 
+                                        class="btn btn-custom text-light px-4 fw-semibold"
+                                        data-en="Register for project"
+                                        data-es="Inscribirse al proyecto">
+                                            Inscribirse al proyecto 
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     <?php endif; ?>
 
@@ -241,6 +240,23 @@ $definedCategories = [
     <?php include('../assets/footer.php'); ?>
 
     <script src="../js/navbar.js"></script>
+    <style>
+    .img-animada {
+        transition: 0.4s;
+    }
+
+    .img-animada:hover {
+        transform: translateY(-15px);
+    }
+
+    .titulo-animado {
+        transition: 0.3s;
+    }
+
+    .titulo-animado:hover {
+        padding-left: 15px;
+    }
+    </style>
 </body>
 
 </html>
