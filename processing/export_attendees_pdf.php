@@ -154,5 +154,5 @@ foreach ($registrations as $reg) {
 
 // Output
 $filename = 'AISC_Madrid-asistentes_evento_' . $event_id . '.pdf';
-$pdf->Output('D', $filename);
+$pdf->Output('I', $filename);
 ?>
