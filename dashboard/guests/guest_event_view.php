@@ -172,7 +172,18 @@ if (!empty($event['gallery_paths'])) {
                                             <?= htmlspecialchars($reg['name']) ?>
                                         </td>
                                         <td>
-                                            <?= htmlspecialchars($reg['email']) ?>
+                                            <!-- Censurar email solo si es guest -->
+                                            <?php
+                                                $parts = explode('@', $reg['email']);
+                                                if (count($parts) === 2) {
+                                                    $local = $parts[0];
+                                                    $visible = strlen($local) > 3 ? substr($local, 0, 3) : substr($local, 0, 1);
+                                                    $censored = $visible . '*****@' . $parts[1];
+                                                } else {
+                                                    $censored = $reg['email'];
+                                                }
+                                            ?>
+                                            <?= htmlspecialchars($censored) ?>
                                         </td>
                                         <td>
                                             <?= date("d/m/Y H:i", strtotime($reg['registration_date'])) ?>
