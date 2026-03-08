@@ -15,15 +15,18 @@
             <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;">
             </div>
         </div>
-        <h4>CAPÍTULO I. DE LA DENOMINACIÓN, FINES, ACTIVIDADES, DOMICILIO Y
+        <h4 style="font-weight: bold;">CAPÍTULO I. DE LA DENOMINACIÓN, FINES, ACTIVIDADES, DOMICILIO Y
             ÁMBITO DE LA ASOCIACIÓN</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>
                 Artículo 1. Denominación
             </h5>
             <ol>
                 <li> Por los presentes Estatutos, se constituye por tiempo indefinido la Asociación
-                    “Artificial Intelligence Student Collective” de la Universidad Carlos III de Madrid. </li>
+                    <span style="font-style:italic">“Artificial Intelligence Student Collective”</span> de la
+                    Universidad Carlos III de Madrid.
+                </li>
                 <li>A los efectos de estos Estatutos y de la actividad universitaria común, las siglas de la
                     Asociación serán “AISC”. </li>
                 <li>AISC está sometida a la legislación vigente en materia de Asociaciones asi como a la
@@ -85,7 +88,8 @@
         </section>
 
         <br>
-        <h4>CAPITULO II. DE LOS ÓRGANOS DE GOBIERNO DE LA ASOCIACIÓN</h4>
+        <h4 style="font-weight:bold;">CAPITULO II. DE LOS ÓRGANOS DE GOBIERNO DE LA ASOCIACIÓN</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 5. Órganos de gobierno.</h5>
             <p>La asociación se regirá por los siguientes órganos:</p>
@@ -95,7 +99,8 @@
             </ol>
         </section>
         <br>
-        <h4>CAPÍTULO III. DE LA ASAMBLEA GENERAL</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO III. DE LA ASAMBLEA GENERAL</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 6. Integración de la Asamblea General.</h5>
             <p>La Asamblea General estará conformada por todos los socios, siendo el órgano
@@ -211,7 +216,8 @@
 
 
         <br>
-        <h4>CAPÍTULO IV. DE LA JUNTA DIRECTIVA</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO IV. DE LA JUNTA DIRECTIVA</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 14. Naturaleza y composición.</h5>
             <ol>
@@ -373,7 +379,8 @@
         </section>
 
         <br>
-        <h4>CAPÍTULO V. DE LOS ASOCIADOS</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO V. DE LOS ASOCIADOS</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 25. Adquisición de la condición de socio e información requerida.</h5>
             <ol>
@@ -478,7 +485,8 @@
         </section>
 
         <br>
-        <h4>CAPÍTULO VI. DE LOS CARGOS DELEGADOS Y RESPONSABLES DE ÁREA</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO VI. DE LOS CARGOS DELEGADOS Y RESPONSABLES DE ÁREA</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 31. Naturaleza y finalidad</h5>
             <ol>
@@ -519,7 +527,9 @@
             </ol>
         </section>
         <br>
-        <h4>CAPÍTULO VII. DE LOS RECURSOS ECONÓMICOS, FINANCIACIÓN Y CONTABILIDAD DE LA ASOCIACIÓN</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO VII. DE LOS RECURSOS ECONÓMICOS, FINANCIACIÓN Y CONTABILIDAD DE LA
+            ASOCIACIÓN</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 34. Patrimonio inicial.</h5>
             <p>La Asociación nace sin patrimonio fundacional ni aportaciones iniciales obligatorias por parte de los
@@ -593,7 +603,8 @@
 
 
         <br>
-        <h4>CAPÍTULO VIII. DE LA DISOLUCIÓN DE LA ASOCIACIÓN</h4>
+        <h4 style="font-weight:bold;">CAPÍTULO VIII. DE LA DISOLUCIÓN DE LA ASOCIACIÓN</h4>
+        <hr style="border: none; border-top: 1px solid #a5a5a5; margin: 12px 0;">
         <section class="mb-4" style="color:black;">
             <h5>Artículo 41. Causas de disolución</h5>
             <ol>
@@ -618,9 +629,9 @@
         </section>
     </div>
 
-        <?php include('assets/footer.php'); ?>
+    <?php include('assets/footer.php'); ?>
 
-        <script src="js/navbar.js"></script>
+    <script src="js/navbar.js"></script>
 
 </body>
 
