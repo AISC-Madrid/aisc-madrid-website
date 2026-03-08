@@ -30,6 +30,9 @@
       <a> | </a>
       <a href="terms_conditions.php" class="footer-link-text" data-en="Terms and Conditions"
         data-es="Terms and Conditions">Términos y Condiciones</a>
+      <a> | </a>
+      <a href="estatutos.php" class="footer-link-text" data-en="Statutes" data-es="Estatutos">
+        Estatutos</a>
     </div>
     <!-- Newsletter -->
   </div>
