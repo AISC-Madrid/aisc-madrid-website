@@ -123,7 +123,7 @@ if (isset($_GET['success'])) {
 <style>
     body {
         min-height: 100vh;
-        background-color: var(--background);
+        background: linear-gradient(135deg, #f8f4ff 0%, #fce4f3 50%, #e8f7ff 100%);
         display: flex;
         flex-direction: column;
     }
@@ -135,65 +135,79 @@ if (isset($_GET['success'])) {
         padding: 2rem 1rem;
     }
     .success-box {
-        background: var(--muted);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 16px;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(235,23,142,0.1);
+        border-radius: 20px;
         padding: 2.5rem 2rem;
         width: 100%;
         max-width: 420px;
         text-align: center;
+        box-shadow: 0 8px 32px rgba(235,23,142,0.08);
     }
     .success-icon {
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        background: rgba(32,204,241,0.12);
+        background: rgba(235,23,142,0.1);
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.25rem;
         font-size: 1.5rem;
-        color: var(--secondary);
+        color: var(--primary);
     }
     .success-box h2 {
-        color: var(--foreground);
+        color: var(--background);
         font-weight: 700;
         font-size: 1.5rem;
     }
     .success-box p {
-        color: rgba(255,255,255,0.5);
+        color: rgba(0,0,0,0.5);
         font-size: 0.9rem;
     }
     .accent-bar {
         width: 48px;
         height: 3px;
-        background: var(--secondary);
+        background: var(--primary);
         border-radius: 2px;
         margin: 0.5rem auto 1.5rem;
     }
     .btn-home {
         background: transparent;
-        border: 1px solid rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.7);
+        border: 1px solid rgba(0,0,0,0.15);
+        color: rgba(0,0,0,0.5);
         border-radius: 8px;
         font-size: 0.875rem;
         padding: 0.5rem 1.25rem;
         transition: border-color 0.2s, color 0.2s;
     }
     .btn-home:hover {
-        border-color: var(--secondary);
-        color: var(--secondary);
+        border-color: var(--primary);
+        color: var(--primary);
     }
     .btn-whatsapp {
-        background: #25D366;
-        color: #fff;
+        background: #25D366 !important;
+        color: #fff !important;
         border: none;
         border-radius: 8px;
         font-weight: 600;
         padding: 0.65rem 1.25rem;
-        transition: filter 0.2s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        box-shadow: 0 4px 15px rgba(37,211,102,0.3);
     }
-    .btn-whatsapp:hover { filter: brightness(110%); color: #fff; }
+    .btn-whatsapp:hover {
+        filter: brightness(110%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+        background: #25D366 !important;
+        color: #fff !important;
+    }
+    .btn-whatsapp:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 10px rgba(37,211,102,0.3);
+    }
     footer { width: 100%; }
 </style>
 <body>
@@ -238,7 +252,7 @@ $errorMsg = match($error) {
 <style>
     body {
         min-height: 100vh;
-        background: linear-gradient(135deg, hsl(300, 3%, 10%) 0%, hsl(270, 5%, 14%) 100%);
+        background: linear-gradient(135deg, #f8f4ff 0%, #fce4f3 50%, #e8f7ff 100%);
         display: flex;
         flex-direction: column;
     }
@@ -250,23 +264,23 @@ $errorMsg = match($error) {
         padding: 2rem 1rem;
     }
     .newsletter-box {
-        background: rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.75);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(235,23,142,0.1);
         border-radius: 20px;
         padding: 2.5rem 2rem;
         width: 100%;
         max-width: 420px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        box-shadow: 0 8px 32px rgba(235,23,142,0.08);
     }
     .newsletter-box h2 {
-        color: var(--foreground);
+        color: var(--background);
         font-weight: 700;
         font-size: 1.6rem;
     }
     .newsletter-box p.subtitle {
-        color: rgba(255,255,255,0.5);
+        color: rgba(0,0,0,0.5);
         font-size: 0.9rem;
     }
     .accent-bar {
@@ -277,29 +291,29 @@ $errorMsg = match($error) {
         margin: 0.5rem 0 1.5rem 0;
     }
     .newsletter-box .form-label {
-        color: rgba(255,255,255,0.7);
+        color: rgba(0,0,0,0.6);
         font-size: 0.85rem;
         font-weight: 500;
     }
     .newsletter-box .form-control {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-        color: var(--foreground);
+        background: rgba(255,255,255,0.9);
+        border: 1px solid rgba(0,0,0,0.12);
+        color: var(--background);
         border-radius: 8px;
     }
     .newsletter-box .form-control:focus {
-        background: rgba(255,255,255,0.09);
-        border-color: var(--secondary);
-        color: var(--foreground);
-        box-shadow: 0 0 0 3px rgba(32,204,241,0.15);
+        background: #fff;
+        border-color: var(--primary);
+        color: var(--background);
+        box-shadow: 0 0 0 3px rgba(235,23,142,0.12);
     }
     .newsletter-box .form-control:disabled {
-        background: rgba(255,255,255,0.04);
-        border-color: rgba(255,255,255,0.07);
-        color: rgba(255,255,255,0.35);
+        background: rgba(0,0,0,0.04);
+        border-color: rgba(0,0,0,0.07);
+        color: rgba(0,0,0,0.35);
     }
     .newsletter-box .form-control::placeholder {
-        color: rgba(255,255,255,0.25);
+        color: rgba(0,0,0,0.25);
     }
     .btn-subscribe {
         background: linear-gradient(90deg, var(--primary), #c4106f);
@@ -360,8 +374,25 @@ $errorMsg = match($error) {
                         <input type="email" class="form-control" value="<?= htmlspecialchars($email) ?>" disabled>
                     </div>
 
-                    <button type="submit" class="btn btn-subscribe w-100">Suscribirme</button>
+                    <button type="submit" class="btn btn-subscribe w-100" id="submitBtn">
+                        <span id="btnText">Suscribirme</span>
+                        <span id="btnLoading" style="display:none;">
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Enviando...
+                        </span>
+                    </button>
                 </form>
+                <script>
+                    document.querySelector('form').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const form = this;
+                        const btn = document.getElementById('submitBtn');
+                        document.getElementById('btnText').style.display = 'none';
+                        document.getElementById('btnLoading').style.display = 'inline';
+                        btn.disabled = true;
+                        setTimeout(function() { form.submit(); }, 300);
+                    });
+                </script>
             <?php endif; ?>
         </div>
     </div>
