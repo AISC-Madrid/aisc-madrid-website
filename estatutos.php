@@ -30,7 +30,7 @@
                 <li>A los efectos de estos Estatutos y de la actividad universitaria común, las siglas de la
                     Asociación serán “AISC”. </li>
                 <li>AISC está sometida a la legislación vigente en materia de Asociaciones asi como a la
-                    normativa universitaria aplicable y al resto del ordenamiento jurídico </li>
+                    normativa universitaria aplicable y al resto del ordenamiento jurídico. </li>
             </ol>
         </section>
 
@@ -55,7 +55,7 @@
                         <li> Promover la colaboración con otras asociaciones universitarias y la conexión entre
                             alumnos de diferentes disciplinas a través de proyectos cooperativos.</li>
                         <li> Reforzar y mantener la conexión de los alumnos con el resto de ramas
-                            internacionales de AISC</li>
+                            internacionales de AISC.</li>
                     </ol>
                 </li>
             </ol>
@@ -65,7 +65,7 @@
             <ol>
                 <li>El domicilio social de AISC se establece en Avenida de la Universidad, N.º 30,
                     Campus de la Escuela Politécnica Superior de la Universidad Carlos III de Madrid,
-                    despacho 2.3.C05, localidad de Leganés, código postal 28911
+                    despacho 2.3.C05, localidad de Leganés, código postal 28911.
                 </li>
                 <li>El ámbito de actuación principal de la Asociación será la Comunidad de Madrid, sin
                     perjuicio de poder realizar actividades y colaboraciones con entidades públicas o
