@@ -60,8 +60,11 @@ while ($row = $result->fetch_assoc()) {
     $inicio = htmlspecialchars($row['start_datetime']);
     $final = htmlspecialchars($row['end_datetime']);
 
-    // Construir fecha legible en español
-    $dt = new DateTime($row['start_datetime']);
+    // 1. Cargamos la fecha indicando que el origen es UTC (como viene de la DB)
+    $dt = new DateTime($row['start_datetime'], new DateTimeZone('UTC'));
+
+    // 2. La convertimos a la zona horaria de Madrid antes de mostrarla
+    $dt->setTimezone(new DateTimeZone('Europe/Madrid'));
     $dia = $dt->format('j');
     $mes = $meses[(int)$dt->format('n')];
     $fecha_texto = "$dia de $mes";
@@ -70,28 +73,35 @@ while ($row = $result->fetch_assoc()) {
     $mail->addAddress($email, $nombre);
     $mail->Subject = "¡Recordatorio! $titulo_es | AISC Madrid";
 
-    // replace placeholders
-    $formatted_date = date('d/m/Y H:i', strtotime($row['start_datetime']));
-    if (!empty($row['end_datetime'])) {
-        $formatted_date .= " - " . date('d/m/Y H:i', strtotime($row['end_datetime']));
-    }
-    
+    // 1. Zonas horarias necesarias
+    $utcTz = new DateTimeZone('UTC');
+    $madridTz = new DateTimeZone('Europe/Madrid');
+
+    // 2. Procesar Fecha de Inicio (Origen siempre UTC)
+    $startDate = new DateTime($row['start_datetime'], $utcTz);
     $domain = $config['base_url']; 
     $image_url = $domain . ltrim($row['image_path'], '/');
+    // Para el texto de la web: Convertimos a Madrid
+    $startDateMadrid = clone $startDate;
+    $startDateMadrid->setTimezone($madridTz);
+    $formatted_date = $startDateMadrid->format('d/m/Y H:i');
 
-    // Generate Calendar Link
-    $madridTz = new DateTimeZone('Europe/Madrid');
-    $utcTz = new DateTimeZone('UTC');
-
-    $startDate = new DateTime($row['start_datetime'], $madridTz);
-    $startDate->setTimezone($utcTz);
+    // Para el enlace de Calendario: Formato UTC 'Z'
     $start_utc = $startDate->format('Ymd\THis\Z');
 
+    // 3. Procesar Fecha de Fin (si existe)
     if (!empty($row['end_datetime'])) {
-        $endDate = new DateTime($row['end_datetime'], $madridTz);
-        $endDate->setTimezone($utcTz);
+        $endDate = new DateTime($row['end_datetime'], $utcTz);
+        
+        // Texto web
+        $endDateMadrid = clone $endDate;
+        $endDateMadrid->setTimezone($madridTz);
+        $formatted_date .= " - " . $endDateMadrid->format('d/m/Y H:i');
+        
+        // Calendario
         $end_utc = $endDate->format('Ymd\THis\Z');
     } else {
+        // Si no hay fin, sumamos 1 hora al inicio UTC
         $endDate = clone $startDate;
         $endDate->modify('+1 hour');
         $end_utc = $endDate->format('Ymd\THis\Z');

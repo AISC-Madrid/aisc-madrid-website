@@ -40,8 +40,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $description_es = $event['description_es'];
         $description_en = $event['description_en'];
         $location = $event['location'];
-        $start_datetime = $event['start_datetime'];
-        $end_datetime = $event['end_datetime'];
+        // 1. Convertimos el inicio de UTC a Madrid para el formulario
+        $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+        $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+
+        // 2. Convertimos el fin de UTC a Madrid para el formulario
+        $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+        $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $end_datetime = $end_dt->format('Y-m-d\TH:i');
         $image_path = $event['image_path'];
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];

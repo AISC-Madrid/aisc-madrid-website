@@ -27,11 +27,13 @@ $stmt->close();
 if (!$event) {
   die("❌ Event not found");
 } else {
-  $end_datetime = $event['end_datetime'];
+  $end_datetime = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
 }
 
-// Compare current time with end_datetime
-$is_past_event = ($end_datetime < date('Y-m-d H:i:s'));
+$end_dt = new DateTime($end_datetime, new DateTimeZone('UTC'));
+$now_madrid = new DateTime('now', new DateTimeZone('Europe/Madrid'));
+
+$is_past_event = ($end_dt < $now_madrid);
 ?>
 
 <!DOCTYPE html>

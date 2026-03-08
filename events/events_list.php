@@ -82,9 +82,19 @@ $result = $conn->query("
                                 <?= htmlspecialchars($row['speaker']) ?><br>
                             </td>
                             <td>
-                                <?= date("d/m/Y H:i", strtotime($row['start_datetime'])) ?>
+                                <?php 
+                                // 1. Creamos los objetos desde el UTC de la base de datos
+                                $inicio = new DateTime($row['start_datetime'], new DateTimeZone('UTC'));
+                                $fin    = new DateTime($row['end_datetime'], new DateTimeZone('UTC'));
+
+                                // 2. Los pasamos a la hora de Madrid
+                                $inicio->setTimezone(new DateTimeZone('Europe/Madrid'));
+                                $fin->setTimezone(new DateTimeZone('Europe/Madrid'));
+                                ?>
+
+                                <?= $inicio->format("d/m/Y H:i") ?>
                                 -
-                                <?= date("d/m/Y H:i", strtotime($row['end_datetime'])) ?>
+                                <?= $fin->format("d/m/Y H:i") ?>
                             </td>
                             <td><?= htmlspecialchars($row['location']) ?></td>
                             <td class="text-center">

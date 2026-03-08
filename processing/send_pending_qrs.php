@@ -46,30 +46,37 @@ if ($result->num_rows > 0) {
 
             $mail->isHTML(true);
             $mail->Subject = '¡Gracias por registrarte al evento!';
-
-            // replace placeholders
             $user_name_short = explode(' ', $row['name'])[0];
-            $formatted_date = date('d/m/Y H:i', strtotime($row['start_datetime']));
-            if (!empty($row['end_datetime'])) {
-                $formatted_date .= " - " . date('d/m/Y H:i', strtotime($row['end_datetime']));
-            }
-            
             $domain = $config['base_url']; 
             $image_url = $domain . ltrim($row['image_path'], '/');
-
-            // Generate Calendar Link
-            $madridTz = new DateTimeZone('Europe/Madrid');
+            // 1. Zonas horarias
             $utcTz = new DateTimeZone('UTC');
+            $madridTz = new DateTimeZone('Europe/Madrid');
 
-            $startDate = new DateTime($row['start_datetime'], $madridTz);
-            $startDate->setTimezone($utcTz);
+            // 2. Procesar Inicio (Leemos de la DB como UTC)
+            $startDate = new DateTime($row['start_datetime'], $utcTz);
+
+            // Formato para el HUMANO (Convertimos a Madrid)
+            $startMadrid = clone $startDate;
+            $startMadrid->setTimezone($madridTz);
+            $formatted_date = $startMadrid->format('d/m/Y H:i');
+
+            // Formato para el CALENDARIO (Mantenemos UTC + 'Z')
             $start_utc = $startDate->format('Ymd\THis\Z');
 
+            // 3. Procesar Fin (si existe)
             if (!empty($row['end_datetime'])) {
-                $endDate = new DateTime($row['end_datetime'], $madridTz);
-                $endDate->setTimezone($utcTz);
+                $endDate = new DateTime($row['end_datetime'], $utcTz);
+                
+                // Formato humano
+                $endMadrid = clone $endDate;
+                $endMadrid->setTimezone($madridTz);
+                $formatted_date .= " - " . $endMadrid->format('d/m/Y H:i');
+                
+                // Formato calendario
                 $end_utc = $endDate->format('Ymd\THis\Z');
             } else {
+                // Si no hay fin, el calendario suma 1 hora al UTC original
                 $endDate = clone $startDate;
                 $endDate->modify('+1 hour');
                 $end_utc = $endDate->format('Ymd\THis\Z');

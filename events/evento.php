@@ -47,8 +47,13 @@ $end_datetime = $event['end_datetime'] ?? '';
 
 $dates_param = '';
 try {
-    $start_dt = new DateTime($start_datetime, new DateTimeZone('Europe/Madrid')); // Adjust timezone as needed
-    $end_dt = new DateTime($end_datetime, new DateTimeZone('Europe/Madrid'));     // Adjust timezone as needed
+    // 1. Cargamos el origen real (UTC)
+    $start_dt = new DateTime($start_datetime, new DateTimeZone('UTC'));
+    $end_dt = new DateTime($end_datetime, new DateTimeZone('UTC'));
+
+    // 2. Convertimos a la zona horaria de la asociación (Madrid)
+    $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+    $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
     
     // Format to YYYYMMDDTHHMMSS
     // Note: Google Calendar typically prefers UTC format (ending in Z) or timezone-aware format. 
@@ -144,8 +149,13 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
             <div class="col-lg-4 pt-5 bg-white d-flex justify-content-center align-items-start">
                 <div style="width:70%;">
                     <?php
-                    $start = new DateTime($event['start_datetime']);
-                    $end   = new DateTime($event['end_datetime']);
+                    // 1. Cargamos las fechas indicando que el origen es UTC (como están en la DB)
+                    $start = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+                    $end   = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+
+                    // 2. Las convertimos a la zona horaria de Madrid
+                    $start->setTimezone(new DateTimeZone('Europe/Madrid'));
+                    $end->setTimezone(new DateTimeZone('Europe/Madrid'));
                     ?>
                     <div id="article-date" class="mb-3">
                         <i class="fas fa-calendar"></i>
