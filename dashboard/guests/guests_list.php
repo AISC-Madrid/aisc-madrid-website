@@ -145,7 +145,7 @@ $result = $conn->query("
                                     </td>
                                     <td>
                                         <small class="text-muted">
-                                            <?= date("d/m/Y H:i", strtotime($row['created_at'])) ?>
+                                            <?= (new DateTime($row['created_at'], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Madrid'))->format('d/m/Y H:i') ?>
                                         </small>
                                     </td>
                                     <td>

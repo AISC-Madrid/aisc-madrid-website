@@ -259,11 +259,16 @@ if (isset($_POST['submit'])) {
 
                     if ($event_data) {
                         $user_name_short = explode(' ', $name)[0];
-                        $start_date = date('d/m/Y H:i', strtotime($event_data['start_datetime']));
-                        $formatted_date = $start_date;
+                        // 1. Procesamos la fecha de inicio
+                        $start_dt = new DateTime($event_data['start_datetime'], new DateTimeZone('UTC'));
+                        $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+                        $formatted_date = $start_dt->format('d/m/Y H:i');
+
+                        // 2. Si existe fecha de fin, la procesamos y concatenamos
                         if (!empty($event_data['end_datetime'])) {
-                            $end_date = date('d/m/Y H:i', strtotime($event_data['end_datetime']));
-                            $formatted_date .= " - " . $end_date;
+                            $end_dt = new DateTime($event_data['end_datetime'], new DateTimeZone('UTC'));
+                            $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+                            $formatted_date .= " - " . $end_dt->format('d/m/Y H:i');
                         }
                         $domain = $config['base_url']; 
                         $image_url = $domain . ltrim($event_data['image_path'], '/');
@@ -272,13 +277,13 @@ if (isset($_POST['submit'])) {
                         $madridTz = new DateTimeZone('Europe/Madrid');
                         $utcTz = new DateTimeZone('UTC');
 
-                        $startDate = new DateTime($event_data['start_datetime'], $madridTz);
-                        $startDate->setTimezone($utcTz);
+                        // 1. Leemos la fecha de la DB sabiendo que es UTC
+                        $startDate = new DateTime($event_data['start_datetime'], $utcTz);
                         $start_utc = $startDate->format('Ymd\THis\Z');
 
                         if (!empty($event_data['end_datetime'])) {
-                            $endDate = new DateTime($event_data['end_datetime'], $madridTz);
-                            $endDate->setTimezone($utcTz);
+                            // 2. Leemos la fecha de fin de la DB sabiendo que es UTC
+                            $endDate = new DateTime($event_data['end_datetime'], $utcTz);
                             $end_utc = $endDate->format('Ymd\THis\Z');
                         } else {
                             $endDate = clone $startDate;

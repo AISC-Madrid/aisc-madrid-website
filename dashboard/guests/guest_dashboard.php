@@ -71,7 +71,9 @@ $stmt->close();
                                 </h5>
                                 <p class="card-text text-muted small mb-1">
                                     <i class="bi bi-calendar3 me-1"></i>
-                                    <?= date("d/m/Y H:i", strtotime($event['start_datetime'])) ?>
+                                    <?= (new DateTime($event['start_datetime'], new DateTimeZone('UTC')))
+                                        ->setTimezone(new DateTimeZone('Europe/Madrid'))
+                                        ->format('d/m/Y H:i') ?>
                                 </p>
                                 <p class="card-text text-muted small mb-1">
                                     <i class="bi bi-geo-alt me-1"></i>

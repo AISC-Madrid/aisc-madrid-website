@@ -99,30 +99,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $htmlContent = file_get_contents('../mails/event_registration/qr_code_template.html');
                 
                 $user_name_short = explode(' ', $name)[0];
-                $start_date = date('d/m/Y H:i', strtotime($event_data['start_datetime']));
-                $formatted_date = $start_date;
-                if (!empty($event_data['end_datetime'])) {
-                    $end_date = date('d/m/Y H:i', strtotime($event_data['end_datetime']));
-                    $formatted_date .= " - " . $end_date;
-                }
-                
+                // 1. Definimos zonas horarias
+                $utcTz = new DateTimeZone('UTC');
+                $madridTz = new DateTimeZone('Europe/Madrid');
+
+                // 2. Procesamos el inicio (Leemos de la DB como UTC)
+                $startDate = new DateTime($event_data['start_datetime'], $utcTz);
                 $domain = $config['base_url']; 
                 $image_url = $domain . ltrim($event_data['image_path'], '/');
+                // Formateamos para visualización (Pasamos a Madrid)
+                $startMadrid = clone $startDate;
+                $startMadrid->setTimezone($madridTz);
+                $formatted_date = $startMadrid->format('d/m/Y H:i');
 
-                // Generate Calendar Link
-                $madridTz = new DateTimeZone('Europe/Madrid');
-                $utcTz = new DateTimeZone('UTC');
-
-                $startDate = new DateTime($event_data['start_datetime'], $madridTz);
-                $startDate->setTimezone($utcTz);
+                // Formateamos para el Link de Calendario (Mantenemos UTC + 'Z')
                 $start_utc = $startDate->format('Ymd\THis\Z');
 
-                // Default end date to 1 hour later if not set, or use end_datetime
+                // 3. Procesamos el fin (si existe)
                 if (!empty($event_data['end_datetime'])) {
-                    $endDate = new DateTime($event_data['end_datetime'], $madridTz);
-                    $endDate->setTimezone($utcTz);
+                    $endDate = new DateTime($event_data['end_datetime'], $utcTz);
+                    
+                    // Para visualización
+                    $endMadrid = clone $endDate;
+                    $endMadrid->setTimezone($madridTz);
+                    $formatted_date .= " - " . $endMadrid->format('d/m/Y H:i');
+                    
+                    // Para Calendario
                     $end_utc = $endDate->format('Ymd\THis\Z');
                 } else {
+                    // Si no hay fin, el calendario suma 1 hora al UTC original
                     $endDate = clone $startDate;
                     $endDate->modify('+1 hour');
                     $end_utc = $endDate->format('Ymd\THis\Z');
