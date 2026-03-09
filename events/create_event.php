@@ -14,7 +14,7 @@ include('../assets/db.php'); // Your $conn mysqli connection
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
 $description_es = $description_en = $location = '';
-$start_datetime = $end_datetime = $image_path = $google_calendar_url = '';
+$start_datetime = $end_datetime = $image_path = '';
 $speaker = '';
 $requires_registration = 0;
 $reminder_enabled = 0;
@@ -40,10 +40,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $description_es = $event['description_es'];
         $description_en = $event['description_en'];
         $location = $event['location'];
-        $start_datetime = $event['start_datetime'];
-        $end_datetime = $event['end_datetime'];
+        // 1. Convertimos el inicio de UTC a Madrid para el formulario
+        $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+        $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+
+        // 2. Convertimos el fin de UTC a Madrid para el formulario
+        $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+        $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $end_datetime = $end_dt->format('Y-m-d\TH:i');
         $image_path = $event['image_path'];
-        $google_calendar_url = $event['google_calendar_url'];
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];
         $reminder_enabled = $event['reminder_enabled'];
@@ -144,11 +150,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
                     </div>
                         
-                    <!-- Google Calendar URL -->
-                    <div class="mb-3">
-                        <label class="form-label">URL Google Calendar</label>
-                        <input type="url" name="google_calendar_url" class="form-control" value="<?= htmlspecialchars($google_calendar_url ?? '') ?>">
-                    </div>
+
 
                     <!-- Youtube URL -->
                     <div class="mb-3">

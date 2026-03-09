@@ -176,7 +176,9 @@ include("../../assets/nav_dashboard.php");
                                                         <?= htmlspecialchars($event['title_es']) ?>
                                                         <br>
                                                         <small class="text-muted">
-                                                            <?= date("d/m/Y H:i", strtotime($event['start_datetime'])) ?>
+                                                            <?= (new DateTime($event['start_datetime'], new DateTimeZone('UTC')))
+                                                                ->setTimezone(new DateTimeZone('Europe/Madrid'))
+                                                                ->format('d/m/Y H:i') ?>
                                                             <?php if (!$event['is_future']): ?>
                                                                 <span class="badge bg-secondary ms-1">Pasado</span>
                                                             <?php endif; ?>

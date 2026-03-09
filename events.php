@@ -18,7 +18,7 @@ $past_events = [];
 
 while ($row = $events->fetch_assoc()) {
   // Note: Use time() for comparison
-  if (strtotime($row['end_datetime']) >= time()) {
+  if (new DateTime($row['end_datetime'], new DateTimeZone('UTC')) >= new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
     $future_events[] = $row;
   } else {
     $past_events[] = $row;
@@ -70,8 +70,11 @@ $events_to_display = array_merge($future_events, $past_events);
       <?php foreach ($events_to_display as $event): ?>
         <?php
         $type = strtolower(trim(htmlspecialchars($event['type_en'])));
-        $timeFlag = strtotime($event['end_datetime']);
-        $is_future = strtotime($event['end_datetime']) >= time();
+        $endDate = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+        $now = new DateTime('now', new DateTimeZone('Europe/Madrid'));
+
+        $timeFlag = $endDate->getTimestamp(); 
+        $is_future = $endDate >= $now;
         $event_class = $is_future ? 'event-future' : 'event-past';
         ?>
         <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date="<?= $timeFlag ?>" <?= $event_class ?>>
@@ -95,9 +98,14 @@ $events_to_display = array_merge($future_events, $past_events);
 
                   <p class="card-text">
                     <i class="fas fa-calendar me-2"></i>
-                    <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                    <?= date("H:i", strtotime($event['start_datetime'])) ?> -
-                    <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                    <?php 
+                      // Nombres únicos para no romper nada que estuviera antes
+                      $fechaInicio = (new DateTime($event['start_datetime'], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Madrid'));
+                      $fechaFin = (new DateTime($event['end_datetime'], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Madrid'));
+                    ?>
+
+                    <strong><?= $fechaInicio->format("d/m/Y") ?></strong><br>
+                    <?= $fechaInicio->format("H:i") ?> - <?= $fechaFin->format("H:i") ?>
                   </p>
 
                   <p class="card-text">

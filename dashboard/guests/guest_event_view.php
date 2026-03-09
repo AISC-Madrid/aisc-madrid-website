@@ -111,8 +111,18 @@ if (!empty($event['gallery_paths'])) {
 
                 <p class="mb-2">
                     <i class="bi bi-calendar3 me-2" style="color: var(--primary);"></i>
-                    <?= date("d/m/Y", strtotime($event['start_datetime'])) ?>
-                    - <?= date("H:i", strtotime($event['start_datetime'])) ?> a <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                    <?php 
+                    // 1. Creamos los objetos desde el UTC de la base de datos
+                    $inicio = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+                    $fin = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+
+                    // 2. Los convertimos a la hora de Madrid
+                    $inicio->setTimezone(new DateTimeZone('Europe/Madrid'));
+                    $fin->setTimezone(new DateTimeZone('Europe/Madrid'));
+                    ?>
+
+                    <?= $inicio->format("d/m/Y") ?>
+                    - <?= $inicio->format("H:i") ?> a <?= $fin->format("H:i") ?>
                 </p>
 
                 <p class="mb-2">
@@ -172,7 +182,18 @@ if (!empty($event['gallery_paths'])) {
                                             <?= htmlspecialchars($reg['name']) ?>
                                         </td>
                                         <td>
-                                            <?= htmlspecialchars($reg['email']) ?>
+                                            <!-- Censurar email solo si es guest -->
+                                            <?php
+                                                $parts = explode('@', $reg['email']);
+                                                if (count($parts) === 2) {
+                                                    $local = $parts[0];
+                                                    $visible = strlen($local) > 3 ? substr($local, 0, 3) : substr($local, 0, 1);
+                                                    $censored = $visible . '*****@' . $parts[1];
+                                                } else {
+                                                    $censored = $reg['email'];
+                                                }
+                                            ?>
+                                            <?= htmlspecialchars($censored) ?>
                                         </td>
                                         <td>
                                             <?= date("d/m/Y H:i", strtotime($reg['registration_date'])) ?>

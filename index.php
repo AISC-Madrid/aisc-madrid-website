@@ -18,7 +18,7 @@ $past_events = [];
 
 while ($row = $result->fetch_assoc()) {
   // Note: Use time() for comparison
-  if (strtotime($row['end_datetime']) >= time()) {
+  if (new DateTime($row['end_datetime'], new DateTimeZone('UTC')) >= new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
     $future_events[] = $row;
   } else {
     $past_events[] = $row;
@@ -94,7 +94,7 @@ include("assets/head.php");
 
             // Determine the appropriate CSS class for styling/scripting
             // Uses the same logic you used to separate them initially
-            $is_future = strtotime($event['end_datetime']) >= time();
+            $is_future = new DateTime($event['end_datetime'], new DateTimeZone('UTC')) >= new DateTime('now', new DateTimeZone('Europe/Madrid'));
             $event_class = $is_future ? 'event-future' : 'event-past';
             ?>
             <div class="col-md-6 col-lg-4 <?= $event_class ?>">
@@ -116,9 +116,13 @@ include("assets/head.php");
                       </h5>
                       <p class="card-text">
                         <i class="fas fa-calendar me-2"></i>
-                        <strong><?= date("d/m/Y", strtotime($event['start_datetime'])) ?></strong><br>
-                        <?= date("H:i", strtotime($event['start_datetime'])) ?> -
-                        <?= date("H:i", strtotime($event['end_datetime'])) ?>
+                        <?php 
+                          $fechaInicio = (new DateTime($event['start_datetime'], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Madrid'));
+                          $fechaFin = (new DateTime($event['end_datetime'], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Madrid'));
+                        ?>
+
+                        <strong><?= $fechaInicio->format("d/m/Y") ?></strong><br>
+                        <?= $fechaInicio->format("H:i") ?> - <?= $fechaFin->format("H:i") ?>
                       </p>
                       <p class="card-text"><i
                           class="fas fa-map-marker-alt me-2"></i><span><?= htmlspecialchars($event['location']) ?></span>
