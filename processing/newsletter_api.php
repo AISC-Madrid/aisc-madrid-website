@@ -313,6 +313,25 @@ $errorMsg = match($error) {
                         <input type="email" class="form-control" value="<?= htmlspecialchars($email) ?>" disabled>
                     </div>
 
+                    
+                <!-- Consentimiento -->
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+                  <label class="form-check-label form-text" for="consent"
+                    data-en="I consent to AISC Madrid storing my submitted data to contact me."
+                    data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
+                    Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
+                  </label>
+                  <a class="form-check-label form-text" href="terms_conditions.php" target="_blank"
+                    data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
+                    (Leer términos y condiciones)
+                  </a>
+                  <div class="invalid-feedback" data-en="You must give permission to continue"
+                    data-es="Debes dar tu consentimiento para continuar. ">Debes dar tu consentimiento para continuar.
+                  </div>
+                </div>
+
+
                     <button type="submit" class="btn btn-subscribe w-100" id="submitBtn">
                         <span id="btnText">Suscribirme</span>
                         <span id="btnLoading" style="display:none;">
