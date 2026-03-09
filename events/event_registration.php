@@ -26,11 +26,9 @@ $stmt->close();
 <?php
 if (!$event) {
   die("❌ Event not found");
-} else {
-  $end_datetime = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
 }
 
-$end_dt = new DateTime($end_datetime, new DateTimeZone('UTC'));
+$end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
 $now_madrid = new DateTime('now', new DateTimeZone('Europe/Madrid'));
 
 $is_past_event = ($end_dt < $now_madrid);

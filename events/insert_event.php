@@ -11,6 +11,14 @@ include("upload_image.php");
 
 // Initialize variables in case they are null
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+
+// Convert form datetimes from Madrid timezone to UTC for storage
+$madridTz = new DateTimeZone('Europe/Madrid');
+$utcTz = new DateTimeZone('UTC');
+$start_madrid = new DateTime($_POST['start_datetime'], $madridTz);
+$start_utc = $start_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
+$end_madrid = new DateTime($_POST['end_datetime'], $madridTz);
+$end_utc = $end_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
 $reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
@@ -43,8 +51,8 @@ $stmt->bind_param(
     $_POST['description_es'],
     $_POST['description_en'],
     $_POST['location'],
-    $_POST['start_datetime'],
-    $_POST['end_datetime'],
+    $start_utc,
+    $end_utc,
     $youtube_url,
     $requires_registration,
     $reminder_enabled,
