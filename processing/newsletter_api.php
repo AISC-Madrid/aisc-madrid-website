@@ -60,6 +60,9 @@ if (isset($_GET['success'])) {
 <html lang="es">
 <?php include("../assets/head.php"); ?>
 <style>
+    :root {
+        --navbar-offset: 96px;
+    }
     body {
         min-height: 100vh;
         background: linear-gradient(135deg, #f8f4ff 0%, #fce4f3 50%, #e8f7ff 100%);
@@ -71,7 +74,7 @@ if (isset($_GET['success'])) {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 1rem;
+        padding: calc(var(--navbar-offset) + 1rem) 1rem 2rem;
     }
     .success-box {
         background: rgba(255,255,255,0.75);
@@ -147,6 +150,14 @@ if (isset($_GET['success'])) {
         transform: translateY(0);
         box-shadow: 0 3px 10px rgba(37,211,102,0.3);
     }
+    @media (max-width: 768px) {
+        :root {
+            --navbar-offset: 110px;
+        }
+        .success-wrapper {
+            align-items: flex-start;
+        }
+    }
     footer { width: 100%; }
 </style>
 <body>
@@ -189,6 +200,9 @@ $errorMsg = match($error) {
 <html lang="es">
 <?php include("../assets/head.php"); ?>
 <style>
+    :root {
+        --navbar-offset: 96px;
+    }
     body {
         min-height: 100vh;
         background: linear-gradient(135deg, #f8f4ff 0%, #fce4f3 50%, #e8f7ff 100%);
@@ -200,7 +214,7 @@ $errorMsg = match($error) {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 1rem;
+        padding: calc(var(--navbar-offset) + 1rem) 1rem 2rem;
     }
     .newsletter-box {
         background: rgba(255,255,255,0.75);
@@ -282,11 +296,19 @@ $errorMsg = match($error) {
         font-size: 0.875rem;
         padding: 0.75rem 1rem;
     }
+    @media (max-width: 768px) {
+        :root {
+            --navbar-offset: 110px;
+        }
+        .newsletter-wrapper {
+            align-items: flex-start;
+        }
+    }
     footer { width: 100%; }
 </style>
 <body>
     <?php include("../assets/nav.php") ?>
-    <div class="newsletter-wrapper">
+    <div class="newsletter-wrapper ">
         <div class="newsletter-box">
             <h2>Newsletter</h2>
             <div class="accent-bar"></div>
