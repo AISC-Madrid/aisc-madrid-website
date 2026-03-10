@@ -1,13 +1,13 @@
 <?php
+require '../assets/csrf.php';
+
 $email = trim($_GET['email'] ?? '');
-$nameFromUrl = trim($_GET['name'] ?? '');
 $emailValid = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-// If both name and email are in the URL, treat it as a direct submission
-if ($emailValid && $nameFromUrl !== '' && $_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_GET['success']) && !isset($_GET['error'])) {
-    $_POST['name']  = $nameFromUrl;
-    $_POST['email'] = $email;
-    $_SERVER['REQUEST_METHOD'] = 'POST';
+// Validate CSRF token on POST submissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    http_response_code(403);
+    die("Token CSRF inválido.");
 }
 
 // Handle form submission
@@ -301,6 +301,7 @@ $errorMsg = match($error) {
             <?php else: ?>
                 <form method="POST" action="">
                     <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Tu nombre</label>

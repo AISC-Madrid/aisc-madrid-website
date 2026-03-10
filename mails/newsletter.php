@@ -4,9 +4,10 @@ while (ob_get_level()) ob_end_flush();
 ini_set('output_buffering', 'off');
 ini_set('zlib.output_compression', 0);
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
 error_reporting(E_ALL);
+ini_set('log_errors', 1);
 
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;

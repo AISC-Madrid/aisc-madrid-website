@@ -1,8 +1,8 @@
 <?php
-if (false) {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
+require '../assets/csrf.php';
+if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    http_response_code(403);
+    die("Token CSRF inválido.");
 }
 
 require '../vendor/autoload.php';

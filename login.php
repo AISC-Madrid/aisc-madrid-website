@@ -1,11 +1,26 @@
 <?php
 // login.php - Centralized login for AISC Madrid
+$secure_cookie = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'secure'   => $secure_cookie,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 session_start();
 
 // Destroy any existing session to force fresh login every time
 if (isset($_SESSION['activated'])) {
     session_unset();
     session_destroy();
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path'     => '/',
+        'secure'   => $secure_cookie,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
     session_start(); // Start a new clean session
 }
 
@@ -29,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user = $result->fetch_assoc()) {
         // Verify password for regular user
         if (password_verify($password, $user['password_hash'])) {
+            session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = strtok($user['full_name'], ' ');
             $_SESSION['mail'] = $user['mail'];
@@ -55,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$guest['is_active']) {
                 $error = "This guest account is inactive.";
             } elseif (password_verify($password, $guest['password_hash'])) {
+                session_regenerate_id(true);
                 $_SESSION['user_id'] = $guest['id'];
                 $_SESSION['name'] = $guest['name'] ?: $guest['username'];
                 $_SESSION['username'] = $guest['username'];

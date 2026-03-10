@@ -2,8 +2,6 @@
 <html lang="en">
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include("assets/db.php");
 
 // Get current datetime
@@ -74,7 +72,7 @@ $events_to_display = array_merge($future_events, $past_events);
         $is_future = strtotime($event['end_datetime']) >= time();
         $event_class = $is_future ? 'event-future' : 'event-past';
         ?>
-        <div class="col-md-6 col-lg-4 event-card" data-type="<?= $type ?>" date="<?= $timeFlag ?>" <?= $event_class ?>>
+        <div class="col-md-6 col-lg-4 event-card" data-type="<?= htmlspecialchars($type, ENT_QUOTES, 'UTF-8') ?>" date="<?= (int)$timeFlag ?>" <?= $event_class ?>>
           <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
             <div class="card h-100 shadow-sm">
               <div class="card-body p-0 position-relative">

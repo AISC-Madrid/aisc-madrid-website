@@ -1,7 +1,4 @@
 <?php
-// Show errors for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include('../assets/db.php');
 include("../assets/head.php");
 
@@ -15,7 +12,9 @@ $event_id = (int) $_GET['id'];
 // Prepare SQL
 $stmt = $conn->prepare("SELECT * FROM events WHERE id = ?");
 if (!$stmt) {
-    die("❌ Prepare failed: " . $conn->error);
+    error_log("DB prepare failed in " . __FILE__ . ": " . $conn->error);
+    http_response_code(500);
+    die("Error interno del servidor.");
 }
 $stmt->bind_param("i", $event_id);
 $stmt->execute();
