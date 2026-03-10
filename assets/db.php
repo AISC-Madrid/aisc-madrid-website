@@ -2,7 +2,15 @@
 // Datos de conexión
 $config = include(__DIR__ . '/../config.php');
 
-if (!empty($config['dev_mode'])) {
+$_is_admin_page = str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/dashboard/') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/events/insert') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/events/update') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/events/create') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/projects/insert') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/projects/update') ||
+                  str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', '/projects/create');
+
+if ($_is_admin_page || !empty($config['dev_mode'])) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
 } else {
