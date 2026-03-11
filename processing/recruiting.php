@@ -1,4 +1,10 @@
 <?php
+require '../assets/csrf.php';
+if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    http_response_code(403);
+    die("Token CSRF inválido.");
+}
+
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -51,7 +57,8 @@ $checkStmt->store_result();
 if ($checkStmt->num_rows > 0) {
     $checkStmt->close();
     $conn->close();
-    header("Location: /join.php?error_duplicate=1&name=$name&email=$email&campus=$campus&position=$position&interest=$reason&consent=$consent#recruiting-form");
+    $query = http_build_query(['error_duplicate' => 1, 'name' => $name, 'email' => $email, 'campus' => $campus, 'position' => $position, 'interest' => $reason, 'consent' => $consent]);
+    header("Location: /join.php?$query#recruiting-form");
     exit;
 }
 $checkStmt->close();

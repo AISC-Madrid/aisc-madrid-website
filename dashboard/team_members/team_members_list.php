@@ -1,8 +1,4 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 session_start(); // Start the session
 
 // Check if the user is logged in

@@ -1,7 +1,5 @@
 <?php
-// Show errors for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include('../assets/csrf.php');
 include('../assets/db.php');
 include("../assets/head.php");
 
@@ -14,7 +12,9 @@ $project_id = (int) $_GET['id'];
 // Prepare SQL to get project details
 $stmt = $conn->prepare("SELECT title_es, image_path FROM projects WHERE id = ?");
 if (!$stmt) {
-    die("❌ Prepare failed: " . $conn->error);
+    error_log("DB prepare failed in " . __FILE__ . ": " . $conn->error);
+    http_response_code(500);
+    die("Error interno del servidor.");
 }
 $stmt->bind_param("i", $project_id);
 $stmt->execute();
@@ -72,6 +72,7 @@ if (!$project) {
 
                             <form method="POST" action="/processing/register_project.php">
                                 <input type="hidden" name="project_id" value="<?= $project_id ?>">
+                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label" style="color: black" data-en="Full name"

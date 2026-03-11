@@ -184,8 +184,8 @@ include("assets/head.php");
 
                     <div class="col-12 col-sm-7 d-flex flex-column p-3 p-md-4 h-100">
 
-                      <h5 class="fw-bold mb-2" data-en="<?= $title_en ?>" data-es="<?= $title_es ?>">
-                        <?= $title_es ?>
+                      <h5 class="fw-bold mb-2" data-en="<?= htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') ?>" data-es="<?= htmlspecialchars($title_es, ENT_QUOTES, 'UTF-8') ?>">
+                        <?= htmlspecialchars($title_es, ENT_QUOTES, 'UTF-8') ?>
                       </h5>
 
                       <?php if (!empty($category)): ?>
@@ -226,8 +226,8 @@ include("assets/head.php");
                       <?php endif; ?>
 
                       <?php if ($desc_es): ?>
-                        <p class="mb-0 flex-grow-1 project-description" data-en="<?= $desc_en ?>" data-es="<?= $desc_es ?>">
-                          <?= $desc_es ?>
+                        <p class="mb-0 flex-grow-1 project-description" data-en="<?= htmlspecialchars($desc_en, ENT_QUOTES, 'UTF-8') ?>" data-es="<?= htmlspecialchars($desc_es, ENT_QUOTES, 'UTF-8') ?>">
+                          <?= htmlspecialchars($desc_es, ENT_QUOTES, 'UTF-8') ?>
                         </p>
                       <?php endif; ?>
 
