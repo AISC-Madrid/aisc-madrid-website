@@ -2,8 +2,7 @@
 <html lang="en">
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include("assets/csrf.php");
 include("assets/db.php");
 
 // Get current datetime
@@ -154,8 +153,6 @@ include("assets/head.php");
 
         <!-- Board members row. Get info from DB -->
         <?php
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
         include("assets/db.php");
 
         // Retrieve all board members
@@ -182,13 +179,27 @@ include("assets/head.php");
               <div class="team-box text-center">
                 <div class="team-wrapper">
                   <div class="team-board_member">
-                    <a href="<?= $board_member['socials'] ?>" target="_blank">
+                    <?php
+                    $social_url = $board_member['socials'] ?? '';
+                    $allowed_hosts = ['linkedin.com', 'github.com', 'twitter.com', 'instagram.com', 'x.com'];
+                    $parsed = parse_url($social_url);
+                    $safe_social = '#';
+                    if ($parsed && isset($parsed['host'])) {
+                        foreach ($allowed_hosts as $host) {
+                            if (str_ends_with($parsed['host'], $host)) {
+                                $safe_social = htmlspecialchars($social_url, ENT_QUOTES, 'UTF-8');
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <a href="<?= $safe_social ?>" target="_blank" rel="noopener noreferrer">
                       <img src="<?= htmlspecialchars($board_member['image_path']) ?>"
-                        alt="<?= $board_member['full_name'] ?>" class="img-fluid rounded">
+                        alt="<?= htmlspecialchars($board_member['full_name'], ENT_QUOTES, 'UTF-8') ?>" class="img-fluid rounded">
                     </a>
                   </div>
                 </div>
-                <h5 class="mt-3" style="color: var(--background)"><?= $board_member['full_name'] ?></h5>
+                <h5 class="mt-3" style="color: var(--background)"><?= htmlspecialchars($board_member['full_name'], ENT_QUOTES, 'UTF-8') ?></h5>
                 <p class="text-muted" data-en="<?= htmlspecialchars($board_member['position_en']) ?>"
                   data-es="<?= htmlspecialchars($board_member['position_es']) ?>">
                 </p>
@@ -225,6 +236,7 @@ include("assets/head.php");
               </p>
 
               <form method="POST" action="processing/phpmailer.php" class="needs-validation" novalidate>
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
                 <!-- Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label" data-en="Full name" data-es="Nombre y apellidos">Nombre y

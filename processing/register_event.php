@@ -1,6 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require '../assets/csrf.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    http_response_code(403);
+    die("Token CSRF inválido.");
+}
 
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
@@ -38,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert new registration
     $stmt = $conn->prepare("INSERT INTO event_registrations (event_id, name, email) VALUES (?, ?, ?)");
     if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
+        error_log("DB prepare failed in " . __FILE__ . ": " . $conn->error);
+        http_response_code(500);
+        die("Error interno del servidor.");
     }
     
     $stmt->bind_param("iss", $event_id, $name, $email);
