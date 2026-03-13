@@ -48,10 +48,10 @@
         </li>
 
         <!-- Get involved Section -->
-        <li class="nav-item">
+<!--         <li class="nav-item">
           <a class="nav-link" href="join.php" data-en="Join" data-es="Participa"
             title="Cómo ser parte de AISC Madrid">Participa</a>
-        </li>
+        </li> -->
 
         <!-- Log In Button -->
         <li class="nav-item">
