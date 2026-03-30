@@ -155,6 +155,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
 
                 $mail->Body = $htmlContent;
+
+                // Generate and attach .ics file
+                $ics_uid = uniqid('evento_') . "@aiscmadrid.es"; // UID único
+                $ics_dtstamp = gmdate('Ymd\THis\Z'); // Sello de tiempo de la creación del archivo
+                $ics_description = "Más info: " . $config['base_url'] . "events/evento.php?id=" . $event_id;
+
+                $ics_content = "BEGIN:VCALENDAR\r\n";
+                $ics_content .= "VERSION:2.0\r\n";
+                $ics_content .= "PRODID:-//AISC Madrid//Sitio Web//ES\r\n";
+                $ics_content .= "CALSCALE:GREGORIAN\r\n";
+                $ics_content .= "BEGIN:VEVENT\r\n";
+                $ics_content .= "UID:{$ics_uid}\r\n";
+                $ics_content .= "DTSTAMP:{$ics_dtstamp}\r\n";
+                $ics_content .= "DTSTART:{$start_utc}\r\n";
+                $ics_content .= "DTEND:{$end_utc}\r\n";
+                $ics_content .= "SUMMARY:" . $event_data['title_es'] . "\r\n";
+                $ics_content .= "LOCATION:" . $event_data['location'] . "\r\n";
+                $ics_content .= "DESCRIPTION:" . $ics_description . "\r\n";
+                $ics_content .= "END:VEVENT\r\n";
+                $ics_content .= "END:VCALENDAR\r\n";
+
+                // Add the generated string as an attachment to the email
+                $mail->addStringAttachment($ics_content, 'evento_aisc.ics', 'base64', 'text/calendar');
+
                 $mail->send();
 
                 // update qr_email_sent
