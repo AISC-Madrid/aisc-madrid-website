@@ -35,8 +35,11 @@ $sql = "INSERT INTO members (
     board,
     active,
     image_path,
-    role
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    role,
+    is_honor,
+    graduation_year,
+    honor_quote
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare statement
 $stmt = $conn->prepare($sql);
@@ -44,6 +47,10 @@ $stmt = $conn->prepare($sql);
 if (!$stmt) {
     die("Error al preparar la consulta: " . $conn->error);
 }
+
+$is_honor = isset($_POST['is_honor']) ? 1 : 0;
+$graduation_year = $_POST['graduation_year'] ?? null;
+$honor_quote = $_POST['honor_quote'] ?? null;
 
 // Bind parameters
 $stmt->bind_param(
@@ -59,7 +66,10 @@ $stmt->bind_param(
     $_POST['board'],
     $_POST['active'],
     $_POST['image_path'],
-    $_POST['role']
+    $_POST['role'],
+    $is_honor,
+    $graduation_year,
+    $honor_quote
 );
 
 // Execute

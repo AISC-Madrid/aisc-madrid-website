@@ -52,7 +52,10 @@ $sql = "UPDATE members SET
     board = ?,
     active = ?,
     image_path = ?,
-    role = ?
+    role = ?,
+    is_honor = ?,
+    graduation_year = ?,
+    honor_quote = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -60,6 +63,10 @@ $stmt = $conn->prepare($sql);
 if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
+
+$is_honor = isset($_POST['is_honor']) ? 1 : 0;
+$graduation_year = $_POST['graduation_year'] ?? null;
+$honor_quote = $_POST['honor_quote'] ?? null;
 
 $stmt->bind_param(
     "ssssssssssssi",
@@ -75,6 +82,9 @@ $stmt->bind_param(
     $_POST['active'],
     $_POST['image_path'],
     $_POST['role'],
+    $is_honor,
+    $graduation_year,
+    $honor_quote,
     $id
 );
 
