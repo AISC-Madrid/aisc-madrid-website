@@ -36,9 +36,18 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(translations => {
                 document.querySelectorAll('[translation-key]').forEach(el => {
-                    const key = el.getAttribute('translation-key');
-                    if (translations && translations[key]) {
-                        el.innerHTML = decodeHtml(translations[key]); // <strong> works here too
+                    const keyString = el.getAttribute('translation-key');
+                    
+                    // Namespacing:
+                    // "section": {
+                    //   "title": "Title text"
+                    // }
+                    // allows us to use:
+                    // <h1 translation-key="section.title"> Fallback title </h1>
+                    const value = keyString.split('.').reduce((obj, key) => (obj || {})[key], translations);
+                    
+                    if (value !== undefined && typeof value === 'string') {
+                        el.innerHTML = decodeHtml(value); // <strong> works here too
                     }
                 });
             })
