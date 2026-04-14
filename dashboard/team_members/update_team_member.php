@@ -39,6 +39,8 @@ if (!empty($_POST['password'])) {
     $password_hash = $current_password_hash;
 }
 
+$is_honor = ($_POST['is_honor'] ?? 'no') === 'yes' ? 'yes' : 'no';
+
 // 🔹 Actualizar datos del miembro
 $sql = "UPDATE members SET
     full_name = ?,
@@ -64,12 +66,8 @@ if (!$stmt) {
     die("<p style='color:red;'>❌ Error al preparar la consulta: " . $conn->error . "</p>");
 }
 
-$is_honor = isset($_POST['is_honor']) ? 1 : 0;
-$graduation_year = $_POST['graduation_year'] ?? null;
-$honor_quote = $_POST['honor_quote'] ?? null;
-
 $stmt->bind_param(
-    "ssssssssssssi",
+    "sssssssssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
@@ -83,8 +81,8 @@ $stmt->bind_param(
     $_POST['image_path'],
     $_POST['role'],
     $is_honor,
-    $graduation_year,
-    $honor_quote,
+    $_POST['graduation_year'],
+    $_POST['honor_quote'],
     $id
 );
 

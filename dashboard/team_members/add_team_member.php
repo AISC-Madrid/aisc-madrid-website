@@ -48,13 +48,13 @@ if (!$stmt) {
     die("Error al preparar la consulta: " . $conn->error);
 }
 
-$is_honor = isset($_POST['is_honor']) ? 1 : 0;
+$is_honor = ($_POST['is_honor'] ?? 'no') === 'yes' ? 'yes' : 'no';
 $graduation_year = $_POST['graduation_year'] ?? null;
 $honor_quote = $_POST['honor_quote'] ?? null;
 
 // Bind parameters
 $stmt->bind_param(
-    "ssssssssssss",
+    "sssssssssssssss",
     $_POST['full_name'],
     $_POST['mail'],
     $password_hash,

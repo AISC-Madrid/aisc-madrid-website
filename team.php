@@ -18,7 +18,7 @@ $honor_members = [];
 $past_members = [];
 
 while ($row = $result->fetch_assoc()) {
-  if ($row['is_honor'] == 1) {
+  if ($row['is_honor'] == 'yes') {
     $honor_members[] = $row;
   } elseif ($row['active'] == 'yes') {
     $active_members[] = $row;

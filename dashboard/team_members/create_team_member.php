@@ -162,8 +162,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="mb-3 col-6">
                         <label class="form-label">Miembro de Honor</label>
                         <div class="form-check">
+                            <input type="hidden" name="is_honor" value="no">
                             <input type="checkbox" name="is_honor" class="form-check-input" id="is_honor"
-                                <?= (!empty($member['is_honor'])) ? 'checked' : '' ?>>
+                                value="yes" <?= (!empty($member['is_honor']) && $member['is_honor'] !== 'no') ? 'checked' : '' ?>>
                             <label class="form-check-label" for="is_honor">Es miembro de honor</label>
                         </div>
                     </div>
