@@ -64,7 +64,7 @@ $events_to_display = array_merge($future_events, $past_events);
 
 
     <!-- Cards Grid -->
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
       <?php foreach ($events_to_display as $event): ?>
         <?php
         $type = strtolower(trim(htmlspecialchars($event['type_en'])));
@@ -75,7 +75,7 @@ $events_to_display = array_merge($future_events, $past_events);
         $is_future = $endDate >= $now;
         $event_class = $is_future ? 'event-future' : 'event-past';
         ?>
-        <div class="col-md-6 col-lg-4 event-card" data-type="<?= htmlspecialchars($type, ENT_QUOTES, 'UTF-8') ?>" date="<?= (int)$timeFlag ?>" <?= $event_class ?>>
+        <div class="col-12 col-md-6 col-lg-4 event-card" data-type="<?= htmlspecialchars($type, ENT_QUOTES, 'UTF-8') ?>" date="<?= (int)$timeFlag ?>" <?= $event_class ?>>
           <a href="/events/evento.php?id=<?= $event['id'] ?>" class="text-decoration-none text-reset">
             <div class="card h-100 shadow-sm">
               <div class="card-body p-0 position-relative">

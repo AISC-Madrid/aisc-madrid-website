@@ -13,6 +13,7 @@ include(__DIR__ . "/../../assets/db.php");
 // Initialize variables for the form
 $full_name = $mail = $position_es = $position_en = '';
 $phone = $dni = $socials = $active = $board = $image_path = $role = '';
+$is_honor = $graduation_year = $honor_quote = '';
 
 // Check if an ID is passed
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -155,6 +156,31 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <label class="form-label">Ruta de imagen</label>
                         <input type="text" name="image_path" class="form-control"
                             value="<?= htmlspecialchars($image_path) ?>">
+                    </div>
+
+                    <!-- is_honor -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Miembro de Honor</label>
+                        <div class="form-check">
+                            <input type="hidden" name="is_honor" value="no">
+                            <input type="checkbox" name="is_honor" class="form-check-input" id="is_honor"
+                                value="yes" <?= (!empty($member['is_honor']) && $member['is_honor'] !== 'no') ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="is_honor">Es miembro de honor</label>
+                        </div>
+                    </div>
+
+                    <!-- graduation_year -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Año de graduación (ej: Class of '26)</label>
+                        <input type="text" name="graduation_year" class="form-control" placeholder="26"
+                            value="<?= htmlspecialchars($member['graduation_year'] ?? '') ?>">
+                    </div>
+
+                    <!-- honor_quote -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Frase personal</label>
+                        <textarea name="honor_quote" class="form-control" rows="2"
+                            placeholder="Una frase que te defina..."><?= htmlspecialchars($member['honor_quote'] ?? '') ?></textarea>
                     </div>
 
                     <!-- Submit -->

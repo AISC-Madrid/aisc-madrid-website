@@ -39,6 +39,8 @@ if (!empty($_POST['password'])) {
     $password_hash = $current_password_hash;
 }
 
+$is_honor = ($_POST['is_honor'] ?? 'no') === 'yes' ? 'yes' : 'no';
+
 // 🔹 Actualizar datos del miembro
 $sql = "UPDATE members SET
     full_name = ?,
@@ -52,7 +54,10 @@ $sql = "UPDATE members SET
     board = ?,
     active = ?,
     image_path = ?,
-    role = ?
+    role = ?,
+    is_honor = ?,
+    graduation_year = ?,
+    honor_quote = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -62,7 +67,7 @@ if (!$stmt) {
 }
 
 $stmt->bind_param(
-    "ssssssssssssi",
+    "sssssssssssssssi",
     $_POST['full_name'],
     $_POST['mail'],
     $_POST['position_es'],
@@ -75,6 +80,9 @@ $stmt->bind_param(
     $_POST['active'],
     $_POST['image_path'],
     $_POST['role'],
+    $is_honor,
+    $_POST['graduation_year'],
+    $_POST['honor_quote'],
     $id
 );
 
