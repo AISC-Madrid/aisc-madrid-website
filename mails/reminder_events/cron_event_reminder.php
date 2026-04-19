@@ -63,7 +63,14 @@ while ($row = $result->fetch_assoc()) {
     // Datos del evento
     $titulo_es = $row['title_es'];
     $titulo_en = $row['title_en'];
-    $event_type_label = (isset($row['type_es']) && strtolower($row['type_es']) === 'evento') ? 'evento' : 'workshop';
+    $event_type_es = isset($row['type_es']) ? strtolower(trim($row['type_es'])) : '';
+    if ($event_type_es === 'taller' || $event_type_es === 'workshop') {
+        $event_type_label = 'taller';
+    } elseif ($event_type_es === 'evento') {
+        $event_type_label = 'evento';
+    } else {
+        $event_type_label = 'evento';
+    }
     $lugar = htmlspecialchars($row['location']);
     $ponentes = htmlspecialchars($row['speaker']);
     $inicio = htmlspecialchars($row['start_datetime']);
