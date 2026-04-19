@@ -12,6 +12,7 @@ $config = include(__DIR__ . '/../../config.php');
 $hoy = date('Y-m-d');
 
 $query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker, e.reminder_days_before 
+    , e.type_es
         FROM event_registrations r
         JOIN form_submissions u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
         JOIN events e ON r.event_id = e.id
@@ -47,6 +48,13 @@ $baseHtmlContent = file_get_contents(__DIR__ . '/event_reminder_template.html');
 
 $meses = ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
+function escape_ics_text($value)
+{
+    $value = str_replace('\\', '\\\\', $value);
+    $value = str_replace(["\r\n", "\r", "\n"], '\\n', $value);
+    return str_replace([';', ',', '"'], ['\\;', '\\,', '\\"'], $value);
+}
+
 // 4. Bucle para enviar a cada asistente
 while ($row = $result->fetch_assoc()) {
     $nombre = explode(' ', $row['full_name'])[0];
@@ -55,6 +63,7 @@ while ($row = $result->fetch_assoc()) {
     // Datos del evento
     $titulo_es = $row['title_es'];
     $titulo_en = $row['title_en'];
+    $event_type_label = (isset($row['type_es']) && strtolower($row['type_es']) === 'evento') ? 'evento' : 'workshop';
     $lugar = htmlspecialchars($row['location']);
     $ponentes = htmlspecialchars($row['speaker']);
     $inicio = htmlspecialchars($row['start_datetime']);
@@ -114,8 +123,29 @@ while ($row = $result->fetch_assoc()) {
     $calendar_link .= "&location=" . urlencode($row['location']);
     $calendar_link .= "&sf=true&output=xml";
 
+    $event_uid = $row['event_id'] . '-' . md5($row['email'] . '|' . $row['start_datetime']);
+    $event_summary = $row['title_es'];
+    $event_description = "Más info: " . $config['base_url'] . "events/evento.php?id=" . $row['event_id'];
+    $icsContent = "BEGIN:VCALENDAR\r\n";
+    $icsContent .= "VERSION:2.0\r\n";
+    $icsContent .= "PRODID:-//AISC Madrid//Event Reminder//ES\r\n";
+    $icsContent .= "CALSCALE:GREGORIAN\r\n";
+    $icsContent .= "METHOD:PUBLISH\r\n";
+    $icsContent .= "BEGIN:VEVENT\r\n";
+    $icsContent .= "UID:" . escape_ics_text($event_uid) . "\r\n";
+    $icsContent .= "DTSTAMP:" . gmdate('Ymd\THis\Z') . "\r\n";
+    $icsContent .= "DTSTART:" . $start_utc . "\r\n";
+    $icsContent .= "DTEND:" . $end_utc . "\r\n";
+    $icsContent .= "SUMMARY:" . escape_ics_text($event_summary) . "\r\n";
+    $icsContent .= "DESCRIPTION:" . escape_ics_text($event_description) . "\r\n";
+    $icsContent .= "LOCATION:" . escape_ics_text($row['location']) . "\r\n";
+    $icsContent .= "URL:" . escape_ics_text($config['base_url'] . "events/evento.php?id=" . $row['event_id']) . "\r\n";
+    $icsContent .= "END:VEVENT\r\n";
+    $icsContent .= "END:VCALENDAR\r\n";
+
     $htmlContent = $baseHtmlContent;
     $htmlContent = str_replace('{{user_name}}', $nombre, $htmlContent);
+    $htmlContent = str_replace('{{event_type_label}}', $event_type_label, $htmlContent);
     $htmlContent = str_replace('{{event_name}}', $row['title_es'], $htmlContent);
     $htmlContent = str_replace('{{event_date}}', $formatted_date, $htmlContent);
     $htmlContent = str_replace('{{event_location}}', $row['location'], $htmlContent);
@@ -128,6 +158,8 @@ while ($row = $result->fetch_assoc()) {
 
 
     $mail->Body = $htmlContent;
+    $mail->clearAttachments();
+    $mail->addStringAttachment($icsContent, 'event-reminder-' . $row['event_id'] . '.ics', 'base64', 'text/calendar; charset=UTF-8; method=PUBLISH');
     $mail->AltBody = "Hola {$nombre}, te recordamos que el evento {$titulo_es} es el {$inicio} en {$lugar}.";
 
     if ($mail->send()) {
