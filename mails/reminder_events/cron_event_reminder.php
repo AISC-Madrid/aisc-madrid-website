@@ -130,7 +130,11 @@ while ($row = $result->fetch_assoc()) {
     $calendar_link .= "&location=" . urlencode($row['location']);
     $calendar_link .= "&sf=true&output=xml";
 
-    $event_uid = $row['event_id'] . '-' . md5($row['email'] . '|' . $row['start_datetime']);
+    $calendar_host = parse_url($config['base_url'], PHP_URL_HOST);
+    if (empty($calendar_host)) {
+        $calendar_host = 'aiscmadrid.com';
+    }
+    $event_uid = $row['event_id'] . '-' . md5($row['email'] . '|' . $row['start_datetime']) . '@' . $calendar_host;
     $event_summary = $row['title_es'];
     $event_description = "Más info: " . $config['base_url'] . "events/evento.php?id=" . $row['event_id'];
     $icsContent = "BEGIN:VCALENDAR\r\n";
