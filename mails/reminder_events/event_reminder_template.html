@@ -8,7 +8,7 @@
         <table align="center" width="600" style="border-collapse: collapse; background-color:#ffffff; margin-top:20px; border-radius:8px; overflow:hidden;">
             <tr>
                 <td align="center" style="padding:20px; background-color:#EB178E; color:#ffffff;">
-                <h1 style="margin:0; font-size:24px;">¡Tu evento es en {{reminder_days}} días!</h1>
+                <h1 style="margin:0; font-size:24px;">¡Tu {{event_type_label}} es en {{reminder_days}} días!</h1>
                 </td>
             </tr>
 
@@ -63,7 +63,7 @@
                     <a href="https://aiscmadrid.com/events/evento.php?id={{event_id}}"
                         style="background-color:#EB178E; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:5px; display:inline-block; font-size:16px; font-weight: bold;"
                         target="_blank">
-                        ¡Más información sobre el evento aquí!
+                        ¡Más información sobre el {{event_type_label}} aquí!
                     </a>
                 </td>
             </tr>
@@ -71,7 +71,7 @@
             <tr>
                 <td style="padding:20px; color:#333333; font-size:16px; line-height:1.5;">
                     <p align="center">
-                        Recuerda enseñar el siguiente código QR en la entrada del evento:
+                        Recuerda enseñar el siguiente código QR en la entrada del {{event_type_label}}:
                     </p>
                     <p align="center">
                         <!-- Generate QR code -->
