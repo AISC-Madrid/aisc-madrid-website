@@ -167,7 +167,7 @@ while ($row = $result->fetch_assoc()) {
     $mail->Body = $htmlContent;
     $mail->clearAttachments();
     $mail->addStringAttachment($icsContent, 'event-reminder-' . $row['event_id'] . '.ics', 'base64', 'text/calendar; charset=UTF-8; method=PUBLISH');
-    $mail->AltBody = "Hola {$nombre}, te recordamos que el evento {$titulo_es} es el {$inicio} en {$lugar}.";
+    $mail->AltBody = "Hola {$nombre}, te recordamos que el {$event_type_label} {$titulo_es} es el {$formatted_date} en {$row['location']}.";
 
     if ($mail->send()) {
         // Marcamos como enviado para no repetir si el script corre dos veces
