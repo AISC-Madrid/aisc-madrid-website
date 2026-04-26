@@ -7,6 +7,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 include(__DIR__ . '/../../assets/db.php');
 $config = include(__DIR__ . '/../../config.php');
+require_once __DIR__ . '/../../assets/cloudinary.php';
 
 // Buscar eventos con recordatorio activado cuyo start_datetime coincide con hoy + reminder_days_before
 $hoy = date('Y-m-d');
@@ -79,8 +80,7 @@ while ($row = $result->fetch_assoc()) {
 
     // 2. Procesar Fecha de Inicio (Origen siempre UTC)
     $startDate = new DateTime($row['start_datetime'], $utcTz);
-    $domain = $config['base_url']; 
-    $image_url = $domain . ltrim($row['image_path'], '/');
+    $image_url = cdn_from_image_path($row['image_path']);
     // Para el texto de la web: Convertimos a Madrid
     $startDateMadrid = clone $startDate;
     $startDateMadrid->setTimezone($madridTz);

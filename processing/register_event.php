@@ -110,8 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // 2. Procesamos el inicio (Leemos de la DB como UTC)
                 $startDate = new DateTime($event_data['start_datetime'], $utcTz);
-                $domain = $config['base_url']; 
-                $image_url = $domain . ltrim($event_data['image_path'], '/');
+                require_once __DIR__ . '/../assets/cloudinary.php';
+                $image_url = cdn_from_image_path($event_data['image_path']);
                 // Formateamos para visualización (Pasamos a Madrid)
                 $startMadrid = clone $startDate;
                 $startMadrid->setTimezone($madridTz);

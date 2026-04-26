@@ -45,7 +45,7 @@ if (!$project) {
                 style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
             <!-- project image if exists -->
             <?php if (!empty($project['image_path'])): ?>
-                <img src="<?= htmlspecialchars($project['image_path']) ?>"
+                <img src="<?= htmlspecialchars(cdn_from_image_path($project['image_path'])) ?>"
                     alt="<?= htmlspecialchars($project['title_es']) ?>" class="img-fluid rounded mb-4"
                     style="max-width: 80%; height: auto;">
             <?php endif; ?>

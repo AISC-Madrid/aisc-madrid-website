@@ -10,6 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 
 include('../assets/db.php');
 $config = include('../config.php');
+require_once __DIR__ . '/../assets/cloudinary.php';
 
 echo "Starting QR code sending process...\n";
 
@@ -48,8 +49,7 @@ if ($result->num_rows > 0) {
             $mail->isHTML(true);
             $mail->Subject = '¡Gracias por registrarte al evento!';
             $user_name_short = explode(' ', $row['name'])[0];
-            $domain = $config['base_url']; 
-            $image_url = $domain . ltrim($row['image_path'], '/');
+            $image_url = cdn_from_image_path($row['image_path']);
             // 1. Zonas horarias
             $utcTz = new DateTimeZone('UTC');
             $madridTz = new DateTimeZone('Europe/Madrid');
