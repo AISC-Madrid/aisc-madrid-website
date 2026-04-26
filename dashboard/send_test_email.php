@@ -14,6 +14,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 $config = include('../config.php');
 require_once '../assets/db.php';
+require_once '../assets/cloudinary.php';
 include("../assets/nav_dashboard.php");
 
 $recipients = [];
@@ -270,8 +271,7 @@ if (isset($_POST['submit'])) {
                             $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
                             $formatted_date .= " - " . $end_dt->format('d/m/Y H:i');
                         }
-                        $domain = $config['base_url']; 
-                        $image_url = $domain . ltrim($event_data['image_path'], '/');
+                        $image_url = cdn_from_image_path($event_data['image_path']);
 
                         // generate Calendar Link
                         $madridTz = new DateTimeZone('Europe/Madrid');

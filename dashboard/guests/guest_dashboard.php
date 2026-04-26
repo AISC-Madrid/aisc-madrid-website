@@ -57,8 +57,8 @@ $stmt->close();
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 no-hover">
                             <?php if (!empty($event['image_path'])): ?>
-                                <img src="/<?= htmlspecialchars($event['image_path']) ?>" 
-                                     class="card-img-top" 
+                                <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>"
+                                     class="card-img-top"
                                      alt="Event image"
                                      style="height: 200px; object-fit: cover;">
                             <?php endif; ?>
