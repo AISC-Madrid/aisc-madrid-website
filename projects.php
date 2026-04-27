@@ -83,7 +83,7 @@ include("assets/head.php");
               style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
             <h6 class="lh-lg text-muted mx-auto mx-md-0" style="max-width: 700px" translation-key="projects_subtitle">
-              En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo...
+              En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo.
             </h6>
           </div>
 
