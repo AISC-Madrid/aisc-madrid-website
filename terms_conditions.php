@@ -124,7 +124,7 @@
     </section>
 
     <section class="mb-4" style="color:black;">
-      <h5 translation-key="terms_sec9_title">9. Enlaces a sitios webs de terceros</h5>
+      <h5 translation-key="terms_sec9_title">9. Enlaces a sitios web de terceros</h5>
       <p translation-key="terms_sec9_p1">
         La página web de AISC puede contener enlaces a sitios web de terceros. AISC no se hace responsable de las
         políticas de privacidad o cookies que se apliquen en dichos sitios web. El usuario queda sujeto a los términos y
