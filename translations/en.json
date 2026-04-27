@@ -45,7 +45,7 @@
     "project_register_btn": "Register for project",
 
     "proj_reg_title": "Project Registration",
-    "proj_reg_subtitle": "Fill out the form to secure your spot at the project.",
+    "proj_reg_subtitle": "Fill out the form to secure your spot in the project.",
     "proj_reg_success": "Thank you! You have successfully registered.",
     "proj_reg_err_dup": "A registration with this email already exists for this project.",
     "proj_reg_err_val": "Please complete all fields correctly.",
