@@ -91,9 +91,8 @@
 
     <section class="mb-4" style="color:black;">
       <h5 translation-key="terms_sec6_title">6. Derechos de las personas interesadas</h5>
-      <p translation-key="terms_sec6_p1">
-        Usted puede ejercer en cualquier momento sus derechos de acceso, rectificación, supresión y limitación del
-        tratamiento, enviando una solicitud a <a href="mailto:aisc.asoc@uc3m.es" style="color:black;">aisc.asoc@uc3m.es</a>, junto con una copia de un documento identificativo válido.
+      <p>
+        <span translation-key="terms_sec6_p1_before">Usted puede ejercer en cualquier momento sus derechos de acceso, rectificación, supresión y limitación del tratamiento, enviando una solicitud a </span><a href="mailto:aisc.asoc@uc3m.es" style="color:black;">aisc.asoc@uc3m.es</a><span translation-key="terms_sec6_p1_after">, junto con una copia de un documento identificativo válido.</span>
       </p>
     </section>
 
