@@ -153,8 +153,7 @@ $definedCategories = [
                                     <div class="my-3">
                                         <a href="/projects/project_registration.php?id=<?= $project_id ?>" 
                                         class="btn btn-custom text-light px-4 fw-semibold"
-                                        data-en="Register for project"
-                                        data-es="Inscribirse al proyecto">
+                                        translation-key="project_register_btn">
                                             Inscribirse al proyecto 
                                         </a>
                                     </div>
