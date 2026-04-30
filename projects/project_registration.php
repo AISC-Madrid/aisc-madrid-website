@@ -36,8 +36,7 @@ if (!$project) {
 
     <div class="container scroll-margin">
         <div class="text-center mb-5 px-3 px-md-5">
-            <h2 class="fw-bold mb-4" style="color: var(--muted);" data-en="project Registration"
-                data-es="Inscripción al proyecto">
+            <h2 class="fw-bold mb-4" style="color: var(--muted);" translation-key="proj_reg_title">
                 Inscripción al proyecto
             </h2>
             <h4 class="fw-bold" style="color: var(--primary);"><?= htmlspecialchars($project['title_es']) ?></h4>
@@ -49,9 +48,9 @@ if (!$project) {
                     alt="<?= htmlspecialchars($project['title_es']) ?>" class="img-fluid rounded mb-4"
                     style="max-width: 80%; height: auto;">
             <?php endif; ?>
-            <p class="text-muted" data-en="Fill out the form to secure your spot at the project."
-                data-es="Rellena el formulario para asegurar tu plaza en el proyecto.">
-                Rellena el formulario para solicitar tu plaza en el proyecto.</p>
+            <p class="text-muted" translation-key="proj_reg_subtitle">
+                Rellena el formulario para solicitar tu plaza en el proyecto.
+            </p>
         </div>
 
         <section class="container-fluid mb-5">
@@ -61,13 +60,12 @@ if (!$project) {
                         <div class="card-body bg-muted p-4">
 
                             <?php
-                            // Mensajes de éxito o error
                             if (isset($_GET['success']))
-                                echo '<div class="alert alert-success">¡Gracias! Te has inscrito correctamente.</div>';
+                                echo '<div class="alert alert-success" translation-key="proj_reg_success">¡Gracias! Te has inscrito correctamente.</div>';
                             if (isset($_GET['error_duplicate']))
-                                echo '<div class="alert alert-danger">Ya existe una inscripción con este correo para este proyecto.</div>';
+                                echo '<div class="alert alert-danger" translation-key="proj_reg_err_dup">Ya existe una inscripción con este correo para este proyecto.</div>';
                             if (isset($_GET['error_validation']))
-                                echo '<div class="alert alert-danger">Por favor, completa todos los campos correctamente.</div>';
+                                echo '<div class="alert alert-danger" translation-key="proj_reg_err_val">Por favor, completa todos los campos correctamente.</div>';
                             ?>
 
                             <form method="POST" action="/processing/register_project.php">
@@ -75,35 +73,27 @@ if (!$project) {
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label" style="color: black" data-en="Full name"
-                                        data-es="Nombre y apellidos">Nombre y apellidos</label>
+                                    <label for="name" class="form-label" style="color: black" translation-key="proj_reg_label_name">Nombre y apellidos</label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Michael Scott" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label" style="color: black" data-en="Email"
-                                        data-es="Correo electrónico">Correo electrónico</label>
+                                    <label for="email" class="form-label" style="color: black" translation-key="proj_reg_label_email">Correo electrónico</label>
                                     <input type="email" class="form-control" id="email" name="email"
                                         placeholder="name@example.com" required>
                                 </div>
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent" name="consent"
                                         required>
-                                    <label class="form-check-label form-text" for="consent"
-                                        data-en="I give my consent for AISC Madrid to store my data for the management of this project."
-                                        data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este proyecto.">
-                                        Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de
-                                        este proyecto.
+                                    <label class="form-check-label form-text" for="consent">
+                                        <span translation-key="proj_reg_consent">Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este proyecto.</span>
                                     </label>
-                                    <a class="form-check-label form-text" href="../terms_conditions.php" target="_blank"
-                                        data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
+                                    <a class="form-check-label form-text" href="../terms_conditions.php" target="_blank" translation-key="proj_reg_terms">
                                         (Leer términos y condiciones)
                                     </a>
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary form-btn fw-semibold"
-                                        data-en="Register" data-es="Inscribirme">Inscribirme</button>
-                                </div>
+                                    <button type="submit" class="btn btn-primary form-btn fw-semibold" translation-key="proj_reg_submit">Inscribirme</button>
                             </form>
                         </div>
                     </div>
