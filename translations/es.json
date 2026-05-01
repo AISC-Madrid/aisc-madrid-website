@@ -54,5 +54,27 @@
     "proj_reg_label_email": "Correo electrónico",
     "proj_reg_consent": "Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este proyecto.",
     "proj_reg_terms": "(Leer términos y condiciones)",
-    "proj_reg_submit": "Inscribirme"
+    "proj_reg_submit": "Inscribirme",
+
+    "about_title": "Sobre AISC Madrid",
+    "about_h3_aisc": "AI Student Collective",
+    "about_p_aisc": "AISC Madrid nace como la <strong>primera asociación de IA</strong> en la EPS de la Universidad Carlos III y la primera rama europea de la asociación AISC, inicialmente fundada en <a href='https://www.instagram.com/aiscdavis/' target='_blank'>University of California Davis</a> y actualmente con ramas en <a href='https://www.instagram.com/aiscuw/' target='_blank'>University of Washington</a> y <a href='https://www.instagram.com/aisc_riv/' target='_blank'>University of California Riverside</a>.",
+    "about_h3_mision": "Misión",
+    "about_p_vision": "La asociación tiene una visión clara:",
+    "about_li_workshops": "Queremos ayudar a la comunidad universitaria a adquirir habilidades prácticas relacionadas con la IA, ayudando así a entenderla mejor y desmitificarla mediante talleres prácticos.",
+    "about_li_professional": "Queremos acercar el mundo laboral de la mano de miembros destacados del sector.",
+    "about_li_community": "Queremos crear una comunidad que ayude a disfrutar la experiencia universitaria.",
+    "about_h3_values": "Nuestros Valores",
+    "about_val_people_tab": "Creemos en las personas",
+    "about_val_curiosity_tab": "Curiosidad",
+    "about_val_transparency_tab": "Transparencia y Apertura",
+    "about_val_responsibility_tab": "Responsabilidad Activa",
+    "about_val_people_p": "Confiamos en que cada miembro de la comunidad tiene algo valioso que aportar, y queremos que cada uno de ellos se sienta parte de la asociación.",
+    "about_val_curiosity_p": "Exploramos, probamos y aprendemos. Como estudiantes, sabemos que no tenemos todas las respuestas, pero cada intento nos acerca a hacer mejor las cosas.",
+    "about_val_transparency_p": "Nos gusta compartir nuestro conocimiento y procesos de manera abierta y clara. Publicando recursos, proyectos y resultados fomentamos un ambiente de aprendizaje colaborativo y abierto a todo el mundo.",
+    "about_val_responsibility_p": "Valoramos que cada miembro tome la iniciativa y se esfuerce por lograr un trabajo que le sea útil y del que se sienta orgulloso.",
+    "about_h3_gallery": "📸 Nuestra Comunidad",
+    "about_carousel_placeholder": "Foto próximamente",
+    "about_carousel_prev": "Anterior",
+    "about_carousel_next": "Siguiente"
 }
