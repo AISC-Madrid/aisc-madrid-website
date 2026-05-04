@@ -134,6 +134,9 @@ function cdn(string $localPath): string
     $cfg = cloudinary_config();
     $resourceType = 'image';
 
+    // Normalise Windows-style backslashes that may have been stored in the DB.
+    $localPath = str_replace('\\', '/', $localPath);
+
     // Treat .ico / .svg fallbacks: Cloudinary handles SVG as image, ICO as raw.
     $ext = strtolower(pathinfo($localPath, PATHINFO_EXTENSION));
     if ($ext === 'ico') {
