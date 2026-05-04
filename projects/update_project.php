@@ -61,56 +61,25 @@ if (!$result || $result->num_rows === 0) {
 $current = $result->fetch_assoc();
 $mainImagePath = $current['image_path'];
 $galleryPathsJson = $current['gallery_paths'];
-$projectFolder = __DIR__ . "/../images/projects/project$project_id"; // Define folder path early
+$projectFolder = "projects/project$project_id"; // Cloudinary subfolder
 
 
 // --- IMAGE PROCESSING ---
 
 // 1. Handle main image upload (optional)
 if (!empty($_FILES['image']['name'])) {
-    // AVOID RMDIIRECTORY: Instead of deleting the ENTIRE project folder and all contents 
-    // (which deletes the gallery), we should only delete the OLD main image file.
-
-    // First, ensure the main project folder exists
-    if (!is_dir($projectFolder)) {
-        mkdir($projectFolder, 0755, true);
-    }
-
-    // Attempt to delete the old main image file if a path exists
-    if (!empty($currentMainImage)) {
-        $oldImagePath = __DIR__ . "/../" . $currentMainImage;
-        if (file_exists($oldImagePath)) {
-            unlink($oldImagePath);
-        }
-    }
-
-    // Upload NEW main image
     $mainImage = handleImageUpload('image', $projectFolder);
     if (isset($mainImage['error'])) {
         die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
     }
-    // Store relative path in DB
-    $mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']);
+    $mainImagePath = $mainImage['path']; // full Cloudinary URL
 }
 
 
-// 2. Handle gallery upload (optional)
+// 2. Handle gallery upload (optional) — replaces gallery if new images posted
 if (!empty($_FILES['images']['name'][0])) {
-    // Note: This logic REPLACES the entire gallery. If you want to ADD to it, 
-    // you'll need more complex logic using json_decode($currentGallery).
-
-    $galleryFolder = "$projectFolder/gallery";
-    if (!is_dir($galleryFolder)) {
-        mkdir($galleryFolder, 0755, true);
-    }
-
-    $gallery = handleMultipleImageUpload('images', $galleryFolder);
-    $galleryPaths = array_map(function ($path) {
-        return str_replace(__DIR__ . "/../", "", $path);
-    }, $gallery['paths']);
-
-    // For replacement, this is correct:
-    $galleryPathsJson = json_encode($galleryPaths);
+    $gallery = handleMultipleImageUpload('images', "$projectFolder/gallery");
+    $galleryPathsJson = json_encode($gallery['paths']);
 }
 
 

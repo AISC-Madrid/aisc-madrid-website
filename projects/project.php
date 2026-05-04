@@ -65,7 +65,7 @@ $definedCategories = [
     <div class="container-fluid scroll-margin bg-dark">
         <div class="row px-3">
             <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
-                <img src="<?= htmlspecialchars($project['image_path']) ?>"
+                <img src="<?= htmlspecialchars(cdn_from_image_path($project['image_path'])) ?>"
                     class="card-img-top img-animada"
                     alt="Project Image"
                     style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
@@ -190,7 +190,7 @@ $definedCategories = [
                         <div class="carousel-inner">
                             <?php foreach ($gallery as $index => $path): ?>
                                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                    <img src="<?= htmlspecialchars($path) ?>"
+                                    <img src="<?= htmlspecialchars(cdn_from_image_path($path)) ?>"
                                         class="d-block w-100"
                                         alt="Gallery image <?= $index + 1 ?>"
                                         style="max-height:400px; object-fit:cover;">

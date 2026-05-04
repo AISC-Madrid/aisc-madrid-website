@@ -54,5 +54,13 @@
     "proj_reg_label_email": "Correo electrónico",
     "proj_reg_consent": "Doy mi consentimiento para que AISC Madrid almacene mis datos para la gestión de este proyecto.",
     "proj_reg_terms": "(Leer términos y condiciones)",
-    "proj_reg_submit": "Inscribirme"
+    "proj_reg_submit": "Inscribirme",
+
+
+    
+    "team_title": "Conoce al equipo",
+    "team_subtitle": "Nada sería posible sin las personas que forman nuestro equipo. AISC Madrid reúne estudiantes de distintas carreras y edades, fomentando un espacio donde la creatividad y la colaboración van de la mano.",
+    "honor_title": "Miembros de Honor",
+    "honor_subtitle": "Personas que han formado parte de AISC Madrid y han dejado su huella en la comunidad."
+
 }

@@ -88,7 +88,7 @@ include("assets/head.php");
           </div>
 
           <div class="col-md-5 text-center">
-            <img src="images/projects/projects-main.svg" alt="AI ML Projects" class="img-fluid">
+            <img src="<?= cdn('images/projects/projects-main.svg') ?>" alt="AI ML Projects" class="img-fluid">
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ include("assets/head.php");
             $id = (int) $project['id'];
             $title_es = htmlspecialchars($project['title_es'] ?? '');
             $title_en = htmlspecialchars($project['title_en'] ?? '');
-            $image_path = htmlspecialchars($project['image_path'] ?? '');
+            $image_path = htmlspecialchars(cdn_from_image_path($project['image_path'] ?? ''));
             $sort_timestamp = strtotime($project['start_date']);
             $start_date = !empty($project['start_date']) ? date("d/m/Y", strtotime($project['start_date'])) : '';
             $desc_es = htmlspecialchars($project['short_description_es'] ?? '');

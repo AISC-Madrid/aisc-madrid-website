@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+require_once __DIR__ . '/../../assets/cloudinary.php';
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Favicon -->
-    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+    <link rel="icon" href="<?= cdn('images/logos/AISC Logo Square.ico') ?>" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

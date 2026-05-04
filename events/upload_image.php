@@ -1,8 +1,13 @@
 <?php
-// upload_image.php
+// upload_image.php — Cloudinary-backed uploader.
+// Compresses incoming images to WebP locally, then uploads to Cloudinary under the
+// configured root folder. The path returned in ['path'] is the full Cloudinary
+// secure_url, which is what gets stored in events.image_path / events.gallery_paths.
+
+require_once __DIR__ . '/../assets/cloudinary.php';
 
 /**
- * Redimensiona/comprime la imagen y la convierte a WebP hasta que pese < 1 MB
+ * Compress an uploaded image to WebP and store it at $destPath until size < $maxSize.
  */
 function compressImageToWebP(string $srcPath, string $destPath, int $imgType, int $maxSize = 1048576): bool
 {
@@ -27,7 +32,7 @@ function compressImageToWebP(string $srcPath, string $destPath, int $imgType, in
 
     if (!$image) return false;
 
-    $quality = 90; // empezamos con buena calidad
+    $quality = 90;
     do {
         ob_start();
         imagewebp($image, null, $quality);
@@ -40,9 +45,13 @@ function compressImageToWebP(string $srcPath, string $destPath, int $imgType, in
 }
 
 /**
- * Maneja la subida de una sola imagen
+ * Compress + upload a single $_FILES entry to Cloudinary.
+ *
+ * @param string $fileFieldName  $_FILES key
+ * @param string $cloudinarySubfolder  Path inside the Cloudinary root folder, e.g. "events/event12" or "events/event12/gallery"
+ * @return array  ['path' => secure_url, 'public_id' => ...] | ['error' => '...']
  */
-function handleImageUpload(string $fileFieldName, string $targetFolder): array
+function handleImageUpload(string $fileFieldName, string $cloudinarySubfolder): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
 
@@ -56,24 +65,27 @@ function handleImageUpload(string $fileFieldName, string $targetFolder): array
         return ['error' => 'Tipo de archivo inválido. Solo se permiten JPG, PNG, GIF y WebP.'];
     }
 
-    if (!is_dir($targetFolder)) {
-        mkdir($targetFolder, 0755, true);
+    $tmpWebp = tempnam(sys_get_temp_dir(), 'aisc_') . '.webp';
+    if (!compressImageToWebP($file['tmp_name'], $tmpWebp, $imgType)) {
+        return ['error' => 'Error al procesar la imagen.'];
     }
 
-    $newName = uniqid('img_', true) . '.webp';
-    $targetPath = rtrim($targetFolder, '/') . '/' . $newName;
+    $publicId = trim($cloudinarySubfolder, '/') . '/' . uniqid('img_', true);
+    $result = cloudinary_upload($tmpWebp, $publicId);
 
-    if (compressImageToWebP($file['tmp_name'], $targetPath, $imgType)) {
-        return ['path' => $targetPath];
+    @unlink($tmpWebp);
+
+    if (isset($result['error'])) {
+        return ['error' => 'Error al subir a Cloudinary: ' . $result['error']];
     }
 
-    return ['error' => 'Error al procesar la imagen.'];
+    return ['path' => $result['url'], 'public_id' => $result['public_id']];
 }
 
 /**
- * Maneja la subida de múltiples imágenes
+ * Compress + upload multiple files (a $_FILES[...] array of file inputs) to Cloudinary.
  */
-function handleMultipleImageUpload(string $fileFieldName, string $targetFolder): array
+function handleMultipleImageUpload(string $fileFieldName, string $cloudinarySubfolder): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
     $savedPaths = [];
@@ -86,37 +98,39 @@ function handleMultipleImageUpload(string $fileFieldName, string $targetFolder):
     $files = $_FILES[$fileFieldName];
     $count = count($files['name']);
 
-    if (!is_dir($targetFolder)) {
-        mkdir($targetFolder, 0755, true);
-    }
-
     for ($i = 0; $i < $count; $i++) {
-        $file = [
-            'name' => $files['name'][$i],
-            'tmp_name' => $files['tmp_name'][$i],
-            'error' => $files['error'][$i],
-            'size' => $files['size'][$i]
-        ];
+        $name = $files['name'][$i];
+        $tmpName = $files['tmp_name'][$i];
+        $err = $files['error'][$i];
 
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            $errors[] = "{$file['name']}: error al subir el archivo.";
+        if ($err !== UPLOAD_ERR_OK) {
+            $errors[] = "$name: error al subir el archivo.";
             continue;
         }
 
-        $imgType = @exif_imagetype($file['tmp_name']);
+        $imgType = @exif_imagetype($tmpName);
         if ($imgType === false || !in_array($imgType, $allowedTypes, true)) {
-            $errors[] = "{$file['name']}: tipo de archivo inválido.";
+            $errors[] = "$name: tipo de archivo inválido.";
             continue;
         }
 
-        $newName = uniqid('img_', true) . '.webp';
-        $targetPath = rtrim($targetFolder, '/') . '/' . $newName;
-
-        if (compressImageToWebP($file['tmp_name'], $targetPath, $imgType)) {
-            $savedPaths[] = $targetPath;
-        } else {
-            $errors[] = "{$file['name']}: no se pudo procesar la imagen.";
+        $tmpWebp = tempnam(sys_get_temp_dir(), 'aisc_') . '.webp';
+        if (!compressImageToWebP($tmpName, $tmpWebp, $imgType)) {
+            $errors[] = "$name: no se pudo procesar la imagen.";
+            @unlink($tmpWebp);
+            continue;
         }
+
+        $publicId = trim($cloudinarySubfolder, '/') . '/' . uniqid('img_', true);
+        $result = cloudinary_upload($tmpWebp, $publicId);
+        @unlink($tmpWebp);
+
+        if (isset($result['error'])) {
+            $errors[] = "$name: " . $result['error'];
+            continue;
+        }
+
+        $savedPaths[] = $result['url'];
     }
 
     return ['paths' => $savedPaths, 'errors' => $errors];

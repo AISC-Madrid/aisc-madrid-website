@@ -31,7 +31,7 @@
         </p>
       </div>
       <div class="story-image">
-        <img src="images/resources/equipoAISC.jpg" alt="AISC Team">
+        <img src="<?= cdn('images/resources/equipoAISC.jpg') ?>" alt="AISC Team">
       </div>
     </section>
 
@@ -57,7 +57,7 @@
         </ul>
       </div>
       <div class="story-image">
-        <img src="images/logos/PNG/Understand AI Unlock Potential.png" alt="Understand AI, Unlock Potential">
+        <img src="<?= cdn('images/logos/PNG/Understand AI Unlock Potential.png') ?>" alt="Understand AI, Unlock Potential">
       </div>
     </section>
 

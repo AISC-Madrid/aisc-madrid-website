@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/cloudinary.php'; ?>
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top px-4 py-3 shadow-sm" role="navigation"
   aria-label="Main navigation">
@@ -5,7 +6,7 @@
 
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="/" title="AISC Madrid - Inicio">
-      <img src="images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid" style="width: 160px;">
+      <img src="<?= cdn('images/logos/PNG/AISC Madrid Logo Color.png') ?>" alt="Logo de AISC Madrid" style="width: 160px;">
     </a>
 
     <!-- Toggler button for mobile -->

@@ -9,6 +9,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include(__DIR__ . "/../../assets/db.php");
+require_once __DIR__ . "/../../assets/cloudinary.php";
 
 // Initialize variables for the form
 $full_name = $mail = $position_es = $position_en = '';
@@ -48,7 +49,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <title>Crear/Editar miembro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+    <link rel="icon" href="<?= cdn('images/logos/AISC Logo Square.ico') ?>" type="image/x-icon">
 </head>
 
 <body class="bg-light">

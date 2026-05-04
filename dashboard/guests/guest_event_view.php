@@ -8,6 +8,7 @@ if (!isset($_SESSION['activated']) || $_SESSION['role'] !== 'guest') {
 }
 
 include("../../assets/db.php");
+require_once __DIR__ . "/../../assets/cloudinary.php";
 
 $guest_id = $_SESSION['user_id'];
 
@@ -92,8 +93,8 @@ if (!empty($event['gallery_paths'])) {
             <!-- Foto del evento (cuadrada) -->
             <div class="col-md-4">
                 <?php if (!empty($event['image_path'])): ?>
-                    <img src="/<?= htmlspecialchars($event['image_path']) ?>" 
-                         class="img-fluid rounded" 
+                    <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>"
+                         class="img-fluid rounded"
                          alt="Event image"
                          style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
                 <?php endif; ?>

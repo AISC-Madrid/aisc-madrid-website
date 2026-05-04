@@ -27,40 +27,21 @@ $currentGallery = $current['gallery_paths'];
 
 // 1. Handle main image upload (optional)
 
-$eventFolder = __DIR__ . "/../images/events/event$event_id";
+$eventFolder = "events/event$event_id"; // Cloudinary subfolder
 $mainImagePath = $currentMainImage;
 if (!empty($_FILES['image']['name'])) {
-    // Delete old main image folder
-    if (is_dir($eventFolder)) {
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($eventFolder, RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
-        );
-        foreach ($files as $fileinfo) {
-            $fileinfo->isDir() ? rmdir($fileinfo) : unlink($fileinfo);
-        }
-        rmdir($eventFolder);
-    }
-
-    // Create fresh folder
-    mkdir($eventFolder, 0755, true);
-
-    // Upload main image
     $mainImage = handleImageUpload('image', $eventFolder);
     if (isset($mainImage['error'])) {
         die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
     }
-    $mainImagePath = str_replace(__DIR__ . "/../", "", $mainImage['path']);
+    $mainImagePath = $mainImage['path']; // full Cloudinary URL
 }
 
-// 2. Handle gallery upload (optional)
-$galleryPathsJson = $currentGallery; // default: keep existing
+// 2. Handle gallery upload (optional) — replaces gallery if new images posted
+$galleryPathsJson = $currentGallery;
 if (!empty($_FILES['images']['name'][0])) {
     $gallery = handleMultipleImageUpload('images', "$eventFolder/gallery");
-    $galleryPaths = array_map(function ($path) {
-        return str_replace(__DIR__ . "/../", "", $path);
-    }, $gallery['paths']);
-    $galleryPathsJson = json_encode($galleryPaths);
+    $galleryPathsJson = json_encode($gallery['paths']);
 }
 
 // 3. Prepare SQL for UPDATE including optional images

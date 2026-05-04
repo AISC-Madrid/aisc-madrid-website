@@ -54,5 +54,13 @@
     "proj_reg_label_email": "Email",
     "proj_reg_consent": "I give my consent for AISC Madrid to store my data for the management of this project.",
     "proj_reg_terms": "(Read terms and conditions)",
-    "proj_reg_submit": "Register"
+    "proj_reg_submit": "Register",
+
+
+    
+    "team_title": "Meet the team",
+    "team_subtitle": "Nothing would be possible without the people who make up our team. AISC Madrid brings together students from different fields and ages, fostering a space where creativity and collaboration go hand in hand.",
+    "honor_title": "Honor Members",
+    "honor_subtitle": "People who have been part of AISC Madrid and have left their mark on the community."
+
 }
