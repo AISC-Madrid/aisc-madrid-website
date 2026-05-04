@@ -287,6 +287,13 @@ form label {
   height: auto;
   display: block;
   margin: 0 auto;
+  border-radius: 12px;                              
+  transition: transform 0.4s ease, box-shadow 0.4s ease; 
+}
+
+.story-image img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
 }
 
 .role-card {
@@ -547,3 +554,43 @@ button.active {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+/* ── Animaciones de entrada ── */
+.fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-left.visible { opacity: 1; transform: translateX(0); }
+.fade-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-right.visible { opacity: 1; transform: translateX(0); }
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ── Carrusel ── */
+.photo-carousel-section { padding: 60px 0; background: linear-gradient(135deg, #f8f8f8 0%, #fff0f8 100%); }
+.photo-carousel-section h3 { color: var(--primary); text-align: center; margin-bottom: 30px; font-weight: 700; }
+#photoCarousel .carousel-inner { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+.carousel-placeholder { height: 420px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: #aaa; font-size: 1rem; }
+.carousel-placeholder .icon { font-size: 3rem; opacity: 0.4; }
+.carousel-item:nth-child(1) .carousel-placeholder { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.carousel-item:nth-child(2) .carousel-placeholder { background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
+.carousel-item:nth-child(3) .carousel-placeholder { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); }
+.carousel-item:nth-child(4) .carousel-placeholder { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+.carousel-item:nth-child(5) .carousel-placeholder { background: linear-gradient(135deg, #fff9c4, #fff59d); }
+#photoCarousel .carousel-control-prev-icon,
+#photoCarousel .carousel-control-next-icon { filter: invert(0%) sepia(100%) saturate(1000%) hue-rotate(300deg) brightness(60%); }
+#photoCarousel .carousel-indicators [data-bs-target] { background-color: var(--primary); }
+
+/* ── Valores tabs ── */
+#valuesTab .nav-link { transition: all 0.3s ease; border-radius: 30px; font-weight: 500; }
+#valuesTab .nav-link:hover:not(.active) { background: rgba(220, 50, 120, 0.1); transform: translateY(-2px); }
+#valuesTab .nav-link.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(220, 50, 120, 0.3); }
+.tab-content .tab-pane p { font-size: 1.1rem; color: #444; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+/* ── Stats strip ── */
+.stats-strip { background: var(--primary); color: white; padding: 40px 0; text-align: center; }
+.stat-item { padding: 10px 20px; }
+.stat-number { font-size: 2.5rem; font-weight: 800; display: block; letter-spacing: -1px; }
+.stat-label { font-size: 0.85rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
