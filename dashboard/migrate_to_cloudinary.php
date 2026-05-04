@@ -3,10 +3,15 @@
  * Migración de imágenes locales a Cloudinary.
  *
  * Uso:
- *   /dashboard/migrate_to_cloudinary.php          → ejecuta de verdad
- *   /dashboard/migrate_to_cloudinary.php?dry=1    → dry run (no sube ni modifica BD)
+ *   /dashboard/migrate_to_cloudinary.php                  → sube + reescribe BD
+ *   /dashboard/migrate_to_cloudinary.php?dry=1            → dry run (no toca nada)
+ *   /dashboard/migrate_to_cloudinary.php?skip_upload=1    → solo reescribe la BD
+ *                                                           (usa cuando ya subiste y solo falta la BD)
  *
- * Idempotente: las subidas usan overwrite=true y las filas con URLs absolutas se saltan.
+ * Idempotente: las subidas usan overwrite=true; las filas con URL absoluta se saltan.
+ *
+ * Robusto en hosting compartido: la BD no se abre hasta el final (tras las subidas),
+ * para evitar "MySQL server has gone away" por timeout de conexión durante uploads largos.
  */
 
 session_start();
@@ -19,25 +24,22 @@ set_time_limit(0);
 @ini_set('memory_limit', '512M');
 
 require_once __DIR__ . '/../assets/cloudinary.php';
-require_once __DIR__ . '/../assets/db.php';
 
-$dryRun = !empty($_GET['dry']);
-$base = realpath(__DIR__ . '/..');
+$dryRun     = !empty($_GET['dry']);
+$skipUpload = !empty($_GET['skip_upload']);
+$base       = realpath(__DIR__ . '/..');
 
 header('Content-Type: text/html; charset=utf-8');
 echo "<pre style=\"font-family:Consolas,monospace;font-size:13px;\">";
-echo $dryRun
-    ? "DRY RUN — nada se sube ni se escribe en la BD.\n\n"
-    : "MIGRACIÓN REAL — se subirán archivos y se actualizará la BD.\n\n";
+if ($dryRun)         echo "DRY RUN — nada se sube ni se escribe en la BD.\n\n";
+elseif ($skipUpload) echo "SKIP UPLOAD — solo reescribe la BD (no sube archivos).\n\n";
+else                 echo "MIGRACIÓN REAL — se subirán archivos y se actualizará la BD.\n\n";
 @ob_flush(); @flush();
 
 $uploaded = 0;
-$skipped = 0;
-$errors = 0;
+$skipped  = 0;
+$errors   = 0;
 $dbUpdates = 0;
-
-// Map local relative path ("images/...") -> Cloudinary secure URL.
-$urlMap = [];
 
 function isAbsoluteUrl(?string $s): bool
 {
@@ -46,7 +48,6 @@ function isAbsoluteUrl(?string $s): bool
 
 function publicIdFor(string $relPath): string
 {
-    // strip "images/" prefix and extension to mirror cdn() routing.
     $p = preg_replace('#^images/#', '', $relPath);
     return preg_replace('#\.[^./]+$#', '', $p);
 }
@@ -57,56 +58,77 @@ function resourceTypeFor(string $path): string
     return $ext === 'ico' ? 'raw' : 'image';
 }
 
+// --- Fase 1: subir archivos ---
 echo "=== 1. Subiendo archivos de images/ ===\n";
-$imagesDir = "$base/images";
-if (is_dir($imagesDir)) {
-    $iter = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($imagesDir, RecursiveDirectoryIterator::SKIP_DOTS)
-    );
-    foreach ($iter as $file) {
-        if ($file->isDir()) continue;
-        $abs = $file->getPathname();
-        $rel = str_replace('\\', '/', substr($abs, strlen($base) + 1)); // "images/..."
-
-        $publicId = publicIdFor($rel);
-        echo "  $rel → $publicId ... ";
-        @ob_flush(); @flush();
-
-        if ($dryRun) {
-            echo "(dry)\n";
-            $skipped++;
-            continue;
-        }
-
-        $r = cloudinary_upload($abs, $publicId, ['resource_type' => resourceTypeFor($rel)]);
-        if (isset($r['error'])) {
-            echo "ERROR: " . htmlspecialchars($r['error']) . "\n";
-            $errors++;
-            continue;
-        }
-
-        echo "OK\n";
-        $urlMap[$rel] = $r['url'];
-        $uploaded++;
-        @ob_flush(); @flush();
-    }
+if ($skipUpload) {
+    echo "  (omitido por skip_upload=1)\n";
 } else {
-    echo "  (la carpeta images/ no existe — saltando)\n";
+    $imagesDir = "$base/images";
+    if (is_dir($imagesDir)) {
+        $iter = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($imagesDir, RecursiveDirectoryIterator::SKIP_DOTS)
+        );
+        foreach ($iter as $file) {
+            if ($file->isDir()) continue;
+            $abs = $file->getPathname();
+            $rel = str_replace('\\', '/', substr($abs, strlen($base) + 1));
+
+            $publicId = publicIdFor($rel);
+            echo "  $rel → $publicId ... ";
+            @ob_flush(); @flush();
+
+            if ($dryRun) {
+                echo "(dry)\n";
+                $skipped++;
+                continue;
+            }
+
+            $r = cloudinary_upload($abs, $publicId, ['resource_type' => resourceTypeFor($rel)]);
+            if (isset($r['error'])) {
+                echo "ERROR: " . htmlspecialchars($r['error']) . "\n";
+                $errors++;
+                continue;
+            }
+
+            echo "OK\n";
+            $uploaded++;
+            @ob_flush(); @flush();
+        }
+    } else {
+        echo "  (la carpeta images/ no existe — saltando)\n";
+    }
+}
+
+// --- Fase 2: reescribir BD ---
+// La conexión se abre AHORA, no al inicio del script, para no morir por timeout.
+echo "\n=== 2. Reescribiendo BD ===\n";
+@ob_flush(); @flush();
+
+if ($dryRun) {
+    require_once __DIR__ . '/../assets/db.php';
+} else {
+    require_once __DIR__ . '/../assets/db.php';
+    // Por si la conexión llegara muerta por algún motivo, hacer ping ligero.
+    if (!@$conn->ping()) {
+        echo "  Reabriendo conexión MySQL...\n";
+        $config = include(__DIR__ . '/../config.php');
+        $conn = new mysqli('localhost', $config['db_user'], $config['db_pass'], $config['db_name'], 3306);
+        if ($conn->connect_error) {
+            die("ERROR conectando MySQL: " . $conn->connect_error);
+        }
+    }
 }
 
 /**
- * Reescribe filas que aún apunten a una ruta local. Solo se modifica si la ruta
- * está en $urlMap (es decir, el archivo existe localmente y se acaba de subir).
+ * Reescribe filas con paths locales a sus URLs Cloudinary calculadas vía cdn().
  *
- * @param string   $table        Nombre de tabla
- * @param string   $idCol        Columna PK
- * @param string   $imageCol     Columna de imagen principal
- * @param ?string  $galleryCol   Columna JSON de galería (o null)
- * @param string   $label        Etiqueta legible para los logs
+ * @param string  $imageCol    Columna de imagen principal
+ * @param ?string $galleryCol  Columna JSON de galería (o null)
  */
-function rewriteRows(mysqli $conn, array $urlMap, bool $dryRun, string $table, string $idCol, string $imageCol, ?string $galleryCol, string $label, int &$dbUpdates): void
+function rewriteRows(mysqli $conn, bool $dryRun, string $table, string $idCol, string $imageCol, ?string $galleryCol, string $label, int &$dbUpdates): void
 {
-    echo "\n=== Reescribiendo BD: $table ===\n";
+    echo "\n  --- $table ---\n";
+    @ob_flush(); @flush();
 
     $cols = $galleryCol ? "$idCol, $imageCol, $galleryCol" : "$idCol, $imageCol";
     $res = $conn->query("SELECT $cols FROM $table");
@@ -119,8 +141,8 @@ function rewriteRows(mysqli $conn, array $urlMap, bool $dryRun, string $table, s
         $changes = [];
 
         $newImage = $row[$imageCol];
-        if ($newImage && !isAbsoluteUrl($newImage) && isset($urlMap[$newImage])) {
-            $newImage = $urlMap[$newImage];
+        if ($newImage && !isAbsoluteUrl($newImage)) {
+            $newImage = cdn($newImage);
             $changes[] = $imageCol;
         }
 
@@ -132,8 +154,8 @@ function rewriteRows(mysqli $conn, array $urlMap, bool $dryRun, string $table, s
                 if (is_array($arr)) {
                     $changedGallery = false;
                     foreach ($arr as $i => $p) {
-                        if ($p && !isAbsoluteUrl($p) && isset($urlMap[$p])) {
-                            $arr[$i] = $urlMap[$p];
+                        if ($p && !isAbsoluteUrl($p)) {
+                            $arr[$i] = cdn($p);
                             $changedGallery = true;
                         }
                     }
@@ -148,6 +170,7 @@ function rewriteRows(mysqli $conn, array $urlMap, bool $dryRun, string $table, s
         if (!$changes) continue;
 
         echo "  $label #{$row[$idCol]}: " . implode(', ', $changes) . "\n";
+        @ob_flush(); @flush();
         $dbUpdates++;
         if ($dryRun) continue;
 
@@ -165,17 +188,17 @@ function rewriteRows(mysqli $conn, array $urlMap, bool $dryRun, string $table, s
     }
 }
 
-rewriteRows($conn, $urlMap, $dryRun, 'events',   'id', 'image_path', 'gallery_paths', 'event',   $dbUpdates);
-rewriteRows($conn, $urlMap, $dryRun, 'projects', 'id', 'image_path', 'gallery_paths', 'project', $dbUpdates);
-rewriteRows($conn, $urlMap, $dryRun, 'members',  'id', 'image_path', null,            'member',  $dbUpdates);
+rewriteRows($conn, $dryRun, 'events',   'id', 'image_path', 'gallery_paths', 'event',   $dbUpdates);
+rewriteRows($conn, $dryRun, 'projects', 'id', 'image_path', 'gallery_paths', 'project', $dbUpdates);
+rewriteRows($conn, $dryRun, 'members',  'id', 'image_path', null,            'member',  $dbUpdates);
 
 echo "\n=== Resumen ===\n";
-echo "  Archivos subidos:    $uploaded\n";
-echo "  Saltados (dry run):  $skipped\n";
-echo "  Errores de subida:   $errors\n";
-echo "  Filas BD modificadas: $dbUpdates\n";
+echo "  Archivos subidos:      $uploaded\n";
+echo "  Saltados (dry/skip):   $skipped\n";
+echo "  Errores de subida:     $errors\n";
+echo "  Filas BD modificadas:  $dbUpdates\n";
 echo $dryRun
-    ? "\n[Dry run — nada cambió. Vuelve a abrir sin ?dry=1 para ejecutar.]\n"
+    ? "\n[Dry run — nada cambió.]\n"
     : "\nHecho.\n";
 echo "</pre>";
 
