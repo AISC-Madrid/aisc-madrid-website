@@ -46,6 +46,32 @@ function isAbsoluteUrl(?string $s): bool
     return $s !== null && $s !== '' && preg_match('#^https?://#i', $s) === 1;
 }
 
+/**
+ * Detecta una URL Cloudinary "rota" (con backslashes URL-encoded) generada por la
+ * versión anterior de cdn(). Devuelve la ruta local equivalente, o null si la URL
+ * no parece rota.
+ */
+function recoverLocalPathFromBrokenUrl(string $url): ?string
+{
+    if (strpos($url, '%5C') === false && strpos($url, '\\') === false) return null;
+
+    if (!preg_match('#^https?://res\.cloudinary\.com/[^/]+/(?:image|raw)/upload/(?:v\d+/)?(.+)$#i', $url, $m)) {
+        return null;
+    }
+
+    $path = urldecode($m[1]);
+    $path = str_replace('\\', '/', $path);
+
+    // Quita el folder raíz aisc_madrid/ si está presente.
+    $path = preg_replace('#^aisc_madrid/#', '', $path);
+
+    // Asegura prefijo "images/" para que cdn() lo trate como ruta legacy.
+    if (strpos($path, 'images/') !== 0) {
+        $path = 'images/' . $path;
+    }
+    return $path;
+}
+
 function publicIdFor(string $relPath): string
 {
     $p = preg_replace('#^images/#', '', $relPath);
@@ -141,9 +167,16 @@ function rewriteRows(mysqli $conn, bool $dryRun, string $table, string $idCol, s
         $changes = [];
 
         $newImage = $row[$imageCol];
-        if ($newImage && !isAbsoluteUrl($newImage)) {
-            $newImage = cdn($newImage);
-            $changes[] = $imageCol;
+        if ($newImage) {
+            if (!isAbsoluteUrl($newImage)) {
+                // Ruta legacy (local) → genera URL Cloudinary.
+                $newImage = cdn($newImage);
+                $changes[] = $imageCol;
+            } elseif ($recovered = recoverLocalPathFromBrokenUrl($newImage)) {
+                // URL rota previa (con %5C) → regenera bien.
+                $newImage = cdn($recovered);
+                $changes[] = "$imageCol (reparada)";
+            }
         }
 
         $newGallery = null;
@@ -154,8 +187,12 @@ function rewriteRows(mysqli $conn, bool $dryRun, string $table, string $idCol, s
                 if (is_array($arr)) {
                     $changedGallery = false;
                     foreach ($arr as $i => $p) {
-                        if ($p && !isAbsoluteUrl($p)) {
+                        if (!$p) continue;
+                        if (!isAbsoluteUrl($p)) {
                             $arr[$i] = cdn($p);
+                            $changedGallery = true;
+                        } elseif ($recovered = recoverLocalPathFromBrokenUrl($p)) {
+                            $arr[$i] = cdn($recovered);
                             $changedGallery = true;
                         }
                     }
