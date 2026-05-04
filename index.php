@@ -4,6 +4,7 @@
 
 include("assets/csrf.php");
 include("assets/db.php");
+require_once __DIR__ . '/assets/cloudinary.php';
 
 // Get current datetime
 $now = date("Y-m-d H:i:s");
@@ -74,7 +75,7 @@ include("assets/head.php");
       </div>
       <div
         class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column align-items-center align-items-md-end justify-content-center ">
-        <img style="width: 75%;" src="images/logos/PNG/AISC Logo Color.png" alt="Logotipo de la asociación AISC">
+        <img style="width: 75%;" src="<?= cdn('images/logos/PNG/AISC Logo Color.png') ?>" alt="Logotipo de la asociación AISC">
       </div>
     </header>
     </section>
@@ -101,7 +102,7 @@ include("assets/head.php");
                 <div class="card h-100 w-100 shadow-sm">
                   <div class="card-body p-0 position-relative">
                     <div class="img-container">
-                      <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top"
+                      <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>" class="card-img-top"
                         alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
                     </div>
                     <?php if ($is_future): ?>
@@ -194,7 +195,7 @@ include("assets/head.php");
                     }
                     ?>
                     <a href="<?= $safe_social ?>" target="_blank" rel="noopener noreferrer">
-                      <img src="<?= htmlspecialchars($board_member['image_path']) ?>"
+                      <img src="<?= htmlspecialchars(cdn_from_image_path($board_member['image_path'])) ?>"
                         alt="<?= htmlspecialchars($board_member['full_name'], ENT_QUOTES, 'UTF-8') ?>" class="img-fluid rounded">
                     </a>
                   </div>

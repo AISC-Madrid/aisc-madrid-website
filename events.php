@@ -80,7 +80,7 @@ $events_to_display = array_merge($future_events, $past_events);
             <div class="card h-100 shadow-sm">
               <div class="card-body p-0 position-relative">
                 <div class="img-container">
-                  <img src="<?= htmlspecialchars($event['image_path']) ?>" class="card-img-top"
+                  <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>" class="card-img-top"
                     alt="<?= htmlspecialchars($event['title_es']) ?>" style="object-fit: cover;">
                 </div>
                 <?php if ($is_future): ?>

@@ -94,7 +94,7 @@ $conn->close();
             <div class="col-12 col-sm-8 col-md-6 col-lg-4 bg-white p-4 rounded shadow">
 
                 <div class="d-flex align-items-center justify-content-center mb-4 flex-wrap text-center">
-                    <img src="/images/logos/PNG/AISC Logo Color.png" alt="Logo AISC Madrid" class="me-2 mb-2"
+                    <img src="<?= cdn('images/logos/PNG/AISC Logo Color.png') ?>" alt="Logo AISC Madrid" class="me-2 mb-2"
                         style="width: 14vw; max-width: 60px; min-width: 45px; height: auto; object-fit: contain;">
                     <h3 class="m-0 fs-5 fs-md-4">Login Portal AISC Madrid</h3>
                 </div>

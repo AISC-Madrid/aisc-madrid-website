@@ -54,7 +54,7 @@ $is_past_event = ($end_dt < $now_madrid);
         </div>
         <!-- Event image if exists -->
         <?php if (!empty($event['image_path'])): ?>
-          <img src="<?= htmlspecialchars($event['image_path']) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>"
+          <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>" alt="<?= htmlspecialchars($event['title_es']) ?>"
             class="img-fluid rounded mb-4" style="max-width: 80%; height: auto;">
         <?php endif; ?>
         <p class="text-muted" data-en="Fill out the form to secure your spot at the event."

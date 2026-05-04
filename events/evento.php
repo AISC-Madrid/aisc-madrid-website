@@ -96,7 +96,7 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
     <div class="container-fluid scroll-margin bg-dark">
         <div class="row px-3">
             <div class="col-lg-4 d-flex align-items-end justify-content-center p-0 h-100">
-                <img src="<?= htmlspecialchars($event['image_path']) ?>"
+                <img src="<?= htmlspecialchars(cdn_from_image_path($event['image_path'])) ?>"
                     class="card-img-top"
                     alt="Event Image"
                     style="width: 300px; height:300px; object-fit: cover; position:relative; top:32px;">
@@ -245,7 +245,7 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
                         <div class="carousel-inner">
                             <?php foreach ($gallery as $index => $path): ?>
                                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                    <img src="<?= htmlspecialchars($path) ?>"
+                                    <img src="<?= htmlspecialchars(cdn_from_image_path($path)) ?>"
                                         class="d-block w-100"
                                         alt="Gallery image <?= $index + 1 ?>"
                                         style="max-height:400px; object-fit:cover;">

@@ -12,6 +12,8 @@ $permisos = [
 $rol_actual = $_SESSION['role'];
 $opciones = $permisos[$rol_actual] ?? [];
 
+require_once __DIR__ . '/cloudinary.php';
+
 // Helper function para verificar permisos
 if (!function_exists('isAllowed')) {
   function isAllowed($opcion)
@@ -28,7 +30,7 @@ if (!function_exists('isAllowed')) {
 
     <!-- Brand / Logo -->
     <a class="navbar-brand" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_dashboard.php' : '/dashboard/dashboard.php'; ?>" title="AISC Madrid - Dashboard">
-      <img src="../images/logos/PNG/AISC Logo Color.png" alt="Logo de AISC Madrid" style="height:70px;">
+      <img src="<?= cdn('images/logos/PNG/AISC Logo Color.png') ?>" alt="Logo de AISC Madrid" style="height:70px;">
       <span class="fw-bold">Dashboard</span>
     </a>
 

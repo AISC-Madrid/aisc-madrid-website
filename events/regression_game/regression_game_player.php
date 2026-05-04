@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../assets/cloudinary.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Favicon -->
-    <link rel="icon" href="https://aiscmadrid.com/images/logos/AISC Logo Square.ico" type="image/x-icon">
+    <link rel="icon" href="<?= cdn('images/logos/AISC Logo Square.ico') ?>" type="image/x-icon">
     <!-- Custom CSS -->
 
 
@@ -59,7 +60,7 @@
             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-around bg-muted p-2 w-100" style="max-width: 80%;">
                 <!-- Brand / Logo -->
                 <a class="navbar-brand w-100 w-sm-50 d-flex justify-content-center mb-3 mb-sm-0" href="/" title="AISC Madrid - Inicio">
-                    <img class="img-fluid w-100 w-sm-50" src="../images/logos/PNG/AISC Madrid Logo Color.png" alt="Logo de AISC Madrid">
+                    <img class="img-fluid w-100 w-sm-50" src="<?= cdn('images/logos/PNG/AISC Madrid Logo Color.png') ?>" alt="Logo de AISC Madrid">
                 </a>
 
                 <!-- Title / Info -->

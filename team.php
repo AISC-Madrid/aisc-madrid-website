@@ -58,7 +58,7 @@ while ($row = $result->fetch_assoc()) {
                   }
                   ?>
                   <a href="<?= $safe_social ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="<?= htmlspecialchars($member['image_path']) ?>" alt="<?= htmlspecialchars($member['full_name'], ENT_QUOTES, 'UTF-8') ?>"
+                    <img src="<?= htmlspecialchars(cdn_from_image_path($member['image_path'])) ?>" alt="<?= htmlspecialchars($member['full_name'], ENT_QUOTES, 'UTF-8') ?>"
                       class="img-fluid rounded">
                   </a>
                 </div>
@@ -102,7 +102,7 @@ while ($row = $result->fetch_assoc()) {
                   }
                   ?>
                   <a href="<?= $safe_social ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="<?= htmlspecialchars($member['image_path']) ?>" 
+                    <img src="<?= htmlspecialchars(cdn_from_image_path($member['image_path'])) ?>"
                       alt="<?= htmlspecialchars($member['full_name'], ENT_QUOTES, 'UTF-8') ?>"
                       class="img-fluid rounded">
                   </a>

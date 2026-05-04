@@ -1,9 +1,10 @@
+<?php require_once __DIR__ . '/cloudinary.php'; ?>
 <footer class="mt-5">
   <div class="footer-container d-flex justify-content-between align-items-center flex-wrap">
     <!-- Logo -->
     <div class="footer-left mb-2">
       <a href="#">
-        <img src="images/logos/PNG/AISC Logo Color.png" alt="AISC Madrid Logo" style="height:50px;">
+        <img src="<?= cdn('images/logos/PNG/AISC Logo Color.png') ?>" alt="AISC Madrid Logo" style="height:50px;">
       </a>
     </div>
 
