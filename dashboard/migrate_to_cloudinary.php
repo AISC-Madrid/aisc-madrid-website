@@ -25,15 +25,17 @@ set_time_limit(0);
 
 require_once __DIR__ . '/../assets/cloudinary.php';
 
-$dryRun     = !empty($_GET['dry']);
-$skipUpload = !empty($_GET['skip_upload']);
-$base       = realpath(__DIR__ . '/..');
+$dryRun      = !empty($_GET['dry']);
+$skipUpload  = !empty($_GET['skip_upload']);
+$onlyMissing = !empty($_GET['only_missing']);
+$base        = realpath(__DIR__ . '/..');
 
 header('Content-Type: text/html; charset=utf-8');
 echo "<pre style=\"font-family:Consolas,monospace;font-size:13px;\">";
-if ($dryRun)         echo "DRY RUN — nada se sube ni se escribe en la BD.\n\n";
-elseif ($skipUpload) echo "SKIP UPLOAD — solo reescribe la BD (no sube archivos).\n\n";
-else                 echo "MIGRACIÓN REAL — se subirán archivos y se actualizará la BD.\n\n";
+if ($dryRun)          echo "DRY RUN — nada se sube ni se escribe en la BD.\n\n";
+elseif ($skipUpload)  echo "SKIP UPLOAD — solo reescribe la BD (no sube archivos).\n\n";
+elseif ($onlyMissing) echo "ONLY MISSING — sube solo los archivos que aún no están en Cloudinary.\n\n";
+else                  echo "MIGRACIÓN REAL — se subirán archivos y se actualizará la BD.\n\n";
 @ob_flush(); @flush();
 
 $uploaded = 0;
@@ -84,6 +86,24 @@ function resourceTypeFor(string $path): string
     return $ext === 'ico' ? 'raw' : 'image';
 }
 
+/**
+ * Comprueba si una URL ya devuelve 200 (existe el archivo en Cloudinary).
+ */
+function cloudinaryAssetExists(string $url): bool
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_NOBODY         => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT        => 10,
+    ]);
+    curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return $code === 200;
+}
+
 // --- Fase 1: subir archivos ---
 echo "=== 1. Subiendo archivos de images/ ===\n";
 if ($skipUpload) {
@@ -106,6 +126,13 @@ if ($skipUpload) {
             if ($dryRun) {
                 echo "(dry)\n";
                 $skipped++;
+                continue;
+            }
+
+            if ($onlyMissing && cloudinaryAssetExists(cdn($rel))) {
+                echo "ya existe (skip)\n";
+                $skipped++;
+                @ob_flush(); @flush();
                 continue;
             }
 
