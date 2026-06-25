@@ -61,6 +61,268 @@
     "team_title": "Conoce al equipo",
     "team_subtitle": "Nada sería posible sin las personas que forman nuestro equipo. AISC Madrid reúne estudiantes de distintas carreras y edades, fomentando un espacio donde la creatividad y la colaboración van de la mano.",
     "honor_title": "Miembros de Honor",
-    "honor_subtitle": "Personas que han formado parte de AISC Madrid y han dejado su huella en la comunidad."
+    "honor_subtitle": "Personas que han formado parte de AISC Madrid y han dejado su huella en la comunidad.",
+    "honor_class_of": "Promoción del",
+
+
+    "estatutos": {
+        "title": "Estatutos",
+
+        "cap1_title": "CAPÍTULO I. DE LA DENOMINACIÓN, FINES, ACTIVIDADES, DOMICILIO Y ÁMBITO DE LA ASOCIACIÓN",
+
+        "art1_title": "Artículo 1. Denominación",
+        "art1_li1": "Por los presentes Estatutos, se constituye por tiempo indefinido la Asociación <em style=\"font-style:italic\">\"Artificial Intelligence Student Collective\"</em> de la Universidad Carlos III de Madrid.",
+        "art1_li2": "A los efectos de estos Estatutos y de la actividad universitaria común, las siglas de la Asociación serán \"AISC\".",
+        "art1_li3": "AISC está sometida a la legislación vigente en materia de Asociaciones asi como a la normativa universitaria aplicable y al resto del ordenamiento jurídico.",
+
+        "art2_title": "Artículo 2. Fines y actividades",
+        "art2_li1": "AISC Madrid tiene como fines promover el interés y la formación en inteligencia artificial y áreas relacionadas entre los estudiantes de la UC3M, impulsar el talento universitario mediante experiencias formativas y colaborativas, favorecer la proyección profesional de sus miembros a través del contacto con la industria tecnológica y fomentar un espacio de innovación y cooperación dentro y fuera de la universidad.",
+        "art2_li2_intro": "Con vistas a conseguir este fin, las actividades de AISC serán:",
+        "art2_li2_a": "Facilitar recursos y medios de formación relacionados con la ingeniería en general y la Inteligencia Artificial en particular.",
+        "art2_li2_b": "Fomentar y dar valor al talento y el compromiso universitario a través de talleres prácticos, charlas profesionales y actividades comprometidas a la innovación.",
+        "art2_li2_c": "Impulsar a los alumnos hacia el mundo profesional facilitando oportunidades en el mismo mediante la conexión entre la industria tecnológica y los miembros de la asociación.",
+        "art2_li2_d": "Promover la colaboración con otras asociaciones universitarias y la conexión entre alumnos de diferentes disciplinas a través de proyectos cooperativos.",
+        "art2_li2_e": "Reforzar y mantener la conexión de los alumnos con el resto de ramas internacionales de AISC.",
+
+        "art3_title": "Artículo 3. Domicilio social y ámbito de actuación",
+        "art3_li1": "El domicilio social de AISC se establece en Avenida de la Universidad, N.º 30, Campus de la Escuela Politécnica Superior de la Universidad Carlos III de Madrid, despacho 2.3.C05, localidad de Leganés, código postal 28911.",
+        "art3_li2": "El ámbito de actuación principal de la Asociación será la Comunidad de Madrid, sin perjuicio de poder realizar actividades y colaboraciones con entidades públicas o privadas en el resto del territorio nacional e internacional.",
+
+        "art4_title": "Artículo 4. Tipos de socios",
+        "art4_li1": "Se establecen dos tipos de socios dentro de AISC; Socios activos y socios de honor.",
+        "art4_li2": "Podrán ser socios activos de AISC todos los alumnos matriculados en la Universidad Carlos III de Madrid, independientemente de sus estudios y con derecho a asociarse según la normativa vigente y cuando asi lo soliciten libremente.",
+        "art4_li3": "Por otro lado, existirá la figura de Socio de Honor para aquellos que ya no forman parte como socios activos de AISC y que por su prestigio o por haber contribuido de modo relevante a los fines de la Asociación, se hagan acreedores de tal distinción.",
+
+        "cap2_title": "CAPITULO II. DE LOS ÓRGANOS DE GOBIERNO DE LA ASOCIACIÓN",
+
+        "art5_title": "Artículo 5. Órganos de gobierno.",
+        "art5_p": "La asociación se regirá por los siguientes órganos:",
+        "art5_li_a": "La Asamblea General, tanto en su forma Ordinaria como Extraordinaria.",
+        "art5_li_b": "La Junta Directiva.",
+
+        "cap3_title": "CAPÍTULO III. DE LA ASAMBLEA GENERAL",
+
+        "art6_title": "Artículo 6. Integración de la Asamblea General.",
+        "art6_p": "La Asamblea General estará conformada por todos los socios, siendo el órgano supremo de la Asociación y conformando su voluntad mediante el voto de sus miembros.",
+
+        "art7_title": "Artículo 7. Quórum de las Asambleas.",
+        "art7_li1": "La Asamblea General, sea Ordinaria o Extraordinaria, se dará por constituida válidamente cuando concurran en ella, presentes o telemáticamente si así se avisó previamente a la Junta Directiva, un número de asociados activos igual o mayor a 1/2 del total de los mismos.",
+        "art7_li2": "Para la aprobación de acuerdos en la Asamblea General Ordinaria y en la Extraordinaria, se requerirá una mayoría simple de los socios activos asistentes a la Asamblea, es decir, más votos a favor que en contra.",
+        "art7_li3": "No obstante, en la Asamblea General Extraordinaria y cuando se refiera a decisiones relativas al artículo 11.1 letras a), b) o c), se requerirá de mayoría absoluta de los socios activos asistentes para su aprobación. Es decir, que los votos a favor superen a la mitad del total de los votos.",
+
+        "art8_title": "Artículo 8. Convocatoria de la Asamblea General Ordinaria",
+        "art8_li1": "La Asamblea General Ordinaria se reunirá, como mínimo, una vez cada cuatrimestre académico.",
+        "art8_li2": "Se entenderá que el curso académico se divide en dos periodos cuatrimestrales, según el calendario oficial de la Universidad Carlos III de Madrid.",
+        "art8_li3": "La Junta Directiva tratará, en la medida de lo posible, de elegir el día más conveniente para la celebración de la Asamblea General Ordinaria, de tal manera que puedan asistir el mayor número de socios.",
+        "art8_li4": "La convocatoria de la Asamblea General Ordinaria irá acompañada de su respectivo orden del día y la misma debe ser anunciada con mínimo catorce días naturales de antelación por escrito a cada asociado.",
+
+        "art9_title": "Artículo 9. Competencias de la Asamblea General Ordinaria",
+        "art9_p": "Serán competencias de la Asamblea General Ordinaria:",
+        "art9_li_a": "La elección, revocación y renovación de los miembros de la Junta Directiva",
+        "art9_li_b": "El examen y la aprobación de las cuentas, presupuestos y aplicación de los fondos de la Asociación.",
+        "art9_li_c": "La aprobación de cuotas",
+        "art9_li_d": "El nombramiento de socios honorarios a propuesta de la Junta Directiva",
+        "art9_li_e": "La aprobación del Reglamento de Régimen Interno",
+
+        "art10_title": "Artículo 10. Convocatoria de la Asamblea General Extraordinaria",
+        "art10_li1": "La Asamblea General Extraordinaria se reunirá cuando lo encuentre necesario la Junta Directiva y será convocada por el Presidente con su correspondiente orden del día y con un mínimo de siete días naturales de antelación.",
+        "art10_li2": "El plazo indicado en el apartado anterior de este Artículo no será de aplicación cuando se trate de una Asamblea General Extraordinaria urgente.",
+
+        "art11_title": "Artículo 11. Competencias de la Asamblea General Extraordinaria",
+        "art11_li1_intro": "Serán competencias de la Asamblea General Extraordinaria:",
+        "art11_li1_a": "La disolución de la Asociación.",
+        "art11_li1_b": "La modificación de los Estatutos.",
+        "art11_li1_c": "La autorización para la enajenación de bienes propiedad de la asociación.",
+        "art11_li1_d": "La elección de los miembros de la Junta Directiva en el caso de cesar alguno de ellos en su cargo antes de la correspondiente Asamblea General Ordinaria.",
+        "art11_li1_e": "La expulsión de cualquier socio a propuesta de la Junta Directiva.",
+        "art11_li2": "En el caso de la letra d) del apartado anterior, la Asamblea General Extraordinaria tendrá carácter urgente.",
+
+        "art12_title": "Artículo 12. Asamblea General Extraordinaria Urgente",
+        "art12_li1": "La Asamblea General Extraordinaria Urgente podrá convocarse en situaciones excepcionales e inaplazables que requieran decisiones inmediatas para el funcionamiento de la Asociación, como cobertura de vacantes, aceptación de subvenciones con plazos cortos o respuesta a requerimientos oficiales.",
+        "art12_li2": "La convocatoria corresponde al Presidente, a iniciativa propia, de la Junta Directiva o a solicitud de, al menos, un tercio de los socios activos.",
+        "art12_li3": "La citación deberá realizarse con un mínimo de 48 horas de antelación por medios electrónicos que aseguren la recepción de la comunicación. Debe incluir: fecha, hora y lugar; orden del día; y justificación de la urgencia.",
+        "art12_li4": "La Asamblea quedará válidamente constituida con al menos un tercio de los socios activos, siempre que concurran mínimo el Presidente, el Secretario y un socio adicional. Solo se adoptarán acuerdos sobre asuntos cuya urgencia esté justificada.",
+
+        "art13_title": "Artículo 13. Acuerdos alcanzados por las Asambleas",
+        "art13_li1": "La Asamblea General dejará constancia de los acuerdos que adopte e incluirá las firmas del presidente y del secretario de la Asociación. Los acuerdos serán publicados en un apartado específico dentro de la web de la asociación y serán de fácil acceso.",
+        "art13_li2": "El acta de la Asamblea General en la que se elige una nueva Junta Directiva será firmada por los miembros de la Junta saliente.",
+
+        "cap4_title": "CAPÍTULO IV. DE LA JUNTA DIRECTIVA",
+
+        "art14_title": "Artículo 14. Naturaleza y composición.",
+        "art14_li1": "La Junta Directiva es el órgano que gestiona y representa los intereses de la Asociación.",
+        "art14_li2": "La Junta Directiva estará compuesta como mínimo por el Presidente, el Secretario General, el Vicepresidente, el Tesorero y uno o varios Vocales, según se determine por la Asamblea General.",
+        "art14_li3": "Todos los miembros de la Junta Directiva serán mayores de edad y deben tener la capacidad de obrar y ostentar la condición de socio activo de AISC Madrid.",
+        "art14_li4": "Por razones organizativas, los cargos de Vicepresidente y Secretario General podrán ser desempeñados por la misma persona, sin que ello afecte a sus competencias ni a la validez de los actos de la Junta Directiva.",
+        "art14_li5": "Los Vocales forman parte de la Junta Directiva y desempeñarán las funciones que la misma les asigne, apoyando las áreas de actividad de la Asociación y colaborando con el Presidente y demás miembros en la consecución de los fines de la Asociación.",
+
+        "art15_title": "Artículo 15. Competencias.",
+        "art15_li1_intro": "La Junta Directiva tendrá las siguientes competencias:",
+        "art15_li1_a": "Coordinar el funcionamiento de los distintos órganos de la Asociación.",
+        "art15_li1_b": "Ejecutar los acuerdos adoptados por la Asamblea General.",
+        "art15_li1_c": "Proponer a la Asamblea General la expulsión de socios por motivos razonados.",
+        "art15_li1_d": "Preparar y presentar, en su caso, las cuentas de la Asociación ante la Asamblea para su eventual aprobación anual.",
+        "art15_li1_e": "Velar por el cumplimiento de los Estatutos.",
+        "art15_li2": "Asimismo, se encargará de realizar una memoria anual que recopile todas las actividades, eventos y actos durante el curso académico. El Presidente será el responsable de publicarla y presentarla en la Asamblea General Ordinaria.",
+
+        "art16_title": "Artículo 16. Elección de miembros.",
+        "art16_li1": "La elección de los miembros de la Junta Directiva por la Asamblea General Ordinaria se realizará mediante la presentación de candidaturas. El Presidente convocará dicha presentación con al menos veinte días naturales de antelación a la celebración de la Asamblea General Ordinaria. A cada candidatura se le garantizará una difusión adecuada e igualitaria. El anterior plazo no será de aplicación para cuando se elijan los miembros de la Junta Directiva por medio de Asamblea General Extraordinaria Urgente.",
+        "art16_li2": "Los requisitos de elegibilidad y presentación de candidatura son los expresados en el artículo 14.3.",
+        "art16_li3": "Cada candidatura se presentará de forma conjunta para todos los cargos de la Junta Directiva. La elección del Presidente supondrá automáticamente la del resto de los miembros de su misma candidatura. Se admitirá, no obstante, candidatura individual en el caso de haber cesado en su cargo alguno de los miembros de la Junta Directiva.",
+        "art16_li4": "Resultará electa aquella candidatura que obtenga el mayor número de votos entre los socios activos presentes.",
+        "art16_li5": "La elección ordinaria de la Junta Directiva se realizará en la Asamblea General Ordinaria del segundo cuatrimestre, prevista normalmente entre los meses de abril y junio.",
+
+        "art17_title": "Artículo 17. Duración del mandato y reelección.",
+        "art17_li1": "La duración del mandato de los miembros electos de la Junta Directiva será de un año desde la fecha de su nombramiento.",
+        "art17_li2": "Los miembros de la Junta Directiva podrán optar a la reelección en cualquier cargo.",
+
+        "art18_title": "Artículo 18. Reuniones y quórum.",
+        "art18_p": "La Junta Directiva se reunirá previa convocatoria debiendo mediar al menos 3 días entre ésta y su celebración, cuantas veces lo determine su Presidente y a petición de 2/5 de sus miembros. Quedará constituida cuando asista la mitad más uno de sus miembros y para que sus acuerdos sean válidos deberán ser adoptados por mayoría simple de votos. En caso de empate, será de calidad del voto del Presidente o de quien haga sus veces.",
+
+        "art19_title": "Artículo 19. Funciones del Presidente.",
+        "art19_li1": "El Presidente asumirá la más alta representación de la Asociación y contará con voto de calidad en caso de empate en las decisiones de la Junta Directiva. El mismo podrá ser cualquier socio mayor de edad y en pleno ejercicio de su capacidad de obrar.",
+        "art19_li2_intro": "Tendrá las siguientes competencias:",
+        "art19_li2_a": "Convocar las reuniones de la Asamblea General Ordinaria y Extraordinaria, según el procedimiento establecido al efecto, así como fijar el correspondiente orden del día, con los temas propuestos por la propia Asamblea, la Junta Directiva o cualquier socio, y hacerlo público al momento de la convocatoria de la Asamblea General.",
+        "art19_li2_b": "Presidir y moderar las reuniones de la Asamblea General y de la Junta Directiva.",
+
+        "art20_title": "Artículo 20. Funciones del Secretario general.",
+        "art20_li1": "El Secretario General es el miembro de la Junta Directiva encargado de velar por el cumplimiento de las obligaciones documentales y registrales de la Asociación.",
+        "art20_li2_intro": "Corresponde al Secretario General:",
+        "art20_li2_a": "Redactar y custodiar las actas de las sesiones de la Asamblea General y de la Junta Directiva, firmándolas junto con el Presidente.",
+        "art20_li2_b": "Conservar un Registro de Socios actualizado.",
+        "art20_li2_c": "Coordinarse con el Presidente en el reparto y ejecución de las tareas administrativas necesarias para el correcto funcionamiento de la Asociación.",
+        "art20_li3": "En caso de vacante, ausencia o enfermedad, el Secretario General será sustituido por el Vocal designado por la Junta Directiva hasta la cobertura del cargo.",
+
+        "art21_title": "Artículo 21. Funciones del Vicepresidente.",
+        "art21_li1": "Sustituye al Presidente en caso de ausencia, enfermedad, vacante o delegación.",
+        "art21_li2": "Colabora con el Presidente en el ejercicio de sus funciones.",
+        "art21_li3": "Ejerce aquellas funciones que le sean expresamente encomendadas por la Asamblea General o por la Junta Directiva.",
+
+        "art22_title": "Artículo 22. Funciones del Tesorero.",
+        "art22_li1_intro": "El Tesorero tendrá las siguientes competencias:",
+        "art22_li1_a": "Llevar la contabilidad de la Asociación y custodiar sus documentos económicos y financieros.",
+        "art22_li1_b": "Supervisar y administrar, en caso de existir, el Tesoro de la Asociación.",
+        "art22_li2": "El Tesorero podrá proponer cambios en las aportaciones y patrimonio de la Asociación, lo cual será aprobado en todo caso por la Junta Directiva.",
+
+        "art23_title": "Artículo 23. Publicidad de los acuerdos.",
+        "art23_p": "Los acuerdos adoptados en el seno de la Junta Directiva quedarán fijados en Decisiones. Estas deberán contar con la firma tanto del Presidente como del Secretario General y ser publicadas en el apartado oficial habilitado en la web de la Asociación. Su entrada en vigor tendrá lugar al momento de publicarse.",
+
+        "art24_title": "Artículo 24. Incompatibilidades y prohibiciones.",
+        "art24_li1": "Los cargos de Presidente y Secretario General no podrán ser ejercidos por la misma persona.",
+        "art24_li2": "Los miembros de la Junta Directiva no podrán percibir retribución alguna por el desempeño de su cargo, sin perjuicio de que se les reembolsen los gastos debidamente justificados.",
+        "art24_li3": "Ningún miembro podrá ostentar simultáneamente más de un cargo dentro de la Junta Directiva, exceptuando la posibilidad de que una misma persona ocupe los cargos de Vicepresidente y Secretario General.",
+        "art24_li4": "Las incompatibilidades previstas en la legislación vigente se aplicarán en todo caso.",
+
+        "cap5_title": "CAPÍTULO V. DE LOS ASOCIADOS",
+
+        "art25_title": "Artículo 25. Adquisición de la condición de socio e información requerida.",
+        "art25_li1": "La condición de socio se adquirirá una vez incluido en el Registro de Socios, mediante inscripción por la página web de la Asociación, o por el cauce previsto a tal efecto.",
+        "art25_li2_intro": "El Registro de Socios será el documento oficial donde se incluirán los datos de los socios. Se reflejarán en él, como mínimo, los siguientes datos:",
+        "art25_li2_a": "Nombre y apellidos.",
+        "art25_li2_b": "Correo electrónico de contacto.",
+        "art25_li2_c": "Estudios de Grado o Máster matriculados en la Universidad Carlos III de Madrid.",
+        "art25_li3": "La Asociación garantizará en todo momento la confidencialidad y seguridad de los datos personales de los socios, conforme al Reglamento (UE) 2016/679 y a la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales. Los socios podrán ejercitar sus derechos de acceso, rectificación, supresión, limitación, oposición y portabilidad dirigiéndose a la Junta Directiva a través de los cauces oficiales de comunicación de la Asociación.",
+
+        "art26_title": "Artículo 26. Régimen Sancionador.",
+        "art26_li1": "El régimen sancionador regulará las infracciones y sanciones de los socios en relación con el incumplimiento de los Estatutos, del Reglamento de Régimen Interno o de los acuerdos válidamente adoptados por los órganos de gobierno de la Asociación.",
+        "art26_li2": "La tipificación de infracciones y sanciones, así como el procedimiento, se desarrollará en el Reglamento de Régimen Interno, que deberá respetar en todo caso lo dispuesto en la Ley y en la normativa universitaria aplicable.",
+        "art26_li3_intro": "El procedimiento sancionador garantizará siempre:",
+        "art26_li3_a": "La apertura de expediente con comunicación escrita al socio afectado.",
+        "art26_li3_b": "El derecho del socio a ser oído y a presentar alegaciones y pruebas en su defensa.",
+        "art26_li3_c": "La decisión motivada de la Junta Directiva, que propondrá la sanción correspondiente.",
+        "art26_li3_d": "El derecho del socio a recurrir la sanción ante la Asamblea General Extraordinaria, que decidirá en última instancia mediante votación secreta.",
+
+        "art27_title": "Artículo 27. Derechos de los socios.",
+        "art27_p": "Son derechos de todos los socios:",
+        "art27_li_a": "Participar de hecho, con voz y voto en los órganos de la Asociación.",
+        "art27_li_b": "Utilizar los servicios de la Asociación, reunirse en sus locales y expresarse a través de sus órganos.",
+        "art27_li_c": "Defender, en el seno de la Asociación, cualquier planteamiento referente a la actuación, la planificación y el desarrollo de sus actividades.",
+        "art27_li_d": "Ser electores y elegibles como miembros de la Junta Directiva o, en su caso, de los grupos de trabajo, siempre que cumplan con lo estipulado en estos Estatutos.",
+        "art27_li_e": "Exigir información de cualquier índole sobre el funcionamiento de la Asociación.",
+        "art27_li_f": "Salvaguardar su integridad como socios, mediante pruebas documentales y testificales, en caso de discutirse la aplicación de medidas del Régimen Sancionador que les afecten.",
+        "art27_li_g": "Ser oídos y defenderse ante la Asamblea General Extraordinaria en caso de que la Junta Directiva proponga su expulsión.",
+        "art27_li_h": "Disfrutar de todos los demás derechos que, como socios, puedan corresponderles conforme a la legislación vigente en materia de Asociaciones, a la normativa universitaria aplicable y al resto del ordenamiento jurídico.",
+
+        "art28_title": "Artículo 28. Deberes de los socios",
+        "art28_p": "Serán deberes de todos los socios:",
+        "art28_li_a": "Respetar y cumplir estos Estatutos, así como los acuerdos adoptados por los órganos de la Asociación.",
+        "art28_li_b": "Fomentar el crecimiento de la Asociación mediante la promoción de sus actividades.",
+        "art28_li_c": "Desempeñar los cargos para los que sean elegidos.",
+        "art28_li_d": "Contribuir a la financiación de la Asociación mediante la oportuna cuota, en caso de ser ésta aprobada por la Asamblea General.",
+
+        "art29_title": "Artículo 29. Pérdida de condición de socio",
+        "art29_p": "La condición de socio se perderá por las siguientes causas:",
+        "art29_li_a": "Por voluntad propia, comunicada por escrito a la Junta Directiva",
+        "art29_li_b": "Por las causas previstas en el Régimen Sancionador de la Asociación, siguiendo en todo caso el procedimiento establecido en el artículo 26.",
+        "art29_li_c": "Por expulsión, de acuerdo con lo establecido en los artículos 26 y 30 de estos Estatutos.",
+
+        "art30_title": "Artículo 30. Expulsión de un socio",
+        "art30_li1": "La expulsión de cualquier socio será aprobada en Asamblea General Extraordinaria a propuesta de la Junta Directiva",
+        "art30_li2": "Se seguirá siempre el procedimiento establecido en el artículo 26, garantizando el derecho de audiencia y recurso.",
+        "art30_li3": "La votación en la que se apruebe la expulsión de un socio en Asamblea General se hará de manera secreta.",
+
+        "cap6_title": "CAPÍTULO VI. DE LOS CARGOS DELEGADOS Y RESPONSABLES DE ÁREA",
+
+        "art31_title": "Artículo 31. Naturaleza y finalidad",
+        "art31_li1": "La Asociación podrá contar con cargos delegados o responsables de área, designados entre los socios, para el desempeño de funciones específicas necesarias para el cumplimiento de los fines de la Asociación, tales como gestión web, coordinación de proyectos, comunicación, marketing u otras que determine la Junta Directiva",
+        "art31_li2": "Estos cargos tendrán carácter funcional y auxiliar, sin integrar necesariamente la Junta Directiva, salvo que el designado forme ya parte de ella.",
+        "art31_li3": "Los cargos delegados actuarán bajo la supervisión de la Junta Directiva y rendirán cuentas de su labor ante la misma.",
+
+        "art32_title": "Artículo 32. Nombramiento y duración",
+        "art32_li1": "La designación de los cargos delegados corresponde a la Junta Directiva, que podrá nombrarlos y cesarlos libremente, en atención a las necesidades de la Asociación.",
+        "art32_li2": "El nombramiento deberá comunicarse a la Asamblea General en la primera sesión ordinaria que se celebre tras su adopción.",
+        "art32_li3": "La duración de los cargos delegados se vincula al mandato de la Junta Directiva que los nombre, cesando automáticamente en caso de renovación de esta, salvo confirmación expresa de la nueva Junta.",
+
+        "art33_title": "Artículo 33. Cese",
+        "art33_p": "Los cargos delegados cesarán por las siguientes causas:",
+        "art33_li_a": "Expiración del mandato de la Junta Directiva que los designó, salvo confirmación expresa por la nueva Junta.",
+        "art33_li_b": "Renuncia expresa del interesado, comunicada por escrito a la Junta Directiva.",
+        "art33_li_c": "Pérdida de la condición de socio o de la capacidad de obrar.",
+        "art33_li_d": "Acuerdo de la Junta Directiva.",
+        "art33_li_e": "Acuerdo de la Asamblea General",
+
+        "cap7_title": "CAPÍTULO VII. DE LOS RECURSOS ECONÓMICOS, FINANCIACIÓN Y CONTABILIDAD DE LA ASOCIACIÓN",
+
+        "art34_title": "Artículo 34. Patrimonio inicial.",
+        "art34_p": "La Asociación nace sin patrimonio fundacional ni aportaciones iniciales obligatorias por parte de los socios.",
+
+        "art35_title": "Artículo 35. Cierre de Ejercicio.",
+        "art35_p": "El cierre del ejercicio asociativo se fija en el día 30 de junio.",
+
+        "art36_title": "Artículo 36. Métodos de financiación.",
+        "art36_li1_intro": "La Asociación podrá financiarse a través de las siguientes vías:",
+        "art36_li1_a": "Aportaciones solidarias, voluntarias o extraordinarias de sus socios.",
+        "art36_li1_b": "Cuotas ordinarias o extraordinarias, que solo podrán establecerse previa aprobación por la Asamblea General, a propuesta de la Junta Directiva y acompañada de un informe motivado del Tesorero que justifique su necesidad.",
+        "art36_li1_c": "Subvenciones, ayudas públicas o privadas, donaciones, legados o cualquier otra aportación de terceros.",
+        "art36_li1_d": "Rendimientos procedentes de actividades, servicios o publicaciones propias, siempre dentro de los fines de la Asociación y conforme a la legalidad vigente.",
+        "art36_li2": "Mientras no se acuerde lo contrario por la Asamblea General, las aportaciones de los socios tendrán carácter voluntario y no obligatorio.",
+        "art36_li3": "La gestión de los recursos económicos corresponderá a la Junta Directiva, bajo la supervisión del Tesorero, quien rendirá cuentas anualmente ante la Asamblea General.",
+
+        "art37_title": "Artículo 37. Gastos.",
+        "art37_p": "Todo gasto propuesto por la Junta Directiva se someterá al examen del Tesorero, quien presentará un informe en el que dará su dictamen al respecto. La Junta Directiva, una vez oído el informe, será la encargada de tomar la decisión correspondiente.",
+
+        "art38_title": "Artículo 38. Obligaciones documentales y contables.",
+        "art38_li1": "La Asociación dispondrá de una relación actualizada de asociados. Además, llevará una contabilidad donde se reflejará la fiel imagen del patrimonio, del resultado y de su situación financiera, así como registrará las actividades realizadas y efectuará un inventario de sus bienes.",
+        "art38_li2": "Se recogerá en un libro de actas la información sobre las reuniones de los órganos de gobierno de la Asociación.",
+        "art38_li3": "Toda la información descrita en este artículo deberá ser pública y accesible para todos los asociados, siendo publicada preferiblemente en la web oficial de la Asociación.",
+
+        "art39_title": "Artículo 39. Reforma estatutaria.",
+        "art39_p": "Los Estatutos podrán ser modificados en la Asamblea General Extraordinaria, mediante acuerdo por mayoría absoluta de los socios activos presentes.",
+
+        "art40_title": "Artículo 40. Principios básicos de la reforma estatutaria.",
+        "art40_li1": "No se podrá eliminar en una reforma de estos Estatutos ningún precepto esencial para el correcto funcionamiento de la Asociación, ni incluir artículos contrarios a la normativa vigente y al resto del ordenamiento jurídico.",
+        "art40_li2": "Cualquier futura reforma estatutaria mantendrá la integridad, principios básicos y coherencia de estos Estatutos, tratando siempre de favorecer el cumplimiento de los fines para los que esta asociación ha sido creada.",
+
+        "cap8_title": "CAPÍTULO VIII. DE LA DISOLUCIÓN DE LA ASOCIACIÓN",
+
+        "art41_title": "Artículo 41. Causas de disolución",
+        "art41_li1_intro": "La Asociación se disolverá por los siguientes motivos:",
+        "art41_li1_a": "Por voluntad de sus socios activos expresada mediante la aprobación por mayoría absoluta en una Asamblea General Extraordinaria, como recogen estos Estatutos.",
+        "art41_li1_b": "Por sentencia judicial",
+        "art41_li1_c": "Por las demás causas dispuestas en la normativa vigente y que resulte de aplicación.",
+
+        "art42_title": "Artículo 42. Disposición del patrimonio en caso de disolución",
+        "art42_p": "En caso de liquidación, el patrimonio de la Asociación se destinará a una institución de la Universidad Carlos III de Madrid o, en su defecto, a una entidad sin ánimo de lucro con fines similares, conforme a lo dispuesto en la Ley 1/2002. El beneficiario será aprobado en la Asamblea General Extraordinaria a propuesta de la Junta Directiva y deberá contar con el apoyo de la mayoría simple de los socios activos."
+    }
 
 }

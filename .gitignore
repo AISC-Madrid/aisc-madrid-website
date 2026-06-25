@@ -16,3 +16,6 @@ start-server.bat
 start-server.sh
 database.sql
 .vscode/
+
+.claude
+CLAUDE.md

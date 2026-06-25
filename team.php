@@ -113,7 +113,7 @@ while ($row = $result->fetch_assoc()) {
                 <?= htmlspecialchars($_SESSION['lang'] == 'en' ? $member['position_en'] : $member['position_es']) ?>
               </p>
               <?php if (!empty($member['graduation_year'])): ?>
-                <p class="text-muted"><em>Class of '<?= htmlspecialchars($member['graduation_year']) ?></em></p>
+                <p class="text-muted"><em><span translation-key="honor_class_of"></span> '<?= htmlspecialchars($member['graduation_year']) ?></em></p>
               <?php endif; ?>
               <?php if (!empty($member['honor_quote'])): ?>
                 <p class="fst-italic text-muted">"<?= htmlspecialchars($member['honor_quote']) ?>"</p>
