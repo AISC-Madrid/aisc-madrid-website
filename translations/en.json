@@ -61,6 +61,268 @@
     "team_title": "Meet the team",
     "team_subtitle": "Nothing would be possible without the people who make up our team. AISC Madrid brings together students from different fields and ages, fostering a space where creativity and collaboration go hand in hand.",
     "honor_title": "Honor Members",
-    "honor_subtitle": "People who have been part of AISC Madrid and have left their mark on the community."
+    "honor_subtitle": "People who have been part of AISC Madrid and have left their mark on the community.",
+    "honor_class_of": "Class of",
+
+
+    "estatutos": {
+        "title": "Statutes",
+
+        "cap1_title": "CHAPTER I. NAME, PURPOSES, ACTIVITIES, REGISTERED OFFICE AND SCOPE OF THE ASSOCIATION",
+
+        "art1_title": "Article 1. Name",
+        "art1_li1": "By these Statutes, the Association <em style=\"font-style:italic\">\"Artificial Intelligence Student Collective\"</em> of Universidad Carlos III de Madrid is hereby established for an indefinite period of time.",
+        "art1_li2": "For the purposes of these Statutes and of ordinary university activity, the Association's acronym shall be \"AISC\".",
+        "art1_li3": "AISC is subject to the legislation in force regarding Associations, as well as to the applicable university regulations and the rest of the legal system.",
+
+        "art2_title": "Article 2. Purposes and activities",
+        "art2_li1": "AISC Madrid aims to promote interest and training in artificial intelligence and related areas among UC3M students, to foster university talent through formative and collaborative experiences, to support the professional development of its members through contact with the technology industry, and to encourage a space for innovation and cooperation both inside and outside the university.",
+        "art2_li2_intro": "In order to achieve this purpose, the activities of AISC shall be:",
+        "art2_li2_a": "To provide resources and training means related to engineering in general and Artificial Intelligence in particular.",
+        "art2_li2_b": "To promote and give value to university talent and commitment through hands-on workshops, professional talks and activities oriented towards innovation.",
+        "art2_li2_c": "To push students towards the professional world by facilitating opportunities through the connection between the technology industry and the members of the association.",
+        "art2_li2_d": "To foster collaboration with other university associations and the connection among students from different disciplines through cooperative projects.",
+        "art2_li2_e": "To strengthen and maintain the connection of students with the rest of AISC's international branches.",
+
+        "art3_title": "Article 3. Registered office and scope of activity",
+        "art3_li1": "The registered office of AISC is established at Avenida de la Universidad, No. 30, Campus of the Escuela Politécnica Superior of Universidad Carlos III de Madrid, office 2.3.C05, in Leganés, postal code 28911.",
+        "art3_li2": "The main scope of activity of the Association shall be the Community of Madrid, without prejudice to being able to carry out activities and collaborations with public or private entities throughout the rest of the national and international territory.",
+
+        "art4_title": "Article 4. Types of members",
+        "art4_li1": "Two types of members are established within AISC: active members and honorary members.",
+        "art4_li2": "Active members of AISC may be all students enrolled at Universidad Carlos III de Madrid, regardless of their studies and with the right to associate according to the regulations in force and whenever they freely request it.",
+        "art4_li3": "On the other hand, the figure of Honorary Member shall exist for those who are no longer active members of AISC and who, due to their prestige or for having significantly contributed to the purposes of the Association, are deserving of such distinction.",
+
+        "cap2_title": "CHAPTER II. THE GOVERNING BODIES OF THE ASSOCIATION",
+
+        "art5_title": "Article 5. Governing bodies.",
+        "art5_p": "The association shall be governed by the following bodies:",
+        "art5_li_a": "The General Assembly, both in its Ordinary and Extraordinary forms.",
+        "art5_li_b": "The Board of Directors.",
+
+        "cap3_title": "CHAPTER III. THE GENERAL ASSEMBLY",
+
+        "art6_title": "Article 6. Composition of the General Assembly.",
+        "art6_p": "The General Assembly shall be composed of all members, being the supreme body of the Association and forming its will through the vote of its members.",
+
+        "art7_title": "Article 7. Quorum of the Assemblies.",
+        "art7_li1": "The General Assembly, whether Ordinary or Extraordinary, shall be validly constituted when a number of active members equal to or greater than 1/2 of the total attends, either in person or remotely if previously notified to the Board of Directors.",
+        "art7_li2": "For the approval of resolutions in the Ordinary and Extraordinary General Assembly, a simple majority of the active members attending the Assembly shall be required, that is to say, more votes in favor than against.",
+        "art7_li3": "However, in the Extraordinary General Assembly and when referring to decisions regarding article 11.1 letters a), b) or c), an absolute majority of the attending active members shall be required for approval. That is, the votes in favor must exceed half of the total votes.",
+
+        "art8_title": "Article 8. Convening of the Ordinary General Assembly",
+        "art8_li1": "The Ordinary General Assembly shall meet at least once each academic semester.",
+        "art8_li2": "It shall be understood that the academic year is divided into two semester periods, according to the official calendar of Universidad Carlos III de Madrid.",
+        "art8_li3": "The Board of Directors shall try, as far as possible, to choose the most convenient day to hold the Ordinary General Assembly, in such a way that the greatest number of members can attend.",
+        "art8_li4": "The convening of the Ordinary General Assembly shall be accompanied by its corresponding agenda and it must be announced at least fourteen calendar days in advance in writing to each member.",
+
+        "art9_title": "Article 9. Powers of the Ordinary General Assembly",
+        "art9_p": "The powers of the Ordinary General Assembly shall be:",
+        "art9_li_a": "The election, revocation and renewal of the members of the Board of Directors",
+        "art9_li_b": "The examination and approval of the accounts, budgets and application of the funds of the Association.",
+        "art9_li_c": "The approval of fees",
+        "art9_li_d": "The appointment of honorary members at the proposal of the Board of Directors",
+        "art9_li_e": "The approval of the Internal Regulations",
+
+        "art10_title": "Article 10. Convening of the Extraordinary General Assembly",
+        "art10_li1": "The Extraordinary General Assembly shall meet when the Board of Directors deems it necessary and shall be convened by the President with its corresponding agenda and with a minimum of seven calendar days in advance.",
+        "art10_li2": "The deadline indicated in the previous section of this Article shall not apply when it concerns an urgent Extraordinary General Assembly.",
+
+        "art11_title": "Article 11. Powers of the Extraordinary General Assembly",
+        "art11_li1_intro": "The powers of the Extraordinary General Assembly shall be:",
+        "art11_li1_a": "The dissolution of the Association.",
+        "art11_li1_b": "The modification of the Statutes.",
+        "art11_li1_c": "The authorization for the disposal of assets owned by the association.",
+        "art11_li1_d": "The election of the members of the Board of Directors in the event that any of them ceases in their position before the corresponding Ordinary General Assembly.",
+        "art11_li1_e": "The expulsion of any member at the proposal of the Board of Directors.",
+        "art11_li2": "In the case of letter d) of the previous section, the Extraordinary General Assembly shall be of an urgent nature.",
+
+        "art12_title": "Article 12. Urgent Extraordinary General Assembly",
+        "art12_li1": "The Urgent Extraordinary General Assembly may be convened in exceptional and unpostponable situations that require immediate decisions for the functioning of the Association, such as filling vacancies, accepting subsidies with short deadlines or responding to official requirements.",
+        "art12_li2": "The convening corresponds to the President, on their own initiative, of the Board of Directors or at the request of at least one third of the active members.",
+        "art12_li3": "The summons must be issued at least 48 hours in advance by electronic means that ensure the receipt of the communication. It must include: date, time and place; agenda; and justification of the urgency.",
+        "art12_li4": "The Assembly shall be validly constituted with at least one third of the active members, provided that at least the President, the Secretary and one additional member attend. Only resolutions on matters whose urgency is justified shall be adopted.",
+
+        "art13_title": "Article 13. Resolutions reached by the Assemblies",
+        "art13_li1": "The General Assembly shall record the resolutions it adopts and shall include the signatures of the president and the secretary of the Association. The resolutions shall be published in a specific section within the website of the association and shall be easily accessible.",
+        "art13_li2": "The minutes of the General Assembly in which a new Board of Directors is elected shall be signed by the members of the outgoing Board.",
+
+        "cap4_title": "CHAPTER IV. THE BOARD OF DIRECTORS",
+
+        "art14_title": "Article 14. Nature and composition.",
+        "art14_li1": "The Board of Directors is the body that manages and represents the interests of the Association.",
+        "art14_li2": "The Board of Directors shall be composed of at least the President, the Secretary General, the Vice President, the Treasurer and one or several Members-at-Large, as determined by the General Assembly.",
+        "art14_li3": "All members of the Board of Directors shall be of legal age and must have legal capacity and hold the status of active member of AISC Madrid.",
+        "art14_li4": "For organizational reasons, the positions of Vice President and Secretary General may be held by the same person, without this affecting their competences or the validity of the acts of the Board of Directors.",
+        "art14_li5": "The Members-at-Large are part of the Board of Directors and shall perform the functions assigned to them by it, supporting the areas of activity of the Association and collaborating with the President and other members in the achievement of the purposes of the Association.",
+
+        "art15_title": "Article 15. Powers.",
+        "art15_li1_intro": "The Board of Directors shall have the following powers:",
+        "art15_li1_a": "Coordinate the functioning of the different bodies of the Association.",
+        "art15_li1_b": "Execute the resolutions adopted by the General Assembly.",
+        "art15_li1_c": "Propose to the General Assembly the expulsion of members for justified reasons.",
+        "art15_li1_d": "Prepare and present, where appropriate, the accounts of the Association before the Assembly for its possible annual approval.",
+        "art15_li1_e": "Ensure compliance with the Statutes.",
+        "art15_li2": "Likewise, it shall be in charge of preparing an annual report compiling all the activities, events and acts during the academic year. The President shall be responsible for publishing it and presenting it at the Ordinary General Assembly.",
+
+        "art16_title": "Article 16. Election of members.",
+        "art16_li1": "The election of the members of the Board of Directors by the Ordinary General Assembly shall be carried out through the submission of candidacies. The President shall call for such submission at least twenty calendar days before the celebration of the Ordinary General Assembly. Each candidacy shall be guaranteed an adequate and equal dissemination. The previous deadline shall not apply when the members of the Board of Directors are elected through an Urgent Extraordinary General Assembly.",
+        "art16_li2": "The eligibility and candidacy submission requirements are those expressed in article 14.3.",
+        "art16_li3": "Each candidacy shall be submitted jointly for all positions of the Board of Directors. The election of the President shall automatically entail the election of the rest of the members of their same candidacy. However, individual candidacy shall be admitted in the event that any of the members of the Board of Directors has ceased in their position.",
+        "art16_li4": "The candidacy that obtains the highest number of votes among the active members present shall be elected.",
+        "art16_li5": "The ordinary election of the Board of Directors shall be held at the Ordinary General Assembly of the second semester, normally scheduled between the months of April and June.",
+
+        "art17_title": "Article 17. Duration of mandate and re-election.",
+        "art17_li1": "The duration of the mandate of the elected members of the Board of Directors shall be one year from the date of their appointment.",
+        "art17_li2": "The members of the Board of Directors may opt for re-election in any position.",
+
+        "art18_title": "Article 18. Meetings and quorum.",
+        "art18_p": "The Board of Directors shall meet upon prior convocation, with at least 3 days between this and its celebration, as many times as its President determines and at the request of 2/5 of its members. It shall be constituted when half plus one of its members attend, and for its resolutions to be valid they must be adopted by a simple majority of votes. In the event of a tie, the vote of the President or whoever acts in their place shall be the deciding one.",
+
+        "art19_title": "Article 19. Functions of the President.",
+        "art19_li1": "The President shall assume the highest representation of the Association and shall have the deciding vote in the event of a tie in the decisions of the Board of Directors. They may be any member of legal age and in full exercise of their legal capacity.",
+        "art19_li2_intro": "They shall have the following powers:",
+        "art19_li2_a": "Convene the meetings of the Ordinary and Extraordinary General Assembly, according to the procedure established for that purpose, as well as set the corresponding agenda, with the topics proposed by the Assembly itself, the Board of Directors or any member, and make it public at the time of convening the General Assembly.",
+        "art19_li2_b": "Preside over and moderate the meetings of the General Assembly and the Board of Directors.",
+
+        "art20_title": "Article 20. Functions of the Secretary General.",
+        "art20_li1": "The Secretary General is the member of the Board of Directors in charge of ensuring compliance with the documentary and registration obligations of the Association.",
+        "art20_li2_intro": "It is the responsibility of the Secretary General to:",
+        "art20_li2_a": "Draft and keep the minutes of the sessions of the General Assembly and the Board of Directors, signing them together with the President.",
+        "art20_li2_b": "Maintain an updated Members Registry.",
+        "art20_li2_c": "Coordinate with the President in the distribution and execution of the administrative tasks necessary for the correct functioning of the Association.",
+        "art20_li3": "In the event of vacancy, absence or illness, the Secretary General shall be replaced by the Member-at-Large designated by the Board of Directors until the position is filled.",
+
+        "art21_title": "Article 21. Functions of the Vice President.",
+        "art21_li1": "Replaces the President in case of absence, illness, vacancy or delegation.",
+        "art21_li2": "Collaborates with the President in the exercise of their functions.",
+        "art21_li3": "Exercises those functions expressly entrusted to them by the General Assembly or by the Board of Directors.",
+
+        "art22_title": "Article 22. Functions of the Treasurer.",
+        "art22_li1_intro": "The Treasurer shall have the following powers:",
+        "art22_li1_a": "Keep the accounting of the Association and safeguard its economic and financial documents.",
+        "art22_li1_b": "Supervise and administer, if it exists, the Treasury of the Association.",
+        "art22_li2": "The Treasurer may propose changes in the contributions and assets of the Association, which shall be approved in any case by the Board of Directors.",
+
+        "art23_title": "Article 23. Publication of resolutions.",
+        "art23_p": "The resolutions adopted within the Board of Directors shall be set out in Decisions. These must bear the signature of both the President and the Secretary General and be published in the official section enabled on the website of the Association. They shall take effect at the time of publication.",
+
+        "art24_title": "Article 24. Incompatibilities and prohibitions.",
+        "art24_li1": "The positions of President and Secretary General may not be held by the same person.",
+        "art24_li2": "The members of the Board of Directors may not receive any remuneration for the performance of their position, without prejudice to being reimbursed for duly justified expenses.",
+        "art24_li3": "No member may simultaneously hold more than one position within the Board of Directors, except for the possibility that the same person holds the positions of Vice President and Secretary General.",
+        "art24_li4": "The incompatibilities provided for in the legislation in force shall apply in any case.",
+
+        "cap5_title": "CHAPTER V. MEMBERS",
+
+        "art25_title": "Article 25. Acquisition of member status and required information.",
+        "art25_li1": "Member status shall be acquired once included in the Members Registry, through registration on the website of the Association, or through the channel provided for that purpose.",
+        "art25_li2_intro": "The Members Registry shall be the official document where the data of the members shall be included. The following data, at a minimum, shall be reflected in it:",
+        "art25_li2_a": "First and last name.",
+        "art25_li2_b": "Contact email address.",
+        "art25_li2_c": "Bachelor's or Master's studies enrolled at Universidad Carlos III de Madrid.",
+        "art25_li3": "The Association shall guarantee at all times the confidentiality and security of the personal data of the members, in accordance with Regulation (EU) 2016/679 and Organic Law 3/2018, on the Protection of Personal Data and guarantee of digital rights. Members may exercise their rights of access, rectification, deletion, limitation, opposition and portability by addressing the Board of Directors through the official communication channels of the Association.",
+
+        "art26_title": "Article 26. Disciplinary regime.",
+        "art26_li1": "The disciplinary regime shall regulate the infractions and sanctions of the members in relation to non-compliance with the Statutes, the Internal Regulations or the resolutions validly adopted by the governing bodies of the Association.",
+        "art26_li2": "The classification of infractions and sanctions, as well as the procedure, shall be developed in the Internal Regulations, which must in any case respect the provisions of the Law and applicable university regulations.",
+        "art26_li3_intro": "The disciplinary procedure shall always guarantee:",
+        "art26_li3_a": "The opening of proceedings with written communication to the affected member.",
+        "art26_li3_b": "The right of the member to be heard and to present arguments and evidence in their defense.",
+        "art26_li3_c": "The reasoned decision of the Board of Directors, which shall propose the corresponding sanction.",
+        "art26_li3_d": "The right of the member to appeal the sanction before the Extraordinary General Assembly, which shall decide in the last instance through secret ballot.",
+
+        "art27_title": "Article 27. Rights of the members.",
+        "art27_p": "The rights of all members are:",
+        "art27_li_a": "To participate, with voice and vote, in the bodies of the Association.",
+        "art27_li_b": "To use the services of the Association, meet on its premises and express themselves through its bodies.",
+        "art27_li_c": "To defend, within the Association, any proposal regarding the action, planning and development of its activities.",
+        "art27_li_d": "To be voters and eligible as members of the Board of Directors or, where appropriate, of the working groups, provided they comply with the provisions of these Statutes.",
+        "art27_li_e": "To demand information of any kind about the functioning of the Association.",
+        "art27_li_f": "To safeguard their integrity as members, through documentary and testimonial evidence, in case the application of measures of the Disciplinary Regime that affect them is discussed.",
+        "art27_li_g": "To be heard and defend themselves before the Extraordinary General Assembly in the event that the Board of Directors proposes their expulsion.",
+        "art27_li_h": "To enjoy all other rights that, as members, may correspond to them according to the legislation in force regarding Associations, the applicable university regulations and the rest of the legal system.",
+
+        "art28_title": "Article 28. Duties of the members",
+        "art28_p": "The duties of all members shall be:",
+        "art28_li_a": "To respect and comply with these Statutes, as well as the resolutions adopted by the bodies of the Association.",
+        "art28_li_b": "To foster the growth of the Association through the promotion of its activities.",
+        "art28_li_c": "To perform the positions for which they are elected.",
+        "art28_li_d": "To contribute to the financing of the Association through the appropriate fee, in the event that it is approved by the General Assembly.",
+
+        "art29_title": "Article 29. Loss of member status",
+        "art29_p": "Member status shall be lost for the following reasons:",
+        "art29_li_a": "By own will, communicated in writing to the Board of Directors",
+        "art29_li_b": "By the causes provided for in the Disciplinary Regime of the Association, following in any case the procedure established in article 26.",
+        "art29_li_c": "By expulsion, in accordance with the provisions of articles 26 and 30 of these Statutes.",
+
+        "art30_title": "Article 30. Expulsion of a member",
+        "art30_li1": "The expulsion of any member shall be approved at an Extraordinary General Assembly at the proposal of the Board of Directors",
+        "art30_li2": "The procedure established in article 26 shall always be followed, guaranteeing the right to a hearing and appeal.",
+        "art30_li3": "The vote by which the expulsion of a member is approved at the General Assembly shall be conducted secretly.",
+
+        "cap6_title": "CHAPTER VI. DELEGATED POSITIONS AND AREA LEADS",
+
+        "art31_title": "Article 31. Nature and purpose",
+        "art31_li1": "The Association may have delegated positions or area leads, designated from among the members, for the performance of specific functions necessary for the fulfillment of the purposes of the Association, such as web management, project coordination, communication, marketing or others determined by the Board of Directors",
+        "art31_li2": "These positions shall be of a functional and auxiliary nature, without necessarily being part of the Board of Directors, unless the designated person is already a member of it.",
+        "art31_li3": "The delegated positions shall act under the supervision of the Board of Directors and shall be accountable to it for their work.",
+
+        "art32_title": "Article 32. Appointment and duration",
+        "art32_li1": "The designation of the delegated positions corresponds to the Board of Directors, which may appoint and dismiss them freely, in accordance with the needs of the Association.",
+        "art32_li2": "The appointment must be communicated to the General Assembly at the first ordinary session held after its adoption.",
+        "art32_li3": "The duration of the delegated positions is linked to the mandate of the Board of Directors that appoints them, automatically ceasing in the event of renewal of the latter, unless expressly confirmed by the new Board.",
+
+        "art33_title": "Article 33. Cessation",
+        "art33_p": "The delegated positions shall cease for the following reasons:",
+        "art33_li_a": "Expiration of the mandate of the Board of Directors that designated them, except for express confirmation by the new Board.",
+        "art33_li_b": "Express resignation of the interested party, communicated in writing to the Board of Directors.",
+        "art33_li_c": "Loss of member status or legal capacity.",
+        "art33_li_d": "Resolution of the Board of Directors.",
+        "art33_li_e": "Resolution of the General Assembly",
+
+        "cap7_title": "CHAPTER VII. ECONOMIC RESOURCES, FINANCING AND ACCOUNTING OF THE ASSOCIATION",
+
+        "art34_title": "Article 34. Initial assets.",
+        "art34_p": "The Association is born without founding assets or mandatory initial contributions from its members.",
+
+        "art35_title": "Article 35. End of the financial year.",
+        "art35_p": "The end of the associative financial year is set on June 30.",
+
+        "art36_title": "Article 36. Financing methods.",
+        "art36_li1_intro": "The Association may be financed through the following channels:",
+        "art36_li1_a": "Solidary, voluntary or extraordinary contributions from its members.",
+        "art36_li1_b": "Ordinary or extraordinary fees, which may only be established with prior approval by the General Assembly, at the proposal of the Board of Directors and accompanied by a reasoned report from the Treasurer justifying their necessity.",
+        "art36_li1_c": "Subsidies, public or private grants, donations, legacies or any other contribution from third parties.",
+        "art36_li1_d": "Income from own activities, services or publications, always within the purposes of the Association and in accordance with the legislation in force.",
+        "art36_li2": "Unless otherwise agreed by the General Assembly, the contributions of the members shall be of a voluntary and non-mandatory nature.",
+        "art36_li3": "The management of the economic resources shall correspond to the Board of Directors, under the supervision of the Treasurer, who shall be accountable annually before the General Assembly.",
+
+        "art37_title": "Article 37. Expenses.",
+        "art37_p": "Any expense proposed by the Board of Directors shall be submitted to the examination of the Treasurer, who shall present a report giving their opinion on the matter. The Board of Directors, after hearing the report, shall be in charge of making the corresponding decision.",
+
+        "art38_title": "Article 38. Documentary and accounting obligations.",
+        "art38_li1": "The Association shall have an updated list of members. In addition, it shall keep accounting that reflects the true image of the assets, the result and its financial situation, as well as register the activities carried out and make an inventory of its assets.",
+        "art38_li2": "Information on the meetings of the governing bodies of the Association shall be collected in a minutes book.",
+        "art38_li3": "All the information described in this article must be public and accessible to all members, being published preferably on the official website of the Association.",
+
+        "art39_title": "Article 39. Statutory reform.",
+        "art39_p": "The Statutes may be modified at the Extraordinary General Assembly, by resolution by absolute majority of the active members present.",
+
+        "art40_title": "Article 40. Basic principles of statutory reform.",
+        "art40_li1": "No essential provision for the correct functioning of the Association may be eliminated in a reform of these Statutes, nor may articles contrary to the regulations in force and the rest of the legal system be included.",
+        "art40_li2": "Any future statutory reform shall maintain the integrity, basic principles and coherence of these Statutes, always trying to favor the fulfillment of the purposes for which this association has been created.",
+
+        "cap8_title": "CHAPTER VIII. DISSOLUTION OF THE ASSOCIATION",
+
+        "art41_title": "Article 41. Causes of dissolution",
+        "art41_li1_intro": "The Association shall be dissolved for the following reasons:",
+        "art41_li1_a": "By the will of its active members expressed through approval by absolute majority at an Extraordinary General Assembly, as set forth in these Statutes.",
+        "art41_li1_b": "By court order",
+        "art41_li1_c": "By the other causes provided for in the regulations in force and that may apply.",
+
+        "art42_title": "Article 42. Disposition of assets in case of dissolution",
+        "art42_p": "In the event of liquidation, the assets of the Association shall be allocated to an institution of Universidad Carlos III de Madrid or, failing that, to a non-profit entity with similar purposes, in accordance with the provisions of Law 1/2002. The beneficiary shall be approved at the Extraordinary General Assembly at the proposal of the Board of Directors and must have the support of the simple majority of the active members."
+    }
 
 }

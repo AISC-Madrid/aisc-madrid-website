@@ -75,16 +75,12 @@ include("assets/head.php");
         <div class="row align-items-center m-5">
 
           <div class="col-md-7 mb-4 mb-md-0 mb-3 text-center text-md-start px-3 px-md-5">
-            <h2 class="fw-bold mb-4" style="color: var(--muted);" translation-key="projects_title">
-              Nuestros Proyectos
-            </h2>
+            <h2 class="fw-bold mb-4" style="color: var(--muted);" translation-key="projects_title"></h2>
 
             <div class="mx-auto mx-md-0 mb-4"
               style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
 
-            <h6 class="lh-lg text-muted mx-auto mx-md-0" style="max-width: 700px" translation-key="projects_subtitle">
-              En AISC Madrid creemos en el poder de la inteligencia artificial para transformar el mundo.
-            </h6>
+            <h6 class="lh-lg text-muted mx-auto mx-md-0" style="max-width: 700px" translation-key="projects_subtitle"></h6>
           </div>
 
           <div class="col-md-5 text-center">
@@ -107,15 +103,11 @@ include("assets/head.php");
 
           <div class="col-6 col-md-8 d-flex justify-content-start align-items-center gap-2">
 
-            <button class="btn btn-custom dropdown-toggle" type="button" id="categoryFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false" translation-key="projects_filter_btn">
-              Filtrar Categorías
-            </button>
+            <button class="btn btn-custom dropdown-toggle" type="button" id="categoryFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false" translation-key="projects_filter_btn"></button>
 
             <ul class="dropdown-menu category-menu" aria-labelledby="categoryFilterDropdown">
               <li>
-                <button class="dropdown-item filter-btn-cat active" data-filter="all" translation-key="projects_filter_all">
-                  Todas las Categorías
-                </button>
+                <button class="dropdown-item filter-btn-cat active" data-filter="all" translation-key="projects_filter_all"></button>
               </li>
               <li>
                 <hr class="dropdown-divider">
@@ -131,9 +123,7 @@ include("assets/head.php");
 
               <?php if (!empty($other_categories)): ?>
                 <li>
-                  <button class="dropdown-item filter-btn-cat" data-filter="other" translation-key="projects_filter_other">
-                    Otras
-                  </button>
+                  <button class="dropdown-item filter-btn-cat" data-filter="other" translation-key="projects_filter_other"></button>
                 </li>
               <?php endif; ?>
             </ul>
@@ -227,7 +217,7 @@ include("assets/head.php");
                       <?php endif; ?>
 
                       <div class="card-footer bg-transparent border-0 p-0 mt-3">
-                        <span class="btn btn-custom btn-sm btn-outline-primary" translation-key="projects_card_more">Saber más</span>
+                        <span class="btn btn-custom btn-sm btn-outline-primary" translation-key="projects_card_more"></span>
                       </div>
                     </div>
                     <div class="col-12 col-sm-5 img-side">
@@ -235,9 +225,7 @@ include("assets/head.php");
                         <img src="<?= $image_path ?>" alt="<?= $title_es ?>"
                           style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
                       <?php else: ?>
-                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted" translation-key="projects_card_no_image">
-                          Sin imagen
-                        </div>
+                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted" translation-key="projects_card_no_image"></div>
                       <?php endif; ?>
                     </div>
 
@@ -267,6 +255,7 @@ include("assets/head.php");
   <script src="js/index.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/projects.js"></script>
+  <script src="js/language.js"></script>
 
 </body>
 
