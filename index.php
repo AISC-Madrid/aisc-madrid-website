@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 <?php
 
 include("assets/csrf.php");
@@ -48,6 +47,8 @@ if ($needed_from_past > 0) {
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <?php
 include("assets/head.php");
