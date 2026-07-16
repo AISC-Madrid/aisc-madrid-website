@@ -3,7 +3,7 @@
 return [
     // Database
     'db_host' => getenv('DB_HOST') ?: 'localhost',
-    'db_port' => getenv('DB_PORT') ?: '3306',
+    'db_port' => getenv('DB_PORT') ?: 3306,
     'db_name' => getenv('DB_DATABASE') ?: '',
     'db_user' => getenv('DB_USERNAME') ?: '',
     'db_pass' => getenv('DB_PASSWORD') ?: '',
@@ -13,7 +13,7 @@ return [
     'smtp_pass' => getenv('SMTP_PASS') ?: '',
 
     // Website
-    'base_url' => getenv('BASE_URL') ?: 'http://localhost/',
+    'base_url' => getenv('BASE_URL') ?: 'https://aiscmadrid.com/',
 
     // Cloudinary
     'cloudinary_cloud_name' => getenv('CLOUDINARY_CLOUD_NAME') ?: '',
