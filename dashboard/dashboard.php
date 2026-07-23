@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
 <?php
 session_start(); // Start the session
 
@@ -9,6 +7,10 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
   header("Location: /");
   exit();
 }
+?>
+<!DOCTYPE html>
+<html lang="es">
+<?php
 
 include("../assets/head.php");
 include("../assets/db.php");

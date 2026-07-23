@@ -20,8 +20,8 @@ if ($_is_admin_page || !empty($config['dev_mode'])) {
 error_reporting(E_ALL);
 ini_set('log_errors', 1);
 
-$host = 'localhost';
-$port = 3306;
+$host = $config['db_host'];
+$port = $config['db_port'];
 $db   = $config['db_name'];
 $user = $config['db_user'];
 $pass = $config['db_pass'];
