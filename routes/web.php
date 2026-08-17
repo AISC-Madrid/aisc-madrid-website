@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +15,13 @@ Route::prefix('{locale}')
     ->where(['locale' => 'en|es'])
     ->middleware('locale')
     ->group(function () {
-        Route::view('/', 'home')->name('home');
+        Route::view('/', 'home')
+            ->name('home');
 
         Route::view('/events', 'events.index')
             ->name('events.index');
 
-        Route::view('/team', 'team.index')
+        Route::get('/team', [TeamController::class, 'index'])
             ->name('team.index');
 
         Route::view('/projects', 'projects.index')
@@ -27,6 +29,7 @@ Route::prefix('{locale}')
 
         Route::view('/about', 'about')
             ->name('about');
+        
     });
 
 /*
@@ -35,9 +38,10 @@ Route::prefix('{locale}')
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('/dashboard', 'dashboard')
-        ->name('dashboard');
+Route::middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::view('/dashboard', 'dashboard')
+            ->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
