@@ -48,6 +48,10 @@ return [
     'team' => [
         'title' => 'Our team',
         'description' => 'Meet the students behind AISC Madrid.',
+        'empty' => 'Team information coming soon.',
+        'honor_heading' => 'Honor Members',
+        'honor_description' => 'People who have been part of AISC Madrid and have left their mark.',
+        'class_of' => "Class of ':year'",
     ],
 
     'projects' => [

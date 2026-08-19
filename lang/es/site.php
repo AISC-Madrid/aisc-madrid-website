@@ -49,6 +49,10 @@ return [
     'team' => [
         'title' => 'Nuestro equipo',
         'description' => 'Conoce a los estudiantes que forman AISC Madrid.',
+        'empty' => 'Información del equipo próximamente.',
+        'honor_heading' => 'Miembros de Honor',
+        'honor_description' => 'Personas que han formado parte de AISC Madrid y han dejado su huella.',
+        'class_of' => "Clase de ':year'",
     ],
 
     'projects' => [

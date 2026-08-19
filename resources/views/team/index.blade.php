@@ -1,37 +1,55 @@
+<x-layouts.public :title="__('site.team.title') . ' - AISC Madrid'">
+    <div class="flex min-h-screen flex-col items-center">
 
-@extends('layouts.app')
+        {{-- Active team --}}
+        <section class="w-full scroll-mt-24 px-6 py-20 md:px-12">
+            <div class="mx-auto max-w-7xl">
+                <h2 class="text-center text-3xl font-bold md:text-4xl">
+                    {{ __('site.team.title') }}
+                </h2>
 
-@section('content')
-<section class="section" id="team">
-    <div class="container scroll-margin">
-        <div class="text-center mb-5 px-3 px-md-5">
-            <h2 class="fw-bold mb-4" style="color: var(--muted);">{{ __('team.heading') }}</h2>
-            <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-            <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px">{{ __('team.subheading') }}</h6>
-        </div>
+                <div class="mx-auto mt-4 h-[3px] w-16 rounded-full bg-primary"></div>
 
-        <div class="mt-5 row">
-            @foreach ($activeMembers as $member)
-                <x-team-member-card :member="$member" />
-            @endforeach
-        </div>
+                <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-8 text-muted-foreground">
+                    {{ __('site.team.description') }}
+                </p>
+
+                @if ($activeMembers->isEmpty())
+                    <p class="mt-12 text-center text-muted-foreground">
+                        {{ __('site.team.empty') }}
+                    </p>
+                @else
+                    <div class="mt-12 grid grid-cols-2 gap-8 md:grid-cols-4">
+                        @foreach ($activeMembers as $member)
+                            <x-team-member-card :member="$member" />
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </section>
+
+        {{-- Honor members --}}
+        @if ($honorMembers->isNotEmpty())
+            <section class="w-full scroll-mt-24 bg-muted/30 px-6 py-20 md:px-12">
+                <div class="mx-auto max-w-7xl">
+                    <h2 class="text-center text-3xl font-bold md:text-4xl">
+                        {{ __('site.team.honor_heading') }}
+                    </h2>
+
+                    <div class="mx-auto mt-4 h-[3px] w-16 rounded-full bg-primary"></div>
+
+                    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-8 text-muted-foreground">
+                        {{ __('site.team.honor_description') }}
+                    </p>
+
+                    <div class="mt-12 grid grid-cols-2 justify-items-center gap-8 md:grid-cols-4">
+                        @foreach ($honorMembers as $member)
+                            <x-team-member-card :member="$member" :honor="true" />
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
     </div>
-</section>
-
-@if ($honorMembers->isNotEmpty())
-<section class="section" id="honor-members">
-    <div class="container scroll-margin">
-        <div class="text-center mb-5 px-3 px-md-5">
-            <h2 class="fw-bold mb-4" style="color: var(--muted);">{{ __('team.honor_heading') }}</h2>
-            <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-            <h6 class="lh-lg text-muted mx-auto" style="max-width: 700px">{{ __('team.honor_subheading') }}</h6>
-        </div>
-        <div class="mt-5 row justify-content-center">
-            @foreach ($honorMembers as $member)
-                <x-team-member-card :member="$member" :honor="true" />
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-@endsection
+</x-layouts.public>
