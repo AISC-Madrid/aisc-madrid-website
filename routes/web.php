@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+/* For EVENT_PAGE */
+use App\Http\Controllers\EventController;
+
 /*
 |--------------------------------------------------------------------------
 | Public localized routes
@@ -16,8 +19,14 @@ Route::prefix('{locale}')
     ->group(function () {
         Route::view('/', 'home')->name('home');
 
-        Route::view('/events', 'events.index')
+        //FOR EVENT PAGE:
+        //For events page
+
+        Route::get('/events', [EventController::class, 'index'])
             ->name('events.index');
+
+        Route::get('/events/{event}', [EventController::class, 'show'])
+            ->name('events.show');
 
         Route::view('/team', 'team.index')
             ->name('team.index');
@@ -28,6 +37,8 @@ Route::prefix('{locale}')
         Route::view('/about', 'about')
             ->name('about');
     });
+
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +51,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
