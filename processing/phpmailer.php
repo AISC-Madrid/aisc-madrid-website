@@ -5,7 +5,7 @@ if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
     die("Token CSRF inválido.");
 }
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 $name = trim($_POST['name'] ?? '');

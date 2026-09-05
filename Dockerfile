@@ -1,15 +1,21 @@
 FROM php:8.3-apache
 
-# Instalar extensiones PHP necesarias
+# Install PHP extensions
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Habilitar mod_rewrite para .htaccess
+# Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Copiar el proyecto
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copy the project
 COPY . /var/www/html/
 
-# Permisos
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Permissions
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
