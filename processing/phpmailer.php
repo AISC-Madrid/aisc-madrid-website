@@ -41,20 +41,29 @@ $stmt->bind_param("sss", $name, $email, $token);
 
 if ($stmt->execute()) {
     // Enviar correo
-    $mail = new PHPMailer;
+    $mail = new PHPMailer(true);
     $mail->CharSet = 'UTF-8';
-    $mail->isSMTP();
-    $mail->SMTPDebug = 0;
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->Port = 587;
-    $mail->SMTPAuth = true;
 
-    $config = include('../config.php');
-    $mail->Username = $config['smtp_user'];
-    $mail->Password = $config['smtp_pass'];
-    $mail->setFrom('info@aiscmadrid.com', 'AISC Madrid');
-    $mail->addReplyTo('aisc.asoc@uc3m.es', 'AISC Madrid');
+    $mail->isSMTP();
+    $mail->Host = getenv('SMTP_HOST') ?: 'smtp-relay.brevo.com';
+    $mail->Port = (int) (getenv('SMTP_PORT') ?: 587);
+    $mail->SMTPAuth = true;
+    $mail->Username = getenv('SMTP_USER') ?: '';
+    $mail->Password = getenv('SMTP_PASS') ?: '';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+
+    $mail->setFrom(
+        getenv('MAIL_FROM_ADDRESS') ?: 'info@aiscmadrid.com',
+        getenv('MAIL_FROM_NAME') ?: 'AISC Madrid'
+    );
+
+    $mail->addReplyTo(
+        getenv('MAIL_REPLY_TO') ?: 'aisc.asoc@uc3m.es',
+        'AISC Madrid'
+    );
+
     $mail->addAddress($email, explode(' ', $name)[0]);
+
     $mail->Subject = '¡Bienvenid@ a la comunidad AISC Madrid!';
 
     $htmlContent = "
