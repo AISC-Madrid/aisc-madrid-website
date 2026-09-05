@@ -38,13 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (formSection) {
       const alertDiv = document.createElement('div');
       alertDiv.className = 'alert alert-danger';
-      alertDiv.id = 'get-involved';
       alertDiv.innerText = message;
       formSection.prepend(alertDiv);
     }
 
     // Eliminar el parámetro de la URL después de mostrarlo
-    window.history.replaceState({}, document.title, window.location.pathname + '#get-involved');
+    window.history.replaceState({}, document.title, window.location.pathname + '#newsletter');
   }
 
   /*

@@ -156,7 +156,7 @@ if ($stmt->execute()) {
                 <h4 class="alert-heading">¡Error al unirte!</h4>
                 <p>Tu correo ya está en nuestra base de datos!</p>
                 <hr>
-                <a href="/#get-involved" class="btn btn-primary">Volver al inicio</a>
+                <a href="/#newsletter" class="btn btn-primary">Volver al inicio</a>
             </div>
         </div>
     </body>
