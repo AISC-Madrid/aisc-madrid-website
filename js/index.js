@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const alertDiv = document.createElement('div');
       alertDiv.className = 'alert alert-danger';
       alertDiv.innerText = message;
-      alertDiv.id = 'get-involved';
+      alertDiv.innerText = message;
       formSection.prepend(alertDiv);
     }
 
