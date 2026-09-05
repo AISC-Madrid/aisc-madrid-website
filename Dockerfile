@@ -1,7 +1,10 @@
 FROM php:8.3-apache
 
-# Install PHP extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y libzip-dev unzip \
+    && docker-php-ext-install mysqli pdo pdo_mysql zip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Enable mod_rewrite
 RUN a2enmod rewrite
@@ -13,7 +16,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . /var/www/html/
 
 # Install PHP dependencies
-RUN ls -la /var/www/html && composer install --no-dev --optimize-autoloader -vvv
+RUN composer install --no-dev --optimize-autoloader
 
 # Permissions
 RUN chown -R www-data:www-data /var/www/html
