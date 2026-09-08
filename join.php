@@ -144,17 +144,17 @@ include("assets/csrf.php");
             </div>
             <h5 class="mb-0" data-en="Project development" data-es="Desarrollo de Proyectos"></h5>
           </div>
-          <p class="text-muted small mb-0" data-en="Develop and contribute to AISC Madrid's projects.
+          <p class="text-muted small mb-0" data-en="Develop real AI projects alongside the rest of the team, from idea to implementation. Work on initiatives that bring AI closer to the university community and showcase what technology can do.
             <br><br><i>Highly valued</i>:
             <br><ul>
             <li>Proactivity and initiative</li>
-            <li>Previous experience with AI and Machine Learning tools</li>
+            <li>Knowledge of Python and AI libraries: PyTorch, TensorFlow, scikit-learn...</li>
             <li>Previous experience with version control tools: Git and GitHub</li>
-            </ul>" data-es="Desarrolla y contribuye a los proyectos de AISC Madrid.
+            </ul>" data-es="Desarrolla proyectos reales de inteligencia artificial junto al resto del equipo, desde la idea hasta la puesta en marcha. Trabaja en iniciativas que acercan la IA a la comunidad universitaria y dan a conocer lo que la tecnología puede hacer.
             <br><br><i>Se valora positivamente</i>:
             <br><ul>
             <li>Proactividad e iniciativa</li>
-            <li>Experiencia previa con herramientas de IA y Machine Learning</li>
+            <li>Conocimientos de Python y librerías de IA: PyTorch, TensorFlow, scikit-learn...</li>
             <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
             </ul>">
         </div>
