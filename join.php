@@ -30,11 +30,9 @@ include("assets/csrf.php");
 
     <div class="text-center mb-5 px-3 px-md-5">
       <p class="text-muted mb-0" style="max-width: 600px; margin: 0 auto;"
-        data-en="Looking ahead to the second semester, we are looking to expand our team. We are particularly interested in <strong>students from Getafe</strong>, as we will be launching events and workshops focused on AI in Economics and Finance."
-        data-es="De cara al segundo cuatrimestre, queremos ampliar el equipo. Estamos especialmente interesados en <strong>estudiantes de Getafe </strong> ya que vamos a empezar a hacer eventos y talleres orientados a  IA en Economía y Finanzas.">
-        De cara al segundo cuatrimestre, queremos ampliar el equipo. Estamos especialmente interesados en
-        <strong>estudiantes de Getafe </strong> ya que vamos a empezar a hacer eventos y talleres orientados a IA en
-        Economía y Finanzas.
+        data-en="We are starting a new academic year and we want to expand the team! We are looking for students who are eager to learn and contribute to any of the available teams."
+        data-es="Empezamos un nuevo curso y queremos ampliar el equipo! Buscamos estudiantes con ganas de aprender y aportar en cualquiera de los equipos disponibles.">
+        Empezamos un nuevo curso y queremos ampliar el equipo! Buscamos estudiantes con ganas de aprender y aportar en cualquiera de los equipos disponibles.
       </p>
     </div>
 
@@ -87,7 +85,9 @@ include("assets/csrf.php");
           </p>
         </div>
       </div>
-      <div class="col-md-3 mb-4">
+
+      <!-- GESTION Y FINANZAS -->
+      <!-- <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
@@ -109,7 +109,9 @@ include("assets/csrf.php");
             <li>Interés por el mundo empresarial y su conexión con la IA</li>
             </ul>"></p>
         </div>
-      </div>
+      </div> -->
+
+
       <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
@@ -129,6 +131,31 @@ include("assets/csrf.php");
             <br><ul>
             <li>Proactividad e iniciativa</li>
             <li>Experiencia previa con herramientas de desarrollo web: HTML, CSS, JS, PHP...</li>
+            <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
+            </ul>">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="role-card h-100">
+          <div class="d-flex align-items-center mb-3">
+            <div class="role-icon-pink me-3">
+              <i class="bi bi-code"></i>
+            </div>
+            <h5 class="mb-0" data-en="Project development" data-es="Desarrollo de Proyectos"></h5>
+          </div>
+          <p class="text-muted small mb-0" data-en="Develop and contribute to AISC Madrid's projects.
+            <br><br><i>Highly valued</i>:
+            <br><ul>
+            <li>Proactivity and initiative</li>
+            <li>Previous experience with AI and Machine Learning tools</li>
+            <li>Previous experience with version control tools: Git and GitHub</li>
+            </ul>" data-es="Desarrolla y contribuye a los proyectos de AISC Madrid.
+            <br><br><i>Se valora positivamente</i>:
+            <br><ul>
+            <li>Proactividad e iniciativa</li>
+            <li>Experiencia previa con herramientas de IA y Machine Learning</li>
             <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
             </ul>">
         </div>

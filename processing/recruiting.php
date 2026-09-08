@@ -9,6 +9,9 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Cohort del proceso de recruiting actual (curso-cuatrimestre)
+$cohort = '2026-27-1C';
+
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $campus = trim($_POST['campus'] ?? '');
@@ -48,9 +51,9 @@ if (!empty($errors)) {
 
 include("../assets/db.php");
 
-// Verificar si el correo ya está en DB
-$checkStmt = $conn->prepare("SELECT id FROM recruiting_2026 WHERE email = ?");
-$checkStmt->bind_param("s", $email);
+// Verificar si el correo ya está inscrito en este cohort
+$checkStmt = $conn->prepare("SELECT id FROM recruiting WHERE email = ? AND cohort = ?");
+$checkStmt->bind_param("ss", $email, $cohort);
 $checkStmt->execute();
 $checkStmt->store_result();
 
@@ -64,8 +67,8 @@ if ($checkStmt->num_rows > 0) {
 $checkStmt->close();
 
 // Insertar en la DB
-$stmt = $conn->prepare("INSERT INTO recruiting_2026 (full_name, email, campus, position, interest) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("sssss", $name, $email, $campus, $position, $reason);
+$stmt = $conn->prepare("INSERT INTO recruiting (full_name, email, campus, position, interest, cohort) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssss", $name, $email, $campus, $position, $reason, $cohort);
 $stmt->execute();
 $stmt->close();
 
@@ -120,7 +123,7 @@ try {
     $mail->addCC('juanjose.rosales@alumnos.uc3m.es', 'Juanjo');
     $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro');
 
-    $mail->Subject = 'Nueva solicitud Recruiting 2026: ' . $name;
+    $mail->Subject = "Nueva solicitud Recruiting $cohort: " . $name;
 
     $positionLabels = [
         'marketing' => 'Eventos y talleres',
