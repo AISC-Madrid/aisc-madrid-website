@@ -36,8 +36,11 @@ include("assets/csrf.php");
       </p>
     </div>
 
-    <div class="row mb-5 justify-content-center">
-      <div class="col-md-3 mb-4">
+    <!-- Role cards: row-cols handles responsive wrapping automatically (1 col on mobile, 2 on tablet, 4 on desktop) -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mb-5 justify-content-center">
+
+      <!-- Eventos y talleres -->
+      <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
@@ -45,120 +48,158 @@ include("assets/csrf.php");
             </div>
             <h5 class="mb-0" data-en="Events and workshops" data-es="Eventos y talleres">Eventos y talleres</h5>
           </div>
-          <p class="text-muted small mb-0" data-en="Contact and connect with speakers to organize events with leading professionals in the industry.
+          <p class="text-muted small mb-0"
+            data-en="Contact and connect with speakers to organize events with leading professionals in the industry.
             <br>Prepare workshops to provide the university community with a space to learn and grow.
             <br><br><i>Highly valued</i>:
-            <br><ul>    
+            <br><ul>
             <li>Proactivity and initiative</li>
             <li>Communication skills</li>
-            </ul>" data-es="Contacta y conecta con ponentes para organizar eventos con los profesionales más destacados del
-            sector.
+            </ul>"
+            data-es="Contacta y conecta con ponentes para organizar eventos con los profesionales más destacados del sector.
             <br>Prepara talleres para dar a la comunidad universitaria un espacio para aprender y crecer.
             <br><br><i>Se valora positivamente</i>:
             <br><ul>
             <li>Proactividad e iniciativa</li>
             <li>Habilidades de comunicación</li>
-            </ul>"></p>
+            </ul>">
+            Contacta y conecta con ponentes para organizar eventos con los profesionales más destacados del sector.
+            <br>Prepara talleres para dar a la comunidad universitaria un espacio para aprender y crecer.
+            <br><br><i>Se valora positivamente</i>:
+            <br>
+            <ul>
+              <li>Proactividad e iniciativa</li>
+              <li>Habilidades de comunicación</li>
+            </ul>
+          </p>
         </div>
       </div>
-      <div class="col-md-3 mb-4">
+
+      <!-- Marketing Digital -->
+      <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-blue me-3">
               <i class="bi bi-people"></i>
             </div>
-            <h5 class="mb-0" data-en="Digital Marketing" data-es="Marketing Digital"></h5>
+            <h5 class="mb-0" data-en="Digital Marketing" data-es="Marketing Digital">Marketing Digital</h5>
           </div>
-          <p class="text-muted small mb-0" data-en="Improve our presence and relevance on social media. Create content and increase the reach of our initiatives.
+          <p class="text-muted small mb-0"
+            data-en="Improve our presence and relevance on social media. Create content and increase the reach of our initiatives.
             <br><br><i>Highly valued</i>:
             <br><ul>
             <li>Proactivity and initiative</li>
             <li>Experience with Instagram and LinkedIn</li>
             <li>Knowledge of video/photo editing tools: Canva, Capcut, Adobe, Photoshop...</li>
-            </ul>" data-es="Mejora nuestra presencia y relevancia en redes sociales. Crea contenido y aumenta el alcance de nuestras iniciativas.
+            </ul>"
+            data-es="Mejora nuestra presencia y relevancia en redes sociales. Crea contenido y aumenta el alcance de nuestras iniciativas.
             <br><br><i>Se valora positivamente</i>:
             <br><ul>
             <li>Proactividad e iniciativa</li>
             <li>Manejo de Instagram y Linkedin</li>
             <li>Conocimiento de herramientas de edición de vídeo/foto: Canva, Capcut, Adobe, Photoshop...</li>
             </ul>">
+            Mejora nuestra presencia y relevancia en redes sociales. Crea contenido y aumenta el alcance de nuestras iniciativas.
+            <br><br><i>Se valora positivamente</i>:
+            <br>
+            <ul>
+              <li>Proactividad e iniciativa</li>
+              <li>Manejo de Instagram y Linkedin</li>
+              <li>Conocimiento de herramientas de edición de vídeo/foto: Canva, Capcut, Adobe, Photoshop...</li>
+            </ul>
           </p>
         </div>
       </div>
 
-      <!-- GESTION Y FINANZAS -->
-      <!-- <div class="col-md-3 mb-4">
-        <div class="role-card h-100">
-          <div class="d-flex align-items-center mb-3">
-            <div class="role-icon-pink me-3">
-              <i class="bi bi-graph-up-arrow"></i>
+      <!--
+        Gestión y finanzas — retired for this cohort (2026-2027-C1).
+        Kept here for reference; re-enable by uncommenting and restoring the
+        'finance' option (and its label) in the position <select> below and
+        in processing/recruiting.php's $positionLabels map.
+
+        <div class="col">
+          <div class="role-card h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="role-icon-pink me-3"><i class="bi bi-graph-up-arrow"></i></div>
+              <h5 class="mb-0" data-en="Logistics and finance" data-es="Gestión y finanzas">Gestión y finanzas</h5>
             </div>
-            <h5 class="mb-0" data-en="Logistics and finance" data-es="Gestión y finanzas">Gestión y finanzas</h5>
+            <p class="text-muted small mb-0" data-en="..." data-es="...">...</p>
           </div>
-          <p class="text-muted small mb-0" data-en="Supports the internal operations of AISC by managing new memberships and the association's funding. You will also help establish AISC's presence on the Getafe campus and connect the association with more business-oriented profiles within UC3M.
-            <br><br><i>Highly valued</i>:
-            <br><ul>    
-            <li>Proactivity and initiative</li>
-            <li>Basic administrative knowledge</li>
-            <li>Interest in the business world and its connection to AI</li>
-            </ul>" data-es="Apoya el funcionamiento interno de AISC gestionando nuevas incorporaciones y la financiación de la asociación. También ayudarás a dar presencia a AISC en el campus de Getafe y a conectar la asociación con perfiles más empresariales dentro la UC3M.
-            <br><br><i>Se valora positivamente</i>:
-            <br><ul>
-            <li>Proactividad e iniciativa</li>
-            <li>Conocimientos básicos administrativos</li>
-            <li>Interés por el mundo empresarial y su conexión con la IA</li>
-            </ul>"></p>
         </div>
-      </div> -->
+      -->
 
-
-      <div class="col-md-3 mb-4">
+      <!-- Desarrollo web -->
+      <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
               <i class="bi bi-code"></i>
             </div>
-            <h5 class="mb-0" data-en="Web development" data-es="Desarrollo web"></h5>
+            <h5 class="mb-0" data-en="Web development" data-es="Desarrollo web">Desarrollo web</h5>
           </div>
-          <p class="text-muted small mb-0" data-en="Contribute to the maintenance and development of our website by creating and improving internal tools to keep the site relevant and useful.
+          <p class="text-muted small mb-0"
+            data-en="Contribute to the maintenance and development of our website by creating and improving internal tools to keep the site relevant and useful.
             <br><br><i>Highly valued</i>:
             <br><ul>
             <li>Proactivity and initiative</li>
             <li>Previous experience with web development tools: HTML, CSS, JS, PHP...</li>
             <li>Previous experience with version control tools: Git and GitHub</li>
-            </ul>" data-es="Contribuye al mantenimiento y desarrollo de nuestra web creando y mejorando herramientas internas para mantener la web relevante y útil.
+            </ul>"
+            data-es="Contribuye al mantenimiento y desarrollo de nuestra web creando y mejorando herramientas internas para mantener la web relevante y útil.
             <br><br><i>Se valora positivamente</i>:
             <br><ul>
             <li>Proactividad e iniciativa</li>
             <li>Experiencia previa con herramientas de desarrollo web: HTML, CSS, JS, PHP...</li>
             <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
             </ul>">
+            Contribuye al mantenimiento y desarrollo de nuestra web creando y mejorando herramientas internas para mantener la web relevante y útil.
+            <br><br><i>Se valora positivamente</i>:
+            <br>
+            <ul>
+              <li>Proactividad e iniciativa</li>
+              <li>Experiencia previa con herramientas de desarrollo web: HTML, CSS, JS, PHP...</li>
+              <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
+            </ul>
+          </p>
         </div>
       </div>
 
-      <div class="col-md-3 mb-4">
+      <!-- Desarrollo de Proyectos -->
+      <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
               <i class="bi bi-code"></i>
             </div>
-            <h5 class="mb-0" data-en="Project development" data-es="Desarrollo de Proyectos"></h5>
+            <h5 class="mb-0" data-en="Project development" data-es="Desarrollo de Proyectos">Desarrollo de Proyectos</h5>
           </div>
-          <p class="text-muted small mb-0" data-en="Develop real AI projects alongside the rest of the team, from idea to implementation. Work on initiatives that bring AI closer to the university community and showcase what technology can do.
+          <p class="text-muted small mb-0"
+            data-en="Develop real AI projects alongside the rest of the team, from idea to implementation. Work on initiatives that bring AI closer to the university community and showcase what technology can do.
             <br><br><i>Highly valued</i>:
             <br><ul>
             <li>Proactivity and initiative</li>
             <li>Knowledge of Python and AI libraries: PyTorch, TensorFlow, scikit-learn...</li>
             <li>Previous experience with version control tools: Git and GitHub</li>
-            </ul>" data-es="Desarrolla proyectos reales de inteligencia artificial junto al resto del equipo, desde la idea hasta la puesta en marcha. Trabaja en iniciativas que acercan la IA a la comunidad universitaria y dan a conocer lo que la tecnología puede hacer.
+            </ul>"
+            data-es="Desarrolla proyectos reales de inteligencia artificial junto al resto del equipo, desde la idea hasta la puesta en marcha. Trabaja en iniciativas que acercan la IA a la comunidad universitaria y dan a conocer lo que la tecnología puede hacer.
             <br><br><i>Se valora positivamente</i>:
             <br><ul>
             <li>Proactividad e iniciativa</li>
             <li>Conocimientos de Python y librerías de IA: PyTorch, TensorFlow, scikit-learn...</li>
             <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
             </ul>">
+            Desarrolla proyectos reales de inteligencia artificial junto al resto del equipo, desde la idea hasta la puesta en marcha. Trabaja en iniciativas que acercan la IA a la comunidad universitaria y dan a conocer lo que la tecnología puede hacer.
+            <br><br><i>Se valora positivamente</i>:
+            <br>
+            <ul>
+              <li>Proactividad e iniciativa</li>
+              <li>Conocimientos de Python y librerías de IA: PyTorch, TensorFlow, scikit-learn...</li>
+              <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
+            </ul>
+          </p>
         </div>
       </div>
+
     </div>
 
     <div class="text-center" style="margin-top: 2rem;" id="recruiting-form">
@@ -210,10 +251,6 @@ include("assets/csrf.php");
               <form method="POST" action="processing/recruiting.php">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
 
-<?php
-echo '<!-- SESSION ID: ' . session_id() . ' -->';
-echo '<!-- CSRF: ' . $_SESSION['csrf_token'] . ' -->';
-?>
                 <!-- Nombre completo -->
                 <div class="mb-3">
                   <label for="name" class="form-label" style="color: black" data-en="Full name"
@@ -288,8 +325,8 @@ echo '<!-- CSRF: ' . $_SESSION['csrf_token'] . ' -->';
                       data-en="Marketing Digital" data-es="Marketing Digital">
                       Marketing Digital
                     </option>
-                    <option value="tech" <?php echo ($position === 'tech') ? 'selected' : ''; ?> data-en="Web development"
-                      data-es="Desarrollo web">
+                    <option value="tech" <?php echo ($position === 'tech') ? 'selected' : ''; ?>
+                      data-en="Web development" data-es="Desarrollo web">
                       Desarrollo web
                     </option>
                     <option value="projects" <?php echo ($position === 'projects') ? 'selected' : ''; ?>
