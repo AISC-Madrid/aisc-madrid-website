@@ -210,6 +210,11 @@ include("assets/csrf.php");
 
               <form method="POST" action="processing/recruiting.php">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
+
+<?php
+echo '<!-- SESSION ID: ' . session_id() . ' -->';
+echo '<!-- CSRF: ' . $_SESSION['csrf_token'] . ' -->';
+?>
                 <!-- Nombre completo -->
                 <div class="mb-3">
                   <label for="name" class="form-label" style="color: black" data-en="Full name"
