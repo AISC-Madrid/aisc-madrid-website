@@ -1,5 +1,9 @@
 <?php
 require '../assets/csrf.php';
+error_log('=== CSRF DEBUG ===');
+error_log('Session ID: ' . session_id());
+error_log('Session CSRF: ' . ($_SESSION['csrf_token'] ?? 'MISSING'));
+error_log('POST CSRF: ' . ($_POST['csrf_token'] ?? 'MISSING'));
 if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
     http_response_code(403);
     die("Token CSRF inválido.");
