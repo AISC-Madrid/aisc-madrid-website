@@ -25,11 +25,6 @@
             title="Próximos eventos y talleres de inteligencia artificial">Eventos</a>
         </li>
 
-        <!-- Projects Section
-        <li class="nav-item">
-          <a class="nav-link" href="projects.php" data-en="Projects" data-es="Proyectos" title="Próximos proyectos de inteligencia artificial">Proyectos</a>
-        </li> -->
-
         <!-- Team Section -->
         <li class="nav-item">
           <a class="nav-link" href="team.php" data-en="Team" data-es="Equipo"
@@ -49,10 +44,10 @@
         </li>
 
         <!-- Get involved Section -->
-<!--         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="join.php" data-en="Join" data-es="Participa"
             title="Cómo ser parte de AISC Madrid">Participa</a>
-        </li> -->
+        </li>
 
         <!-- Log In Button -->
         <li class="nav-item">
