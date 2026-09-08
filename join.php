@@ -135,9 +135,8 @@ include("assets/csrf.php");
             </ul>">
         </div>
       </div>
-    </div>
 
-    <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
             <div class="role-icon-pink me-3">
@@ -284,13 +283,13 @@ include("assets/csrf.php");
                       data-en="Marketing Digital" data-es="Marketing Digital">
                       Marketing Digital
                     </option>
-                    <option value="finance" <?php echo ($position === 'finance') ? 'selected' : ''; ?>
-                      data-en="Logistics and finance" data-es="Gestión y finanzas">
-                      Gestión y finanzas
-                    </option>
                     <option value="tech" <?php echo ($position === 'tech') ? 'selected' : ''; ?> data-en="Web development"
                       data-es="Desarrollo web">
                       Desarrollo web
+                    </option>
+                    <option value="projects" <?php echo ($position === 'projects') ? 'selected' : ''; ?>
+                      data-en="Project development" data-es="Desarrollo de Proyectos">
+                      Desarrollo de Proyectos
                     </option>
                   </select>
                 </div>
