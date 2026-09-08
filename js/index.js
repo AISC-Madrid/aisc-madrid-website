@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Eliminar el parámetro de la URL después de mostrarlo
-    window.history.replaceState({}, document.title, window.location.pathname + '#get-involved');
+    window.history.replaceState({}, document.title, window.location.pathname + '#newsletter');
   }
 
   /*
