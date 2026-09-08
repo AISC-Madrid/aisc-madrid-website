@@ -1,9 +1,9 @@
+<?php
+require_once __DIR__ . '/assets/csrf.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-include("assets/csrf.php");
-?>
 <?php include("assets/head.php"); ?>
 
 <body class="d-flex flex-column min-vh-100">
