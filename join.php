@@ -67,10 +67,6 @@ require_once __DIR__ . '/assets/csrf.php';
             <br>Prepara talleres para dar a la comunidad universitaria un espacio para aprender y crecer.
             <br><br><i>Se valora positivamente</i>:
             <br>
-            <ul>
-              <li>Proactividad e iniciativa</li>
-              <li>Habilidades de comunicación</li>
-            </ul>
           </p>
         </div>
       </div>
@@ -102,11 +98,6 @@ require_once __DIR__ . '/assets/csrf.php';
             Mejora nuestra presencia y relevancia en redes sociales. Crea contenido y aumenta el alcance de nuestras iniciativas.
             <br><br><i>Se valora positivamente</i>:
             <br>
-            <ul>
-              <li>Proactividad e iniciativa</li>
-              <li>Manejo de Instagram y Linkedin</li>
-              <li>Conocimiento de herramientas de edición de vídeo/foto: Canva, Capcut, Adobe, Photoshop...</li>
-            </ul>
           </p>
         </div>
       </div>
@@ -152,14 +143,6 @@ require_once __DIR__ . '/assets/csrf.php';
             <li>Experiencia previa con herramientas de desarrollo web: HTML, CSS, JS, PHP...</li>
             <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
             </ul>">
-            Contribuye al mantenimiento y desarrollo de nuestra web creando y mejorando herramientas internas para mantener la web relevante y útil.
-            <br><br><i>Se valora positivamente</i>:
-            <br>
-            <ul>
-              <li>Proactividad e iniciativa</li>
-              <li>Experiencia previa con herramientas de desarrollo web: HTML, CSS, JS, PHP...</li>
-              <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
-            </ul>
           </p>
         </div>
       </div>
@@ -191,11 +174,6 @@ require_once __DIR__ . '/assets/csrf.php';
             Desarrolla proyectos reales de inteligencia artificial junto al resto del equipo, desde la idea hasta la puesta en marcha. Trabaja en iniciativas que acercan la IA a la comunidad universitaria y dan a conocer lo que la tecnología puede hacer.
             <br><br><i>Se valora positivamente</i>:
             <br>
-            <ul>
-              <li>Proactividad e iniciativa</li>
-              <li>Conocimientos de Python y librerías de IA: PyTorch, TensorFlow, scikit-learn...</li>
-              <li>Experiencia previa con herramientas de seguimiento de versiones: Git y GitHub</li>
-            </ul>
           </p>
         </div>
       </div>
