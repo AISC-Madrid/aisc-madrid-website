@@ -133,7 +133,8 @@ try {
         'marketing' => 'Eventos y talleres',
         'events' => 'Marketing Digital',
         'tech' => 'Desarrollo Web',
-        'finance' => 'Gestión y finanzas'
+        'finance' => 'Gestión y finanzas',
+        'projects' => 'Desarrollo de Proyectos'
     ];
     $positionDisplay = $positionLabels[$position] ?? $position;
 
