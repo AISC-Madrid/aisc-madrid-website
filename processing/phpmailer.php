@@ -45,7 +45,7 @@ if ($stmt->execute()) {
     $mail->CharSet = 'UTF-8';
 
     $mail->isSMTP();
-    $mail->Host = getenv('SMTP_HOST') ?: 'smtp-relay.brevo.com';
+    $mail->Host = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
     $mail->Port = (int) (getenv('SMTP_PORT') ?: 587);
     $mail->SMTPAuth = true;
     $mail->Username = getenv('SMTP_USER') ?: '';
