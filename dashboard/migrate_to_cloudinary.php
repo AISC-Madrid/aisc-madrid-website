@@ -195,7 +195,9 @@ function rewriteRows(mysqli $conn, bool $dryRun, string $table, string $idCol, s
 
         $newImage = $row[$imageCol];
         if ($newImage) {
-            if (!isAbsoluteUrl($newImage)) {
+            if (is_media_key($newImage)) {
+                // Ya migrada al bucket S3 → no tocar.
+            } elseif (!isAbsoluteUrl($newImage)) {
                 // Ruta legacy (local) → genera URL Cloudinary.
                 $newImage = cdn($newImage);
                 $changes[] = $imageCol;
@@ -214,7 +216,7 @@ function rewriteRows(mysqli $conn, bool $dryRun, string $table, string $idCol, s
                 if (is_array($arr)) {
                     $changedGallery = false;
                     foreach ($arr as $i => $p) {
-                        if (!$p) continue;
+                        if (!$p || is_media_key($p)) continue;
                         if (!isAbsoluteUrl($p)) {
                             $arr[$i] = cdn($p);
                             $changedGallery = true;
