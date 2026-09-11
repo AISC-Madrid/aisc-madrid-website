@@ -4,9 +4,8 @@
 -- MEDIA_BASE_URL = https://s3.aiscmadrid.com/aisc-public  ->  MEDIA_BASE_URL . '/' . key
 -- IMPORTANTE: despliega antes el helper PHP que acepta keys (y URLs antiguas) o las imágenes dejarán de verse.
 
--- 1) Copia de seguridad de las columnas afectadas
-DROP TABLE IF EXISTS events_media_backup_20260911;
-CREATE TABLE events_media_backup_20260911 AS SELECT id, image_path, gallery_paths FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44);
+-- 1) Copia de seguridad de las columnas afectadas (IF NOT EXISTS: re-ejecutar no pisa el backup original)
+CREATE TABLE IF NOT EXISTS events_media_backup_20260911 AS SELECT id, image_path, gallery_paths FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44);
 
 START TRANSACTION;
 
@@ -43,7 +42,18 @@ UPDATE events SET image_path = 'events-workshops/44/cover.webp' WHERE id = 44 AN
 SELECT id, image_path, JSON_LENGTH(gallery_paths) AS n_gallery FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44) ORDER BY id;
 SELECT id, image_path FROM events WHERE image_path LIKE '%cloudinary%' OR gallery_paths LIKE '%cloudinary%';
 
--- Si todo está bien:  COMMIT;     Si no:  ROLLBACK;
+-- 4) COMMIT solo si las 27 filas quedaron migradas y no queda nada en Cloudinary; si no, ROLLBACK.
+--    Automático para que funcione igual en AdminNeo (que cierra la conexión al terminar la
+--    petición y descartaría una transacción abierta) que en el cliente mariadb.
+SELECT COUNT(*) INTO @migrated FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44) AND image_path LIKE 'events-workshops/%';
+SELECT COUNT(*) INTO @cloud FROM events WHERE image_path LIKE '%cloudinary%' OR gallery_paths LIKE '%cloudinary%';
+SELECT @migrated AS migradas, @cloud AS con_cloudinary;
+DELIMITER //
+BEGIN NOT ATOMIC
+  IF @migrated = 27 AND @cloud = 0 THEN COMMIT; SELECT 'COMMITTED' AS resultado;
+  ELSE ROLLBACK; SELECT 'ROLLED BACK' AS resultado; END IF;
+END //
+DELIMITER ;
 
 -- Revertir después del COMMIT:
 -- UPDATE events e JOIN events_media_backup_20260911 b ON b.id = e.id SET e.image_path = b.image_path, e.gallery_paths = b.gallery_paths;
