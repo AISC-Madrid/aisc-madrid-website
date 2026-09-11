@@ -33,7 +33,12 @@ $totalEventRegistrations = $conn->query("SELECT COUNT(*) AS total FROM event_reg
 //$upcomingProjectsCount = $conn->query("SELECT COUNT(*) AS total FROM projects WHERE start_date > NOW()")->fetch_assoc()['total'];
 
 // ---------- RECRUITING ----------
-$totalApplicants = $conn->query("SELECT COUNT(*) AS total FROM recruiting_2026")->fetch_assoc()['total'];
+$currentCohort = '2026-27-1C';
+$totalApplicantsStmt = $conn->prepare("SELECT COUNT(*) AS total FROM recruiting WHERE cohort = ?");
+$totalApplicantsStmt->bind_param("s", $currentCohort);
+$totalApplicantsStmt->execute();
+$totalApplicants = $totalApplicantsStmt->get_result()->fetch_assoc()['total'];
+$totalApplicantsStmt->close();
 ?>
 
 <body>
@@ -64,7 +69,7 @@ $totalApplicants = $conn->query("SELECT COUNT(*) AS total FROM recruiting_2026")
               <div class="card-body">
                 <h5 class="card-title text-muted">Aplicantes Recruiting</h5>
                 <h2 class="fw-bold"><?= $totalApplicants ?></h2>
-                <p class="text-primary mb-0"><i class="bi bi-person-workspace"></i> Proceso 2025</p>
+                <p class="text-primary mb-0"><i class="bi bi-person-workspace"></i> Proceso <?= htmlspecialchars($currentCohort) ?></p>
               </div>
             </div>
           </div>
