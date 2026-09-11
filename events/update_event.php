@@ -27,14 +27,14 @@ $currentGallery = $current['gallery_paths'];
 
 // 1. Handle main image upload (optional)
 
-$eventFolder = "events/event$event_id"; // Cloudinary subfolder
+$eventFolder = "events-workshops/$event_id"; // S3 media bucket prefix
 $mainImagePath = $currentMainImage;
 if (!empty($_FILES['image']['name'])) {
     $mainImage = handleImageUpload('image', $eventFolder);
     if (isset($mainImage['error'])) {
         die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
     }
-    $mainImagePath = $mainImage['path']; // full Cloudinary URL
+    $mainImagePath = $mainImage['path']; // bucket key
 }
 
 // 2. Handle gallery upload (optional) — replaces gallery if new images posted

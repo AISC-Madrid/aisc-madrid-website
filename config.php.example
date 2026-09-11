@@ -29,6 +29,13 @@ return [
     // Media storage (S3 / MinIO). The DB stores object keys (e.g. events-workshops/10/cover.webp)
     // and the public URL is media_base_url . '/' . key
     'media_base_url'        => 'https://s3.aiscmadrid.com/aisc-public',
+
+    // S3 / MinIO credentials used to upload event images to the media bucket
+    's3_endpoint'           => 'https://s3.aiscmadrid.com',
+    's3_region'             => 'us-east-1',
+    's3_bucket'             => 'aisc-public',
+    's3_access_key'         => 'your_s3_access_key',
+    's3_secret_key'         => 'your_s3_secret_key',
 ];
 
 

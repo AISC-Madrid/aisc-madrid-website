@@ -67,18 +67,18 @@ if (!$stmt->execute()) {
 // Get the new event ID
 $eventId = $conn->insert_id;
 
-// 2. Cloudinary destination folders (no local folders needed anymore)
-$eventFolder   = "events/event$eventId";
-$galleryFolder = "events/event$eventId/gallery";
+// 2. S3 media bucket destination prefixes
+$eventFolder   = "events-workshops/$eventId";
+$galleryFolder = "events-workshops/$eventId/gallery";
 
-// 3. Upload main image to Cloudinary
+// 3. Upload main image to S3
 $mainImage = handleImageUpload('image', $eventFolder);
 if (isset($mainImage['error'])) {
     die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
 }
-$mainImagePath = $mainImage['path']; // full Cloudinary URL
+$mainImagePath = $mainImage['path']; // bucket key
 
-// 4. Upload gallery images to Cloudinary
+// 4. Upload gallery images to S3
 $gallery = handleMultipleImageUpload('images', $galleryFolder);
 $galleryPathsJson = json_encode($gallery['paths']);
 

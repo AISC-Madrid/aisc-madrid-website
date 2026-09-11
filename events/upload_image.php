@@ -1,10 +1,12 @@
 <?php
-// upload_image.php — Cloudinary-backed uploader.
-// Compresses incoming images to WebP locally, then uploads to Cloudinary under the
-// configured root folder. The path returned in ['path'] is the full Cloudinary
-// secure_url, which is what gets stored in events.image_path / events.gallery_paths.
+// upload_image.php — image uploader shared by events/ and projects/.
+// Compresses incoming images to WebP locally, then stores them depending on the destination:
+//   - media bucket prefix (e.g. "events-workshops/12") -> S3; ['path'] is the object key
+//   - any other folder (e.g. "projects/project3")      -> Cloudinary; ['path'] is the secure_url
+// Either value is what gets stored in image_path / gallery_paths; cdn_from_image_path() resolves both.
 
 require_once __DIR__ . '/../assets/cloudinary.php';
+require_once __DIR__ . '/../assets/s3.php';
 
 /**
  * Compress an uploaded image to WebP and store it at $destPath until size < $maxSize.
@@ -45,13 +47,32 @@ function compressImageToWebP(string $srcPath, string $destPath, int $imgType, in
 }
 
 /**
- * Compress + upload a single $_FILES entry to Cloudinary.
+ * Store a compressed WebP under $folder with a unique name, in S3 or Cloudinary (see header).
+ *
+ * @return array  ['path' => key or secure_url] | ['error' => '...']
+ */
+function storeWebP(string $tmpWebp, string $folder): array
+{
+    $folder = trim($folder, '/');
+    $name = uniqid('img_', true);
+
+    if (is_media_key("$folder/")) {
+        $result = s3_put_object($tmpWebp, "$folder/$name.webp", 'image/webp');
+        return isset($result['error']) ? $result : ['path' => $result['key']];
+    }
+
+    $result = cloudinary_upload($tmpWebp, "$folder/$name");
+    return isset($result['error']) ? $result : ['path' => $result['url']];
+}
+
+/**
+ * Compress + store a single $_FILES entry.
  *
  * @param string $fileFieldName  $_FILES key
- * @param string $cloudinarySubfolder  Path inside the Cloudinary root folder, e.g. "events/event12" or "events/event12/gallery"
- * @return array  ['path' => secure_url, 'public_id' => ...] | ['error' => '...']
+ * @param string $folder         "events-workshops/12" / "events-workshops/12/gallery" (S3) or "projects/project3" (Cloudinary)
+ * @return array  ['path' => key or secure_url] | ['error' => '...']
  */
-function handleImageUpload(string $fileFieldName, string $cloudinarySubfolder): array
+function handleImageUpload(string $fileFieldName, string $folder): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
 
@@ -70,22 +91,20 @@ function handleImageUpload(string $fileFieldName, string $cloudinarySubfolder): 
         return ['error' => 'Error al procesar la imagen.'];
     }
 
-    $publicId = trim($cloudinarySubfolder, '/') . '/' . uniqid('img_', true);
-    $result = cloudinary_upload($tmpWebp, $publicId);
-
+    $result = storeWebP($tmpWebp, $folder);
     @unlink($tmpWebp);
 
     if (isset($result['error'])) {
-        return ['error' => 'Error al subir a Cloudinary: ' . $result['error']];
+        return ['error' => 'Error al subir la imagen: ' . $result['error']];
     }
 
-    return ['path' => $result['url'], 'public_id' => $result['public_id']];
+    return $result;
 }
 
 /**
- * Compress + upload multiple files (a $_FILES[...] array of file inputs) to Cloudinary.
+ * Compress + store multiple files (a $_FILES[...] array of file inputs).
  */
-function handleMultipleImageUpload(string $fileFieldName, string $cloudinarySubfolder): array
+function handleMultipleImageUpload(string $fileFieldName, string $folder): array
 {
     $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP];
     $savedPaths = [];
@@ -121,8 +140,7 @@ function handleMultipleImageUpload(string $fileFieldName, string $cloudinarySubf
             continue;
         }
 
-        $publicId = trim($cloudinarySubfolder, '/') . '/' . uniqid('img_', true);
-        $result = cloudinary_upload($tmpWebp, $publicId);
+        $result = storeWebP($tmpWebp, $folder);
         @unlink($tmpWebp);
 
         if (isset($result['error'])) {
@@ -130,7 +148,7 @@ function handleMultipleImageUpload(string $fileFieldName, string $cloudinarySubf
             continue;
         }
 
-        $savedPaths[] = $result['url'];
+        $savedPaths[] = $result['path'];
     }
 
     return ['paths' => $savedPaths, 'errors' => $errors];
