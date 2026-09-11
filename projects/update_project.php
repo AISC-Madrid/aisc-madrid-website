@@ -61,7 +61,7 @@ if (!$result || $result->num_rows === 0) {
 $current = $result->fetch_assoc();
 $mainImagePath = $current['image_path'];
 $galleryPathsJson = $current['gallery_paths'];
-$projectFolder = "projects/project$project_id"; // Cloudinary subfolder
+$projectFolder = "projects/$project_id"; // S3 media bucket prefix
 
 
 // --- IMAGE PROCESSING ---
@@ -72,7 +72,7 @@ if (!empty($_FILES['image']['name'])) {
     if (isset($mainImage['error'])) {
         die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
     }
-    $mainImagePath = $mainImage['path']; // full Cloudinary URL
+    $mainImagePath = $mainImage['path']; // bucket key
 }
 
 
