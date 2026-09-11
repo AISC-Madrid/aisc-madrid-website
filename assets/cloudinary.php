@@ -161,7 +161,7 @@ function cdn(string $localPath): string
  * Key prefixes of objects already migrated to the S3 / MinIO media bucket.
  * Values stored in the DB with one of these prefixes are bucket keys, not local paths.
  */
-const MEDIA_KEY_PREFIXES = ['events-workshops/'];
+const MEDIA_KEY_PREFIXES = ['events-workshops/', 'projects/'];
 
 function is_media_key(string $path): bool
 {

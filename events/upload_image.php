@@ -1,8 +1,8 @@
 <?php
 // upload_image.php — image uploader shared by events/ and projects/.
 // Compresses incoming images to WebP locally, then stores them depending on the destination:
-//   - media bucket prefix (e.g. "events-workshops/12") -> S3; ['path'] is the object key
-//   - any other folder (e.g. "projects/project3")      -> Cloudinary; ['path'] is the secure_url
+//   - media bucket prefix (e.g. "events-workshops/12", "projects/3") -> S3; ['path'] is the object key
+//   - any other folder                                              -> Cloudinary; ['path'] is the secure_url
 // Either value is what gets stored in image_path / gallery_paths; cdn_from_image_path() resolves both.
 
 require_once __DIR__ . '/../assets/cloudinary.php';
@@ -69,7 +69,7 @@ function storeWebP(string $tmpWebp, string $folder): array
  * Compress + store a single $_FILES entry.
  *
  * @param string $fileFieldName  $_FILES key
- * @param string $folder         "events-workshops/12" / "events-workshops/12/gallery" (S3) or "projects/project3" (Cloudinary)
+ * @param string $folder         "events-workshops/12" / "projects/3/gallery" (S3) or any other folder (Cloudinary)
  * @return array  ['path' => key or secure_url] | ['error' => '...']
  */
 function handleImageUpload(string $fileFieldName, string $folder): array

@@ -74,18 +74,18 @@ if (!$stmt->execute()) {
 // Get the new project ID
 $projectId = $conn->insert_id;
 
-// 2. Cloudinary destination folders
-$projectFolder = "projects/project$projectId";
-$galleryFolder = "projects/project$projectId/gallery";
+// 2. S3 media bucket destination prefixes
+$projectFolder = "projects/$projectId";
+$galleryFolder = "projects/$projectId/gallery";
 
-// 3. Upload main image to Cloudinary
+// 3. Upload main image to S3
 $mainImage = handleImageUpload('image', $projectFolder);
 if (isset($mainImage['error'])) {
     die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
 }
-$mainImagePath = $mainImage['path']; // full Cloudinary URL
+$mainImagePath = $mainImage['path']; // bucket key
 
-// 4. Upload gallery images
+// 4. Upload gallery images to S3
 $gallery = handleMultipleImageUpload('images', $galleryFolder);
 $galleryPathsJson = json_encode($gallery['paths']);
 
