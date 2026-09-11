@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\TeamController;
-use Illuminate\Support\Facades\Route;
-
-/* For EVENT_PAGE */
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamController;
+/* For EVENT_PAGE */
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,11 @@ Route::prefix('{locale}')
     ->where(['locale' => 'en|es'])
     ->middleware('locale')
     ->group(function () {
-        Route::view('/', 'home')
+        Route::get('/', [HomeController::class, 'index'])
             ->name('home');
 
-        //FOR EVENT PAGE:
-        //For events page
+        // FOR EVENT PAGE:
+        // For events page
 
         Route::get('/events', [EventController::class, 'index'])
             ->name('events.index');
@@ -30,19 +31,16 @@ Route::prefix('{locale}')
         Route::get('/events/{event}', [EventController::class, 'show'])
             ->name('events.show');
 
-        Route::view('/team', 'team.index')
-
+        Route::get('/team', [TeamController::class, 'index'])
             ->name('team.index');
 
-        Route::view('/projects', 'projects.index')
+        Route::get('/projects', [ProjectController::class, 'index'])
             ->name('projects.index');
 
         Route::view('/about', 'about')
             ->name('about');
-        
-    });
 
-    
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +52,6 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::view('/dashboard', 'dashboard')
             ->name('dashboard');
-});
+    });
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

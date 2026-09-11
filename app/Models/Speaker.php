@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Speaker extends Model
 {
+    use HasFactory;
+
     protected $table = 'speakers';
 
     protected $fillable = [
@@ -26,8 +29,8 @@ class Speaker extends Model
             'speaker_id',
             'event_id'
         )
-        ->withPivot('role', 'sort_order')
-        ->orderBy('sort_order');
+            ->withPivot('role', 'sort_order')
+            ->orderBy('sort_order');
     }
 
     public function member(): BelongsTo

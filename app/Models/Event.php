@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends Model
 {
+    use HasFactory;
+
     protected $table = 'events';
 
     protected $fillable = [
@@ -48,6 +51,6 @@ class Event extends Model
             'event_id',
             'speaker_id'
         )->withPivot('role', 'sort_order')
-         ->orderBy('sort_order');
+            ->orderBy('sort_order');
     }
 }

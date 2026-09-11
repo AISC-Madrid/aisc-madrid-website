@@ -18,7 +18,8 @@
         {{ $slot }}
     </main>
 
-    
+    <x-public.footer />
+
     @fluxScripts
 </body>
 
