@@ -1,5 +1,5 @@
 -- Migración de imágenes de proyectos: Cloudinary -> MinIO (bucket aisc-public, prefijo projects/)
--- 3 proyectos · 10 imágenes · MariaDB
+-- 3 proyectos · 12 imágenes (3 portadas + 9 de galería) · MariaDB
 -- Guarda solo la KEY (p. ej. projects/4/cover.webp). El backend construye la URL con
 -- MEDIA_BASE_URL = https://s3.aiscmadrid.com/aisc-public  ->  MEDIA_BASE_URL . '/' . key
 -- IMPORTANTE: despliega antes el helper PHP que acepta keys 'projects/' o las imágenes dejarán de verse.
