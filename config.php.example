@@ -25,6 +25,10 @@ return [
     'cloudinary_api_key'    => 'your_api_key',
     'cloudinary_api_secret' => 'your_api_secret',
     'cloudinary_folder'     => 'aisc_madrid', // Root folder where everything is uploaded
+
+    // Media storage (S3 / MinIO). The DB stores object keys (e.g. events-workshops/10/cover.webp)
+    // and the public URL is media_base_url . '/' . key
+    'media_base_url'        => 'https://s3.aiscmadrid.com/aisc-public',
 ];
 
 

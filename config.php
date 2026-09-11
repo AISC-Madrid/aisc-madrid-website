@@ -20,4 +20,7 @@ return [
     'cloudinary_api_key' => getenv('CLOUDINARY_API_KEY') ?: '',
     'cloudinary_api_secret' => getenv('CLOUDINARY_API_SECRET') ?: '',
     'cloudinary_folder' => getenv('CLOUDINARY_FOLDER') ?: '',
+
+    // Media (S3 / MinIO): DB stores keys, URL = media_base_url . '/' . key
+    'media_base_url' => getenv('MEDIA_BASE_URL') ?: 'https://s3.aiscmadrid.com/aisc-public',
 ];

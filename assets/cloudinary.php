@@ -158,9 +158,41 @@ function cdn(string $localPath): string
 }
 
 /**
+ * Key prefixes of objects already migrated to the S3 / MinIO media bucket.
+ * Values stored in the DB with one of these prefixes are bucket keys, not local paths.
+ */
+const MEDIA_KEY_PREFIXES = ['events-workshops/'];
+
+function is_media_key(string $path): bool
+{
+    foreach (MEDIA_KEY_PREFIXES as $prefix) {
+        if (strpos($path, $prefix) === 0) return true;
+    }
+    return false;
+}
+
+/**
+ * Public URL of an object in the media bucket.
+ *
+ * Example: media_url('events-workshops/10/cover.webp')
+ *       -> https://s3.aiscmadrid.com/aisc-public/events-workshops/10/cover.webp
+ */
+function media_url(string $key): string
+{
+    static $base = null;
+    if ($base === null) {
+        $config = include __DIR__ . '/../config.php';
+        $base = rtrim($config['media_base_url'] ?? 'https://s3.aiscmadrid.com/aisc-public', '/');
+    }
+    $encoded = implode('/', array_map('rawurlencode', explode('/', ltrim($key, '/'))));
+    return "$base/$encoded";
+}
+
+/**
  * Resolve a value stored in the database (image_path / gallery item).
  *
  * - If it already looks like an absolute http(s) URL, return as-is.
+ * - If it is a media bucket key, return its S3 URL.
  * - Otherwise treat it as a legacy local path and map it through cdn().
  *
  * This keeps templates working during/after the migration without further changes.
@@ -169,5 +201,6 @@ function cdn_from_image_path(?string $imagePath): string
 {
     if ($imagePath === null || $imagePath === '') return '';
     if (preg_match('#^https?://#i', $imagePath)) return $imagePath;
+    if (is_media_key($imagePath)) return media_url($imagePath);
     return cdn($imagePath);
 }
