@@ -123,10 +123,7 @@ try {
             $mail->addCC($member['email'], $member['name']);
         }
     }
-    //Temporal: add Juanjo and Álvaro until theh have board positions
-    $mail->addCC('juanjose.rosales@alumnos.uc3m.es', 'Juanjo');
-    $mail->addCC('alvaro.artano@alumnos.uc3m.es', 'Álvaro');
-
+   
     $mail->Subject = "Nueva solicitud Recruiting $cohort: " . $name;
 
     $positionLabels = [
@@ -148,11 +145,11 @@ try {
 
     $htmlContent = "
     <html>
-    <head><title>Nueva solicitud Recruiting 2026</title></head>
+    <head><title>Nueva solicitud Recruiting 2026 - 2027</title></head>
     <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
         <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
             <h2 style='color: #EB178E; border-bottom: 2px solid #20CCF1; padding-bottom: 10px;'>
-                🎯 Nueva solicitud de Recruiting 2026
+                🎯 Nueva solicitud de Recruiting 2026 - 2027
             </h2>
             
             <table style='width: 100%; border-collapse: collapse; margin-top: 20px;'>
@@ -190,7 +187,7 @@ try {
 
     $mail->isHTML(true);
     $mail->Body = $htmlContent;
-    $mail->AltBody = "Nueva solicitud Recruiting 2026\n\nNombre: $name\nEmail: $email\nCampus: $campusDisplay\nPosición: $positionDisplay\n\nMotivación:\n$reason";
+    $mail->AltBody = "Nueva solicitud Recruiting 2026 - 2027\n\nNombre: $name\nEmail: $email\nCampus: $campusDisplay\nPosición: $positionDisplay\n\nMotivación:\n$reason";
 
     $mail->send();
 } catch (Exception $e) {
