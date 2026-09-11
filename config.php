@@ -23,4 +23,11 @@ return [
 
     // Media (S3 / MinIO): DB stores keys, URL = media_base_url . '/' . key
     'media_base_url' => getenv('MEDIA_BASE_URL') ?: 'https://s3.aiscmadrid.com/aisc-public',
+
+    // S3 / MinIO uploads
+    's3_endpoint'   => getenv('S3_ENDPOINT') ?: 'https://s3.aiscmadrid.com',
+    's3_region'     => getenv('S3_REGION') ?: 'us-east-1',
+    's3_bucket'     => getenv('S3_BUCKET') ?: 'aisc-public',
+    's3_access_key' => getenv('S3_ACCESS_KEY') ?: '',
+    's3_secret_key' => getenv('S3_SECRET_KEY') ?: '',
 ];
