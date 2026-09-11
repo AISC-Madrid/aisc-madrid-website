@@ -4,31 +4,41 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-    --background: hsl(240, 7%, 97%);
-    --foreground: hsl(240 10% 10%);
+    color-scheme: light;
 
-    --primary: #eb178e;
-    --secondary: #20ccf1;
+    --background: oklch(98.5% 0.002 247.84);
+    --foreground: oklch(21% 0.006 285.89);
+    --surface: oklch(100% 0 0);
+    --surface-foreground: oklch(21% 0.006 285.89);
 
-    --muted: hsl(240 5% 96%);
-    --muted-foreground: hsl(240 4% 40%);
+    --primary: oklch(52% 0.22 342.55);
+    --primary-foreground: oklch(100% 0 0);
+    --secondary: oklch(91% 0.04 217.49);
+    --secondary-foreground: oklch(28% 0.08 244.38);
 
-    --border: hsl(240 6% 90%);
-    --surface: hsl(0 0% 100%);
+    --muted: oklch(96.7% 0.003 264.54);
+    --muted-foreground: oklch(52% 0.016 285.94);
+    --border: oklch(91.9% 0.004 286.32);
+    --ring: oklch(52% 0.22 342.55);
 }
 
 .dark {
-    --background: hsl(300 3% 7%);
-    --foreground: hsl(240 7% 97%);
+    color-scheme: dark;
 
-    --primary: #eb178e;
-    --secondary: #20ccf1;
+    --background: oklch(14.1% 0.005 285.82);
+    --foreground: oklch(98.5% 0.001 286.38);
+    --surface: oklch(20.5% 0.006 285.89);
+    --surface-foreground: oklch(98.5% 0.001 286.38);
 
-    --muted: hsl(180 2% 10%);
-    --muted-foreground: hsl(240 5% 65%);
+    --primary: oklch(72% 0.2 342.55);
+    --primary-foreground: oklch(18% 0.006 285.89);
+    --secondary: oklch(28% 0.04 244.38);
+    --secondary-foreground: oklch(92% 0.02 217.49);
 
-    --border: hsl(240 4% 18%);
-    --surface: hsl(240 3% 10%);
+    --muted: oklch(26.9% 0.006 286.03);
+    --muted-foreground: oklch(70.5% 0.015 286.07);
+    --border: oklch(31.4% 0.007 286.09);
+    --ring: oklch(72% 0.2 342.55);
 }
 
 @theme inline {
@@ -36,21 +46,42 @@
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+    --color-surface: var(--surface);
+    --color-surface-foreground: var(--surface-foreground);
 
     --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
     --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
 
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
-
     --color-border: var(--border);
-    --color-surface: var(--surface);
+    --color-ring: var(--ring);
+
+    --color-accent: var(--primary);
+    --color-accent-content: var(--primary);
+    --color-accent-foreground: var(--primary-foreground);
+}
+
+@layer theme {
+    .dark {
+        --color-accent: var(--primary);
+        --color-accent-content: var(--primary);
+        --color-accent-foreground: var(--primary-foreground);
+    }
 }
 
 @layer base {
     body {
+        min-height: 100vh;
         background-color: var(--background);
         color: var(--foreground);
+    }
+
+    ::selection {
+        background-color: var(--primary);
+        color: var(--primary-foreground);
     }
 }
 

@@ -1,42 +1,37 @@
 <?php
 
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class Member extends Model
 {
+    protected $table = 'members';
+
+    public $timestamps = false;
+
     protected $fillable = [
-        'full_name', 'position_en', 'position_es', 'image_path',
-        'socials', 'active', 'is_honor', 'graduation_year', 'honor_quote',
+        'full_name',
+        'password_hash',
+        'role',
+        'mail',
+        'position_es',
+        'position_en',
+        'phone',
+        'dni',
+        'socials',
+        'board',
+        'active',
+        'image_path',
     ];
 
-    protected $casts = [
-        'active' => 'boolean',
-        'is_honor' => 'boolean',
+    protected $hidden = [
+        'password_hash',
     ];
 
-    private const ALLOWED_SOCIAL_HOSTS = ['linkedin.com', 'github.com', 'twitter.com', 'instagram.com', 'x.com'];
-
-    public function safeSocialUrl(): string
+    public function speaker(): HasOne
     {
-        $host = parse_url((string) $this->socials, PHP_URL_HOST);
-        if (!$host) return '#';
-
-        foreach (self::ALLOWED_SOCIAL_HOSTS as $allowed) {
-            if (str_ends_with($host, $allowed)) return $this->socials;
-        }
-        return '#';
-    }
-
-    public function scopeActiveMembers($query)
-    {
-        return $query->where('active', true)->where('is_honor', false);
-    }
-
-    public function scopeHonorMembers($query)
-    {
-        return $query->where('is_honor', true);
-    }
-
-    public function scopePastMembers($query)
-    {
-        return $query->where('active', false)->where('is_honor', false);
+        return $this->hasOne(Speaker::class, 'member_id');
     }
 }
