@@ -80,7 +80,7 @@ class Member extends Model
 
     public function safeSocialUrl(): string
     {
-        if (!$this->socials || ! filter_var($this->socials, FILTER_VALIDATE_URL)) {
+        if (!$this->socials || !filter_var($this->socials, FILTER_VALIDATE_URL)) {
             return '#';
         }
 
