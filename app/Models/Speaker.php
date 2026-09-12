@@ -13,6 +13,8 @@ class Speaker extends Model
 
     protected $table = 'speakers';
 
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'full_name',
         'organization',

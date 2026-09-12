@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\YesNoBoolean;
+use App\Enums\MemberRole;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,9 +29,6 @@ class Member extends Model
         'socials',
         'board',
         'active',
-        'honor_member',
-        'graduation_year',
-        'honor_quote',
         'image_path',
     ];
 
@@ -38,9 +37,9 @@ class Member extends Model
     ];
 
     protected $casts = [
-        'board' => 'boolean',
-        'active' => 'boolean',
-        'honor_member' => 'boolean',
+        'role' => MemberRole::class,
+        'board' => YesNoBoolean::class,
+        'active' => YesNoBoolean::class,
     ];
 
     public function speaker(): HasOne
@@ -48,14 +47,19 @@ class Member extends Model
         return $this->hasOne(Speaker::class, 'member_id');
     }
 
+    public function alumniHonor(): HasOne
+    {
+        return $this->hasOne(AlumniHonor::class, 'member_id');
+    }
+
     public function scopeActiveMembers(Builder $query): Builder
     {
-        return $query->where('active', true)->where('honor_member', false);
+        return $query->where('active', 'yes')->whereDoesntHave('alumniHonor');
     }
 
     public function scopeHonorMembers(Builder $query): Builder
     {
-        return $query->where('honor_member', true);
+        return $query->whereHas('alumniHonor');
     }
 
     public function safeSocialUrl(): string

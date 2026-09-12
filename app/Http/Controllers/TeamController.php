@@ -10,7 +10,7 @@ class TeamController extends Controller
     {
         return view('team.index', [
             'activeMembers' => Member::activeMembers()->orderBy('id')->get(),
-            'honorMembers'  => Member::honorMembers()->orderBy('id')->get(),
+            'honorMembers'  => Member::honorMembers()->with('alumniHonor')->orderBy('id')->get(),
         ]);
     }
 }

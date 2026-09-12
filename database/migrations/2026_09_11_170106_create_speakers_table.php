@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('organization')->nullable();
+            $table->string('full_name', 150)->unique('unique_speaker_name');
+            $table->string('organization', 150)->nullable();
             $table->string('linkedin_url')->nullable();
             $table->foreignId('member_id')->nullable()->constrained('members')->nullOnDelete();
             $table->foreignId('guest_id')->nullable()->constrained('guests')->nullOnDelete();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

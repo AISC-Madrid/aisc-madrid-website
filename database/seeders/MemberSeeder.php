@@ -24,7 +24,6 @@ class MemberSeeder extends Seeder
                 ...$boardMember,
                 'board' => true,
                 'active' => true,
-                'honor_member' => false,
                 'image_path' => 'https://ui-avatars.com/api/?name='.urlencode($boardMember['full_name']),
             ]);
         }

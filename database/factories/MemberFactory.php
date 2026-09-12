@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\AlumniHonor;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,13 +20,13 @@ class MemberFactory extends Factory
     {
         return [
             'full_name' => fake()->name(),
+            'password_hash' => bcrypt('password'),
             'mail' => fake()->unique()->safeEmail(),
             'position_es' => fake()->jobTitle(),
             'position_en' => fake()->jobTitle(),
             'socials' => fake()->url(),
             'board' => false,
             'active' => true,
-            'honor_member' => false,
             'image_path' => 'https://ui-avatars.com/api/?name='.urlencode(fake()->name()),
         ];
     }
@@ -34,9 +35,10 @@ class MemberFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'active' => false,
-            'honor_member' => true,
-            'graduation_year' => fake()->numberBetween(2020, 2025),
-            'honor_quote' => fake()->sentence(),
-        ]);
+        ])->afterCreating(function (Member $member) {
+            AlumniHonor::factory()->create([
+                'member_id' => $member->id,
+            ]);
+        });
     }
 }

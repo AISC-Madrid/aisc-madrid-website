@@ -8,7 +8,7 @@
         class="block h-28 w-28 overflow-hidden rounded-full ring-2 ring-border transition hover:ring-primary"
     >
         <img
-            src="{{ $member->image_path }}"
+            src="{{ $member->image_path ?: 'https://ui-avatars.com/api/?name='.urlencode($member->full_name ?? '?') }}"
             alt="{{ $member->full_name }}"
             class="h-full w-full object-cover"
         >
@@ -23,15 +23,15 @@
     </flux:text>
 
     @if ($honor)
-        @if ($member->graduation_year)
+        @if ($member->alumniHonor?->graduation_year)
             <flux:text size="sm" class="mt-2 italic">
-                {{ __('team.class_of', ['year' => $member->graduation_year]) }}
+                {{ __('team.class_of', ['year' => $member->alumniHonor->graduation_year]) }}
             </flux:text>
         @endif
 
-        @if ($member->honor_quote)
+        @if ($member->alumniHonor?->honor_quote)
             <flux:text size="sm" class="mt-2 italic">
-                &ldquo;{{ $member->honor_quote }}&rdquo;
+                &ldquo;{{ $member->alumniHonor->honor_quote }}&rdquo;
             </flux:text>
         @endif
     @endif

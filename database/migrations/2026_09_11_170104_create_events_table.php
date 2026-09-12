@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('image_path')->nullable();
             $table->json('gallery_paths')->nullable();
-            $table->string('youtube_url')->nullable();
+            $table->string('youtube_url', 355)->nullable();
             $table->boolean('requires_registration')->default(false);
             $table->boolean('reminder_enabled')->default(false);
-            $table->unsignedSmallInteger('reminder_days_before')->nullable();
+            $table->unsignedSmallInteger('reminder_days_before')->default(2);
             $table->timestamps();
         });
     }

@@ -13,21 +13,18 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('password_hash')->nullable();
-            $table->string('role')->nullable();
-            $table->string('mail')->nullable()->unique();
-            $table->string('position_es')->nullable();
-            $table->string('position_en')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('dni')->nullable();
-            $table->string('socials')->nullable();
-            $table->boolean('board')->default(false);
-            $table->boolean('active')->default(true);
-            $table->boolean('honor_member')->default(false);
-            $table->unsignedSmallInteger('graduation_year')->nullable();
-            $table->text('honor_quote')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('full_name', 50)->nullable();
+            $table->string('password_hash');
+            $table->enum('role', ['admin', 'events', 'web', 'finance', 'marketing'])->default('marketing');
+            $table->string('mail', 50)->nullable();
+            $table->string('position_es', 50)->nullable()->default('Miembro');
+            $table->string('position_en', 50)->nullable()->default('Member');
+            $table->string('phone', 20)->nullable();
+            $table->string('dni', 9)->nullable();
+            $table->text('socials')->nullable();
+            $table->enum('board', ['yes', 'no'])->default('no');
+            $table->enum('active', ['yes', 'no'])->nullable()->default('yes');
+            $table->text('image_path')->nullable();
         });
     }
 
