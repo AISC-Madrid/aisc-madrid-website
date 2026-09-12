@@ -27,6 +27,9 @@ class Guest extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return HasOne<Speaker, $this>
+     */
     public function speaker(): HasOne
     {
         return $this->hasOne(Speaker::class, 'guest_id');
