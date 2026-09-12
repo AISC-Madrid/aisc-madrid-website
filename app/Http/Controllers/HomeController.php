@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Member;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $upcomingEvents = Event::with('type')
             ->where('end_datetime', '>=', now())

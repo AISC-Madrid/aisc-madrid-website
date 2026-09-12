@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\YesNoBoolean;
 use App\Enums\MemberRole;
+use Database\Factories\MemberFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Member extends Model
 {
+    /** @use HasFactory<MemberFactory> */
     use HasFactory;
 
     protected $table = 'members';
@@ -42,21 +44,35 @@ class Member extends Model
         'active' => YesNoBoolean::class,
     ];
 
+    /**
+     * @return HasOne<Speaker, $this>
+     */
     public function speaker(): HasOne
     {
         return $this->hasOne(Speaker::class, 'member_id');
     }
 
+    /**
+     * @return HasOne<AlumniHonor, $this>
+     */
     public function alumniHonor(): HasOne
     {
         return $this->hasOne(AlumniHonor::class, 'member_id');
     }
 
+    /**
+     * @param Builder<Member> $query
+     * @return Builder<Member>
+     */
     public function scopeActiveMembers(Builder $query): Builder
     {
         return $query->where('active', 'yes')->whereDoesntHave('alumniHonor');
     }
 
+    /**
+     * @param Builder<Member> $query
+     * @return Builder<Member>
+     */
     public function scopeHonorMembers(Builder $query): Builder
     {
         return $query->whereHas('alumniHonor');

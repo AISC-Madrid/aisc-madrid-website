@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Speaker extends Model
 {
+    /** @use HasFactory<Factory<self>> */
     use HasFactory;
 
     protected $table = 'speakers';
@@ -23,6 +25,9 @@ class Speaker extends Model
         'guest_id',
     ];
 
+    /**
+     * @return BelongsToMany<Event, $this>
+     */
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -35,11 +40,17 @@ class Speaker extends Model
             ->orderBy('sort_order');
     }
 
+    /**
+     * @return BelongsTo<Member, $this>
+     */
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class, 'member_id');
     }
 
+    /**
+     * @return BelongsTo<Guest, $this>
+     */
     public function guest(): BelongsTo
     {
         return $this->belongsTo(Guest::class, 'guest_id');
