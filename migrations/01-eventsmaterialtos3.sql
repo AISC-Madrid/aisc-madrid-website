@@ -1,0 +1,59 @@
+-- Migración de imágenes de eventos: Cloudinary -> MinIO (bucket aisc-public, prefijo events-workshops/)
+-- Generado desde events-workshops/manifest.json · 27 eventos · MariaDB
+-- Guarda solo la KEY (p. ej. events-workshops/10/cover.webp). El backend construye la URL con
+-- MEDIA_BASE_URL = https://s3.aiscmadrid.com/aisc-public  ->  MEDIA_BASE_URL . '/' . key
+-- IMPORTANTE: despliega antes el helper PHP que acepta keys (y URLs antiguas) o las imágenes dejarán de verse.
+
+-- 1) Copia de seguridad de las columnas afectadas (IF NOT EXISTS: re-ejecutar no pisa el backup original)
+CREATE TABLE IF NOT EXISTS events_media_backup_20260911 AS SELECT id, image_path, gallery_paths FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44);
+
+START TRANSACTION;
+
+-- 2) Solo se actualiza la fila si image_path sigue siendo la URL de Cloudinary del manifest
+UPDATE events SET image_path = 'events-workshops/2/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/2/gallery/01.webp', 'events-workshops/2/gallery/02.webp') WHERE id = 2 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event1/WelcomeDay.png';
+UPDATE events SET image_path = 'events-workshops/8/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/8/gallery/01.webp', 'events-workshops/8/gallery/02.webp', 'events-workshops/8/gallery/03.webp', 'events-workshops/8/gallery/04.webp') WHERE id = 8 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event5/ConoceAISC_new.png';
+UPDATE events SET image_path = 'events-workshops/9/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/9/gallery/01.webp', 'events-workshops/9/gallery/02.webp') WHERE id = 9 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event3/Intro%20AI%20ML%20Workshop.png';
+UPDATE events SET image_path = 'events-workshops/10/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/10/gallery/01.webp', 'events-workshops/10/gallery/02.webp') WHERE id = 10 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event10/img_68d3df2d1f6d51.81473547.webp';
+UPDATE events SET image_path = 'events-workshops/11/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/11/gallery/01.webp', 'events-workshops/11/gallery/02.webp', 'events-workshops/11/gallery/03.webp') WHERE id = 11 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event11/img_68d5721dc0ecb5.62323406.webp';
+UPDATE events SET image_path = 'events-workshops/13/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/13/gallery/01.webp', 'events-workshops/13/gallery/02.webp', 'events-workshops/13/gallery/03.webp', 'events-workshops/13/gallery/04.webp', 'events-workshops/13/gallery/05.webp', 'events-workshops/13/gallery/06.webp') WHERE id = 13 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event13/img_68e6ccc2b46299.75375580.webp';
+UPDATE events SET image_path = 'events-workshops/18/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/18/gallery/01.webp', 'events-workshops/18/gallery/02.webp') WHERE id = 18 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event16/img_68ef8c098b49a8.34085832.webp';
+UPDATE events SET image_path = 'events-workshops/19/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/19/gallery/01.webp', 'events-workshops/19/gallery/02.webp', 'events-workshops/19/gallery/03.webp') WHERE id = 19 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event19/img_68f4f7a09ffe18.74797349.webp';
+UPDATE events SET image_path = 'events-workshops/20/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/20/gallery/01.webp', 'events-workshops/20/gallery/02.webp') WHERE id = 20 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event20/img_68f87686bc2151.41257572.webp';
+UPDATE events SET image_path = 'events-workshops/21/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/21/gallery/01.webp', 'events-workshops/21/gallery/02.webp', 'events-workshops/21/gallery/03.webp') WHERE id = 21 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event21/img_69089f0650e767.70098959.webp';
+UPDATE events SET image_path = 'events-workshops/22/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/22/gallery/01.webp', 'events-workshops/22/gallery/02.webp', 'events-workshops/22/gallery/03.webp', 'events-workshops/22/gallery/04.webp') WHERE id = 22 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event22/img_69123f98ea8058.63032162.webp';
+UPDATE events SET image_path = 'events-workshops/23/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/23/gallery/01.webp', 'events-workshops/23/gallery/02.webp', 'events-workshops/23/gallery/03.webp') WHERE id = 23 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event23/img_6920151f2489a4.95878639.webp';
+UPDATE events SET image_path = 'events-workshops/24/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/24/gallery/01.webp', 'events-workshops/24/gallery/02.webp', 'events-workshops/24/gallery/03.webp') WHERE id = 24 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event24/img_69300ee3d15657.24646860.webp';
+UPDATE events SET image_path = 'events-workshops/25/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/25/gallery/01.webp', 'events-workshops/25/gallery/02.webp', 'events-workshops/25/gallery/03.webp') WHERE id = 25 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event25/img_697936e31e6570.92176119.webp';
+UPDATE events SET image_path = 'events-workshops/27/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/27/gallery/01.webp', 'events-workshops/27/gallery/02.webp', 'events-workshops/27/gallery/03.webp') WHERE id = 27 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event27/img_6979f53fda92a4.11112233.webp';
+UPDATE events SET image_path = 'events-workshops/28/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/28/gallery/01.webp', 'events-workshops/28/gallery/02.webp', 'events-workshops/28/gallery/03.webp') WHERE id = 28 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event28/img_69834db73fb007.86465216.webp';
+UPDATE events SET image_path = 'events-workshops/29/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/29/gallery/01.webp', 'events-workshops/29/gallery/02.webp', 'events-workshops/29/gallery/03.webp') WHERE id = 29 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event29/img_6985b9d75efeb7.49648916.webp';
+UPDATE events SET image_path = 'events-workshops/31/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/31/gallery/01.webp', 'events-workshops/31/gallery/02.webp', 'events-workshops/31/gallery/03.webp') WHERE id = 31 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event31/img_698a0b708e8a60.03948846.webp';
+UPDATE events SET image_path = 'events-workshops/32/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/32/gallery/01.webp', 'events-workshops/32/gallery/02.webp') WHERE id = 32 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event32/img_6995edf3609885.66435925.webp';
+UPDATE events SET image_path = 'events-workshops/33/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/33/gallery/01.webp', 'events-workshops/33/gallery/02.webp', 'events-workshops/33/gallery/03.webp') WHERE id = 33 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event33/img_69a14cbc162528.74486356.webp';
+UPDATE events SET image_path = 'events-workshops/35/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/35/gallery/01.webp') WHERE id = 35 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event35/img_69a154c82b2577.45969887.webp';
+UPDATE events SET image_path = 'events-workshops/36/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/36/gallery/01.webp', 'events-workshops/36/gallery/02.webp') WHERE id = 36 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event36/img_69a68e5b3021c3.58056215.webp';
+UPDATE events SET image_path = 'events-workshops/37/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/37/gallery/01.webp', 'events-workshops/37/gallery/02.webp') WHERE id = 37 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event37/img_69b3bdff494441.77846307.webp';
+UPDATE events SET image_path = 'events-workshops/41/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/41/gallery/01.webp', 'events-workshops/41/gallery/02.webp', 'events-workshops/41/gallery/03.webp') WHERE id = 41 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event41/img_69c94967c89dc7.35122121.webp';
+UPDATE events SET image_path = 'events-workshops/42/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/42/gallery/01.webp', 'events-workshops/42/gallery/02.webp', 'events-workshops/42/gallery/03.webp') WHERE id = 42 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event42/img_69d505bddebc86.07482290.webp';
+UPDATE events SET image_path = 'events-workshops/43/cover.webp', gallery_paths = JSON_ARRAY('events-workshops/43/gallery/01.webp') WHERE id = 43 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event43/img_69d3d9ef079568.59383628.webp';
+UPDATE events SET image_path = 'events-workshops/44/cover.webp' WHERE id = 44 AND image_path = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event44/img_69dde390c08278.65130970.webp';
+
+-- 3) Revisa: deben salir 27 filas con key y 0 con 'cloudinary'
+SELECT id, image_path, JSON_LENGTH(gallery_paths) AS n_gallery FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44) ORDER BY id;
+SELECT id, image_path FROM events WHERE image_path LIKE '%cloudinary%' OR gallery_paths LIKE '%cloudinary%';
+
+-- 4) COMMIT solo si las 27 filas quedaron migradas y no queda nada en Cloudinary; si no, ROLLBACK.
+--    Automático para que funcione igual en AdminNeo (que cierra la conexión al terminar la
+--    petición y descartaría una transacción abierta) que en el cliente mariadb.
+SELECT COUNT(*) INTO @migrated FROM events WHERE id IN (2, 8, 9, 10, 11, 13, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 31, 32, 33, 35, 36, 37, 41, 42, 43, 44) AND image_path LIKE 'events-workshops/%';
+SELECT COUNT(*) INTO @cloud FROM events WHERE image_path LIKE '%cloudinary%' OR gallery_paths LIKE '%cloudinary%';
+SELECT @migrated AS migradas, @cloud AS con_cloudinary;
+DELIMITER //
+BEGIN NOT ATOMIC
+  IF @migrated = 27 AND @cloud = 0 THEN COMMIT; SELECT 'COMMITTED' AS resultado;
+  ELSE ROLLBACK; SELECT 'ROLLED BACK' AS resultado; END IF;
+END //
+DELIMITER ;
+
+-- Revertir después del COMMIT:
+-- UPDATE events e JOIN events_media_backup_20260911 b ON b.id = e.id SET e.image_path = b.image_path, e.gallery_paths = b.gallery_paths;

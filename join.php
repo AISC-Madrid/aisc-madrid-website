@@ -147,7 +147,9 @@ require_once __DIR__ . '/assets/csrf.php';
         </div>
       </div>
 
+      
       <!-- Desarrollo de Proyectos -->
+      <!--
       <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
@@ -177,6 +179,7 @@ require_once __DIR__ . '/assets/csrf.php';
           </p>
         </div>
       </div>
+      -->
 
     </div>
 
@@ -307,10 +310,12 @@ require_once __DIR__ . '/assets/csrf.php';
                       data-en="Web development" data-es="Desarrollo web">
                       Desarrollo web
                     </option>
+                    <!--
                     <option value="projects" <?php echo ($position === 'projects') ? 'selected' : ''; ?>
                       data-en="Project development" data-es="Desarrollo de Proyectos">
                       Desarrollo de Proyectos
                     </option>
+                    -->
                   </select>
                 </div>
 
