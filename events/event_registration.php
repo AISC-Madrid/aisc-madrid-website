@@ -138,67 +138,6 @@ $is_past_event = ($end_dt < $now_madrid);
         <?= htmlspecialchars($event['title_es']) ?> ya ha finalizado!
       </h4>
       <div class="mx-auto mt-3 mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
-      <p class="text-muted" data-en="Join the newsletter to stay up to date with everything we do and not miss a thing."
-        data-es="Únete a la newsletter para enterarte de todo lo que hacemos y no perderte nada.">
-        Únete a la newsletter para enterarte de todo lo que hacemos y no perderte nada.</p>
-      <section class="container-fluid mb-5" id="newsletter-section">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-6">
-            <div class=" border-0 form-card no-hover">
-              <div id="form-error" class="card-body bg-muted p-4">
-                <form method="POST" action="processing/phpmailer.php">
-                  <!-- Name -->
-                  <div class="mb-3">
-                    <label for="name" class="form-label" data-en="Full name" data-es="Nombre y apellidos">Nombre y
-                      apellidos</label>
-                    <input type="text" class="form-control form-input" id="name" name="name"
-                      data-es="Nombre y apellido(s)" data-en="Full name" placeholder="Michael Scott" required>
-                  </div>
-
-                  <!-- Email -->
-                  <div class="mb-3">
-                    <label for="email" class="form-label" data-en="E-mail" data-es="Correo electrónico">Correo
-                      electrónico</label>
-                    <input type="email" class="form-control form-input" id="email" name="email" data-en="name@example.com"
-                      data-es="nombre@ejemplo.com" placeholder="name@example.com" required>
-                  </div>
-
-                  <!-- Consent -->
-                  <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
-                    <label class="form-check-label form-text" for="consent"
-                      data-en="I consent to AISC Madrid storing my submitted data to contact me."
-                      data-es="Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.">
-                      Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.
-                    </label>
-                    <a class="form-check-label form-text" href="terms_conditions.php" target="_blank"
-                      data-en="(Read terms and conditions)" data-es="(Leer términos y condiciones)">
-                      (Leer términos y condiciones)
-                    </a>
-                  </div>
-                <!-- Link Business Analytics  (Temporal. Hardcoded, not good practice)-->
-                <?php if (in_array((int)$event_id, [28, 31, 35], true)): ?>
-                  <div class="mb-3 mt-3">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSci_2aziFKPrzoLobhedYkS2vpxGRPtWrmY5aRycXieg644aw/viewform" target="_blank"
-                      class="form-text fw-bold"
-                      data-es="¡Apúntate a la mail list de Business Analytics!"
-                      data-en="Sign up for the Business Analytics mailing list!">
-                      ¡Apúntate a la mail list de Business Analytics! </a>
-                  </div>
-                <?php endif; ?>
-
-                  <!-- Send -->
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-primary form-btn fw-semibold" data-en="Send"
-                      data-es="Enviar">Enviar</button>
-                  </div>
-                </form>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   <?php endif; ?>
 
