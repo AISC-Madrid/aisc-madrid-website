@@ -118,7 +118,9 @@ $google_calendar_url = $calendar_base_url . '&' . $query_string;
                         data-es="Ponente: <?= htmlspecialchars($event['speaker']) ?>">
                         Ponente: <?= htmlspecialchars($event['speaker']) ?>
 
-                        <?php if ($event['requires_registration']): ?>
+                        <?php
+                        $event_not_finished = new DateTime($event['end_datetime'], new DateTimeZone('UTC')) > new DateTime('now', new DateTimeZone('UTC'));
+                        if ($event['requires_registration'] && $event_not_finished): ?>
                         <div class="my-3">
                             <a href="events/event_registration.php?id=<?= $event_id ?>" class="btn btn-custom text-light px-4 fw-semibold"
                                data-en="Register for event"
