@@ -120,6 +120,10 @@ require_once __DIR__ . '/assets/csrf.php';
       -->
 
       <!-- Desarrollo web -->
+      <!--
+        Desarrollo web — plazas cubiertas (2026-2027-C1).
+        Re-enable by uncommenting this card and the 'tech' option in the position <select> below.
+
       <div class="col">
         <div class="role-card h-100">
           <div class="d-flex align-items-center mb-3">
@@ -146,8 +150,9 @@ require_once __DIR__ . '/assets/csrf.php';
           </p>
         </div>
       </div>
+      -->
 
-      
+
       <!-- Desarrollo de Proyectos -->
       <!--
       <div class="col">
@@ -306,10 +311,12 @@ require_once __DIR__ . '/assets/csrf.php';
                       data-en="Marketing Digital" data-es="Marketing Digital">
                       Marketing Digital
                     </option>
+                    <!--
                     <option value="tech" <?php echo ($position === 'tech') ? 'selected' : ''; ?>
                       data-en="Web development" data-es="Desarrollo web">
                       Desarrollo web
                     </option>
+                    -->
                     <!--
                     <option value="projects" <?php echo ($position === 'projects') ? 'selected' : ''; ?>
                       data-en="Project development" data-es="Desarrollo de Proyectos">
