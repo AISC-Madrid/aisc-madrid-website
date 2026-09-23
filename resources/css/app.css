@@ -6,8 +6,8 @@
 :root {
     color-scheme: light;
 
-    --background: hsl(300, 3%, 7%);
-    --foreground: hsl(240, 7%, 97%);
+    --background: oklch(98.5% 0.002 247.84);
+    --foreground: oklch(21% 0.006 285.89);
     --surface: oklch(100% 0 0);
     --surface-foreground: oklch(21% 0.006 285.89);
 
@@ -16,29 +16,29 @@
     --secondary: #20CCF1;
     --secondary-foreground: oklch(28% 0.08 244.38);
 
-    --muted: hsl(180, 2%, 10%);
+    --muted: oklch(96.7% 0.003 264.54);
     --muted-foreground: oklch(52% 0.016 285.94);
     --border: oklch(91.9% 0.004 286.32);
-    --ring: oklch(52% 0.22 342.55);
+    --ring: #EB178E;
 }
 
 .dark {
     color-scheme: dark;
 
-    --background: oklch(14.1% 0.005 285.82);
-    --foreground: oklch(98.5% 0.001 286.38);
-    --surface: oklch(20.5% 0.006 285.89);
+    --background: hsl(300, 3%, 7%);
+    --foreground: hsl(240, 7%, 97%);
+    --surface: hsl(300, 3%, 11%);
     --surface-foreground: oklch(98.5% 0.001 286.38);
 
-    --primary: oklch(72% 0.2 342.55);
-    --primary-foreground: oklch(18% 0.006 285.89);
+    --primary: #EB178E;
+    --primary-foreground: oklch(100% 0 0);
     --secondary: oklch(28% 0.04 244.38);
     --secondary-foreground: oklch(92% 0.02 217.49);
 
-    --muted: oklch(26.9% 0.006 286.03);
+    --muted: hsl(180, 2%, 10%);
     --muted-foreground: oklch(70.5% 0.015 286.07);
     --border: oklch(31.4% 0.007 286.09);
-    --ring: oklch(72% 0.2 342.55);
+    --ring: #EB178E;
 }
 
 @theme inline {
