@@ -147,6 +147,7 @@ $is_past_event = ($end_dt < $now_madrid);
             <div class=" border-0 form-card no-hover">
               <div id="form-error" class="card-body bg-muted p-4">
                 <form method="POST" action="processing/phpmailer.php">
+                  <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
                   <!-- Name -->
                   <div class="mb-3">
                     <label for="name" class="form-label" data-en="Full name" data-es="Nombre y apellidos">Nombre y

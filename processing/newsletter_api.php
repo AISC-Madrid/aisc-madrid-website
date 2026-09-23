@@ -300,6 +300,7 @@ $errorMsg = match($error) {
                 <div class="alert-custom">Enlace inválido. Escanea de nuevo el QR.</div>
             <?php else: ?>
                 <form method="POST" action="">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
                     <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
 
                     <div class="mb-3">
