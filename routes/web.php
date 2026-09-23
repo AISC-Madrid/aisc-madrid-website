@@ -22,21 +22,29 @@ Route::prefix('{locale}')
         Route::get('/', [HomeController::class, 'index'])
             ->name('home');
 
-        // FOR EVENT PAGE:
-        // For events page
+        // For event page:
 
         Route::get('/events', [EventController::class, 'index'])
             ->name('events.index');
 
+        // For events page
         Route::get('/events/{event}', [EventController::class, 'show'])
             ->name('events.show');
 
+        
+        //For team page:
         Route::get('/team', [TeamController::class, 'index'])
             ->name('team.index');
 
+        //For projects page:
         Route::get('/projects', [ProjectController::class, 'index'])
             ->name('projects.index');
 
+        //For project page:
+        Route::get('/projects/{project}', [ProjectController::class, 'show'])
+            ->name('projects.show');
+        
+        //For about page:
         Route::view('/about', 'about')
             ->name('about');
 

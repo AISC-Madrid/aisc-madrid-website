@@ -6,17 +6,17 @@
 :root {
     color-scheme: light;
 
-    --background: oklch(98.5% 0.002 247.84);
-    --foreground: oklch(21% 0.006 285.89);
+    --background: hsl(300, 3%, 7%);
+    --foreground: hsl(240, 7%, 97%);
     --surface: oklch(100% 0 0);
     --surface-foreground: oklch(21% 0.006 285.89);
 
-    --primary: oklch(52% 0.22 342.55);
+    --primary: #EB178E;
     --primary-foreground: oklch(100% 0 0);
-    --secondary: oklch(91% 0.04 217.49);
+    --secondary: #20CCF1;
     --secondary-foreground: oklch(28% 0.08 244.38);
 
-    --muted: oklch(96.7% 0.003 264.54);
+    --muted: hsl(180, 2%, 10%);
     --muted-foreground: oklch(52% 0.016 285.94);
     --border: oklch(91.9% 0.004 286.32);
     --ring: oklch(52% 0.22 342.55);
