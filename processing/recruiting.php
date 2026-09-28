@@ -9,6 +9,12 @@ if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
     die("Token CSRF inválido.");
 }
 
+require_once '../assets/recruiting.php';
+if (!RECRUITING_OPEN) {
+    header('Location: ../join.php');
+    exit;
+}
+
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/assets/csrf.php';
+require_once __DIR__ . '/assets/recruiting.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +28,23 @@ require_once __DIR__ . '/assets/csrf.php';
       </h2>
       <div class="mx-auto mb-4" style="width:60px; height:3px; background: var(--primary); border-radius:2px;"></div>
     </div>
+
+    <?php if (!RECRUITING_OPEN): ?>
+    <!-- Recruiting closed -->
+    <div class="text-center mb-5 px-3 px-md-5">
+      <h4 class="fw-bold mb-3" style="color: var(--secondary);" data-es="Recruiting cerrado"
+        data-en="Recruiting closed">
+        Recruiting cerrado
+      </h4>
+      <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;"
+        data-es="Ya hemos cerrado el proceso de entrevistas para nuevos miembros este cuatrimestre. ¡Gracias a todas las personas que habéis aplicado! Si te interesa AISC Madrid, la mejor forma de conocernos es venir a nuestros eventos y talleres."
+        data-en="We have closed the interview process for new members this term. Thanks to everyone who applied! If you are interested in AISC Madrid, the best way to get to know us is to come to our events and workshops.">
+        Ya hemos cerrado el proceso de entrevistas para nuevos miembros este cuatrimestre. ¡Gracias a todas las personas que habéis aplicado! Si te interesa AISC Madrid, la mejor forma de conocernos es venir a nuestros eventos y talleres.
+      </p>
+      <a class="btn btn-custom" href="events.php" role="button" data-es="Ver próximos eventos"
+        data-en="See upcoming events">Ver próximos eventos</a>
+    </div>
+    <?php else: ?>
 
     <div class="text-center mb-5 px-3 px-md-5">
       <p class="text-muted mb-0" style="max-width: 600px; margin: 0 auto;"
@@ -353,6 +371,7 @@ require_once __DIR__ . '/assets/csrf.php';
         </div>
       </div>
     </section>
+    <?php endif; ?>
   </div>
 
   <?php include('assets/footer.php'); ?>
