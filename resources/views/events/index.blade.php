@@ -37,7 +37,7 @@
                 <flux:button.group>
 
                     <flux:button
-                        variant="primary"
+                        variant="ghost"
                         class="filter-button"
                         data-filter="all"
                     >
@@ -217,15 +217,23 @@
             const buttons = document.querySelectorAll('.filter-button');
             const cards = document.querySelectorAll('.event-card');
 
+            function setActiveButton(button) {
+
+                buttons.forEach(btn => {
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                });
+
+                button.style.backgroundColor = 'var(--primary)';
+                button.style.color = 'var(--primary-foreground)';
+
+            }
+
             buttons.forEach(button => {
 
                 button.addEventListener('click', function () {
 
-                    buttons.forEach(btn => {
-                        btn.setAttribute('variant', 'ghost');
-                    });
-
-                    this.setAttribute('variant', 'primary');
+                    setActiveButton(this);
 
                     const filter = this.dataset.filter;
 
@@ -246,6 +254,8 @@
                 });
 
             });
+
+            setActiveButton(document.querySelector('.filter-button[data-filter="all"]'));
 
         });
 
