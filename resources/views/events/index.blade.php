@@ -1,4 +1,4 @@
-<x-layouts.public title="AISC Madrid">
+<x-layouts.public :title="__('site.events.title') . ' - AISC Madrid'">
 
     {{-- Page header --}}
     <div class="mx-auto w-full max-w-7xl px-6 pt-10 lg:px-8">
@@ -9,7 +9,7 @@
                 size="xl"
                 level="1"
             >
-                Todos los eventos de AISC Madrid
+                {{ __('events.heading') }}
             </flux:heading>
 
             <div class="mx-auto my-4 h-1 w-15 rounded-full bg-[var(--primary)]"></div>
@@ -18,8 +18,7 @@
                 size="lg"
                 class="mx-auto max-w-2xl"
             >
-                Echa un vistazo a todos los eventos que hemos organizado hasta ahora
-                y a los que están por venir.
+                {{ __('events.subheading') }}
             </flux:text>
 
         </div>
@@ -42,7 +41,7 @@
                         class="filter-button"
                         data-filter="all"
                     >
-                        Todos
+                        {{ __('events.filters.all') }}
                     </flux:button>
 
                     <flux:button
@@ -50,7 +49,7 @@
                         class="filter-button"
                         data-filter="event"
                     >
-                        Eventos
+                        {{ __('events.filters.event') }}
                     </flux:button>
 
                     <flux:button
@@ -58,7 +57,7 @@
                         class="filter-button"
                         data-filter="workshop"
                     >
-                        Talleres
+                        {{ __('events.filters.workshop') }}
                     </flux:button>
 
                 </flux:button.group>
@@ -87,6 +86,10 @@
                             ->setTimezone('Europe/Madrid');
 
                         $type = strtolower($event->type->slug);
+
+                        $title = app()->getLocale() === 'en'
+                            ? $event->title_en
+                            : $event->title_es;
                     @endphp
 
                     <div
@@ -112,7 +115,7 @@
 
                                         <img
                                             src="{{ asset($event->image_path) }}"
-                                            alt="{{ $event->title_es }}"
+                                            alt="{{ $title }}"
                                             class="h-full w-full object-cover"
                                         >
 
@@ -128,7 +131,7 @@
                                         color="green"
                                         class="absolute left-3 top-3"
                                     >
-                                        Próximamente
+                                        {{ __('events.upcoming') }}
                                     </flux:badge>
 
                                 @endif
@@ -138,7 +141,7 @@
                                 <div class="flex flex-1 flex-col p-5">
 
                                     <flux:heading size="lg">
-                                        {{ $event->title_es }}
+                                        {{ $title }}
                                     </flux:heading>
 
 
@@ -186,7 +189,7 @@
                                     <flux:text
                                         class="font-medium"
                                     >
-                                        Saber más →
+                                        {{ __('events.read_more') }}
                                     </flux:text>
 
                                 </div>
