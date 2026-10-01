@@ -48,6 +48,14 @@ Route::prefix('{locale}')
         Route::view('/about', 'about')
             ->name('about');
 
+        //For terms and conditions page:
+        Route::view('/terms-conditions', 'terms')
+            ->name('terms');
+
+        //For statutes page:
+        Route::view('/estatutos', 'estatutos')
+            ->name('estatutos');
+
     });
 
 /*
