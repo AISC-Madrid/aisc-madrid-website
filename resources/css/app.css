@@ -88,3 +88,22 @@
 [x-cloak] {
     display: none !important;
 }
+
+@layer utilities {
+    .aisc-value-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .aisc-value-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px color-mix(in srgb, var(--color-primary) 15%, transparent);
+    }
+
+    .aisc-value-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .aisc-value-card:hover .aisc-value-icon {
+        transform: rotate(6deg) scale(1.1);
+    }
+}
