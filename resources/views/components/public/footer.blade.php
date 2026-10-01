@@ -34,34 +34,34 @@
                     {{ __('site.footer.links_heading') }}
                 </flux:heading>
 
-                <ul class="mt-4 space-y-2">
-                    <li>
-                        <a
-                            href="{{ route('home', ['locale' => $locale]) }}#newsletter"
-                            class="text-sm text-muted-foreground transition hover:text-foreground"
-                        >
-                            {{ __('site.footer.newsletter') }}
-                        </a>
-                    </li>
+            <ul class="mt-4 space-y-2">
+                <li>
+                    <a
+                        href="{{ route('home', ['locale' => $locale]) }}#newsletter"
+                        class="text-sm text-muted-foreground transition hover:text-foreground"
+                    >
+                        {{ __('site.footer.newsletter') }}
+                    </a>
+                </li>
 
-                    <li>
-                        <a
-                            href="#"
-                            class="text-sm text-muted-foreground transition hover:text-foreground"
-                        >
-                            {{ __('site.footer.terms') }}
-                        </a>
-                    </li>
+                <li>
+                    <a
+                        href="{{ route('terms', ['locale' => $locale]) }}"
+                        class="text-sm text-muted-foreground transition hover:text-foreground"
+                    >
+                        {{ __('site.footer.terms') }}
+                    </a>
+                </li>
 
-                    <li>
-                        <a
-                            href="#"
-                            class="text-sm text-muted-foreground transition hover:text-foreground"
-                        >
-                            {{ __('site.footer.bylaws') }}
-                        </a>
-                    </li>
-                </ul>
+                <li>
+                    <a
+                        href="{{ route('estatutos', ['locale' => $locale]) }}"
+                        class="text-sm text-muted-foreground transition hover:text-foreground"
+                    >
+                        {{ __('site.footer.bylaws') }}
+                    </a>
+                </li>
+            </ul>
             </div>
 
             {{-- Social --}}
