@@ -57,7 +57,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="row wrap">
             <h1 class="mb-4"><?= isset($id) ? 'Editar Miembro' : 'Crear Nuevo Miembro' ?></h1>
 
-            <form action="<?= isset($id) ? 'update_team_member.php' : 'add_team_member.php' ?>" method="POST">
+            <form action="<?= isset($id) ? 'update_team_member.php' : 'add_team_member.php' ?>" method="POST"
+                enctype="multipart/form-data">
                 <?php if (isset($id)): ?>
                     <input type="hidden" name="id" value="<?= $id ?>">
                 <?php endif; ?>
@@ -152,11 +153,20 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </select>
                     </div>
 
-                    <!-- Image path -->
+                    <!-- Photo -->
                     <div class="mb-3">
-                        <label class="form-label">Ruta de imagen</label>
-                        <input type="text" name="image_path" class="form-control"
-                            value="<?= htmlspecialchars($image_path) ?>">
+                        <label class="form-label">Foto<?= !empty($image_path) ? ' (subir una nueva reemplaza la actual)' : '' ?></label>
+                        <?php if (!empty($image_path)): ?>
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <img src="<?= htmlspecialchars(cdn_from_image_path($image_path)) ?>" alt="Foto actual"
+                                    style="width:80px; height:80px; object-fit:cover; border-radius:50%;">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remove_image" value="1" class="form-check-input" id="remove_image">
+                                    <label class="form-check-label" for="remove_image">Eliminar foto actual</label>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="image" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp">
                     </div>
 
                     <!-- is_honor -->

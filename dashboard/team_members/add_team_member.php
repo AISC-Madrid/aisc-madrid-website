@@ -12,6 +12,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include(__DIR__ . "/../../assets/db.php");
+require_once __DIR__ . "/member_photo.php";
 
 $password = $_POST['password'] ?? '';
 if ($password === '') {
@@ -51,6 +52,7 @@ if (!$stmt) {
 $is_honor = ($_POST['is_honor'] ?? 'no') === 'yes' ? 'yes' : 'no';
 $graduation_year = $_POST['graduation_year'] ?? null;
 $honor_quote = $_POST['honor_quote'] ?? null;
+$image_path = ''; // set after insert, once the member id is known
 
 // Bind parameters
 $stmt->bind_param(
@@ -65,7 +67,7 @@ $stmt->bind_param(
     $_POST['socials'],
     $_POST['board'],
     $_POST['active'],
-    $_POST['image_path'],
+    $image_path,
     $_POST['role'],
     $is_honor,
     $graduation_year,
@@ -75,6 +77,18 @@ $stmt->bind_param(
 // Execute
 if ($stmt->execute()) {
     echo "<p style='color:green;'>✅ Miembro guardado correctamente.</p>";
+
+    // Upload photo to S3 now that we have the member id
+    $memberId = $stmt->insert_id;
+    $photo = upload_member_photo('image', $memberId);
+    if (isset($photo['error'])) {
+        echo "<p style='color:orange;'>⚠️ Miembro guardado sin foto: " . htmlspecialchars($photo['error']) . "</p>";
+    } elseif ($photo !== null) {
+        $photoStmt = $conn->prepare("UPDATE members SET image_path = ? WHERE id = ?");
+        $photoStmt->bind_param("si", $photo['path'], $memberId);
+        $photoStmt->execute();
+        $photoStmt->close();
+    }
 
     // Send Welcome Email
     $mail = new PHPMailer(true);

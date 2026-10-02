@@ -5,6 +5,7 @@
  * Provides:
  *   s3_config()                                    -> array with endpoint/region/bucket/credentials
  *   s3_put_object($localPath, $key, $contentType)  -> ['key' => '...'] | ['error' => '...']
+ *   s3_delete_object($key)                         -> ['key' => '...'] | ['error' => '...']
  *
  * No external dependencies — uses curl + hash_hmac (path-style requests, as MinIO expects).
  */
@@ -130,6 +131,23 @@ function s3_put_object(string $localPath, string $key, string $contentType = 'ap
     if ($r['status'] !== 200) {
         $msg = preg_match('#<Message>(.*?)</Message>#s', $r['body'], $m) ? $m[1] : "HTTP {$r['status']}";
         return ['error' => "S3 upload failed: $msg"];
+    }
+    return ['key' => $key];
+}
+
+/**
+ * Delete an object from the media bucket. Deleting a missing key is not an error.
+ *
+ * @return array  ['key' => $key] or ['error' => string]
+ */
+function s3_delete_object(string $key): array
+{
+    $r = s3_request('DELETE', $key);
+    if (isset($r['error'])) return $r;
+
+    if ($r['status'] !== 204 && $r['status'] !== 200) {
+        $msg = preg_match('#<Message>(.*?)</Message>#s', $r['body'], $m) ? $m[1] : "HTTP {$r['status']}";
+        return ['error' => "S3 delete failed: $msg"];
     }
     return ['key' => $key];
 }

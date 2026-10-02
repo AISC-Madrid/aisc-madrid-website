@@ -7,6 +7,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include(__DIR__ . "/../../assets/db.php");
+require_once __DIR__ . "/member_photo.php";
 
 if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
     die("<p style='color:red;'>❌ Error: ID del miembro no proporcionado.</p>");
@@ -15,7 +16,7 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 $id = (int) $_POST['id'];
 
 // Get current password hash member
-$query = $conn->prepare("SELECT password_hash FROM members WHERE id = ?");
+$query = $conn->prepare("SELECT password_hash, image_path FROM members WHERE id = ?");
 $query->bind_param("i", $id);
 $query->execute();
 $result = $query->get_result();
@@ -26,6 +27,7 @@ if ($result->num_rows === 0) {
 
 $row = $result->fetch_assoc();
 $current_password_hash = $row['password_hash'];
+$current_image_path = $row['image_path'] ?? '';
 $query->close();
 
 
@@ -40,6 +42,18 @@ if (!empty($_POST['password'])) {
 }
 
 $is_honor = ($_POST['is_honor'] ?? 'no') === 'yes' ? 'yes' : 'no';
+
+// Photo: a new upload replaces the current one; the checkbox removes it
+$image_path = $current_image_path;
+$photo = upload_member_photo('image', $id);
+if (isset($photo['error'])) {
+    die("<p style='color:red;'>❌ Error en la foto: " . htmlspecialchars($photo['error']) . "</p>");
+}
+if ($photo !== null) {
+    $image_path = $photo['path'];
+} elseif (!empty($_POST['remove_image'])) {
+    $image_path = '';
+}
 
 // 🔹 Actualizar datos del miembro
 $sql = "UPDATE members SET
@@ -78,7 +92,7 @@ $stmt->bind_param(
     $_POST['socials'],
     $_POST['board'],
     $_POST['active'],
-    $_POST['image_path'],
+    $image_path,
     $_POST['role'],
     $is_honor,
     $_POST['graduation_year'],
@@ -87,6 +101,10 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
+    // Remove the old photo from S3 only once the new path is saved
+    if ($image_path !== $current_image_path) {
+        delete_member_photo($current_image_path);
+    }
     echo "<p style='color:green;'>✅ Miembro actualizado correctamente.</p>";
     echo "<a href='team_members_list.php'>Volver al formulario</a>";
 } else {
