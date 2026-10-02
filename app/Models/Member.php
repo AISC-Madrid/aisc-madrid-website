@@ -61,7 +61,7 @@ class Member extends Model
     }
 
     /**
-     * @param Builder<Member> $query
+     * @param  Builder<Member>  $query
      * @return Builder<Member>
      */
     public function scopeActiveMembers(Builder $query): Builder
@@ -70,7 +70,7 @@ class Member extends Model
     }
 
     /**
-     * @param Builder<Member> $query
+     * @param  Builder<Member>  $query
      * @return Builder<Member>
      */
     public function scopeHonorMembers(Builder $query): Builder
@@ -80,7 +80,7 @@ class Member extends Model
 
     public function safeSocialUrl(): string
     {
-        if (!$this->socials || !filter_var($this->socials, FILTER_VALIDATE_URL)) {
+        if (! $this->socials || ! filter_var($this->socials, FILTER_VALIDATE_URL)) {
             return '#';
         }
 

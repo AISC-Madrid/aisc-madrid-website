@@ -31,20 +31,19 @@ Route::prefix('{locale}')
         Route::get('/events/{event}', [EventController::class, 'show'])
             ->name('events.show');
 
-        
-        //For team page:
+        // For team page:
         Route::get('/team', [TeamController::class, 'index'])
             ->name('team.index');
 
-        //For projects page:
+        // For projects page:
         Route::get('/projects', [ProjectController::class, 'index'])
             ->name('projects.index');
 
-        //For project page:
+        // For project page:
         Route::get('/projects/{project}', [ProjectController::class, 'show'])
             ->name('projects.show');
-        
-        //For about page:
+
+        // For about page:
         Route::view('/about', 'about')
             ->name('about');
 
