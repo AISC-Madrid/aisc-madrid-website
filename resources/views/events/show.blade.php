@@ -61,7 +61,7 @@
 
                     @if ($isFuture)
                         <flux:badge color="green">
-                            {{ $isSpanish ? 'Próximamente' : 'Upcoming' }}
+                            {{ __('events.upcoming') }}
                         </flux:badge>
                     @endif
                 </div>
@@ -72,7 +72,7 @@
 
                 @if ($event->speakers->isNotEmpty())
                     <flux:text size="lg" class="mt-4">
-                        <strong>{{ $isSpanish ? 'Ponente:' : 'Speaker:' }}</strong>
+                        <strong>{{ __('events.speaker') }}</strong>
 
                         @foreach ($event->speakers as $speaker)
                             {{ $speaker->full_name }}{{ ! $loop->last ? ',' : '' }}
@@ -107,10 +107,7 @@
                         href="#"
                         class="mt-8 inline-flex w-fit items-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                     >
-                        {{ $isSpanish
-                            ? 'Inscribirse al evento'
-                            : 'Register for event'
-                        }}
+                        {{ __('events.register') }}
                     </a>
                 @endif
             </div>
@@ -187,7 +184,7 @@
                 {{-- DATE --}}
                 <div>
                     <flux:heading size="sm" class="uppercase tracking-wide text-muted-foreground">
-                        {{ $isSpanish ? 'Fecha' : 'Date' }}
+                        {{ __('events.date') }}
                     </flux:heading>
 
                     <flux:text class="mt-2">
@@ -201,7 +198,7 @@
                 @if ($event->location)
                     <div class="border-t border-border pt-6">
                         <flux:heading size="sm" class="uppercase tracking-wide text-muted-foreground">
-                            {{ $isSpanish ? 'Ubicación' : 'Location' }}
+                            {{ __('events.location') }}
                         </flux:heading>
 
                         <flux:text class="mt-2">
@@ -213,10 +210,7 @@
                 {{-- CALENDAR --}}
                 <div class="border-t border-border pt-6">
                     <flux:text class="mb-2">
-                        {{ $isSpanish
-                            ? 'Añadir al calendario:'
-                            : 'Add to calendar:'
-                        }}
+                        {{ __('events.add_to_calendar') }}
                     </flux:text>
 
                     <a
@@ -248,7 +242,7 @@
                         onclick="toggleShareMenu()"
                         class="share-button inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary hover:text-primary"
                     >
-                        {{ $isSpanish ? 'Compartir' : 'Share' }}
+                        {{ __('events.share') }}
 
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
                             <path
