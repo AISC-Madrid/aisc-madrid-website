@@ -4,7 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
-/* For EVENT_PAGE */
+// For EVENT_PAGE
 use Illuminate\Support\Facades\Route;
 
 /*
