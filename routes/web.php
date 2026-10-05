@@ -4,7 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
-/* For EVENT_PAGE */
+// For EVENT_PAGE
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +46,14 @@ Route::prefix('{locale}')
         // For about page:
         Route::view('/about', 'about')
             ->name('about');
+
+        //For terms and conditions page:
+        Route::view('/terms-conditions', 'terms')
+            ->name('terms');
+
+        //For statutes page:
+        Route::view('/estatutos', 'estatutos')
+            ->name('estatutos');
 
     });
 
