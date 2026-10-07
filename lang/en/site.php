@@ -28,17 +28,13 @@ return [
     ],
 
     'footer' => [
-        'tagline' => 'A UC3M student association interested in artificial intelligence.',
-        'links_heading' => 'Links',
         'newsletter' => 'Newsletter',
         'terms' => 'Terms and conditions',
         'bylaws' => 'Bylaws',
-        'social_heading' => 'Follow us',
         'instagram' => 'Instagram',
         'linkedin' => 'LinkedIn',
         'github' => 'GitHub',
         'email' => 'Email',
-        'copyright' => 'All rights reserved.',
     ],
 
     'home' => [
