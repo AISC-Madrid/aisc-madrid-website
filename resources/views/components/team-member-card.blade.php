@@ -1,20 +1,28 @@
 @props(['member', 'honor' => false])
 
-<flux:card class="flex flex-col items-center p-6 text-center">
-    <a
-        href="{{ $member->safeSocialUrl() }}"
+@php
+    $socialUrl = $member->safeSocialUrl();
+    $hasSocialUrl = $socialUrl !== '#';
+@endphp
+
+<{{ $hasSocialUrl ? 'a' : 'div' }}
+    @if ($hasSocialUrl)
+        href="{{ $socialUrl }}"
         target="_blank"
         rel="noopener noreferrer"
-        class="block h-28 w-28 overflow-hidden rounded-full ring-2 ring-border transition hover:ring-primary"
-    >
+    @endif
+    class="group block text-center transition duration-300 hover:scale-105"
+>
+    <div class="aspect-square overflow-hidden rounded-xl bg-muted shadow-sm transition duration-300 group-hover:shadow-lg">
         <img
-            src="{{ $member->image_path ?: 'https://ui-avatars.com/api/?name='.urlencode($member->full_name ?? '?') }}"
+            src="{{ $member->image_path ?: 'https://ui-avatars.com/api/?size=512&name='.urlencode($member->full_name ?? '?') }}"
             alt="{{ $member->full_name }}"
-            class="h-full w-full object-cover"
+            loading="lazy"
+            class="size-full object-cover"
         >
-    </a>
+    </div>
 
-    <flux:heading size="base" class="mt-4">
+    <flux:heading size="base" class="mt-3">
         {{ $member->full_name }}
     </flux:heading>
 
@@ -35,4 +43,4 @@
             </flux:text>
         @endif
     @endif
-</flux:card>
+</{{ $hasSocialUrl ? 'a' : 'div' }}>
