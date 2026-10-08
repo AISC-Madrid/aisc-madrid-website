@@ -16,6 +16,7 @@ $title_es = $title_en = $type_es = $type_en = '';
 $description_es = $description_en = $location = '';
 $start_datetime = $end_datetime = $image_path = '';
 $speaker = '';
+$company = '';
 $requires_registration = 0;
 $reminder_enabled = 0;
 $reminder_days_before = 2;
@@ -37,6 +38,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $type_es = $event['type_es'];
         $type_en = $event['type_en'];
         $speaker = $event['speaker'];
+        $company = $event['company'] ?? '';
         $description_es = $event['description_es'];
         $description_en = $event['description_en'];
         $location = $event['location'];
@@ -103,9 +105,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     </div>
 
                     <!-- Speaker -->
-                    <div class="mb-3">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Speaker</label>
                         <input type="text" name="speaker" class="form-control" value="<?= htmlspecialchars($speaker) ?>">
+                    </div>
+
+                    <!-- Company -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Empresa</label>
+                        <input type="text" name="company" class="form-control" placeholder="Spotify"
+                            value="<?= htmlspecialchars($company) ?>">
                     </div>
 
                     <!-- Spanish description -->

@@ -25,7 +25,7 @@ $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
 
 const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
-    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}}; creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
+    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}} de {{event_company}}; creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
     . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
     . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
     . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
@@ -61,13 +61,17 @@ function make_forwardable(string $html): string
 /**
  * Put the personal intro for a contact on top of the email they are asked to forward.
  * Placeholders: {{contact_name}}, {{organization}} and, from the selected event,
- * {{event_name}}, {{event_speaker}}, {{event_date}} ("lunes 17 de noviembre"), {{event_time}}, {{event_location}}.
+ * {{event_name}}, {{event_speaker}}, {{event_company}}, {{event_date}} ("lunes 17 de noviembre"), {{event_time}}, {{event_location}}.
  */
 function wrap_for_contact(string $html, string $intro, array $contact, ?array $event): string
 {
+    // Drop the connector words when a value is missing, so the sentence still reads well
     $organization = trim((string) ($contact['organization'] ?? ''));
     if ($organization === '') {
         $intro = str_replace(' del {{organization}}', '', $intro);
+    }
+    if (trim((string) ($event['company'] ?? '')) === '') {
+        $intro = str_replace(' de {{event_company}}', '', $intro);
     }
 
     $values = [
@@ -80,6 +84,7 @@ function wrap_for_contact(string $html, string $intro, array $contact, ?array $e
         $values += [
             '{{event_name}}' => $event['title_es'],
             '{{event_speaker}}' => (string) ($event['speaker'] ?? ''),
+            '{{event_company}}' => trim((string) ($event['company'] ?? '')),
             '{{event_date}}' => spanish_long_date($start),
             '{{event_time}}' => $start->format('H:i'),
             '{{event_location}}' => (string) ($event['location'] ?? ''),
@@ -267,7 +272,7 @@ if (isset($_POST['submit'])) {
 
     $event_data = null;
     if ($event_id > 0) {
-        $stmt_event = $conn->prepare("SELECT title_es, speaker, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
+        $stmt_event = $conn->prepare("SELECT title_es, speaker, company, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
         $stmt_event->bind_param("i", $event_id);
         $stmt_event->execute();
         $result_event = $stmt_event->get_result();
@@ -571,7 +576,7 @@ $conn->close();
                             </div>
                             <label for="contact_intro" class="form-label mt-3">Texto previo (antes del email a difundir).
                                 Se sustituyen <code>{{contact_name}}</code>, <code>{{organization}}</code> (por contacto) y
-                                <code>{{event_speaker}}</code>, <code>{{event_date}}</code>, <code>{{event_time}}</code>,
+                                <code>{{event_speaker}}</code>, <code>{{event_company}}</code>, <code>{{event_date}}</code>, <code>{{event_time}}</code>,
                                 <code>{{event_location}}</code>, <code>{{event_name}}</code> (del evento seleccionado arriba):</label>
                             <textarea name="contact_intro" id="contact_intro" class="form-control" rows="6"><?= htmlspecialchars(DEFAULT_CONTACT_INTRO) ?></textarea>
                         </div>
