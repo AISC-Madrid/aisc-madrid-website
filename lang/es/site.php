@@ -28,17 +28,13 @@ return [
     ],
 
     'footer' => [
-        'tagline' => 'Asociación de estudiantes de la UC3M interesados en la inteligencia artificial.',
-        'links_heading' => 'Enlaces',
         'newsletter' => 'Newsletter',
         'terms' => 'Términos y condiciones',
         'bylaws' => 'Estatutos',
-        'social_heading' => 'Síguenos',
         'instagram' => 'Instagram',
         'linkedin' => 'LinkedIn',
         'github' => 'GitHub',
         'email' => 'Correo electrónico',
-        'copyright' => 'Todos los derechos reservados.',
     ],
 
     'home' => [
