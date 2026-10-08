@@ -28,7 +28,7 @@ array_merge($currentParameters, ['locale' => 'es'])
             <img
                 src="{{ asset('images/logos/aisc-logo-color.svg') }}"
                 alt="{{ __('site.nav.logo_alt') }}"
-                class="h-15 w-auto">
+                class="h-12 w-auto">
 
             <span class="text-md font-bold text-foreground">
                 AISC MADRID
