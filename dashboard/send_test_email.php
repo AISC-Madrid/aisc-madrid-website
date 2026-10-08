@@ -95,7 +95,7 @@ function wrap_for_contact(string $html, string $intro, array $contact, ?array $e
     $intro = str_replace(array_keys($values), array_map('htmlspecialchars', array_values($values)), $intro);
 
     $header = '<div style="font-family:Arial,sans-serif; font-size:15px; color:#222; max-width:600px; margin:0 auto 24px auto; padding:16px; text-align:left; line-height:1.5;">' . $intro . '</div>'
-        . 'Mensaje para difundir<div style="max-width:600px; margin:0 auto 16px auto; border-top:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;"></div>';
+        . '<div style="max-width:600px; margin:0 auto 16px auto; border-bottom:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;">Mensaje para difundir</div>';
 
     if (preg_match('/<body\b[^>]*>/i', $html)) {
         return preg_replace_callback('/<body\b[^>]*>/i', fn($m) => $m[0] . $header, $html, 1);
