@@ -13,7 +13,9 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 $config = include('../config.php');
+require_once '../assets/csrf.php';
 require_once '../assets/db.php';
+require_once '../assets/contacts.php';
 require_once '../assets/cloudinary.php';
 include("../assets/nav_dashboard.php");
 
@@ -21,6 +23,85 @@ $recipients = [];
 $message = '';
 $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
+
+const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
+    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}} de {{event_company}}; creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
+    . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
+    . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
+    . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
+    . "Y nos gustaría agradecerte el apoyo que estás brindando a la asociación.\n\n"
+    . "Muchas gracias.";
+
+// Active contacts + templates already sent to each one (for the selection table)
+$contacts = [];
+$contacts_result = $conn->query("SELECT id, full_name, greeting_name, email, category, organization FROM contacts WHERE active = 1 ORDER BY category, organization, full_name");
+while ($row = $contacts_result->fetch_assoc()) {
+    $row['sent_templates'] = [];
+    $contacts[$row['id']] = $row;
+}
+$logs_result = $conn->query("SELECT contact_id, template_name, MAX(sent_at) AS sent_at FROM contact_email_logs GROUP BY contact_id, template_name");
+while ($row = $logs_result->fetch_assoc()) {
+    if (isset($contacts[$row['contact_id']])) {
+        $contacts[$row['contact_id']]['sent_templates'][$row['template_name']] = $row['sent_at'];
+    }
+}
+
+/**
+ * Turn a personalised template into a generic one that a contact can forward to students:
+ * removes the recipient's name and the newsletter unsubscribe links.
+ */
+function make_forwardable(string $html): string
+{
+    $html = preg_replace('/\s*(\$full_name\[0\]|\{\{user_name\}\})/', '', $html);
+    $html = preg_replace('/\s*\|\s*<a\b[^>]*unsubscribe[^>]*>.*?<\/a>/is', '', $html);
+    $html = preg_replace('/<a\b[^>]*unsubscribe[^>]*>.*?<\/a>/is', '', $html);
+    return $html;
+}
+
+/**
+ * Put the personal intro for a contact on top of the email they are asked to forward.
+ * Placeholders: {{contact_name}}, {{organization}} and, from the selected event,
+ * {{event_name}}, {{event_speaker}}, {{event_company}}, {{event_date}} ("lunes 17 de noviembre"), {{event_time}}, {{event_location}}.
+ */
+function wrap_for_contact(string $html, string $intro, array $contact, ?array $event): string
+{
+    // Drop the connector words when a value is missing, so the sentence still reads well
+    $organization = trim((string) ($contact['organization'] ?? ''));
+    if ($organization === '') {
+        $intro = str_replace(' del {{organization}}', '', $intro);
+    }
+    if (trim((string) ($event['company'] ?? '')) === '') {
+        $intro = str_replace(' de {{event_company}}', '', $intro);
+    }
+
+    $values = [
+        '{{contact_name}}' => contact_greeting_name($contact),
+        '{{organization}}' => $organization,
+    ];
+    if ($event) {
+        $start = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+        $start->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $values += [
+            '{{event_name}}' => $event['title_es'],
+            '{{event_speaker}}' => (string) ($event['speaker'] ?? ''),
+            '{{event_company}}' => trim((string) ($event['company'] ?? '')),
+            '{{event_date}}' => spanish_long_date($start),
+            '{{event_time}}' => $start->format('H:i'),
+            '{{event_location}}' => (string) ($event['location'] ?? ''),
+        ];
+    }
+
+    $intro = nl2br(htmlspecialchars($intro));
+    $intro = str_replace(array_keys($values), array_map('htmlspecialchars', array_values($values)), $intro);
+
+    $header = '<div style="font-family:Arial,sans-serif; font-size:15px; color:#222; max-width:600px; margin:0 auto 24px auto; padding:16px; text-align:left; line-height:1.5;">' . $intro . '</div>'
+        . '<div style="max-width:600px; margin:0 auto 16px auto; border-bottom:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;">Mensaje para difundir</div>';
+
+    if (preg_match('/<body\b[^>]*>/i', $html)) {
+        return preg_replace_callback('/<body\b[^>]*>/i', fn($m) => $m[0] . $header, $html, 1);
+    }
+    return $header . $html;
+}
 
 echo '<script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -40,6 +121,13 @@ echo '<script>
 
 
 if (isset($_POST['submit'])) {
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        http_response_code(403);
+        die("Token CSRF inválido.");
+    }
+    if (!in_array($_POST['mail_template'] ?? '', $mail_files, true)) {
+        die("Plantilla de email inválida.");
+    }
     $recipient_group = $_POST['recipients'];
     $email_search = (string) $_POST['email_search'];
     $mail_template = $_POST['mail_template'];
@@ -120,6 +208,15 @@ if (isset($_POST['submit'])) {
                 }
             }
             break;
+        case 'contacts':
+            // Only ids are posted; emails/names come from the DB
+            foreach ((array) ($_POST['contact_ids'] ?? []) as $contact_id) {
+                $contact_id = (int) $contact_id;
+                if (isset($contacts[$contact_id])) {
+                    $recipients[] = $contacts[$contact_id] + ['contact_id' => $contact_id];
+                }
+            }
+            break;
         case 'team':
             $sql = "SELECT mail, full_name FROM members";
             $result = $conn->query($sql);
@@ -175,7 +272,7 @@ if (isset($_POST['submit'])) {
 
     $event_data = null;
     if ($event_id > 0) {
-        $stmt_event = $conn->prepare("SELECT title_es, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
+        $stmt_event = $conn->prepare("SELECT title_es, speaker, company, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
         $stmt_event->bind_param("i", $event_id);
         $stmt_event->execute();
         $result_event = $stmt_event->get_result();
@@ -223,6 +320,10 @@ if (isset($_POST['submit'])) {
             $mail->Subject = $subject;
 
             $baseHtmlContent = file_get_contents($mail_template);
+            if ($recipient_group === 'contacts') {
+                $baseHtmlContent = make_forwardable($baseHtmlContent);
+                $contact_intro = trim((string) ($_POST['contact_intro'] ?? '')) ?: DEFAULT_CONTACT_INTRO;
+            }
 
             $totalEmails = count($recipients);
             $batchSize = 20;
@@ -306,6 +407,10 @@ if (isset($_POST['submit'])) {
                         $htmlContent = str_replace('{{calendar_link}}', $calendar_link, $htmlContent);
                     }
 
+                    if ($recipient_group === 'contacts') {
+                        $htmlContent = wrap_for_contact($htmlContent, $contact_intro, $recipient, $event_data);
+                    }
+
                     $mail->Body = $htmlContent;
 
                     $mail->send();
@@ -318,6 +423,15 @@ if (isset($_POST['submit'])) {
                             $stmt_update_sent->bind_param("is", $event_id, $recipientEmail);
                             $stmt_update_sent->execute();
                             $stmt_update_sent->close();
+                        }
+                    }
+
+                    if ($recipient_group === 'contacts') {
+                        $stmt_contact_log = $conn->prepare("INSERT INTO contact_email_logs (contact_id, template_name) VALUES (?, ?)");
+                        if ($stmt_contact_log) {
+                            $stmt_contact_log->bind_param("is", $recipient['contact_id'], $mail_template);
+                            $stmt_contact_log->execute();
+                            $stmt_contact_log->close();
                         }
                     }
 
@@ -390,10 +504,13 @@ $conn->close();
                             <li><strong>Enviar QR pendientes:</strong> Envía el correo y marca como enviado el QR a los usuarios que aún no lo tienen.</li>
                             <li><strong>Todos:</strong> Envía un mensaje a todos los correos registrados en la base de
                                 datos.</li>
+                            <li><strong>Contactos:</strong> Envía la plantilla elegida a los contactos seleccionados
+                                (directores de titulación, profesores...) con un texto personalizado pidiendo su difusión.</li>
 
                         </ul>
                     </div>
                     <form method="post" action="">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token()) ?>">
                         <div class="mb-3">
 
                             <label for="recipients" class="form-label">Seleccionar destinatarios:</label>
@@ -404,6 +521,7 @@ $conn->close();
                                 <option value="event_users">Usuarios registrados en el evento</option>
                                 <option value="pending_qrs">Enviar QR pendientes</option>
                                 <option value="newsletter">Newsletter</option>
+                                <option value="contacts">Contactos (directores, profesores...)</option>
                                 <option value="all">Todos</option>
                             </select>
                         </div>
@@ -411,6 +529,56 @@ $conn->close();
                             <label for="email_search" class="form-label">Buscar un email:</label>
                             <input type="text" name="email_search" id="email_search" class="form-control"
                                 placeholder="Introducir dirección de email">
+                        </div>
+                        <div class="mb-3 border rounded p-3 bg-light" id="contacts_container" style="display:none;">
+                            <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+                                <select id="contact_category_filter" class="form-select w-auto">
+                                    <option value="">Todas las categorías</option>
+                                    <?php foreach (CONTACT_CATEGORIES as $key => $label): ?>
+                                        <option value="<?= $key ?>"><?= htmlspecialchars($label) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <input type="text" id="contact_search" class="form-control w-auto flex-grow-1"
+                                    placeholder="Buscar por nombre, email o titulación">
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="contacts_select_visible">Seleccionar visibles</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="contacts_select_none">Ninguno</button>
+                                <span class="text-dark small"><span id="contacts_selected_count">0</span> seleccionados</span>
+                            </div>
+                            <div style="max-height:350px; overflow-y:auto;">
+                                <table class="table table-sm table-hover align-middle mb-0">
+                                    <thead class="table-light" style="position:sticky; top:0;">
+                                        <tr>
+                                            <th></th>
+                                            <th>Nombre</th>
+                                            <th>Titulación / organización</th>
+                                            <th>Email</th>
+                                            <th>Esta plantilla</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (empty($contacts)): ?>
+                                            <tr><td colspan="5" class="text-center text-muted">No hay contactos. Añádelos en <a href="/dashboard/contacts/contacts_list.php">Contactos</a>.</td></tr>
+                                        <?php endif; ?>
+                                        <?php foreach ($contacts as $contact): ?>
+                                            <tr class="contact-row" data-category="<?= htmlspecialchars($contact['category']) ?>"
+                                                data-search="<?= htmlspecialchars(mb_strtolower($contact['full_name'] . ' ' . $contact['email'] . ' ' . $contact['organization'])) ?>"
+                                                data-sent="<?= htmlspecialchars(json_encode($contact['sent_templates'])) ?>">
+                                                <td><input type="checkbox" class="form-check-input contact-checkbox" name="contact_ids[]" value="<?= $contact['id'] ?>"></td>
+                                                <td><?= htmlspecialchars($contact['full_name']) ?><br>
+                                                    <small class="text-muted"><?= htmlspecialchars(contact_category_label($contact['category'])) ?></small></td>
+                                                <td><small><?= htmlspecialchars($contact['organization'] ?? '') ?></small></td>
+                                                <td><small><?= htmlspecialchars($contact['email']) ?></small></td>
+                                                <td class="contact-sent small"></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <label for="contact_intro" class="form-label mt-3">Texto previo (antes del email a difundir).
+                                Se sustituyen <code>{{contact_name}}</code>, <code>{{organization}}</code> (por contacto) y
+                                <code>{{event_speaker}}</code>, <code>{{event_company}}</code>, <code>{{event_date}}</code>, <code>{{event_time}}</code>,
+                                <code>{{event_location}}</code>, <code>{{event_name}}</code> (del evento seleccionado arriba):</label>
+                            <textarea name="contact_intro" id="contact_intro" class="form-control" rows="6"><?= htmlspecialchars(DEFAULT_CONTACT_INTRO) ?></textarea>
                         </div>
                         <div class="mb-3" id="event_search_container">
                             <label for="event_search" class="form-label">Evento:</label>
@@ -460,6 +628,59 @@ $conn->close();
         });
 
         document.getElementById('mail_template').dispatchEvent(new Event('change'));
+
+        // --- Contactos ---
+        const contactsContainer = document.getElementById('contacts_container');
+        const contactRows = Array.from(document.querySelectorAll('.contact-row'));
+        const categoryFilter = document.getElementById('contact_category_filter');
+        const contactSearch = document.getElementById('contact_search');
+        const selectedCount = document.getElementById('contacts_selected_count');
+
+        document.getElementById('recipients').addEventListener('change', function () {
+            contactsContainer.style.display = this.value === 'contacts' ? 'block' : 'none';
+        });
+
+        function filterContacts() {
+            const category = categoryFilter.value;
+            const term = contactSearch.value.trim().toLowerCase();
+            contactRows.forEach(row => {
+                const visible = (!category || row.dataset.category === category)
+                    && (!term || row.dataset.search.includes(term));
+                row.style.display = visible ? '' : 'none';
+            });
+        }
+
+        function updateSelectedCount() {
+            selectedCount.textContent = document.querySelectorAll('.contact-checkbox:checked').length;
+        }
+
+        function updateSentStatus() {
+            const template = document.getElementById('mail_template').value;
+            contactRows.forEach(row => {
+                const sent = JSON.parse(row.dataset.sent || '{}');
+                row.querySelector('.contact-sent').innerHTML = sent[template]
+                    ? '<span class="badge bg-warning text-dark">Enviado ' + sent[template].substring(0, 10) + '</span>'
+                    : '<span class="text-muted">—</span>';
+            });
+        }
+
+        categoryFilter.addEventListener('change', filterContacts);
+        contactSearch.addEventListener('input', filterContacts);
+        document.querySelectorAll('.contact-checkbox').forEach(cb => cb.addEventListener('change', updateSelectedCount));
+
+        document.getElementById('contacts_select_visible').addEventListener('click', function () {
+            contactRows.forEach(row => {
+                if (row.style.display !== 'none') row.querySelector('.contact-checkbox').checked = true;
+            });
+            updateSelectedCount();
+        });
+        document.getElementById('contacts_select_none').addEventListener('click', function () {
+            document.querySelectorAll('.contact-checkbox').forEach(cb => cb.checked = false);
+            updateSelectedCount();
+        });
+
+        document.getElementById('mail_template').addEventListener('change', updateSentStatus);
+        updateSentStatus();
     </script>
 </body>
 

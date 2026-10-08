@@ -1,11 +1,11 @@
 <?php
 // 4 roles are defined, each with different permissions.
 $permisos = [
-  'admin' => ['resumen', 'usuarios', 'eventos', 'guests', 'scan', 'email', 'proyectos', 'equipo', 'hashing', 'create-email'],
+  'admin' => ['resumen', 'usuarios', 'eventos', 'guests', 'scan', 'email', 'proyectos', 'equipo', 'hashing', 'create-email', 'contactos'],
   'events' => ['resumen', 'eventos', 'guests', 'scan', 'proyectos'],
   'finance' => ['resumen', 'eventos', 'scan', 'proyectos', 'equipo'],
   'marketing' => ['resumen', 'eventos', 'scan', 'proyectos'],
-  'web' => ['resumen', 'eventos', 'scan', 'proyectos', 'create-email'],
+  'web' => ['resumen', 'eventos', 'scan', 'proyectos', 'create-email', 'contactos'],
   'guest' => ['scan'],
 ];
 
@@ -103,6 +103,15 @@ if (!function_exists('isAllowed')) {
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/send_test_email.php">
               <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php if (isAllowed('contactos')): ?>
+          <!-- Contactos externos -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/contacts/contacts_list.php">
+              <i class="bi bi-person-lines-fill me-1"></i> Contactos
             </a>
           </li>
         <?php endif; ?>

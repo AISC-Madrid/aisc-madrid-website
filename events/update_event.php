@@ -49,6 +49,7 @@ $sql = "UPDATE events SET
     title_es = ?, title_en = ?,
     type_es = ?, type_en = ?,
     speaker = ?,
+    company = ?,
     description_es = ?, description_en = ?,
     location = ?,
     start_datetime = ?, end_datetime = ?,
@@ -69,6 +70,7 @@ $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
 $reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$company = trim($_POST['company'] ?? '') ?: null;
 
 // Convert form datetimes from Madrid timezone to UTC for storage
 $madridTz = new DateTimeZone('Europe/Madrid');
@@ -80,12 +82,13 @@ $end_utc = $end_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
 
 
 $stmt->bind_param(
-    "sssssssssssssiiii",
+    "ssssssssssssssiiii",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
     $_POST['type_en'],
     $_POST['speaker'],
+    $company,
     $_POST['description_es'],
     $_POST['description_en'],
     $_POST['location'],
