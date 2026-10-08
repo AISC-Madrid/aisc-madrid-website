@@ -74,7 +74,8 @@ if ($category_filter !== '') {
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr class="<?= $row['active'] ? '' : 'text-muted' ?>">
-                            <td><?= htmlspecialchars($row['full_name']) ?></td>
+                            <td><?= htmlspecialchars($row['full_name']) ?><br>
+                                <small class="text-muted">Saludo: <?= htmlspecialchars(contact_greeting_name($row)) ?></small></td>
                             <td><?= htmlspecialchars($row['email']) ?></td>
                             <td><?= htmlspecialchars(contact_category_label($row['category'])) ?></td>
                             <td><?= htmlspecialchars($row['organization'] ?? '') ?></td>

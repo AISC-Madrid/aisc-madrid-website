@@ -24,11 +24,17 @@ $message = '';
 $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
 
-const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\nPensamos que este evento puede ser interesante para los alumnos del {{organization}} y le pedimos su difusión.\n\nMuchas gracias,\nAISC Madrid";
+const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
+    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}}; creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
+    . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
+    . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
+    . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
+    . "Y nos gustaría agradecerte el apoyo que estás brindando a la asociación.\n\n"
+    . "Muchas gracias.";
 
 // Active contacts + templates already sent to each one (for the selection table)
 $contacts = [];
-$contacts_result = $conn->query("SELECT id, full_name, email, category, organization FROM contacts WHERE active = 1 ORDER BY category, organization, full_name");
+$contacts_result = $conn->query("SELECT id, full_name, greeting_name, email, category, organization FROM contacts WHERE active = 1 ORDER BY category, organization, full_name");
 while ($row = $contacts_result->fetch_assoc()) {
     $row['sent_templates'] = [];
     $contacts[$row['id']] = $row;
@@ -54,19 +60,34 @@ function make_forwardable(string $html): string
 
 /**
  * Put the personal intro for a contact on top of the email they are asked to forward.
+ * Placeholders: {{contact_name}}, {{organization}} and, from the selected event,
+ * {{event_name}}, {{event_speaker}}, {{event_date}} ("lunes 17 de noviembre"), {{event_time}}, {{event_location}}.
  */
-function wrap_for_contact(string $html, string $intro, array $contact): string
+function wrap_for_contact(string $html, string $intro, array $contact, ?array $event): string
 {
     $organization = trim((string) ($contact['organization'] ?? ''));
     if ($organization === '') {
         $intro = str_replace(' del {{organization}}', '', $intro);
     }
+
+    $values = [
+        '{{contact_name}}' => contact_greeting_name($contact),
+        '{{organization}}' => $organization,
+    ];
+    if ($event) {
+        $start = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+        $start->setTimezone(new DateTimeZone('Europe/Madrid'));
+        $values += [
+            '{{event_name}}' => $event['title_es'],
+            '{{event_speaker}}' => (string) ($event['speaker'] ?? ''),
+            '{{event_date}}' => spanish_long_date($start),
+            '{{event_time}}' => $start->format('H:i'),
+            '{{event_location}}' => (string) ($event['location'] ?? ''),
+        ];
+    }
+
     $intro = nl2br(htmlspecialchars($intro));
-    $intro = str_replace(
-        ['{{contact_name}}', '{{organization}}'],
-        [htmlspecialchars($contact['full_name']), htmlspecialchars($organization)],
-        $intro
-    );
+    $intro = str_replace(array_keys($values), array_map('htmlspecialchars', array_values($values)), $intro);
 
     $header = '<div style="font-family:Arial,sans-serif; font-size:15px; color:#222; max-width:600px; margin:0 auto 24px auto; padding:16px; text-align:left; line-height:1.5;">' . $intro . '</div>'
         . '<div style="max-width:600px; margin:0 auto 16px auto; border-top:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;">Mensaje para difundir</div>';
@@ -246,7 +267,7 @@ if (isset($_POST['submit'])) {
 
     $event_data = null;
     if ($event_id > 0) {
-        $stmt_event = $conn->prepare("SELECT title_es, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
+        $stmt_event = $conn->prepare("SELECT title_es, speaker, start_datetime, end_datetime, location, image_path FROM events WHERE id = ?");
         $stmt_event->bind_param("i", $event_id);
         $stmt_event->execute();
         $result_event = $stmt_event->get_result();
@@ -382,7 +403,7 @@ if (isset($_POST['submit'])) {
                     }
 
                     if ($recipient_group === 'contacts') {
-                        $htmlContent = wrap_for_contact($htmlContent, $contact_intro, $recipient);
+                        $htmlContent = wrap_for_contact($htmlContent, $contact_intro, $recipient, $event_data);
                     }
 
                     $mail->Body = $htmlContent;
@@ -549,7 +570,9 @@ $conn->close();
                                 </table>
                             </div>
                             <label for="contact_intro" class="form-label mt-3">Texto previo (antes del email a difundir).
-                                <code>{{contact_name}}</code> y <code>{{organization}}</code> se sustituyen por cada contacto:</label>
+                                Se sustituyen <code>{{contact_name}}</code>, <code>{{organization}}</code> (por contacto) y
+                                <code>{{event_speaker}}</code>, <code>{{event_date}}</code>, <code>{{event_time}}</code>,
+                                <code>{{event_location}}</code>, <code>{{event_name}}</code> (del evento seleccionado arriba):</label>
                             <textarea name="contact_intro" id="contact_intro" class="form-control" rows="6"><?= htmlspecialchars(DEFAULT_CONTACT_INTRO) ?></textarea>
                         </div>
                         <div class="mb-3" id="event_search_container">

@@ -13,6 +13,7 @@ require_once __DIR__ . "/../../assets/cloudinary.php";
 
 $contact = [
     'full_name' => '',
+    'greeting_name' => '',
     'email' => '',
     'category' => 'degree_director',
     'organization' => '',
@@ -55,9 +56,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
             <div class="row">
                 <div class="mb-3 col-md-6">
-                    <label class="form-label">Nombre (se usa tal cual en "Buenos días ___")</label>
+                    <label class="form-label">Nombre completo</label>
                     <input type="text" name="full_name" class="form-control" required maxlength="150"
                         value="<?= htmlspecialchars($contact['full_name']) ?>">
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Nombre para el saludo ("Buenos días ___"). Vacío = primer nombre</label>
+                    <input type="text" name="greeting_name" class="form-control" maxlength="100" placeholder="María Carmen"
+                        value="<?= htmlspecialchars($contact['greeting_name'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3 col-md-6">

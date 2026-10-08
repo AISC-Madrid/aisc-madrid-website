@@ -16,6 +16,7 @@ include(__DIR__ . "/../../assets/contacts.php");
 
 $id = isset($_POST['id']) && is_numeric($_POST['id']) ? (int) $_POST['id'] : null;
 $full_name = trim($_POST['full_name'] ?? '');
+$greeting_name = trim($_POST['greeting_name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $category = $_POST['category'] ?? '';
 $organization = trim($_POST['organization'] ?? '');
@@ -26,15 +27,16 @@ if ($full_name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || !isset(CO
     die("<p style='color:red;'>❌ Error: revisa el nombre, el email y la categoría.</p>");
 }
 
+$greeting_name = $greeting_name === '' ? null : $greeting_name;
 $organization = $organization === '' ? null : $organization;
 $notes = $notes === '' ? null : $notes;
 
 if ($id) {
-    $stmt = $conn->prepare("UPDATE contacts SET full_name = ?, email = ?, category = ?, organization = ?, notes = ?, active = ? WHERE id = ?");
-    $stmt->bind_param("sssssii", $full_name, $email, $category, $organization, $notes, $active, $id);
+    $stmt = $conn->prepare("UPDATE contacts SET full_name = ?, greeting_name = ?, email = ?, category = ?, organization = ?, notes = ?, active = ? WHERE id = ?");
+    $stmt->bind_param("ssssssii", $full_name, $greeting_name, $email, $category, $organization, $notes, $active, $id);
 } else {
-    $stmt = $conn->prepare("INSERT INTO contacts (full_name, email, category, organization, notes, active) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssi", $full_name, $email, $category, $organization, $notes, $active);
+    $stmt = $conn->prepare("INSERT INTO contacts (full_name, greeting_name, email, category, organization, notes, active) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssi", $full_name, $greeting_name, $email, $category, $organization, $notes, $active);
 }
 
 try {
