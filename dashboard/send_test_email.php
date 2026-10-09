@@ -25,7 +25,7 @@ $mail_files = glob('../mails/*/*.html');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
 
 const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
-    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}} de {{event_company}}; creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
+    . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}} de {{event_company}}. Creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
     . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
     . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
     . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
