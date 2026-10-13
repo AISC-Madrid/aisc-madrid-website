@@ -29,7 +29,6 @@ const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
     . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
     . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
     . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
-    . "Y nos gustaría agradecerte el apoyo que estás brindando a la asociación.\n\n"
     . "Muchas gracias.";
 
 // Active contacts + templates already sent to each one (for the selection table)
