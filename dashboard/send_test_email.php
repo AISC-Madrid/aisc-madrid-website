@@ -98,7 +98,13 @@ function wrap_for_contact(string $html, string $intro, array $contact, ?array $e
         . '<div style="max-width:600px; margin:0 auto 16px auto; border-bottom:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;">Mensaje para difundir</div>';
 
     if (preg_match('/<body\b[^>]*>/i', $html)) {
-        return preg_replace_callback('/<body\b[^>]*>/i', fn($m) => $m[0] . $header, $html, 1);
+        // No grey page background: the contact should read it as a plain personal email
+        return preg_replace_callback(
+            '/<body\b[^>]*>/i',
+            fn($m) => preg_replace('/\s*background(-color)?\s*:[^;"\']*;?/i', '', $m[0]) . $header,
+            $html,
+            1
+        );
     }
     return $header . $html;
 }
