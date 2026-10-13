@@ -29,7 +29,6 @@ const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
     . "El evento se celebrará el próximo {{event_date}} a las {{event_time}} en {{event_location}}.\n\n"
     . "Al igual que en eventos anteriores, es una gran oportunidad para que los estudiantes puedan aprender sobre el sector y conectar con profesionales.\n\n"
     . "Te mando a continuación el mensaje que me gustaría que copiaras y pegaras para mandar.\n\n"
-    . "Y nos gustaría agradecerte el apoyo que estás brindando a la asociación.\n\n"
     . "Muchas gracias.";
 
 // Active contacts + templates already sent to each one (for the selection table)
@@ -98,7 +97,13 @@ function wrap_for_contact(string $html, string $intro, array $contact, ?array $e
         . '<div style="max-width:600px; margin:0 auto 16px auto; border-bottom:1px solid #ccc; padding-top:8px; font-family:Arial,sans-serif; font-size:12px; color:#888; text-align:center;">Mensaje para difundir</div>';
 
     if (preg_match('/<body\b[^>]*>/i', $html)) {
-        return preg_replace_callback('/<body\b[^>]*>/i', fn($m) => $m[0] . $header, $html, 1);
+        // No grey page background: the contact should read it as a plain personal email
+        return preg_replace_callback(
+            '/<body\b[^>]*>/i',
+            fn($m) => preg_replace('/\s*background(-color)?\s*:[^;"\']*;?/i', '', $m[0]) . $header,
+            $html,
+            1
+        );
     }
     return $header . $html;
 }
