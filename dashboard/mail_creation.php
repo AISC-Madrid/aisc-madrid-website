@@ -7,6 +7,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
     header("Location: /");
     exit();
 }
+require_once '../assets/csrf.php';
 // El head.php ya suele abrir la etiqueta <html> y <head>
 include_once '../assets/head.php';
 ?>
@@ -124,8 +125,8 @@ include("../assets/nav_dashboard.php");
             <h5 class="h2">Código Final</h5>
             <textarea id="code-output" class="form-control mb-2" style="height: 100px; font-size: 11px; font-family: monospace;" readonly onclick="this.select(); document.execCommand('copy');"></textarea>
             
-            <button class="btn btn-blue w-100" onclick="downloadHTML()">
-                <i class="bi bi-download"></i> Descargar HTML
+            <button class="btn btn-blue w-100" onclick="saveHTML()">
+                <i class="bi bi-save"></i> Guardar HTML
             </button>
         </div>
 
@@ -318,16 +319,33 @@ include("../assets/nav_dashboard.php");
         document.getElementById('code-output').value = email;
     }
 
-    function downloadHTML() {
+    const CSRF_TOKEN = <?= json_encode(generate_csrf_token()) ?>;
+
+    async function saveHTML(overwrite = false, filename = null) {
         const htmlContent = document.getElementById('code-output').value;
         if (!htmlContent) return alert("Crea contenido primero");
-        const blob = new Blob([htmlContent], { type: 'text/html' });
-        const link = document.createElement("a");
-        link.download = `newsletter_aisc_${new Date().toISOString().slice(0, 10)}.html`;
-        link.href = window.URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+
+        if (filename === null) {
+            filename = prompt("Nombre del archivo (se guardará en mails/difusion):", `newsletter_aisc_${new Date().toISOString().slice(0, 10)}`);
+            if (!filename) return;
+        }
+
+        const body = new FormData();
+        body.append('csrf_token', CSRF_TOKEN);
+        body.append('html', htmlContent);
+        body.append('filename', filename);
+        if (overwrite) body.append('overwrite', '1');
+
+        try {
+            const response = await fetch('save_mail.php', { method: 'POST', body });
+            const result = await response.json();
+
+            if (result.ok) return alert(`Guardado en ${result.file}`);
+            if (result.exists && confirm(`${result.error}. ¿Sobrescribir?`)) return saveHTML(true, filename);
+            if (!result.exists) alert(result.error);
+        } catch (e) {
+            alert("Error al guardar el archivo");
+        }
     }
 
     addChunk('header');
