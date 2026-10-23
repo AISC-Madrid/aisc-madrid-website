@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.3.36-apache
 
 # Install system dependencies (gd + exif are needed to compress uploaded images to WebP)
 RUN apt-get update \
