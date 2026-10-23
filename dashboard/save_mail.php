@@ -54,9 +54,16 @@ if (file_exists($path) && !$overwrite) {
     exit();
 }
 
-if (file_put_contents($path, $html, LOCK_EX) === false) {
+// Some Docker/network filesystems don't support file locks, so retry without LOCK_EX
+$written = @file_put_contents($path, $html, LOCK_EX);
+if ($written === false) {
+    $written = @file_put_contents($path, $html);
+}
+
+if ($written === false) {
+    $reason = error_get_last()['message'] ?? 'motivo desconocido';
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'No se pudo guardar el archivo']);
+    echo json_encode(['ok' => false, 'error' => "No se pudo guardar el archivo: {$reason}"]);
     exit();
 }
 
