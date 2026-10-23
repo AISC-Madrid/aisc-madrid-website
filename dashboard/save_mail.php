@@ -39,32 +39,35 @@ if (!preg_match('/^[A-Za-z0-9_-]{1,100}$/', $name)) {
     exit();
 }
 
-$dir = realpath(__DIR__ . '/../mails/difusion');
-if ($dir === false || !is_writable($dir)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'La carpeta mails/difusion no existe o no tiene permisos de escritura']);
-    exit();
-}
+// Stored in the S3 bucket: the container disk is wiped on every deploy
+require_once '../assets/mail_templates.php';
 
-$path = $dir . DIRECTORY_SEPARATOR . $name . '.html';
+$key = MAIL_S3_PREFIX . $name . '.html';
 $overwrite = ($_POST['overwrite'] ?? '') === '1';
-if (file_exists($path) && !$overwrite) {
-    http_response_code(409);
-    echo json_encode(['ok' => false, 'exists' => true, 'error' => "Ya existe {$name}.html"]);
+
+try {
+    if (!$overwrite) {
+        $existing = s3_get_object($key);
+        $existsInGit = file_exists(__DIR__ . "/../mails/difusion/{$name}.html");
+        if (isset($existing['body']) || $existsInGit) {
+            http_response_code(409);
+            echo json_encode(['ok' => false, 'exists' => true, 'error' => "Ya existe {$name}.html"]);
+            exit();
+        }
+        if (!$existing['missing']) {
+            throw new RuntimeException($existing['error']);
+        }
+    }
+
+    $result = s3_put_contents($html, $key, 'text/html; charset=utf-8');
+} catch (Throwable $e) {
+    $result = ['error' => $e->getMessage()];
+}
+
+if (isset($result['error'])) {
+    http_response_code(502);
+    echo json_encode(['ok' => false, 'error' => "No se pudo guardar el archivo: {$result['error']}"]);
     exit();
 }
 
-// Some Docker/network filesystems don't support file locks, so retry without LOCK_EX
-$written = @file_put_contents($path, $html, LOCK_EX);
-if ($written === false) {
-    $written = @file_put_contents($path, $html);
-}
-
-if ($written === false) {
-    $reason = error_get_last()['message'] ?? 'motivo desconocido';
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => "No se pudo guardar el archivo: {$reason}"]);
-    exit();
-}
-
-echo json_encode(['ok' => true, 'file' => "mails/difusion/{$name}.html"]);
+echo json_encode(['ok' => true, 'file' => $key]);

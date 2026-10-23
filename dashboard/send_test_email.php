@@ -17,11 +17,15 @@ require_once '../assets/csrf.php';
 require_once '../assets/db.php';
 require_once '../assets/contacts.php';
 require_once '../assets/cloudinary.php';
+require_once '../assets/mail_templates.php';
 include("../assets/nav_dashboard.php");
 
 $recipients = [];
 $message = '';
-$mail_files = glob('../mails/*/*.html');
+// Git templates + mails saved from the Mail-Builder in S3
+$mail_template_list = list_mail_templates();
+$mail_templates = $mail_template_list['templates'];
+$mail_files = array_column($mail_templates, 'value');
 $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
 
 const DEFAULT_CONTACT_INTRO = "Buenos días {{contact_name}},\n\n"
@@ -319,7 +323,10 @@ if (isset($_POST['submit'])) {
             $mail->isHTML(true);
             $mail->Subject = $subject;
 
-            $baseHtmlContent = file_get_contents($mail_template);
+            $baseHtmlContent = load_mail_template($mail_template);
+            if ($baseHtmlContent === null) {
+                die("No se pudo leer la plantilla de email.");
+            }
             if ($recipient_group === 'contacts') {
                 $baseHtmlContent = make_forwardable($baseHtmlContent);
                 $contact_intro = trim((string) ($_POST['contact_intro'] ?? '')) ?: DEFAULT_CONTACT_INTRO;
@@ -593,10 +600,13 @@ $conn->close();
                         <div class="mb-3">
                             <label for="mail_template" class="form-label">Seleccionar plantilla de email:</label>
                             <select name="mail_template" id="mail_template" class="form-select">
-                                <?php foreach ($mail_files as $file): ?>
-                                    <option value="<?php echo $file; ?>"><?php echo basename($file); ?></option>
+                                <?php foreach ($mail_templates as $template): ?>
+                                    <option value="<?php echo htmlspecialchars($template['value']); ?>" data-preview="<?php echo htmlspecialchars($template['preview']); ?>"><?php echo htmlspecialchars($template['label']); ?></option>
                                 <?php endforeach; ?>
                             </select>
+                            <?php if ($mail_template_list['error']): ?>
+                                <div class="form-text text-danger"><?php echo htmlspecialchars($mail_template_list['error']); ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="mb-3" id="mail_subject_container">
                             <label for="mail_subject" class="form-label">Asunto del email</label>
@@ -623,8 +633,8 @@ $conn->close();
     <?php include('../assets/footer.php'); ?>
     <script>
         document.getElementById('mail_template').addEventListener('change', function () {
-            var selected_file = this.value;
-            document.getElementById('preview_frame').src = selected_file;
+            var selected = this.options[this.selectedIndex];
+            document.getElementById('preview_frame').src = selected ? selected.dataset.preview : '';
         });
 
         document.getElementById('mail_template').dispatchEvent(new Event('change'));

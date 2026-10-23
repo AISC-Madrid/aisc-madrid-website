@@ -5,6 +5,9 @@
  * Provides:
  *   s3_config()                                    -> array with endpoint/region/bucket/credentials
  *   s3_put_object($localPath, $key, $contentType)  -> ['key' => '...'] | ['error' => '...']
+ *   s3_put_contents($body, $key, $contentType)     -> ['key' => '...'] | ['error' => '...']
+ *   s3_get_object($key)                            -> ['body' => '...'] | ['error' => '...', 'missing' => bool]
+ *   s3_list_keys($prefix)                          -> ['keys' => [...]] | ['error' => '...']
  *   s3_delete_object($key)                         -> ['key' => '...'] | ['error' => '...']
  *
  * No external dependencies — uses curl + hash_hmac (path-style requests, as MinIO expects).
@@ -42,12 +45,20 @@ function s3_config(): array
  *
  * @return array ['status' => HTTP code, 'body' => string] or ['error' => string]
  */
-function s3_request(string $method, string $key, string $body = '', array $headers = []): array
+function s3_request(string $method, string $key, string $body = '', array $headers = [], array $query = []): array
 {
     $cfg = s3_config();
 
     $uri = '/' . rawurlencode($cfg['bucket']) . '/'
          . implode('/', array_map('rawurlencode', explode('/', ltrim($key, '/'))));
+
+    // Query string must be sorted and RFC 3986 encoded for the signature
+    ksort($query);
+    $canonicalQuery = implode('&', array_map(
+        fn($k, $v) => rawurlencode($k) . '=' . rawurlencode((string) $v),
+        array_keys($query),
+        $query
+    ));
 
     // Host must match what curl sends, including a non-default port.
     $host = parse_url($cfg['endpoint'], PHP_URL_HOST);
@@ -71,7 +82,7 @@ function s3_request(string $method, string $key, string $body = '', array $heade
     }
     $signedHeaders = implode(';', array_keys($headers));
 
-    $canonicalRequest = "$method\n$uri\n\n$canonicalHeaders\n$signedHeaders\n$payloadHash";
+    $canonicalRequest = "$method\n$uri\n$canonicalQuery\n$canonicalHeaders\n$signedHeaders\n$payloadHash";
     $scope = "$date/{$cfg['region']}/s3/aws4_request";
     $stringToSign = "AWS4-HMAC-SHA256\n$amzDate\n$scope\n" . hash('sha256', $canonicalRequest);
 
@@ -88,7 +99,7 @@ function s3_request(string $method, string $key, string $body = '', array $heade
     $curlHeaders[] = "authorization: AWS4-HMAC-SHA256 Credential={$cfg['access_key']}/$scope, "
                    . "SignedHeaders=$signedHeaders, Signature=$signature";
 
-    $ch = curl_init($cfg['endpoint'] . $uri);
+    $ch = curl_init($cfg['endpoint'] . $uri . ($canonicalQuery !== '' ? "?$canonicalQuery" : ''));
     $opts = [
         CURLOPT_CUSTOMREQUEST  => $method,
         CURLOPT_HTTPHEADER     => $curlHeaders,
@@ -121,10 +132,20 @@ function s3_put_object(string $localPath, string $key, string $contentType = 'ap
         return ['error' => "File not found: $localPath"];
     }
 
-    $r = s3_request('PUT', $key, file_get_contents($localPath), [
+    // Keys are unique per upload, so objects never change and can be cached forever.
+    return s3_put_contents(file_get_contents($localPath), $key, $contentType, 'public, max-age=31536000, immutable');
+}
+
+/**
+ * Upload a string to the media bucket (e.g. an email template that can be overwritten later).
+ *
+ * @return array  ['key' => $key] or ['error' => string]
+ */
+function s3_put_contents(string $body, string $key, string $contentType = 'application/octet-stream', string $cacheControl = 'no-cache'): array
+{
+    $r = s3_request('PUT', $key, $body, [
         'content-type'  => $contentType,
-        // Keys are unique per upload, so objects never change and can be cached forever.
-        'cache-control' => 'public, max-age=31536000, immutable',
+        'cache-control' => $cacheControl,
     ]);
     if (isset($r['error'])) return $r;
 
@@ -133,6 +154,62 @@ function s3_put_object(string $localPath, string $key, string $contentType = 'ap
         return ['error' => "S3 upload failed: $msg"];
     }
     return ['key' => $key];
+}
+
+/**
+ * Download an object from the media bucket.
+ *
+ * @return array  ['body' => string] or ['error' => string, 'missing' => bool]
+ */
+function s3_get_object(string $key): array
+{
+    $r = s3_request('GET', $key);
+    if (isset($r['error'])) return $r + ['missing' => false];
+
+    if ($r['status'] === 404) {
+        return ['error' => "S3 object not found: $key", 'missing' => true];
+    }
+    if ($r['status'] !== 200) {
+        $msg = preg_match('#<Message>(.*?)</Message>#s', $r['body'], $m) ? $m[1] : "HTTP {$r['status']}";
+        return ['error' => "S3 download failed: $msg", 'missing' => false];
+    }
+    return ['body' => $r['body']];
+}
+
+/**
+ * List every object key under a prefix (follows pagination).
+ *
+ * @return array  ['keys' => string[]] or ['error' => string]
+ */
+function s3_list_keys(string $prefix): array
+{
+    $keys = [];
+    $token = null;
+
+    do {
+        $query = ['list-type' => '2', 'prefix' => $prefix];
+        if ($token !== null) $query['continuation-token'] = $token;
+
+        $r = s3_request('GET', '', '', [], $query);
+        if (isset($r['error'])) return $r;
+
+        if ($r['status'] !== 200) {
+            $msg = preg_match('#<Message>(.*?)</Message>#s', $r['body'], $m) ? $m[1] : "HTTP {$r['status']}";
+            return ['error' => "S3 list failed: $msg"];
+        }
+
+        preg_match_all('#<Key>(.*?)</Key>#s', $r['body'], $m);
+        foreach ($m[1] as $k) {
+            $keys[] = html_entity_decode($k, ENT_QUOTES | ENT_XML1);
+        }
+
+        $truncated = preg_match('#<IsTruncated>true</IsTruncated>#', $r['body']);
+        $token = $truncated && preg_match('#<NextContinuationToken>(.*?)</NextContinuationToken>#s', $r['body'], $t)
+            ? html_entity_decode($t[1], ENT_QUOTES | ENT_XML1)
+            : null;
+    } while ($token !== null);
+
+    return ['keys' => $keys];
 }
 
 /**
