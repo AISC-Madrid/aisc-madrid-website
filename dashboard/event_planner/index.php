@@ -71,9 +71,14 @@ unset($plan);
                 <p class="text-muted mb-0">Tareas de Eventos, Redes y Web por evento.</p>
             </div>
             <?php if ($isBoardOrAdmin): ?>
-                <a href="/dashboard/event_planner/new.php" class="btn btn-custom">
-                    <i class="bi bi-plus-lg me-1"></i> Nuevo evento
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="/dashboard/event_planner/admin/plantillas.php" class="btn btn-outline-secondary">
+                        <i class="bi bi-diagram-3 me-1"></i> Plantillas
+                    </a>
+                    <a href="/dashboard/event_planner/new.php" class="btn btn-custom">
+                        <i class="bi bi-plus-lg me-1"></i> Nuevo evento
+                    </a>
+                </div>
             <?php endif; ?>
         </div>
 

@@ -32,12 +32,16 @@
                 </form>
 
                 <?php if ($isBoardOrAdmin): ?>
-                    <form method="post" action="/dashboard/event_planner/reassign_task.php" id="epFormReassign" class="mb-2 d-flex gap-2">
+                    <form method="post" action="/dashboard/event_planner/reassign_task.php" id="epFormReassign" class="mb-2 row g-2 align-items-center">
                         <?= ep_csrf_field() ?>
                         <input type="hidden" name="plan_id" value="<?= $planId ?>">
                         <input type="hidden" name="task_id" value="">
-                        <select name="member_id" id="epReassignSelect" class="form-select form-select-sm"></select>
-                        <button type="submit" class="btn btn-outline-primary btn-sm">Reasignar</button>
+                        <div class="col-12 col-sm-8">
+                            <select name="member_id" id="epReassignSelect" class="form-select form-select-sm"></select>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <button type="submit" class="btn btn-outline-primary btn-sm w-100">Reasignar</button>
+                        </div>
                     </form>
 
                     <form method="post" action="/dashboard/event_planner/skip_task.php" id="epFormSkip" onsubmit="return confirm('¿Marcar esta tarea como No aplica?');">

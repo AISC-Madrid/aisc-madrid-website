@@ -142,6 +142,7 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
                         <?php if ($plan['location']): ?><p class="text-muted mb-0"><i class="bi bi-geo-alt me-1"></i><?= htmlspecialchars($plan['location']) ?></p><?php endif; ?>
                         <?php if ($plan['drive_folder_url']): ?><p class="mb-0"><a href="<?= htmlspecialchars($plan['drive_folder_url']) ?>" target="_blank"><i class="bi bi-folder2-open me-1"></i>Carpeta de Drive</a></p><?php endif; ?>
                         <?php if ($plan['public_event_id']): ?><p class="mb-0"><a href="/events/evento.php?id=<?= (int) $plan['public_event_id'] ?>" target="_blank"><i class="bi bi-link-45deg me-1"></i>Ver evento público</a></p><?php endif; ?>
+                        <p class="mb-0 mt-2"><a href="/dashboard/event_planner/report_pdf.php?id=<?= $planId ?>" class="btn btn-sm btn-outline-secondary" target="_blank"><i class="bi bi-file-earmark-pdf me-1"></i>Descargar informe PDF</a></p>
                     </div>
                     <?php if ($isBoardOrAdmin): ?>
                         <div class="dropdown">
@@ -151,6 +152,7 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#epDateModal">Cambiar fecha/hora</a></li>
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#epLinkModal">Enlazar con evento público</a></li>
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#epAddTaskModal">Añadir tarea</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/event_planner/admin/plantillas.php">Plantillas de tareas</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <?php if ($plan['status'] === 'draft'): ?>
                                     <li><form method="post" action="/dashboard/event_planner/transition_status.php"><?= ep_csrf_field() ?><input type="hidden" name="plan_id" value="<?= $planId ?>"><input type="hidden" name="new_status" value="confirmed"><button class="dropdown-item" type="submit">Confirmar evento</button></form></li>

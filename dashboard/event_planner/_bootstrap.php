@@ -9,6 +9,7 @@ $config = include __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../../assets/csrf.php';
 require_once __DIR__ . '/../../event_planner/lib/auth.php';
 require_once __DIR__ . '/../../event_planner/lib/plan_service.php'; // arrastra clock/teams/graph/recompute/notifications/mailer/activity_log
+require_once __DIR__ . '/../../event_planner/lib/template_service.php';
 
 $currentMember = ep_require_active_member($conn);
 $isBoardOrAdmin = ep_is_board_or_admin($currentMember);

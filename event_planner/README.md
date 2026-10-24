@@ -1,8 +1,20 @@
-# Planificador de eventos (Fase 1 — motor y correos)
+# Planificador de eventos
 
-Tracker interno de tareas por evento, en `dashboard/event_planner/` (Fase 2). Esta carpeta
-(`event_planner/lib/`) es la capa de dominio: nada de esto se sirve directamente al
-navegador salvo `lib/mail_templates/*.html`, que solo se usan como plantillas internas.
+Tracker interno de tareas por evento (sustituye al Excel), en `dashboard/event_planner/`.
+Esta carpeta (`event_planner/lib/`) es la capa de dominio: nada de esto se sirve
+directamente al navegador salvo `lib/mail_templates/*.html`, que solo se usan como
+plantillas internas.
+
+Páginas del dashboard:
+- `index.php` — listado (Activos/Archivados).
+- `new.php` — asistente de 3 pasos para crear un evento.
+- `plan.php` — detalle: Kanban por estado/equipo, línea temporal, checklist, actividad,
+  informe PDF, acciones de junta/admin (editar, cambiar fecha, confirmar/cerrar/cancelar,
+  enlazar evento público, añadir tarea).
+- `mis_tareas.php` — tareas activas del miembro conectado + próximas (bloqueadas).
+- `admin/plantillas.php` y `admin/checklist.php` — CRUD de las plantillas (junta/admin).
+- `report_pdf.php` — informe PDF del plan, con FPDF (ya usado en el repo para la lista de
+  asistentes; no se añadió dompdf para no duplicar librería de PDF).
 
 ## Aplicar el esquema (manual, igual que el resto de `migrations/`)
 
@@ -58,8 +70,30 @@ No se tocó la tabla `members`. El equipo de cada miembro se deriva de la column
 - `role = 'admin' | 'finance'` → sin equipo (no pueden ocupar un slot, pero si además
   `board = 'yes'` o `role = 'admin'` sí son "junta o admin" a efectos de permisos)
 
-## Siguiente (Fase 2)
+## Entorno local (Windows + Herd + MySQL local)
 
-Páginas del dashboard (`dashboard/event_planner/`): listado, asistente de 3 pasos, detalle
-(Kanban + línea temporal + checklist + actividad), "Mis tareas", deep links con `?next=`
-(ya soportado en `login.php`).
+Si `vendor/` tiene paquetes que no pintan nada aquí (Laravel, etc. — sobras de otro
+proyecto en la misma carpeta), o `vendor/fpdf` no existe pese a estar en `composer.json`,
+corre `composer install` para sincronizarlo con `composer.lock`. `vendor/` está en
+`.gitignore`, así que esto es puramente local y no afecta al repo.
+
+Pasos para correr el sitio en local (ver también la guía paso a paso que se dio durante
+el desarrollo):
+1. `config.php` (gitignored, cada quien el suyo) con `db_host/db_name/db_user/db_pass`
+   apuntando a una base de datos de desarrollo con el esquema completo del sitio.
+2. Aplicar `migrations/05-event-planner-schema.sql` y `06-event-planner-seed.sql`.
+3. `php -S localhost:8000` desde la raíz del proyecto.
+4. Login en `/login.php` con un miembro de prueba (`active='yes'`; `board='yes'` o
+   `role='admin'` para probar las acciones de junta).
+
+## Decisiones de la Fase 3
+
+- **PDF con FPDF**, no dompdf: en `dev` ya se añadió `fpdf/fpdf` (lo usa
+  `processing/export_attendees_pdf.php`), así que se reutilizó esa convención en vez de
+  añadir una segunda librería de PDF para lo mismo.
+- Las plantillas no se borran de verdad desde el admin, se desactivan (`is_active = 0`):
+  un borrado real podría dejar huérfana la dependencia de otra plantilla activa. La
+  checklist sí se borra de verdad (no tiene dependencias y no afecta a planes ya creados).
+- Cada guardado de plantilla valida el grafo completo de plantillas activas
+  (`event_planner_validate_template_graph`); si queda un ciclo, se hace `ROLLBACK` y se
+  muestra el error en vez de guardar.
