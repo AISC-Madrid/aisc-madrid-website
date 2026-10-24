@@ -50,9 +50,10 @@ function sim_create_member(mysqli $conn, string $label, string $role): int
     $mail = 'simulacion+' . $label . '-' . bin2hex(random_bytes(3)) . '@aiscmadrid.test';
     $hash = password_hash('simulacion', PASSWORD_DEFAULT);
     $fullName = 'Simulación ' . ucfirst($label);
+    // Solo las columnas imprescindibles: el resto son opcionales/nullable y pueden no
+    // existir todavía en una copia local desactualizada del esquema de `members`.
     $stmt = $conn->prepare(
-        "INSERT INTO members (full_name, mail, password_hash, position_es, position_en, phone, dni, socials, board, active, image_path, role, is_honor, graduation_year, honor_quote)
-         VALUES (?, ?, ?, '', '', '', '', '', 'no', 'yes', '', ?, 'no', NULL, NULL)"
+        "INSERT INTO members (full_name, mail, password_hash, board, active, role) VALUES (?, ?, ?, 'no', 'yes', ?)"
     );
     $stmt->bind_param('ssss', $fullName, $mail, $hash, $role);
     $stmt->execute();
@@ -164,6 +165,7 @@ try {
 
     $cursor = $eventStart->modify('-40 days');
     $end = $eventStart->modify('+12 days');
+    $dateChangeApplied = false;
 
     while ($cursor <= $end) {
         $offset = (int) $cursor->diff($eventStart)->format('%r%a') * -1; // días respecto al evento (negativo = antes)
@@ -184,6 +186,10 @@ try {
                     echo "  día {$cursor->format('Y-m-d')} (evento{$offset}): AVISO '{$arg}' no estaba activa (status actual: " . ($taskId ? sim_task_status($conn, $taskId) : 'no encontrada') . ")\n";
                 }
             } elseif ($type === 'date_change') {
+                if ($dateChangeApplied) {
+                    continue; // offset relativo al nuevo eventStart puede volver a coincidir; solo una vez
+                }
+                $dateChangeApplied = true;
                 $newStart = $eventStart->modify("{$arg} days");
                 $newStartUtc = $newStart->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
                 event_planner_change_event_datetime($conn, $config, $planId, $newStartUtc, 90, $boardMemberId);
