@@ -362,22 +362,30 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
             }
 
             ['epFormComplete', 'epFormSkip', 'epFormReassign'].forEach(function (id) {
-                document.getElementById(id).querySelector('input[name=task_id]').value = d.id;
+                var form = document.getElementById(id);
+                if (form) form.querySelector('input[name=task_id]').value = d.id;
             });
 
-            document.getElementById('epFormComplete').style.display = (d.status === 'active') ? '' : 'none';
-            document.getElementById('epFormSkip').style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';
-            document.getElementById('epFormReassign').style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';
+            var completeForm = document.getElementById('epFormComplete');
+            if (completeForm) completeForm.style.display = (d.status === 'active') ? '' : 'none';
+
+            var skipForm = document.getElementById('epFormSkip');
+            if (skipForm) skipForm.style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';
+
+            var reassignForm = document.getElementById('epFormReassign');
+            if (reassignForm) reassignForm.style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';
 
             var select = document.getElementById('epReassignSelect');
-            select.innerHTML = '';
-            (EP_MEMBERS_BY_TEAM[d.team] || []).forEach(function (m) {
-                var opt = document.createElement('option');
-                opt.value = m.id;
-                opt.textContent = m.full_name;
-                if (String(m.id) === d.assigneeId) opt.selected = true;
-                select.appendChild(opt);
-            });
+            if (select) {
+                select.innerHTML = '';
+                (EP_MEMBERS_BY_TEAM[d.team] || []).forEach(function (m) {
+                    var opt = document.createElement('option');
+                    opt.value = m.id;
+                    opt.textContent = m.full_name;
+                    if (String(m.id) === d.assigneeId) opt.selected = true;
+                    select.appendChild(opt);
+                });
+            }
 
             epModal.show();
         }
