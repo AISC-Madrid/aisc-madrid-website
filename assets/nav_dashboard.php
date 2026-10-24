@@ -71,6 +71,20 @@ if (!function_exists('isAllowed')) {
           </li>
         <?php endif; ?>
 
+        <?php if ($rol_actual !== 'guest'): ?>
+          <!-- Planificador de eventos (todos los miembros activos) -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/event_planner/index.php">
+              <i class="bi bi-kanban me-1"></i> Planificador
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/event_planner/mis_tareas.php">
+              <i class="bi bi-list-check me-1"></i> Mis tareas
+            </a>
+          </li>
+        <?php endif; ?>
+
         <?php if (isAllowed('scan')): ?>
           <!-- Escanear asistencia de eventos -->
           <li class="nav-item">

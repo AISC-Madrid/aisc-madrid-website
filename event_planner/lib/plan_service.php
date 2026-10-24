@@ -527,6 +527,33 @@ function event_planner_cancel_plan(mysqli $conn, array $config, int $planId, int
     event_planner_transition_plan_status($conn, $config, $planId, 'cancelled', $actorId, 'cancelled_by_board');
 }
 
+function event_planner_update_plan_details(mysqli $conn, int $planId, array $data, int $actorId): void
+{
+    $plan = ep_fetch_plan($conn, $planId);
+    if (!$plan) {
+        throw new EventPlannerValidationException('Plan no encontrado.');
+    }
+    if (trim($data['title'] ?? '') === '') {
+        throw new EventPlannerValidationException('El título no puede estar vacío.');
+    }
+
+    $stmt = $conn->prepare(
+        "UPDATE event_plans SET title = ?, description = ?, speaker_name = ?, speaker_company = ?, speaker_contact = ?, location = ?, drive_folder_url = ? WHERE id = ?"
+    );
+    $title = trim($data['title']);
+    $description = $data['description'] ?: null;
+    $speakerName = trim($data['speaker_name'] ?? $plan['speaker_name']);
+    $speakerCompany = $data['speaker_company'] ?: null;
+    $speakerContact = $data['speaker_contact'] ?: null;
+    $location = $data['location'] ?: null;
+    $driveFolderUrl = $data['drive_folder_url'] ?: null;
+    $stmt->bind_param('sssssssi', $title, $description, $speakerName, $speakerCompany, $speakerContact, $location, $driveFolderUrl, $planId);
+    $stmt->execute();
+    $stmt->close();
+
+    event_planner_log($conn, $planId, $actorId, 'plan_details_updated', []);
+}
+
 function event_planner_link_public_event(mysqli $conn, int $planId, int $publicEventId, int $actorId): void
 {
     $stmt = $conn->prepare("UPDATE event_plans SET public_event_id = ? WHERE id = ?");

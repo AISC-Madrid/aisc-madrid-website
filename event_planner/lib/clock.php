@@ -44,3 +44,11 @@ function event_planner_start_threshold(string $startDate): DateTimeImmutable
 {
     return new DateTimeImmutable($startDate . ' 09:00:00', event_planner_timezone());
 }
+
+// "YYYY-MM-DD HH:MM" en hora de Madrid (lo que escribe el usuario en el asistente) -> cadena
+// DATETIME en UTC (lo que se guarda en event_plans.starts_at, igual que events.start_datetime).
+function event_planner_local_to_utc(string $localDateTime): string
+{
+    $dt = new DateTimeImmutable($localDateTime, event_planner_timezone());
+    return $dt->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+}
