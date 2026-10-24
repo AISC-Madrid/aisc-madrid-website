@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('event_types')) {
+            return;
+        }
+
         Schema::create('event_types', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
