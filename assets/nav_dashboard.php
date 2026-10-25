@@ -47,7 +47,7 @@ if (!function_exists('isAllowed')) {
         <?php if (isAllowed('usuarios')): ?>
           <!-- Users -->
           <li class="nav-item">
-            <a class="nav-link" href="dashboard/users.php">
+            <a class="nav-link" href="/dashboard/users.php">
               <i class="bi bi-people me-1"></i> Usuarios
             </a>
           </li>
@@ -115,7 +115,7 @@ if (!function_exists('isAllowed')) {
         <?php if (isAllowed('proyectos')): ?>
           <!-- Projects -->
           <li class="nav-item">
-            <a class="nav-link" href="../projects/projects_list.php">
+            <a class="nav-link" href="/projects/projects_list.php">
               <i class="bi bi-diagram-3 me-1"></i> Proyectos
             </a>
           </li>
@@ -124,7 +124,7 @@ if (!function_exists('isAllowed')) {
         <?php if (isAllowed('equipo')): ?>
           <!-- Equipo -->
           <li class="nav-item">
-            <a class="nav-link" href="dashboard/team_members/team_members_list.php">
+            <a class="nav-link" href="/dashboard/team_members/team_members_list.php">
               <i class="bi bi-cup-hot me-1"></i> Equipo
             </a>
           </li>
