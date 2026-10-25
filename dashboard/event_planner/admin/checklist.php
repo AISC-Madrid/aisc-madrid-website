@@ -59,6 +59,7 @@ foreach ($items as $i) {
     <title>Checklist del día - Planificador - AISC Madrid</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles3.css">
     <?php include __DIR__ . '/../_partials/styles.php'; ?>
 </head>
 
