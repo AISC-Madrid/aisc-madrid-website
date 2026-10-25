@@ -44,15 +44,6 @@ if (!function_exists('isAllowed')) {
     <div class="collapse navbar-collapse justify-content-end" id="dashboardNav">
       <ul class="navbar-nav align-items-center">
 
-        <?php if (isAllowed('resumen')): ?>
-          <!-- Dashboard link -->
-          <li class="nav-item">
-            <a class="nav-link active" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_dashboard.php' : '/dashboard/dashboard.php'; ?>">
-              <i class="bi bi-house-door me-1"></i> Resumen
-            </a>
-          </li>
-        <?php endif; ?>
-
         <?php if (isAllowed('usuarios')): ?>
           <!-- Users -->
           <li class="nav-item">
@@ -103,20 +94,11 @@ if (!function_exists('isAllowed')) {
           </li>
         <?php endif; ?>
 
-        <?php if (isAllowed('create-email')): ?>
-          <!-- Crear correo -->
+        <?php if (isAllowed('create-email') || isAllowed('email')): ?>
+          <!-- Email: crear plantillas / probar envío (página única con pestañas) -->
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/mail_creation.php">
-              <i class="bi bi-envelope-plus me-1"></i> Crear Email
-            </a>
-          </li>
-        <?php endif; ?>
-
-        <?php if (isAllowed('email')): ?>
-          <!-- Probar envío de correo -->
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/send_test_email.php">
-              <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
+            <a class="nav-link" href="/dashboard/email.php">
+              <i class="bi bi-envelope me-1"></i> Email
             </a>
           </li>
         <?php endif; ?>
