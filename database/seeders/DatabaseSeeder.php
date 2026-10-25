@@ -25,5 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(MemberSeeder::class);
         $this->call(EventSeeder::class);
         $this->call(ProjectSeeder::class);
+        $this->call(ContactSeeder::class);
+        $this->call(ContactEmailLogSeeder::class);
+        $this->call(EventGuestAccessSeeder::class);
+        $this->call(CollaborationSeeder::class);
     }
 }
