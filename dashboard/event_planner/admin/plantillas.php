@@ -184,36 +184,38 @@ foreach ($templates as $t) {
         <?php endif; ?>
 
         <?php foreach (['EVENTOS', 'REDES', 'WEB'] as $team): ?>
-            <h5 class="mt-4"><?= ep_team_badge($team) ?></h5>
-            <div class="table-responsive">
-                <table class="table table-sm table-hover align-middle">
-                    <thead class="table-light">
-                        <tr><th>Clave</th><th>Título</th><th>Límite</th><th>Inicio</th><th>Gate</th><th>Depende de</th><th>Estado</th><th></th></tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($byTeam[$team] as $t): ?>
-                            <tr class="<?= $t['is_active'] ? '' : 'text-muted' ?>">
-                                <td><code><?= htmlspecialchars($t['key']) ?></code></td>
-                                <td><?= htmlspecialchars($t['title']) ?><?= $t['confirms_event'] ? ' <span class="badge bg-info">confirma</span>' : '' ?></td>
-                                <td><?= (int) $t['due_offset_days'] ?></td>
-                                <td><?= $t['start_offset_days'] !== null ? (int) $t['start_offset_days'] : '—' ?></td>
-                                <td><?= htmlspecialchars($t['gate']) ?></td>
-                                <td class="small"><?= htmlspecialchars(implode(', ', array_column($t['_deps'], 'title'))) ?></td>
-                                <td><?= $t['is_active'] ? '<span class="badge bg-success">Activa</span>' : '<span class="badge bg-secondary">Inactiva</span>' ?></td>
-                                <td class="text-end">
-                                    <a href="?edit=<?= (int) $t['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a>
-                                    <form method="post" class="d-inline">
-                                        <?= ep_csrf_field() ?>
-                                        <input type="hidden" name="form_action" value="toggle_active">
-                                        <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
-                                        <input type="hidden" name="active" value="<?= $t['is_active'] ? '0' : '1' ?>">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary"><?= $t['is_active'] ? 'Desactivar' : 'Activar' ?></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-white"><?= ep_team_badge($team) ?> <span class="text-muted small">(<?= count($byTeam[$team]) ?>)</span></div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr><th>Clave</th><th>Título</th><th>Límite</th><th>Inicio</th><th>Gate</th><th>Depende de</th><th>Estado</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($byTeam[$team] as $t): ?>
+                                <tr class="<?= $t['is_active'] ? '' : 'text-muted' ?>">
+                                    <td><code><?= htmlspecialchars($t['key']) ?></code></td>
+                                    <td><?= htmlspecialchars($t['title']) ?><?= $t['confirms_event'] ? ' <span class="badge text-bg-info ms-1"><i class="bi bi-patch-check-fill me-1"></i>confirma</span>' : '' ?></td>
+                                    <td><?= (int) $t['due_offset_days'] ?></td>
+                                    <td><?= $t['start_offset_days'] !== null ? (int) $t['start_offset_days'] : '—' ?></td>
+                                    <td><span class="badge text-bg-light border"><?= htmlspecialchars($t['gate']) ?></span></td>
+                                    <td class="small text-muted"><?= htmlspecialchars(implode(', ', array_column($t['_deps'], 'title'))) ?: '—' ?></td>
+                                    <td><?= $t['is_active'] ? '<span class="badge bg-success"><i class="bi bi-check-lg me-1"></i>Activa</span>' : '<span class="badge bg-secondary">Inactiva</span>' ?></td>
+                                    <td class="text-end text-nowrap">
+                                        <a href="?edit=<?= (int) $t['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                        <form method="post" class="d-inline">
+                                            <?= ep_csrf_field() ?>
+                                            <input type="hidden" name="form_action" value="toggle_active">
+                                            <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
+                                            <input type="hidden" name="active" value="<?= $t['is_active'] ? '0' : '1' ?>">
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="bi <?= $t['is_active'] ? 'bi-eye-slash' : 'bi-eye' ?>"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>

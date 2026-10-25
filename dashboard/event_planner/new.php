@@ -191,11 +191,18 @@ if ($step === 3) {
     <div class="container my-5 scroll-margin">
         <h2 class="mb-4"><i class="bi bi-plus-lg me-2"></i>Nuevo evento</h2>
 
-        <ul class="nav nav-pills mb-4">
-            <li class="nav-item"><span class="nav-link <?= $step === 1 ? 'active' : 'disabled text-muted' ?>">1. Datos</span></li>
-            <li class="nav-item"><span class="nav-link <?= $step === 2 ? 'active' : 'disabled text-muted' ?>">2. Personas</span></li>
-            <li class="nav-item"><span class="nav-link <?= $step === 3 ? 'active' : 'disabled text-muted' ?>">3. Revisar tareas</span></li>
-        </ul>
+        <div class="ep-stepper">
+            <?php
+            $stepDefs = [1 => ['Datos', 'bi-card-text'], 2 => ['Personas', 'bi-people-fill'], 3 => ['Revisar tareas', 'bi-list-check']];
+            foreach ($stepDefs as $num => [$label, $icon]):
+                $state = $num === $step ? 'is-active' : ($num < $step ? 'is-done' : '');
+                ?>
+                <div class="ep-step <?= $state ?>">
+                    <span class="ep-step-circle"><?php if ($num < $step): ?><i class="bi bi-check-lg"></i><?php else: ?><?= $num ?><?php endif; ?></span>
+                    <span class="ep-step-label"><?= $label ?></span>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">

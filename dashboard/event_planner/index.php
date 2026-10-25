@@ -93,40 +93,45 @@ unset($plan);
         </ul>
 
         <?php if (empty($plans)): ?>
-            <p class="text-muted">No hay eventos <?= $tab === 'archived' ? 'archivados' : 'activos' ?>.</p>
+            <?= ep_empty_state(
+                'bi-calendar-x',
+                $tab === 'archived' ? 'No hay eventos archivados' : 'No hay eventos activos',
+                $tab === 'archived' ? '' : ($isBoardOrAdmin ? 'Crea el primero con el botón "Nuevo evento".' : 'La junta aún no ha creado ningún evento.')
+            ) ?>
         <?php endif; ?>
 
         <div class="row g-3">
             <?php foreach ($plans as $plan): ?>
                 <div class="col-12 col-md-6 col-lg-4">
-                    <a href="/dashboard/event_planner/plan.php?id=<?= (int) $plan['id'] ?>" class="text-decoration-none text-reset">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <a href="/dashboard/event_planner/plan.php?id=<?= (int) $plan['id'] ?>" class="text-decoration-none text-reset d-block h-100">
+                        <div class="card ep-event-card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
                                     <h5 class="card-title mb-0"><?= htmlspecialchars($plan['title']) ?></h5>
-                                    <span class="badge bg-dark"><?= ep_plan_status_label($plan['status']) ?></span>
+                                    <?= ep_plan_status_badge($plan['status']) ?>
                                 </div>
-                                <p class="text-muted small mb-2"><?= htmlspecialchars($plan['speaker_name']) ?> · <?= ep_fmt_datetime_madrid($plan['starts_at']) ?></p>
+                                <p class="ep-event-meta mb-1"><i class="bi bi-mic-fill"></i> <?= htmlspecialchars($plan['speaker_name']) ?></p>
+                                <p class="ep-event-meta mb-3"><i class="bi bi-calendar3"></i> <?= ep_fmt_datetime_madrid($plan['starts_at']) ?></p>
 
                                 <div class="progress ep-progress-thin mb-1">
-                                    <div class="progress-bar bg-success" style="width: <?= $plan['_progress'] ?>%"></div>
+                                    <div class="progress-bar" style="width: <?= $plan['_progress'] ?>%"></div>
                                 </div>
-                                <p class="small text-muted mb-2">
-                                    <?= $plan['_pending'] ?> pendientes
+                                <p class="small text-muted mb-3">
+                                    <?= $plan['_progress'] ?>% completado · <?= $plan['_pending'] ?> pendientes
                                     <?php if ($plan['_overdue'] > 0): ?>
-                                        · <span class="text-danger fw-bold"><?= $plan['_overdue'] ?> atrasadas</span>
+                                        · <span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> <?= $plan['_overdue'] ?> atrasadas</span>
                                     <?php endif; ?>
                                 </p>
 
                                 <?php if (!empty($plan['_next_due'])): ?>
-                                    <ul class="small mb-2 ps-3">
+                                    <ul class="small mb-3 ps-3 text-muted">
                                         <?php foreach ($plan['_next_due'] as $t): ?>
                                             <li><?= htmlspecialchars($t['title']) ?> — <?= ep_fmt_date($t['due_date']) ?></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 <?php endif; ?>
 
-                                <p class="small text-muted mb-0"><i class="bi bi-people me-1"></i><?= htmlspecialchars(implode(', ', $plan['_assignees'])) ?></p>
+                                <p class="ep-event-meta mb-0 mt-auto"><i class="bi bi-people-fill"></i> <?= htmlspecialchars(implode(', ', $plan['_assignees'])) ?></p>
                             </div>
                         </div>
                     </a>

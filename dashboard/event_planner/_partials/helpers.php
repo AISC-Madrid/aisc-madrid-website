@@ -13,9 +13,20 @@ function ep_status_label(string $status): string
     };
 }
 
+function ep_status_icon(string $status): string
+{
+    return match ($status) {
+        'blocked' => 'bi-lock-fill',
+        'active' => 'bi-play-circle-fill',
+        'done' => 'bi-check-circle-fill',
+        'skipped' => 'bi-slash-circle',
+        default => 'bi-circle',
+    };
+}
+
 function ep_status_badge(string $status): string
 {
-    return '<span class="badge ep-status-' . $status . '">' . ep_status_label($status) . '</span>';
+    return '<span class="badge ep-status-' . $status . '"><i class="bi ' . ep_status_icon($status) . ' me-1"></i>' . ep_status_label($status) . '</span>';
 }
 
 function ep_team_label(string $team): string
@@ -28,9 +39,20 @@ function ep_team_label(string $team): string
     };
 }
 
-function ep_team_badge(string $team): string
+function ep_team_icon(string $team): string
 {
-    return '<span class="badge ep-team-' . $team . '">' . ep_team_label($team) . '</span>';
+    return match ($team) {
+        'EVENTOS' => 'bi-calendar-event-fill',
+        'REDES' => 'bi-megaphone-fill',
+        'WEB' => 'bi-code-slash',
+        default => 'bi-people-fill',
+    };
+}
+
+function ep_team_badge(string $team, bool $soft = false): string
+{
+    $class = $soft ? 'ep-team-soft-' . $team : 'ep-team-' . $team;
+    return '<span class="badge ' . $class . '"><i class="bi ' . ep_team_icon($team) . ' me-1"></i>' . ep_team_label($team) . '</span>';
 }
 
 function ep_plan_status_label(string $status): string
@@ -43,6 +65,75 @@ function ep_plan_status_label(string $status): string
         'cancelled' => 'Cancelado',
         default => $status,
     };
+}
+
+function ep_plan_status_icon(string $status): string
+{
+    return match ($status) {
+        'draft' => 'bi-pencil-square',
+        'confirmed' => 'bi-patch-check-fill',
+        'held' => 'bi-mic-fill',
+        'closed' => 'bi-check-circle-fill',
+        'cancelled' => 'bi-x-circle-fill',
+        default => 'bi-circle',
+    };
+}
+
+function ep_plan_status_badge(string $status): string
+{
+    return '<span class="badge ep-plan-' . $status . '"><i class="bi ' . ep_plan_status_icon($status) . ' me-1"></i>' . ep_plan_status_label($status) . '</span>';
+}
+
+// Pill con icono de reloj para la fecha límite, en rojo/ámbar si procede (ver ep_due_class).
+function ep_due_pill(string $dueDate, string $status): string
+{
+    $class = ep_due_class($dueDate, $status);
+    $icon = $class === 'ep-due-overdue' ? 'bi-exclamation-circle-fill' : 'bi-calendar3';
+    return '<span class="ep-due-pill ' . $class . '"><i class="bi ' . $icon . '"></i>' . ep_fmt_date($dueDate) . '</span>';
+}
+
+function ep_activity_label(string $action): string
+{
+    return match ($action) {
+        'plan_created' => 'Evento creado',
+        'task_activated' => 'Tarea activada',
+        'task_completed' => 'Tarea completada',
+        'task_skipped' => 'Tarea marcada como No aplica',
+        'task_reassigned' => 'Tarea reasignada',
+        'custom_task_added' => 'Tarea personalizada añadida',
+        'event_datetime_changed' => 'Fecha del evento cambiada',
+        'plan_status_changed' => 'Estado del evento cambiado',
+        'plan_held' => 'El evento se ha celebrado',
+        'plan_closed' => 'Evento cerrado',
+        'public_event_linked' => 'Enlazado con el evento público',
+        'plan_details_updated' => 'Datos del evento actualizados',
+        default => $action,
+    };
+}
+
+function ep_activity_icon(string $action): string
+{
+    return match (true) {
+        $action === 'plan_created' => 'bi-flag-fill',
+        str_starts_with($action, 'task_activated') => 'bi-play-fill',
+        str_starts_with($action, 'task_completed') => 'bi-check-lg',
+        str_starts_with($action, 'task_skipped') => 'bi-slash-circle',
+        str_starts_with($action, 'task_reassigned') => 'bi-arrow-left-right',
+        $action === 'custom_task_added' => 'bi-plus-lg',
+        $action === 'event_datetime_changed' => 'bi-calendar3',
+        str_starts_with($action, 'plan_status') || str_starts_with($action, 'plan_held') || str_starts_with($action, 'plan_closed') => 'bi-flag',
+        $action === 'public_event_linked' => 'bi-link-45deg',
+        default => 'bi-dot',
+    };
+}
+
+function ep_empty_state(string $icon, string $title, string $subtitle = ''): string
+{
+    $html = '<div class="ep-empty-state"><i class="bi ' . $icon . '"></i><h5 class="mb-1">' . htmlspecialchars($title) . '</h5>';
+    if ($subtitle !== '') {
+        $html .= '<p class="mb-0 small">' . htmlspecialchars($subtitle) . '</p>';
+    }
+    return $html . '</div>';
 }
 
 function ep_fmt_date(?string $date): string

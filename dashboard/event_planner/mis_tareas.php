@@ -82,13 +82,13 @@ unset($bt);
         foreach ($sections as $key => $label):
             if (empty($groups[$key])) continue;
             ?>
-            <h5 class="mt-4 <?= $key === 'overdue' ? 'text-danger' : '' ?>"><?= $label ?> (<?= count($groups[$key]) ?>)</h5>
+            <h5 class="mt-4 <?= $key === 'overdue' ? 'text-danger' : '' ?>"><i class="bi <?= $key === 'overdue' ? 'bi-exclamation-triangle-fill' : 'bi-calendar-week' ?> me-1"></i><?= $label ?> (<?= count($groups[$key]) ?>)</h5>
             <?php foreach ($groups[$key] as $t): ?>
-                <div class="card mb-2 shadow-sm">
+                <div class="card mb-2 ep-task-card ep-team-border-<?= $t['team'] ?>">
                     <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div>
                             <div class="fw-semibold"><?= htmlspecialchars($t['title']) ?></div>
-                            <div class="small text-muted"><?= htmlspecialchars($t['plan_title']) ?> · <span class="<?= ep_due_class($t['due_date'], $t['status']) ?>">Límite: <?= ep_fmt_date($t['due_date']) ?></span></div>
+                            <div class="small text-muted d-flex align-items-center gap-2 flex-wrap"><?= htmlspecialchars($t['plan_title']) ?> <?= ep_due_pill($t['due_date'], $t['status']) ?></div>
                         </div>
                         <div class="d-flex gap-2">
                             <a href="/dashboard/event_planner/plan.php?id=<?= (int) $t['plan_id'] ?>&task=<?= (int) $t['id'] ?>" class="btn btn-sm btn-outline-secondary">Ver</a>
@@ -105,24 +105,24 @@ unset($bt);
         <?php endforeach; ?>
 
         <?php if (empty($groups['overdue']) && empty($groups['this_week']) && empty($groups['later'])): ?>
-            <p class="text-muted">No tienes tareas activas ahora mismo.</p>
+            <?= ep_empty_state('bi-emoji-sunglasses', 'Nada pendiente ahora mismo', '¡Al día! Mira "Próximamente" si quieres ver lo que viene.') ?>
         <?php endif; ?>
 
         <?php if (!empty($blockedTasks)): ?>
             <button class="btn btn-outline-secondary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#epUpcoming">
-                Próximamente (<?= count($blockedTasks) ?>) <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-hourglass-split me-1"></i>Próximamente (<?= count($blockedTasks) ?>) <i class="bi bi-chevron-down"></i>
             </button>
             <div class="collapse mt-2" id="epUpcoming">
                 <?php foreach ($blockedTasks as $t): ?>
-                    <div class="card mb-2">
+                    <div class="card mb-2 ep-team-border-<?= $t['team'] ?>" style="border-left-width:4px;border-left-style:solid;">
                         <div class="card-body">
-                            <div class="fw-semibold"><?= htmlspecialchars($t['title']) ?></div>
+                            <div class="fw-semibold text-muted"><?= htmlspecialchars($t['title']) ?></div>
                             <div class="small text-muted"><?= htmlspecialchars($t['plan_title']) ?> · Límite: <?= ep_fmt_date($t['due_date']) ?></div>
                             <div class="small">
                                 <?php if (!empty($t['_blocking'])): ?>
-                                    Bloqueada por: <?= htmlspecialchars(implode(', ', $t['_blocking'])) ?>
+                                    <i class="bi bi-lock-fill me-1"></i>Bloqueada por: <?= htmlspecialchars(implode(', ', $t['_blocking'])) ?>
                                 <?php else: ?>
-                                    Esperando a que se cumpla su condición de activación (gate).
+                                    <i class="bi bi-hourglass-split me-1"></i>Esperando a que se cumpla su condición de activación.
                                 <?php endif; ?>
                             </div>
                         </div>

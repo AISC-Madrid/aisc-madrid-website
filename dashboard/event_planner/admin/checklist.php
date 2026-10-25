@@ -118,26 +118,29 @@ foreach ($items as $i) {
         <?php endif; ?>
 
         <?php foreach (['EVENTOS', 'REDES', 'WEB'] as $team): ?>
-            <h5 class="mt-4"><?= ep_team_badge($team) ?></h5>
-            <table class="table table-sm align-middle">
-                <tbody>
-                    <?php foreach ($byTeam[$team] as $it): ?>
-                        <tr class="<?= $it['is_active'] ? '' : 'text-muted' ?>">
-                            <td><?= htmlspecialchars($it['title']) ?></td>
-                            <td><?= $it['is_active'] ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>' ?></td>
-                            <td class="text-end">
-                                <a href="?edit=<?= (int) $it['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a>
-                                <form method="post" class="d-inline" onsubmit="return confirm('¿Eliminar este ítem de checklist?');">
-                                    <?= ep_csrf_field() ?>
-                                    <input type="hidden" name="form_action" value="delete">
-                                    <input type="hidden" name="id" value="<?= (int) $it['id'] ?>">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-white"><?= ep_team_badge($team) ?></div>
+                <table class="table table-sm align-middle mb-0">
+                    <tbody>
+                        <?php foreach ($byTeam[$team] as $it): ?>
+                            <tr class="<?= $it['is_active'] ? '' : 'text-muted' ?>">
+                                <td><?= htmlspecialchars($it['title']) ?></td>
+                                <td><?= $it['is_active'] ? '<span class="badge bg-success"><i class="bi bi-check-lg me-1"></i>Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>' ?></td>
+                                <td class="text-end text-nowrap">
+                                    <a href="?edit=<?= (int) $it['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                    <form method="post" class="d-inline" onsubmit="return confirm('¿Eliminar este ítem de checklist?');">
+                                        <?= ep_csrf_field() ?>
+                                        <input type="hidden" name="form_action" value="delete">
+                                        <input type="hidden" name="id" value="<?= (int) $it['id'] ?>">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($byTeam[$team])): ?><tr><td colspan="3" class="text-muted small text-center py-3">Sin ítems.</td></tr><?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endforeach; ?>
     </div>
 

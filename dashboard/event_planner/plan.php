@@ -138,10 +138,14 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
                     <div>
-                        <h3 class="mb-0"><?= htmlspecialchars($plan['title']) ?> <span class="badge bg-dark"><?= ep_plan_status_label($plan['status']) ?></span></h3>
-                        <p class="text-muted mb-0"><?= htmlspecialchars($plan['speaker_name']) ?><?= $plan['speaker_company'] ? ' · ' . htmlspecialchars($plan['speaker_company']) : '' ?> — <?= ep_fmt_datetime_madrid($plan['starts_at']) ?> (<?= (int) $plan['duration_minutes'] ?> min)</p>
-                        <?php if ($plan['location']): ?><p class="text-muted mb-0"><i class="bi bi-geo-alt me-1"></i><?= htmlspecialchars($plan['location']) ?></p><?php endif; ?>
-                        <?php if ($plan['drive_folder_url']): ?><p class="mb-0"><a href="<?= htmlspecialchars($plan['drive_folder_url']) ?>" target="_blank"><i class="bi bi-folder2-open me-1"></i>Carpeta de Drive</a></p><?php endif; ?>
+                        <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                            <h3 class="mb-0"><?= htmlspecialchars($plan['title']) ?></h3>
+                            <?= ep_plan_status_badge($plan['status']) ?>
+                        </div>
+                        <p class="ep-event-meta mb-0"><i class="bi bi-mic-fill"></i> <?= htmlspecialchars($plan['speaker_name']) ?><?= $plan['speaker_company'] ? ' · ' . htmlspecialchars($plan['speaker_company']) : '' ?></p>
+                        <p class="ep-event-meta mb-0"><i class="bi bi-calendar3"></i> <?= ep_fmt_datetime_madrid($plan['starts_at']) ?> · <?= (int) $plan['duration_minutes'] ?> min</p>
+                        <?php if ($plan['location']): ?><p class="ep-event-meta mb-0"><i class="bi bi-geo-alt-fill"></i> <?= htmlspecialchars($plan['location']) ?></p><?php endif; ?>
+                        <?php if ($plan['drive_folder_url']): ?><p class="mb-0 mt-1"><a href="<?= htmlspecialchars($plan['drive_folder_url']) ?>" target="_blank"><i class="bi bi-folder2-open me-1"></i>Carpeta de Drive</a></p><?php endif; ?>
                         <?php if ($plan['public_event_id']): ?><p class="mb-0"><a href="/events/evento.php?id=<?= (int) $plan['public_event_id'] ?>" target="_blank"><i class="bi bi-link-45deg me-1"></i>Ver evento público</a></p><?php endif; ?>
                         <p class="mb-0 mt-2"><a href="/dashboard/event_planner/report_pdf.php?id=<?= $planId ?>" class="btn btn-sm btn-outline-secondary" target="_blank"><i class="bi bi-file-earmark-pdf me-1"></i>Descargar informe PDF</a></p>
                     </div>
@@ -169,14 +173,14 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
                     <?php endif; ?>
                 </div>
 
-                <div class="progress ep-progress-thin mb-2"><div class="progress-bar bg-success" style="width: <?= $progress ?>%"></div></div>
-                <p class="small text-muted mb-2"><?= $counts['done'] ?> completadas, <?= $counts['active'] ?> activas, <?= $counts['blocked'] ?> bloqueadas, <?= $counts['skipped'] ?> no aplica</p>
+                <div class="progress ep-progress-thin mb-2"><div class="progress-bar" style="width: <?= $progress ?>%"></div></div>
+                <p class="small text-muted mb-3"><?= $progress ?>% · <?= $counts['done'] ?> completadas, <?= $counts['active'] ?> activas, <?= $counts['blocked'] ?> bloqueadas, <?= $counts['skipped'] ?> no aplica</p>
 
-                <p class="small mb-0"><i class="bi bi-people me-1"></i>
+                <div class="d-flex flex-wrap gap-2">
                     <?php foreach ($planMembers as $pm): ?>
-                        <span class="me-2"><?= htmlspecialchars($pm['slot']) ?>: <?= htmlspecialchars($pm['full_name']) ?></span>
+                        <span class="badge text-bg-light border"><i class="bi bi-person-fill me-1"></i><?= htmlspecialchars($pm['slot']) ?>: <?= htmlspecialchars($pm['full_name']) ?></span>
                     <?php endforeach; ?>
-                </p>
+                </div>
             </div>
         </div>
 
@@ -190,18 +194,22 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
             <div class="row g-3">
                 <?php foreach (['blocked' => 'Bloqueada', 'active' => 'Activa', 'done' => 'Completada'] as $status => $label): ?>
                     <div class="col-md-4">
-                        <h6><?= $label ?> (<?= count($byStatus[$status]) ?>)</h6>
+                        <div class="ep-kanban-head">
+                            <span class="fw-semibold"><i class="bi <?= ep_status_icon($status) ?> me-1"></i><?= $label ?></span>
+                            <span class="ep-kanban-count"><?= count($byStatus[$status]) ?></span>
+                        </div>
                         <div class="ep-kanban-col">
                             <?php foreach ($byStatus[$status] as $t): ?>
                                 <?php include __DIR__ . '/_partials/task_card.php'; ?>
                             <?php endforeach; ?>
+                            <?php if (empty($byStatus[$status])): ?><p class="text-muted small text-center mb-0 py-2">Sin tareas</p><?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
             <?php if (!empty($byStatus['skipped'])): ?>
                 <div class="mt-3">
-                    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#epSkippedCol">No aplica (<?= count($byStatus['skipped']) ?>)</button>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#epSkippedCol"><i class="bi bi-slash-circle me-1"></i>No aplica (<?= count($byStatus['skipped']) ?>)</button>
                     <div class="collapse ep-kanban-col mt-2" id="epSkippedCol">
                         <?php foreach ($byStatus['skipped'] as $t): ?>
                             <?php include __DIR__ . '/_partials/task_card.php'; ?>
@@ -215,7 +223,10 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
             <div class="row g-3">
                 <?php foreach (['EVENTOS', 'REDES', 'WEB'] as $team): ?>
                     <div class="col-md-4">
-                        <h6><?= ep_team_badge($team) ?> (<?= count($byTeam[$team]) ?>)</h6>
+                        <div class="ep-kanban-head">
+                            <?= ep_team_badge($team) ?>
+                            <span class="ep-kanban-count"><?= count($byTeam[$team]) ?></span>
+                        </div>
                         <div class="ep-kanban-col">
                             <?php foreach ($byTeam[$team] as $t): ?>
                                 <?php include __DIR__ . '/_partials/task_card.php'; ?>
@@ -228,11 +239,18 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
 
         <!-- Línea temporal -->
         <div class="card shadow-sm my-4">
-            <div class="card-header">Línea temporal</div>
+            <div class="card-header"><i class="bi bi-clock-history me-1"></i>Línea temporal</div>
             <div class="card-body">
+                <div class="ep-timeline-legend">
+                    <span><span class="dot" style="background:#6c757d"></span>Bloqueada</span>
+                    <span><span class="dot" style="background:#0d6efd"></span>Activa</span>
+                    <span><span class="dot" style="background:#198754"></span>Completada</span>
+                    <span><span class="dot" style="background:#212529;opacity:.5"></span>Hoy</span>
+                    <span><span class="dot" style="background:var(--ep-primary)"></span>Día del evento</span>
+                </div>
                 <?php foreach (['EVENTOS', 'REDES', 'WEB'] as $team): ?>
-                    <div class="mb-2">
-                        <small class="text-muted"><?= ep_team_label($team) ?></small>
+                    <div class="mb-3">
+                        <small class="text-muted fw-semibold"><i class="bi <?= ep_team_icon($team) ?> me-1"></i><?= ep_team_label($team) ?></small>
                         <div class="ep-timeline-row">
                             <div class="ep-timeline-track"></div>
                             <?php
@@ -240,7 +258,7 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
                             $eventPct = ep_timeline_pct($eventDateStr, $timelineMin, $timelineSpanDays);
                             ?>
                             <div class="ep-timeline-marker" style="left: <?= $todayPct ?>%;" title="Hoy"></div>
-                            <div class="ep-timeline-marker" style="left: <?= $eventPct ?>%; background:#EB178E;" title="Día del evento"></div>
+                            <div class="ep-timeline-marker ep-timeline-event" style="left: <?= $eventPct ?>%;" title="Día del evento"></div>
                             <?php foreach ($byTeam[$team] as $t): if ($t['status'] === 'skipped') continue; ?>
                                 <?php
                                 $duePct = ep_timeline_pct($t['due_date'], $timelineMin, $timelineSpanDays);
@@ -261,23 +279,24 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
 
         <!-- Checklist del día del evento -->
         <div class="card shadow-sm mb-4">
-            <div class="card-header">Checklist del día del evento</div>
+            <div class="card-header"><i class="bi bi-check2-square me-1"></i>Checklist del día del evento</div>
             <div class="card-body">
                 <div class="row">
                     <?php foreach (['EVENTOS', 'REDES', 'WEB'] as $team): ?>
                         <div class="col-md-4">
-                            <h6><?= ep_team_label($team) ?></h6>
+                            <h6><?= ep_team_badge($team, true) ?></h6>
                             <?php foreach ($checklistByTeam[$team] as $ci): ?>
-                                <form method="post" action="/dashboard/event_planner/toggle_checklist.php" class="form-check mb-1">
+                                <form method="post" action="/dashboard/event_planner/toggle_checklist.php" class="form-check ep-checklist-item mb-1">
                                     <?= ep_csrf_field() ?>
                                     <input type="hidden" name="plan_id" value="<?= $planId ?>">
                                     <input type="hidden" name="item_id" value="<?= (int) $ci['id'] ?>">
                                     <input type="hidden" name="done" value="<?= $ci['done'] ? '0' : '1' ?>">
                                     <input class="form-check-input" type="checkbox" <?= $ci['done'] ? 'checked' : '' ?> onchange="this.form.submit()">
                                     <label class="form-check-label <?= $ci['done'] ? 'text-decoration-line-through text-muted' : '' ?>"><?= htmlspecialchars($ci['title']) ?></label>
-                                    <?php if ($ci['done']): ?><div class="form-text">por <?= htmlspecialchars($ci['done_by_name'] ?? '?') ?></div><?php endif; ?>
+                                    <?php if ($ci['done']): ?><div class="form-text"><i class="bi bi-check-circle-fill text-success me-1"></i>por <?= htmlspecialchars($ci['done_by_name'] ?? '?') ?></div><?php endif; ?>
                                 </form>
                             <?php endforeach; ?>
+                            <?php if (empty($checklistByTeam[$team])): ?><p class="text-muted small">Sin ítems.</p><?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -286,17 +305,19 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
 
         <!-- Actividad -->
         <div class="card shadow-sm mb-5">
-            <div class="card-header">Actividad</div>
-            <ul class="list-group list-group-flush">
+            <div class="card-header"><i class="bi bi-activity me-1"></i>Actividad</div>
+            <div class="card-body">
                 <?php foreach ($activity as $log): ?>
-                    <li class="list-group-item small">
-                        <span class="text-muted"><?= (new DateTimeImmutable($log['created_at'], new DateTimeZone('UTC')))->setTimezone(event_planner_timezone())->format('d/m/Y H:i') ?></span>
-                        — <strong><?= htmlspecialchars($log['actor_name'] ?? 'Sistema') ?></strong>
-                        — <?= htmlspecialchars($log['action']) ?>
-                    </li>
+                    <div class="ep-activity-item">
+                        <span class="ep-activity-icon"><i class="bi <?= ep_activity_icon($log['action']) ?>"></i></span>
+                        <div>
+                            <div class="small"><strong><?= htmlspecialchars($log['actor_name'] ?? 'Sistema') ?></strong> — <?= htmlspecialchars(ep_activity_label($log['action'])) ?></div>
+                            <div class="text-muted" style="font-size:.78rem;"><?= (new DateTimeImmutable($log['created_at'], new DateTimeZone('UTC')))->setTimezone(event_planner_timezone())->format('d/m/Y H:i') ?></div>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
-                <?php if (empty($activity)): ?><li class="list-group-item text-muted small">Sin actividad todavía.</li><?php endif; ?>
-            </ul>
+                <?php if (empty($activity)): ?><p class="text-muted small mb-0">Sin actividad todavía.</p><?php endif; ?>
+            </div>
         </div>
     </div>
 
