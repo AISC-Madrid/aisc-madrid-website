@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyFilters() {
     if (activeFilters.size === 0 || activeFilters.has('all')) {
       cards.forEach(c => c.style.display = '');
+      updateSections();
       return;
     }
 
@@ -26,6 +27,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const types = (card.dataset.type || '').split(/\s+/).filter(Boolean);
       const visible = Array.from(activeFilters).some(f => types.includes(f));
       card.style.display = visible ? '' : 'none';
+    });
+    updateSections();
+  }
+
+  // Events page: keep each section's counter in sync with the filter,
+  // show the "no upcoming events" message and hide the past section when empty
+  function updateSections() {
+    document.querySelectorAll('.events-section').forEach(section => {
+      const visible = Array.from(section.querySelectorAll('.event-card'))
+        .filter(c => c.style.display !== 'none').length;
+      const count = section.querySelector('.events-count');
+      const empty = section.querySelector('.events-empty');
+
+      if (count) count.textContent = visible;
+      if (empty) {
+        empty.hidden = visible > 0;
+      } else {
+        section.hidden = visible === 0;
+      }
     });
   }
 
