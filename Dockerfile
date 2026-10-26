@@ -20,6 +20,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copy the project
 COPY . /var/www/html/
 
+# config.php is not in git: build it from environment variables if missing
+RUN if [ ! -f /var/www/html/config.php ]; then cp /var/www/html/config.env.php /var/www/html/config.php; fi
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
