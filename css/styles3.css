@@ -183,6 +183,13 @@ footer {
   will-change: transform, background-color, border-color;
 }
 
+.event-future .card {
+  display: block;
+}
+
+.event-past {
+  display: block;
+}
 
 /*Language button styling*/
 .btn-custom.dropdown-toggle.show {
@@ -461,149 +468,9 @@ form label {
 }
 
 .upcoming-badge {     /* Indicator in card that the event is future */
-  color: #fff !important;
-  background: var(--primary) !important;
+    color: #EB178E !important;
+    background: linear-gradient(135deg, rgba(235, 23, 142, .15), rgba(32, 204, 241, .15)) !important;
   margin: 10px;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
-  box-shadow: 0 2px 8px rgba(235, 23, 142, 0.4);
-}
-
-/* ===== Events page: upcoming vs past ===== */
-.events-section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.events-section-title h3 {
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--muted);
-}
-
-.events-count {
-  min-width: 28px;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.events-section--past .events-count {
-  background: #6c757d;
-}
-
-.events-section--past .events-section-title h3 {
-  color: #6c757d;
-}
-
-.events-live-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--primary);
-  animation: events-pulse 2s infinite;
-}
-
-@keyframes events-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(235, 23, 142, 0.6); }
-  70% { box-shadow: 0 0 0 10px rgba(235, 23, 142, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(235, 23, 142, 0); }
-}
-
-/* Upcoming: coloured border and glow */
-.event-future .card {
-  border: 2px solid var(--primary);
-  box-shadow: 0 6px 20px rgba(235, 23, 142, 0.18) !important;
-}
-
-/* Past: black and white image, muted text, colour returns on hover */
-.event-past .card {
-  background-color: #f1f1f1;
-  border-color: transparent;
-}
-
-.event-past .card-img-top {
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.event-past .card:hover .card-img-top {
-  filter: none;
-  opacity: 1;
-}
-
-.event-past .card-title,
-.event-past .card-text {
-  color: #6c757d;
-}
-
-.event-past .card-more-badge {
-  background-color: #6c757d;
-}
-
-.past-badge {
-  color: #fff !important;
-  background: #6c757d !important;
-  margin: 10px;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .events-live-dot { animation: none; }
-}
-
-/* Event cards: keep a whole card inside one screen.
-   The poster is never cropped; on short screens it shrinks and the sides are filled with grey. */
-.event-card .img-container {
-  aspect-ratio: 1 / 1;
-  max-height: 45vh;
-  width: 100%;
-  overflow: hidden;
-  background-color: #ececec;
-  border-top-left-radius: var(--bs-card-inner-border-radius);
-  border-top-right-radius: var(--bs-card-inner-border-radius);
-}
-
-.event-card .img-container .card-img-top {
-  width: 100%;
-  height: 100%;
-  object-fit: contain !important;
-}
-
-/* Status badge sits on the top-left corner of the image, not over the title */
-.event-card .upcoming-badge,
-.event-card .past-badge {
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.event-card .card-body > .p-3 {
-  padding: 0.75rem 1rem 3rem !important;
-}
-
-.event-card .card-title {
-  margin-top: 0.25rem !important;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-}
-
-.event-card .card-text {
-  margin-bottom: 0.35rem;
-  font-size: 0.95rem;
-  line-height: 1.4;
 }
 
 .filter-button {
