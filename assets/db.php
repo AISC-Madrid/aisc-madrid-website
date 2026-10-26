@@ -27,9 +27,13 @@ $user = $config['db_user'];
 $pass = $config['db_pass'];
 
 // Conexión
-@$conn = new mysqli($host, $user, $pass, $db, $port);
-if ($conn->connect_error) {
-    header("Location: /?error=connection#get-involved");
+// mysqli throws on connection failure since PHP 8.1, so catch it instead of crashing with a 500
+try {
+    $conn = new mysqli($host, $user, $pass, $db, $port);
+} catch (mysqli_sql_exception $e) {
+    error_log('DB connection failed (' . $host . ':' . $port . '): ' . $e->getMessage());
+    http_response_code(503);
+    echo 'Database unavailable. Please try again later.';
     exit;
 }
 ?>
