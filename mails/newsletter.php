@@ -260,10 +260,6 @@ function generarNewsletterHTML($full_name, $token) {
 
                 // Send newsletter
                 if (isset($_POST['confirm_send'])) {
-                    // Release the session lock and keep sending even if the tab is closed
-                    session_write_close();
-                    set_time_limit(0);
-                    ignore_user_abort(true);
                     $sql = "SELECT full_name, email, unsubscribe_token FROM form_submissions WHERE newsletter = 'yes'";
                     $result = $conn->query($sql);
                       /* Add mails to not sent the newsletter to */
