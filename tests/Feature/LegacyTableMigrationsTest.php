@@ -21,4 +21,8 @@ test('legacy table migrations skip tables that already exist', function (string 
     ['2026_09_11_170107_create_event_speakers_table', 'event_speakers'],
     ['2026_09_11_171104_create_projects_table', 'projects'],
     ['2026_09_12_000000_create_alumni_honor_table', 'alumni_honor'],
+    ['2026_10_25_112827_create_contacts_table', 'contacts'],
+    ['2026_10_25_112847_create_contact_email_logs_table', 'contact_email_logs'],
+    ['2026_10_25_112857_create_event_guest_accesses_table', 'event_guest_access'],
+    ['2026_10_25_112906_create_collaborations_table', 'collaborations'],
 ]);

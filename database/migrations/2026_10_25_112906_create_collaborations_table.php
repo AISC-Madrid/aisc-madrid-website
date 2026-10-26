@@ -8,6 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasTable('collaborations')) {
+            return;
+        }
+
         Schema::create('collaborations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
