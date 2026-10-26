@@ -125,6 +125,12 @@ if (isset($_POST['submit'])) {
         http_response_code(403);
         die("Token CSRF inválido.");
     }
+    // Bulk sends take minutes: release the session lock so other dashboard tabs keep working,
+    // and keep sending even if the browser tab is closed.
+    session_write_close();
+    set_time_limit(0);
+    ignore_user_abort(true);
+
     if (!in_array($_POST['mail_template'] ?? '', $mail_files, true)) {
         die("Plantilla de email inválida.");
     }

@@ -14,6 +14,10 @@ RUN printf "upload_max_filesize=20M\npost_max_size=64M\nmax_file_uploads=30\nmem
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
+# Cap Apache processes so traffic spikes queue instead of exhausting the VPS memory
+COPY docker/apache-limits.conf /etc/apache2/conf-available/zz-limits.conf
+RUN a2enconf zz-limits
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -26,4 +30,10 @@ RUN composer install --no-dev --optimize-autoloader
 # Permissions
 RUN chown -R www-data:www-data /var/www/html
 
+# Start Apache plus the background email worker
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh$//' /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 80
+
+CMD ["/usr/local/bin/entrypoint.sh"]
