@@ -23,11 +23,8 @@ while ($row = $events->fetch_assoc()) {
   }
 }
 
-$events_to_display = [];
-
-// First event to apear should be the soonest upcoming one, after the closest future events, we put all the past ones.
+// Upcoming events: soonest first. Past events: most recent first.
 $future_events = array_reverse($future_events);
-$events_to_display = array_merge($future_events, $past_events);
 
 ?>
 
@@ -46,7 +43,7 @@ $events_to_display = array_merge($future_events, $past_events);
     </h6>
   </div>
 </div>
-<<section class="section mt-5">
+<section class="section">
   <div class="px-3 px-md-5">
 
     <!-- Filter Buttons Row -->
@@ -63,9 +60,37 @@ $events_to_display = array_merge($future_events, $past_events);
     </div>
 
 
+    <?php
+    $event_sections = [
+      ['events' => $future_events, 'en' => 'Upcoming events', 'es' => 'Próximos eventos', 'color' => 'var(--primary)'],
+      ['events' => $past_events, 'en' => 'Past events', 'es' => 'Eventos pasados', 'color' => 'var(--muted)'],
+    ];
+    ?>
+    <?php foreach ($event_sections as $index => $section): ?>
+      <?php if ($index > 0): ?>
+        <hr class="my-5">
+      <?php endif; ?>
+
+      <div class="d-flex align-items-center gap-2 mb-4">
+        <h3 class="fw-bold mb-0" style="color: <?= $section['color'] ?>;" data-en="<?= $section['en'] ?>"
+          data-es="<?= $section['es'] ?>">
+          <?= $section['es'] ?>
+        </h3>
+        <span class="badge rounded-pill bg-light text-dark border"><?= count($section['events']) ?></span>
+      </div>
+
+      <?php if (empty($section['events'])): ?>
+        <?php if ($index === 0): ?>
+        <p class="text-muted text-center py-4" data-en="There are no upcoming events right now. Stay tuned!"
+          data-es="Ahora mismo no hay eventos próximos. ¡Atento a las novedades!">
+          Ahora mismo no hay eventos próximos. ¡Atento a las novedades!
+        </p>
+        <?php endif; ?>
+      <?php continue; endif; ?>
+
     <!-- Cards Grid -->
     <div class="row g-4 justify-content-center">
-      <?php foreach ($events_to_display as $event): ?>
+      <?php foreach ($section['events'] as $event): ?>
         <?php
         $type = strtolower(trim(htmlspecialchars($event['type_en'])));
         $endDate = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
@@ -121,6 +146,7 @@ $events_to_display = array_merge($future_events, $past_events);
         </div>
       <?php endforeach; ?>
     </div>
+    <?php endforeach; ?>
 
 
   </div>
