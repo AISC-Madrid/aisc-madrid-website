@@ -44,19 +44,10 @@ if (!function_exists('isAllowed')) {
     <div class="collapse navbar-collapse justify-content-end" id="dashboardNav">
       <ul class="navbar-nav align-items-center">
 
-        <?php if (isAllowed('resumen')): ?>
-          <!-- Dashboard link -->
-          <li class="nav-item">
-            <a class="nav-link active" href="<?php echo ($rol_actual === 'guest') ? '/dashboard/guests/guest_dashboard.php' : '/dashboard/dashboard.php'; ?>">
-              <i class="bi bi-house-door me-1"></i> Resumen
-            </a>
-          </li>
-        <?php endif; ?>
-
         <?php if (isAllowed('usuarios')): ?>
           <!-- Users -->
           <li class="nav-item">
-            <a class="nav-link" href="dashboard/users.php">
+            <a class="nav-link" href="/dashboard/users.php">
               <i class="bi bi-people me-1"></i> Usuarios
             </a>
           </li>
@@ -67,6 +58,20 @@ if (!function_exists('isAllowed')) {
           <li class="nav-item">
             <a class="nav-link" href="/events/events_list.php">
               <i class="bi bi-calendar-event me-1"></i> Eventos
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php if ($rol_actual !== 'guest'): ?>
+          <!-- Planificador de eventos (todos los miembros activos) -->
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/event_planner/index.php">
+              <i class="bi bi-kanban me-1"></i> Planificador
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/event_planner/mis_tareas.php">
+              <i class="bi bi-list-check me-1"></i> Mis tareas
             </a>
           </li>
         <?php endif; ?>
@@ -89,20 +94,11 @@ if (!function_exists('isAllowed')) {
           </li>
         <?php endif; ?>
 
-        <?php if (isAllowed('create-email')): ?>
-          <!-- Crear correo -->
+        <?php if (isAllowed('create-email') || isAllowed('email')): ?>
+          <!-- Email: crear plantillas / probar envío (página única con pestañas) -->
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/mail_creation.php">
-              <i class="bi bi-envelope-plus me-1"></i> Crear Email
-            </a>
-          </li>
-        <?php endif; ?>
-
-        <?php if (isAllowed('email')): ?>
-          <!-- Probar envío de correo -->
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/send_test_email.php">
-              <i class="bi bi-envelope me-1"></i> Probar Envío de Correo
+            <a class="nav-link" href="/dashboard/email.php">
+              <i class="bi bi-envelope me-1"></i> Email
             </a>
           </li>
         <?php endif; ?>
@@ -119,7 +115,7 @@ if (!function_exists('isAllowed')) {
         <?php if (isAllowed('proyectos')): ?>
           <!-- Projects -->
           <li class="nav-item">
-            <a class="nav-link" href="../projects/projects_list.php">
+            <a class="nav-link" href="/projects/projects_list.php">
               <i class="bi bi-diagram-3 me-1"></i> Proyectos
             </a>
           </li>
@@ -128,7 +124,7 @@ if (!function_exists('isAllowed')) {
         <?php if (isAllowed('equipo')): ?>
           <!-- Equipo -->
           <li class="nav-item">
-            <a class="nav-link" href="dashboard/team_members/team_members_list.php">
+            <a class="nav-link" href="/dashboard/team_members/team_members_list.php">
               <i class="bi bi-cup-hot me-1"></i> Equipo
             </a>
           </li>
