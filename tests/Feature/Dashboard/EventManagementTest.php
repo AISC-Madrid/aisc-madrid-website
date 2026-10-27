@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\StoreWebpImage;
 use App\Enums\MemberRole;
 use App\Models\Event;
 use App\Models\Member;
@@ -8,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\UnableToWriteFile;
 
 /**
  * The legacy event_registrations table has no Laravel migration yet; create it with the
@@ -292,4 +294,108 @@ test('the sidebar links to the events tab', function () {
     $this->actingAs(Member::factory()->role(MemberRole::Marketing)->create())
         ->get(route('dashboard'))
         ->assertSee(route('dashboard.events.index'), false);
+});
+
+test('a failed upload sends the member back to the form instead of a 500', function () {
+    $this->mock(StoreWebpImage::class, function ($mock) {
+        $mock->shouldReceive('__invoke')->andThrow(UnableToWriteFile::atLocation('events-workshops/1/img.webp', 'no credentials'));
+    });
+
+    $this->actingAs(eventsAdmin())
+        ->from(route('dashboard.events.create'))
+        ->post(route('dashboard.events.store'), validEventInput([
+            'image' => UploadedFile::fake()->image('cover.jpg'),
+        ]))
+        ->assertRedirect(route('dashboard.events.create'))
+        ->assertSessionHasErrors('image')
+        ->assertSessionHasInput('title_es', 'Taller de IA');
+
+    expect(Event::count())->toBe(0);
+});
+
+test('a failed upload while editing keeps the event unchanged', function () {
+    $event = Event::factory()->create(['title_es' => 'Título original', 'image_path' => 'events-workshops/5/cover.webp']);
+
+    $this->mock(StoreWebpImage::class, function ($mock) {
+        $mock->shouldReceive('__invoke')->andThrow(UnableToWriteFile::atLocation('events-workshops/5/img.webp', 'no credentials'));
+    });
+
+    $this->actingAs(eventsAdmin())
+        ->from(route('dashboard.events.edit', $event))
+        ->put(route('dashboard.events.update', $event), validEventInput([
+            'title_es' => 'Título nuevo',
+            'image' => UploadedFile::fake()->image('cover.jpg'),
+        ]))
+        ->assertRedirect(route('dashboard.events.edit', $event))
+        ->assertSessionHasErrors('image');
+
+    expect($event->refresh())
+        ->title_es->toBe('Título original')
+        ->image_path->toBe('events-workshops/5/cover.webp');
+});
+
+test('the s3 disk accepts the legacy S3_* variable names and always uses path-style URLs', function () {
+    $legacy = [
+        'S3_ACCESS_KEY' => 'legacy-key',
+        'S3_SECRET_KEY' => 'legacy-secret',
+        'AWS_ACCESS_KEY_ID' => '',
+        'AWS_SECRET_ACCESS_KEY' => '',
+        'AWS_USE_PATH_STYLE_ENDPOINT' => 'false',
+    ];
+    $previous = [];
+
+    foreach ($legacy as $name => $value) {
+        $previous[$name] = getenv($name);
+        putenv("{$name}={$value}");
+        $_ENV[$name] = $_SERVER[$name] = $value;
+    }
+
+    try {
+        $s3 = (require config_path('filesystems.php'))['disks']['s3'];
+    } finally {
+        foreach ($previous as $name => $value) {
+            putenv($value === false ? $name : "{$name}={$value}");
+            unset($_ENV[$name], $_SERVER[$name]);
+        }
+    }
+
+    expect($s3)
+        ->key->toBe('legacy-key')
+        ->secret->toBe('legacy-secret')
+        ->use_path_style_endpoint->toBeTrue();
+});
+
+test('a PHP error while processing images also goes back to the form', function () {
+    $this->mock(StoreWebpImage::class, function ($mock) {
+        $mock->shouldReceive('__invoke')->andThrow(new Error('Call to undefined function imagewebp()'));
+    });
+
+    $this->actingAs(eventsAdmin())
+        ->from(route('dashboard.events.create'))
+        ->post(route('dashboard.events.store'), validEventInput([
+            'image' => UploadedFile::fake()->image('cover.jpg'),
+        ]))
+        ->assertRedirect(route('dashboard.events.create'))
+        ->assertSessionHasErrors('image');
+
+    expect(session('errors')->first('image'))
+        ->toContain('No se pudo guardar el evento')
+        ->toContain('Error: Call to undefined function imagewebp()');
+    expect(Event::count())->toBe(0);
+});
+
+test('large photos are scaled down to at most 2000px before being stored', function () {
+    $key = app(StoreWebpImage::class)(UploadedFile::fake()->image('phone-photo.jpg', 4000, 3000), 'events-workshops/9');
+
+    $size = getimagesizefromstring(Storage::disk('s3')->get($key));
+
+    expect($key)->toEndWith('.webp');
+    expect([$size[0], $size[1]])->toBe([2000, 1500]);
+    expect(Storage::disk('s3')->size($key))->toBeLessThanOrEqual(1_048_576);
+});
+
+test('the s3 disk only sends checksums when required, for MinIO compatibility', function () {
+    expect(config('filesystems.disks.s3'))
+        ->request_checksum_calculation->toBe('when_required')
+        ->response_checksum_validation->toBe('when_required');
 });

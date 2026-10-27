@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * Dashboard events tab, the Laravel version of the legacy events/events_list.php:
@@ -60,16 +61,21 @@ class EventController extends Controller
 
     public function store(EventRequest $request): RedirectResponse
     {
-        $event = DB::transaction(function () use ($request): Event {
-            $event = Event::create($request->eventAttributes());
+        try {
+            // If an upload fails the transaction rolls back, so no half-created event is left behind.
+            $event = DB::transaction(function () use ($request): Event {
+                $event = Event::create($request->eventAttributes());
 
-            $event->update([
-                'image_path' => ($this->storeWebpImage)($request->file('image'), $this->folderFor($event)),
-                'gallery_paths' => $this->storeGallery($request, $event),
-            ]);
+                $event->update([
+                    'image_path' => ($this->storeWebpImage)($request->file('image'), $this->folderFor($event)),
+                    'gallery_paths' => $this->storeGallery($request, $event),
+                ]);
 
-            return $event;
-        });
+                return $event;
+            });
+        } catch (Throwable $exception) {
+            return $this->uploadFailed($exception);
+        }
 
         return to_route('dashboard.events.index')
             ->with('status', __('Evento «:title» creado.', ['title' => $event->title_es]));
@@ -87,12 +93,16 @@ class EventController extends Controller
     {
         $attributes = $request->eventAttributes();
 
-        if ($request->hasFile('image')) {
-            $attributes['image_path'] = ($this->storeWebpImage)($request->file('image'), $this->folderFor($event));
-        }
+        try {
+            if ($request->hasFile('image')) {
+                $attributes['image_path'] = ($this->storeWebpImage)($request->file('image'), $this->folderFor($event));
+            }
 
-        if ($request->hasFile('gallery')) {
-            $attributes['gallery_paths'] = $this->storeGallery($request, $event);
+            if ($request->hasFile('gallery')) {
+                $attributes['gallery_paths'] = $this->storeGallery($request, $event);
+            }
+        } catch (Throwable $exception) {
+            return $this->uploadFailed($exception);
         }
 
         $event->update($attributes);
@@ -130,6 +140,22 @@ class EventController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="'.$filename.'"',
         ]);
+    }
+
+    /**
+     * Saving the event or its images failed: log the full error and send the member back to the
+     * form (with what they typed) instead of a 500 page. Only admin / events members reach this,
+     * so a short technical reason is shown to help diagnose problems on the server.
+     */
+    private function uploadFailed(Throwable $exception): RedirectResponse
+    {
+        report($exception);
+
+        $reason = class_basename($exception).': '.Str::limit($exception->getMessage(), 220);
+
+        return back()
+            ->withInput()
+            ->withErrors(['image' => __('No se pudo guardar el evento ni sus imágenes. Inténtalo de nuevo y, si sigue fallando, avisa al equipo web. (Detalle: :reason)', ['reason' => $reason])]);
     }
 
     private function folderFor(Event $event): string

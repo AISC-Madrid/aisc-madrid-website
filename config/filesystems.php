@@ -49,16 +49,23 @@ return [
 
         // Media bucket (MinIO at s3.aiscmadrid.com). Stored keys look like
         // "events-workshops/10/cover.webp"; Storage::disk('s3')->url($key) gives the public URL.
+        // `?:` so empty values left over from the default .env still use the bucket defaults, and the
+        // legacy site's variable names (S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET...) also work.
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            // `?:` so empty values left over from the default .env still use the bucket defaults.
-            'region' => env('AWS_DEFAULT_REGION') ?: 'us-east-1',
-            'bucket' => env('AWS_BUCKET') ?: 'aisc-public',
+            'key' => env('AWS_ACCESS_KEY_ID') ?: env('S3_ACCESS_KEY'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY') ?: env('S3_SECRET_KEY'),
+            'region' => env('AWS_DEFAULT_REGION') ?: (env('S3_REGION') ?: 'us-east-1'),
+            'bucket' => env('AWS_BUCKET') ?: (env('S3_BUCKET') ?: 'aisc-public'),
             'url' => env('AWS_URL') ?: (env('MEDIA_BASE_URL') ?: 'https://s3.aiscmadrid.com/aisc-public'),
-            'endpoint' => env('AWS_ENDPOINT') ?: 'https://s3.aiscmadrid.com',
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', true),
+            'endpoint' => env('AWS_ENDPOINT') ?: (env('S3_ENDPOINT') ?: 'https://s3.aiscmadrid.com'),
+            // MinIO only understands path-style URLs (s3.aiscmadrid.com/aisc-public/key). Laravel's default
+            // .env sets AWS_USE_PATH_STYLE_ENDPOINT=false, which would break uploads, so it is always on.
+            'use_path_style_endpoint' => true,
+            // AWS SDK 3.337+ adds CRC32 checksums / aws-chunked uploads to every request by default,
+            // which MinIO behind a proxy rejects. Only send them when an operation requires it.
+            'request_checksum_calculation' => 'when_required',
+            'response_checksum_validation' => 'when_required',
             'throw' => true,
             'report' => false,
         ],
