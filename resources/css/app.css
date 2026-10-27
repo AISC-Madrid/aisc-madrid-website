@@ -89,3 +89,42 @@
 [x-cloak] {
     display: none !important;
 }
+
+/* Home page company logo banner: endless horizontal scroll, faded at the edges. */
+.aisc-marquee {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.aisc-marquee-track {
+    animation: aisc-marquee 45s linear infinite;
+}
+
+@keyframes aisc-marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aisc-marquee {
+        mask-image: none;
+    }
+
+    .aisc-marquee-track {
+        animation: none;
+        width: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .aisc-marquee-track > ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 1.5rem;
+        padding-inline: 1.5rem;
+    }
+
+    .aisc-marquee-track > ul[aria-hidden="true"] {
+        display: none;
+    }
+}

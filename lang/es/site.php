@@ -45,6 +45,10 @@ return [
             'logo_alt' => 'Logotipo de la asociación AISC Madrid',
         ],
 
+        'companies' => [
+            'title' => 'Empresas con las que hemos organizado eventos',
+        ],
+
         'events' => [
             'title' => 'Eventos',
             'empty' => 'Próximamente aparecerán aquí los eventos.',

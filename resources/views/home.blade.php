@@ -29,6 +29,9 @@
             </div>
         </header>
 
+        {{-- Companies we have organised events with --}}
+        <x-company-logos />
+
         {{-- Events --}}
         <section
             id="events"

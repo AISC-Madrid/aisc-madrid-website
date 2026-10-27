@@ -45,6 +45,10 @@ return [
             'logo_alt' => 'AISC Madrid association logo',
         ],
 
+        'companies' => [
+            'title' => "Companies we've organised events with",
+        ],
+
         'events' => [
             'title' => 'Events',
             'empty' => 'Upcoming events will appear here soon.',
