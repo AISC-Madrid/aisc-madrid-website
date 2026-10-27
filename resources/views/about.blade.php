@@ -1,5 +1,24 @@
 <x-layouts.public :title="__('site.about.title') . ' - AISC Madrid'">
 
+    @php
+        // Same images as the legacy about_us.php (cdn('images/...') on Cloudinary).
+        $teamPhotoUrl = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/resources/equipoAISC.jpg';
+        $missionImageUrl = 'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/logos/PNG/Understand%20AI%20Unlock%20Potential.png';
+
+        $chapterLink = fn (string $name, string $url): string => sprintf(
+            '<a href="%s" target="_blank" rel="noopener noreferrer" class="font-medium text-primary underline-offset-4 hover:underline">%s</a>',
+            e($url),
+            e($name),
+        );
+
+        $introBody = __('site.about.intro_body', [
+            'davis' => $chapterLink('University of California Davis', 'https://www.instagram.com/aiscdavis/'),
+            'washington' => $chapterLink('University of Washington', 'https://www.instagram.com/aiscuw/'),
+            'riverside' => $chapterLink('University of California Riverside', 'https://www.instagram.com/aisc_riv/'),
+        ]);
+
+        $values = __('site.about.values_items');
+    @endphp
 
     {{-- Page header --}}
     <div class="mx-auto w-full max-w-7xl px-6 pt-10 lg:px-8">
@@ -9,131 +28,108 @@
             </flux:heading>
 
             <div class="mx-auto my-4 h-1 w-15 rounded-full bg-primary"></div>
-
-            <flux:text size="lg" class="mx-auto max-w-2xl">
-                {{ __('site.about.description') }}
-            </flux:text>
         </div>
     </div>
 
-    {{-- Intro --}}
-    <section class="relative overflow-hidden px-6 py-20 lg:px-8">
-        {{-- Decorative blobs --}}
-        <div class="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-
-        <div class="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 md:grid-cols-12">
-            <div class="md:col-span-7">
-                <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
-                    AISC Madrid
-                </span>
-
-                <flux:heading size="lg" level="2" class="mt-5 text-3xl font-bold md:text-4xl">
+    {{-- AI Student Collective: text + team photo --}}
+    <section class="px-6 py-12 lg:px-8 lg:py-16">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
+            <div>
+                <h2 class="text-3xl font-semibold text-primary md:text-4xl">
                     {{ __('site.about.intro_heading') }}
-                </flux:heading>
+                </h2>
 
-                <flux:text size="lg" class="mt-4 max-w-xl leading-relaxed">
-                    {{ __('site.about.intro_body') }}
-                </flux:text>
+                <p class="mt-6 text-lg leading-relaxed text-foreground" data-test="about-intro">
+                    {!! $introBody !!}
+                </p>
             </div>
 
-            <div class="flex items-center justify-center md:col-span-5">
-                <div class="relative">
-                    <div class="absolute inset-0 -z-10 rounded-full bg-primary/15 blur-2xl"></div>
-                    <img
-                        src="{{ asset('images/logos/aisc-logo-color.svg') }}"
-                        alt="{{ __('site.home.hero.logo_alt') }}"
-                        width="280"
-                        height="280"
-                        class="w-2/3 max-w-xs drop-shadow-xl transition-transform duration-500 hover:scale-105"
-                    >
-                </div>
-            </div>
+            <figure class="overflow-hidden rounded-2xl shadow-xl ring-1 ring-border">
+                <img
+                    src="{{ $teamPhotoUrl }}"
+                    alt="{{ __('site.about.team_photo_alt') }}"
+                    class="aspect-[4/3] w-full object-cover"
+                    data-test="about-team-photo"
+                >
+            </figure>
         </div>
     </section>
 
-    {{-- Mission --}}
-    <section class="relative border-t border-border bg-gradient-to-b from-muted/40 to-transparent px-6 py-20 lg:px-8">
-        <div class="mx-auto max-w-7xl">
-            <div class="mx-auto max-w-2xl text-center">
-                <flux:heading size="lg" level="2" class="text-2xl font-bold md:text-3xl">
+    {{-- Mission: image + text (reversed on desktop) --}}
+    <section class="px-6 py-12 lg:px-8 lg:py-16">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2 lg:gap-16">
+            <div class="md:order-2">
+                <h2 class="text-3xl font-semibold text-primary md:text-4xl">
                     {{ __('site.about.mission_heading') }}
-                </flux:heading>
+                </h2>
 
-                <div class="mx-auto my-4 h-1 w-15 rounded-full bg-primary"></div>
+                <p class="mt-6 text-lg text-foreground">
+                    {{ __('site.about.mission_intro') }}
+                </p>
+
+                <ul class="mt-4 space-y-3">
+                    @foreach (__('site.about.mission_items') as $item)
+                        <li class="flex gap-3 text-lg leading-relaxed text-foreground">
+                            <span class="mt-2.5 size-2 shrink-0 rounded-full bg-primary" aria-hidden="true"></span>
+                            <span>{{ $item }}</span>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
 
-            <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-                @php
-                    $missionIcons = ['rocket-launch', 'academic-cap', 'users'];
-                @endphp
-
-                @foreach (__('site.about.mission_items') as $item)
-                    <flux:card class="group relative overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10">
-                        <div class="absolute top-0 right-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full bg-primary/5 transition-transform duration-300 group-hover:scale-125"></div>
-
-                        <div class="relative flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/30">
-                            <flux:icon name="{{ $missionIcons[$loop->index % count($missionIcons)] }}" class="size-6" />
-                        </div>
-
-                        <flux:heading size="base" class="relative mt-4">
-                            {{ $item['title'] }}
-                        </flux:heading>
-
-                        <flux:text class="relative mt-2">
-                            {{ $item['body'] }}
-                        </flux:text>
-                    </flux:card>
-                @endforeach
+            {{-- The image has black lettering, so it sits on a white card in dark mode. --}}
+            <div class="flex justify-center rounded-2xl p-6 md:order-1 dark:bg-white">
+                <img
+                    src="{{ $missionImageUrl }}"
+                    alt="{{ __('site.about.mission_image_alt') }}"
+                    loading="lazy"
+                    class="w-full max-w-md"
+                >
             </div>
         </div>
     </section>
 
-    {{-- Values --}}
-    <section class="px-6 py-20 lg:px-8">
-        <div class="mx-auto max-w-7xl">
-            <div class="mx-auto max-w-2xl text-center">
-                <flux:heading size="lg" level="2" class="text-2xl font-bold md:text-3xl">
-                    {{ __('site.about.values_heading') }}
-                </flux:heading>
+    {{-- Values: tabs like the legacy page --}}
+    <section class="px-6 pt-8 pb-20 lg:px-8" x-data="{ activeValue: 0 }">
+        <div class="mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-semibold text-primary md:text-4xl">
+                {{ __('site.about.values_heading') }}
+            </h2>
 
-                <div class="mx-auto my-4 h-1 w-15 rounded-full bg-primary"></div>
-            </div>
-
-            <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                @php
-                    $valueIcons = ['sparkles', 'light-bulb', 'heart', 'globe-alt'];
-                @endphp
-
-                @foreach (__('site.about.values_items') as $item)
-                    <flux:card class="aisc-value-card group rounded-2xl border-l-4 border-l-primary/0 p-6 shadow-sm hover:border-l-primary">
-                        <div class="aisc-value-icon flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white shadow-md shadow-primary/30">
-                            <flux:icon name="{{ $valueIcons[$loop->index % count($valueIcons)] }}" class="size-5" />
-                        </div>
-
-                        <flux:heading size="base" class="mt-4">
-                            {{ $item['title'] }}
-                        </flux:heading>
-
-                        <flux:text class="mt-2">
-                            {{ $item['body'] }}
-                        </flux:text>
-                    </flux:card>
+            <div class="mt-8 flex flex-wrap justify-center gap-2" role="tablist" aria-label="{{ __('site.about.values_heading') }}">
+                @foreach ($values as $value)
+                    <button
+                        type="button"
+                        role="tab"
+                        id="value-tab-{{ $loop->index }}"
+                        aria-controls="value-panel-{{ $loop->index }}"
+                        x-on:click="activeValue = {{ $loop->index }}"
+                        x-bind:aria-selected="(activeValue === {{ $loop->index }}).toString()"
+                        x-bind:class="activeValue === {{ $loop->index }}
+                            ? 'bg-primary text-primary-foreground shadow-md shadow-primary/30'
+                            : 'text-foreground hover:text-primary'"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold transition-colors"
+                    >
+                        {{ $value['title'] }}
+                    </button>
                 @endforeach
             </div>
-        </div>
-    </section>
 
-    {{-- International network --}}
-    <section class="border-t border-border bg-muted/40 px-6 py-16 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-            <flux:heading size="lg" level="2">
-                {{ __('site.about.chapters_heading') }}
-            </flux:heading>
-
-            <flux:text size="lg" class="mt-4">
-                {{ __('site.about.chapters_body') }}
-            </flux:text>
+            <div class="mt-8 min-h-24">
+                @foreach ($values as $value)
+                    <p
+                        role="tabpanel"
+                        id="value-panel-{{ $loop->index }}"
+                        aria-labelledby="value-tab-{{ $loop->index }}"
+                        x-show="activeValue === {{ $loop->index }}"
+                        x-transition.opacity.duration.200ms
+                        @if (! $loop->first) x-cloak @endif
+                        class="mx-auto max-w-2xl text-lg leading-relaxed text-foreground"
+                    >
+                        {{ $value['body'] }}
+                    </p>
+                @endforeach
+            </div>
         </div>
     </section>
 

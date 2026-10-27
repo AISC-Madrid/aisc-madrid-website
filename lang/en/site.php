@@ -87,46 +87,38 @@ return [
         'title' => 'About AISC Madrid',
         'description' => 'Learn more about our association, mission and community.',
 
+        // :davis, :washington and :riverside are replaced by links to each chapter in the view.
         'intro_heading' => 'AI Student Collective',
-        'intro_body' => 'We are the first artificial intelligence association at UC3M\'s Polytechnic School and the first European chapter of AISC, with sister chapters at UC Davis, University of Washington and UC Riverside.',
+        'intro_body' => 'AISC Madrid was founded as the <strong>first AI association</strong> at the School of Engineering of Universidad Carlos III, and the first European branch of AISC. The association was originally established at :davis, and now also has branches at :washington and :riverside.',
+        'team_photo_alt' => 'The AISC Madrid team',
 
-        'mission_heading' => 'Our mission',
+        'mission_heading' => 'Mission',
+        'mission_intro' => 'The association has a clear vision:',
         'mission_items' => [
-            [
-                'title' => 'Hands-on training',
-                'body' => 'Offer practical workshops that bring artificial intelligence closer to the whole university community, no matter each student\'s starting point.',
-            ],
-            [
-                'title' => 'Industry connections',
-                'body' => 'Connect our members with industry professionals to learn from their experience and open doors to new opportunities.',
-            ],
-            [
-                'title' => 'Community',
-                'body' => 'Build a community that enriches university life and brings together students from different degrees around artificial intelligence.',
-            ],
+            'We want to help the university community acquire practical skills related to AI, better understand it, and demystify it through hands-on workshops.',
+            'We want to bring the professional world closer through distinguished members of the field.',
+            'We want to build a community that enhances the university experience.',
         ],
+        'mission_image_alt' => 'Understand AI, Unlock Potential',
 
         'values_heading' => 'Our values',
         'values_items' => [
             [
                 'title' => 'We believe in people',
-                'body' => 'We trust in everyone\'s potential to contribute, learn and grow within the community.',
+                'body' => 'We trust that every member of the community has something valuable to contribute, and we want each of them to feel part of the association.',
             ],
             [
                 'title' => 'Curiosity',
-                'body' => 'We encourage exploration and learning through experimentation.',
+                'body' => 'We explore, test, and learn. As students, we know that we don’t have all the answers, but every attempt brings us closer to doing things better.',
             ],
             [
                 'title' => 'Transparency and openness',
-                'body' => 'We openly share our resources, projects and knowledge with anyone who wants to learn.',
+                'body' => 'We like to share our knowledge and processes in an open and clear way. By publishing resources, projects, and results, we foster a collaborative learning environment that is open to everyone.',
             ],
             [
-                'title' => 'Active responsibility',
-                'body' => 'We promote individual initiative and the active involvement of every team member.',
+                'title' => 'Actively take ownership',
+                'body' => 'We value each member’s initiative and their effort to create meaningful work they can be proud of.',
             ],
         ],
-
-        'chapters_heading' => 'Part of an international network',
-        'chapters_body' => 'As the European chapter of AISC, we are part of a network with sister chapters at UC Davis, University of Washington and UC Riverside.',
     ],
 ];

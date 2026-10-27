@@ -87,46 +87,38 @@ return [
         'title' => 'Sobre AISC Madrid',
         'description' => 'Conoce nuestra asociación, misión y comunidad.',
 
+        // :davis, :washington and :riverside are replaced by links to each chapter in the view.
         'intro_heading' => 'AI Student Collective',
-        'intro_body' => 'Somos la primera asociación de inteligencia artificial de la Escuela Politécnica Superior de la UC3M y la primera filial europea de AISC, con delegaciones hermanas en UC Davis, University of Washington y UC Riverside.',
+        'intro_body' => 'AISC Madrid nace como la <strong>primera asociación de IA</strong> en la EPS de la Universidad Carlos III y la primera rama europea de la asociación AISC, inicialmente fundada en :davis y actualmente con ramas en :washington y :riverside.',
+        'team_photo_alt' => 'Equipo de AISC Madrid',
 
-        'mission_heading' => 'Nuestra misión',
+        'mission_heading' => 'Misión',
+        'mission_intro' => 'La asociación tiene una visión clara:',
         'mission_items' => [
-            [
-                'title' => 'Formación práctica',
-                'body' => 'Ofrecer talleres prácticos que acerquen la inteligencia artificial a toda la comunidad universitaria, sin importar el punto de partida de cada estudiante.',
-            ],
-            [
-                'title' => 'Conexión con la industria',
-                'body' => 'Poner en contacto a nuestros miembros con profesionales del sector para aprender de su experiencia y abrir puertas a nuevas oportunidades.',
-            ],
-            [
-                'title' => 'Comunidad',
-                'body' => 'Construir una comunidad que enriquezca la vida universitaria y una a estudiantes de distintas carreras en torno a la inteligencia artificial.',
-            ],
+            'Queremos ayudar a la comunidad universitaria a adquirir habilidades prácticas relacionadas con la IA, ayudando así a entenderla mejor y desmitificarla mediante talleres prácticos.',
+            'Queremos acercar el mundo laboral de la mano de miembros destacados del sector.',
+            'Queremos crear una comunidad que ayude a disfrutar la experiencia universitaria.',
         ],
+        'mission_image_alt' => 'Understand AI, Unlock Potential',
 
         'values_heading' => 'Nuestros valores',
         'values_items' => [
             [
                 'title' => 'Creemos en las personas',
-                'body' => 'Confiamos en el potencial de cada persona para aportar, aprender y crecer dentro de la comunidad.',
+                'body' => 'Confiamos en que cada miembro de la comunidad tiene algo valioso que aportar, y queremos que cada uno de ellos se sienta parte de la asociación.',
             ],
             [
                 'title' => 'Curiosidad',
-                'body' => 'Fomentamos la exploración y el aprendizaje a través de la experimentación.',
+                'body' => 'Exploramos, probamos y aprendemos. Como estudiantes, sabemos que no tenemos todas las respuestas, pero cada intento nos acerca a hacer mejor las cosas.',
             ],
             [
                 'title' => 'Transparencia y apertura',
-                'body' => 'Compartimos abiertamente nuestros recursos, proyectos y conocimiento con quien quiera aprender.',
+                'body' => 'Nos gusta compartir nuestro conocimiento y procesos de manera abierta y clara. Publicando recursos, proyectos y resultados fomentamos un ambiente de aprendizaje colaborativo y abierto a todo el mundo.',
             ],
             [
                 'title' => 'Responsabilidad activa',
-                'body' => 'Promovemos la iniciativa individual y la implicación activa de cada miembro del equipo.',
+                'body' => 'Valoramos que cada miembro tome la iniciativa y se esfuerce por lograr un trabajo que le sea útil y del que se sienta orgulloso.',
             ],
         ],
-
-        'chapters_heading' => 'Parte de una red internacional',
-        'chapters_body' => 'Como filial europea de AISC, formamos parte de una red con delegaciones hermanas en UC Davis, University of Washington y UC Riverside.',
     ],
 ];
