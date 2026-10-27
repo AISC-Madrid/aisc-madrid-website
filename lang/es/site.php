@@ -8,6 +8,7 @@ return [
         'about' => 'Sobre AISC Madrid',
         'login' => 'Inicia sesión',
         'dashboard' => 'Panel de control',
+        'join' => 'Unirme',
         'logo_alt' => 'Logotipo de AISC Madrid',
     ],
 
@@ -35,6 +36,7 @@ return [
         'linkedin' => 'LinkedIn',
         'github' => 'GitHub',
         'email' => 'Correo electrónico',
+        'members_area' => 'Acceso miembros',
     ],
 
     'home' => [
@@ -51,8 +53,29 @@ return [
 
         'team' => [
             'title' => 'Equipo',
-            'empty' => 'Próximamente aparecerán aquí los equipo.',
+            'empty' => 'Próximamente aparecerán aquí los miembros del equipo.',
             'view_all' => 'Ver todo el equipo',
+        ],
+
+        'newsletter' => [
+            'title' => '¡Mantente al tanto!',
+            'description' => 'Envía tu nombre y correo electrónico para mantenerte informado y unirte a nuestra comunidad de IA en UC3M.',
+            'name' => 'Nombre y apellidos',
+            'name_placeholder' => 'Michael Scott',
+            'email' => 'Correo electrónico',
+            'email_placeholder' => 'nombre@ejemplo.com',
+            'consent' => 'Doy mi consentimiento para que AISC Madrid almacene mis datos enviados para contactarme.',
+            'terms' => 'Leer términos y condiciones',
+            'submit' => 'Unirme a la newsletter',
+            'success_title' => '¡Ya eres parte de AISC Madrid!',
+            'success_body' => 'Hemos recibido tus datos. Te avisaremos de los próximos eventos, talleres y oportunidades.',
+            'whatsapp' => 'Únete a la comunidad en WhatsApp',
+            'errors' => [
+                'name' => 'Por favor, introduce tu nombre y apellido(s).',
+                'email' => 'Por favor, introduce un correo válido.',
+                'duplicate' => 'Este correo ya está suscrito a la newsletter.',
+                'consent' => 'Debes dar tu consentimiento para continuar.',
+            ],
         ],
     ],
 

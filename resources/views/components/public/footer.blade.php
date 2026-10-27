@@ -92,6 +92,19 @@
                 >
                     {{ __('site.footer.bylaws') }}
                 </a>
+
+                <span aria-hidden="true">|</span>
+
+                {{-- Discreet access to the members dashboard (moved here from the navbar) --}}
+                @auth
+                    <a href="{{ route('dashboard') }}" class="transition hover:text-aisc-blue" data-test="footer-members-area">
+                        {{ __('site.nav.dashboard') }}
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="transition hover:text-aisc-blue" data-test="footer-members-area">
+                        {{ __('site.footer.members_area') }}
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

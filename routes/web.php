@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
 // For EVENT_PAGE
@@ -24,6 +25,11 @@ Route::prefix('{locale}')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])
             ->name('home');
+
+        // Newsletter sign-up form at the bottom of the home page.
+        Route::post('/newsletter', [NewsletterController::class, 'store'])
+            ->middleware('throttle:6,1')
+            ->name('newsletter.store');
 
         // For event page:
 

@@ -73,20 +73,13 @@ array_merge($currentParameters, ['locale' => 'es'])
                 {{ __('site.nav.about') }}
             </a>
 
-            {{-- Login / dashboard --}}
-            @guest
+            {{-- Join: scrolls to the newsletter form (login lives in the footer now) --}}
             <a
-                href="{{ route('login') }}"
-                class="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
-                {{ __('site.nav.login') }}
+                href="{{ route('home', ['locale' => $locale]) }}#newsletter"
+                class="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                data-test="nav-join">
+                {{ __('site.nav.join') }}
             </a>
-            @else
-            <a
-                href="{{ route('dashboard') }}"
-                class="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
-                {{ __('site.nav.dashboard') }}
-            </a>
-            @endguest
 
             {{-- Theme toggle --}}
             <flux:button
@@ -236,20 +229,13 @@ array_merge($currentParameters, ['locale' => 'es'])
                 {{ __('site.nav.about') }}
             </a>
 
-            {{-- Mobile login / dashboard --}}
-            @guest
+            {{-- Mobile join --}}
             <a
-                href="{{ route('login') }}"
+                href="{{ route('home', ['locale' => $locale]) }}#newsletter"
+                @click="mobileOpen = false"
                 class="mt-2 rounded-full bg-primary px-5 py-3 text-center font-semibold text-white transition hover:opacity-90">
-                {{ __('site.nav.login') }}
+                {{ __('site.nav.join') }}
             </a>
-            @else
-            <a
-                href="{{ route('dashboard') }}"
-                class="mt-2 rounded-full bg-primary px-5 py-3 text-center font-semibold text-white transition hover:opacity-90">
-                {{ __('site.nav.dashboard') }}
-            </a>
-            @endguest
 
             {{-- Mobile theme toggle --}}
             <div class="flex items-center justify-between border-t border-border pt-4">

@@ -8,6 +8,7 @@ return [
         'about' => 'About AISC Madrid',
         'login' => 'Log in',
         'dashboard' => 'Dashboard',
+        'join' => 'Join',
         'logo_alt' => 'AISC Madrid logo',
     ],
 
@@ -35,6 +36,7 @@ return [
         'linkedin' => 'LinkedIn',
         'github' => 'GitHub',
         'email' => 'Email',
+        'members_area' => 'Members area',
     ],
 
     'home' => [
@@ -53,6 +55,27 @@ return [
             'title' => 'Team',
             'empty' => 'Upcoming team members will appear here soon.',
             'view_all' => 'View the whole team',
+        ],
+
+        'newsletter' => [
+            'title' => "Don't miss a thing!",
+            'description' => 'Send your name and email to stay informed and join our AI community at UC3M.',
+            'name' => 'Full name',
+            'name_placeholder' => 'Michael Scott',
+            'email' => 'Email',
+            'email_placeholder' => 'name@example.com',
+            'consent' => 'I consent to AISC Madrid storing my submitted data to contact me.',
+            'terms' => 'Read terms and conditions',
+            'submit' => 'Join the newsletter',
+            'success_title' => "You're now part of AISC Madrid!",
+            'success_body' => "We've received your details. We'll let you know about upcoming events, workshops and opportunities.",
+            'whatsapp' => 'Join the WhatsApp community',
+            'errors' => [
+                'name' => 'Please enter your name and surname.',
+                'email' => 'Please enter a valid email.',
+                'duplicate' => 'This email is already subscribed to the newsletter.',
+                'consent' => 'You must give your consent to continue.',
+            ],
         ],
     ],
 
