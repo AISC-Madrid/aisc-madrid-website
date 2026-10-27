@@ -10,6 +10,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 
 include('../assets/db.php'); // Your $conn mysqli connection
+include('../assets/csrf.php'); // Token for the translate endpoint
 
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
@@ -96,34 +97,43 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             <?php endif; ?>
 
-            <form action="<?= isset($event_id) ? 'update_event.php' : 'insert_event.php' ?>" method="POST" enctype="multipart/form-data">
+            <form id="event-form" action="<?= isset($event_id) ? 'update_event.php' : 'insert_event.php' ?>" method="POST" enctype="multipart/form-data">
                 <?php if (isset($event_id)): ?>
                     <input type="hidden" name="id" value="<?= $event_id ?>">
                 <?php endif; ?>
 
                     <div class="row justify-content-center">
+                    <!-- ES -> EN translation (OpenRouter) -->
+                    <div class="mb-3 col-12 d-flex align-items-center gap-3 flex-wrap">
+                        <button type="button" id="translate-btn" class="btn btn-outline-primary">
+                            Traducir al inglés
+                        </button>
+                        <small class="text-muted">Rellena título, tipo y descripción en español y genera la versión en inglés. Revísala antes de guardar.</small>
+                        <div id="translate-status" class="small w-100" role="status"></div>
+                    </div>
+
                     <!-- Spanish title -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Título (Español)</label>
-                        <input type="text" name="title_es" class="form-control" required value="<?= htmlspecialchars($title_es) ?>">
+                        <input type="text" name="title_es" id="title_es" class="form-control" required value="<?= htmlspecialchars($title_es) ?>">
                     </div>
 
                     <!-- English title -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Title (English)</label>
-                        <input type="text" name="title_en" class="form-control" required value="<?= htmlspecialchars($title_en) ?>">
+                        <input type="text" name="title_en" id="title_en" class="form-control" required value="<?= htmlspecialchars($title_en) ?>">
                     </div>
 
                     <!-- Spanish type -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Tipo (Español)</label>
-                        <input type="text" name="type_es" class="form-control" value="<?= htmlspecialchars($type_es) ?>">
+                        <input type="text" name="type_es" id="type_es" class="form-control" value="<?= htmlspecialchars($type_es) ?>">
                     </div>
 
                     <!-- English type -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Type (English)</label>
-                        <input type="text" name="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
+                        <input type="text" name="type_en" id="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
                     </div>
 
                     <!-- Speaker -->
@@ -142,13 +152,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Spanish description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Descripción (Español)</label>
-                        <textarea required name="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
+                        <textarea required name="description_es" id="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
                     </div>
 
                     <!-- English description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Description (English)</label>
-                        <textarea required name="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
+                        <textarea required name="description_en" id="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
                     </div>
 
                     <!-- Location -->
@@ -240,6 +250,62 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     </div>
     </div>
+
+    <script>
+        // Fills the EN fields from the ES ones via translate_event.php; nothing is saved until the form is submitted
+        (function () {
+            const btn = document.getElementById('translate-btn');
+            const statusBox = document.getElementById('translate-status');
+            const csrfToken = <?= json_encode(generate_csrf_token()) ?>;
+            const pairs = [['title_es', 'title_en'], ['type_es', 'type_en'], ['description_es', 'description_en']];
+
+            function setStatus(text, cls) {
+                statusBox.textContent = text;
+                statusBox.className = 'small w-100 ' + cls;
+            }
+
+            btn.addEventListener('click', async function () {
+                const source = {};
+                pairs.forEach(([es]) => source[es] = document.getElementById(es).value.trim());
+
+                if (!source.title_es && !source.description_es) {
+                    setStatus('Escribe al menos el título o la descripción en español.', 'text-danger');
+                    return;
+                }
+
+                const overwritten = pairs.filter(([es, en]) => source[es] && document.getElementById(en).value.trim());
+                if (overwritten.length && !confirm('Algunos campos en inglés ya tienen texto y se sobrescribirán. ¿Continuar?')) {
+                    return;
+                }
+
+                btn.disabled = true;
+                setStatus('Traduciendo… puede tardar unos segundos.', 'text-muted');
+
+                try {
+                    const response = await fetch('/events/translate_event.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+                        body: JSON.stringify(source)
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Error al traducir.');
+                    }
+
+                    pairs.forEach(([es, en]) => {
+                        if (source[es] && data[en]) {
+                            document.getElementById(en).value = data[en];
+                        }
+                    });
+                    setStatus('Traducción generada con ' + data.model + '. Revísala antes de guardar.', 'text-success');
+                } catch (err) {
+                    setStatus(err.message || 'Error al traducir.', 'text-danger');
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>
