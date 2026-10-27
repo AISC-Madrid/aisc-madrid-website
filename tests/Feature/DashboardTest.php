@@ -184,3 +184,19 @@ test('members without a picture show their initials', function () {
         ->assertSee('AL')
         ->assertDontSee('aisc-public/members', false);
 });
+
+test('the sidebar can be collapsed to a strip of icons on desktop', function () {
+    $response = $this->actingAs(Member::factory()->role(MemberRole::Admin)->create())
+        ->get(route('dashboard'))
+        ->assertOk()
+        ->assertSee('collapsible="true"', false)
+        ->assertSee('data-test="sidebar-collapse"', false)
+        ->assertSee('Ocultar / mostrar menú');
+
+    // Items are not inside the headed "Platform" group, which Flux would hide when collapsed.
+    $response->assertDontSee('Platform');
+
+    foreach (['Panel de control', 'Eventos', 'Usuarios'] as $label) {
+        $response->assertSee($label);
+    }
+});
