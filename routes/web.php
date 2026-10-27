@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
@@ -67,6 +68,14 @@ Route::middleware(['auth'])
     ->group(function () {
         Route::view('/dashboard', 'dashboard')
             ->name('dashboard');
+
+        Route::middleware('role:admin,events')
+            ->prefix('dashboard')
+            ->name('dashboard.')
+            ->group(function () {
+                Route::get('/users', [UserController::class, 'index'])
+                    ->name('users.index');
+            });
     });
 
 require __DIR__.'/settings.php';
