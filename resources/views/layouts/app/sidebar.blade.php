@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="calendar-days" :href="route('dashboard.events.index')" :current="request()->routeIs('dashboard.events.*')" wire:navigate>
+                        {{ __('Eventos') }}
+                    </flux:sidebar.item>
+
                     @if (auth()->user() instanceof \App\Models\Member && auth()->user()->hasAnyRole(['admin', 'events']))
                         <flux:sidebar.item icon="users" :href="route('dashboard.users.index')" :current="request()->routeIs('dashboard.users.*')" wire:navigate>
                             {{ __('Usuarios') }}

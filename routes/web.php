@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -70,12 +71,23 @@ Route::middleware(['auth'])
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
-        Route::middleware('role:admin,events')
-            ->prefix('dashboard')
+        Route::prefix('dashboard')
             ->name('dashboard.')
             ->group(function () {
-                Route::get('/users', [UserController::class, 'index'])
-                    ->name('users.index');
+                // Every member can see the events list (like the legacy events_list.php).
+                Route::get('/events', [DashboardEventController::class, 'index'])
+                    ->name('events.index');
+
+                Route::middleware('role:admin,events')->group(function () {
+                    Route::get('/users', [UserController::class, 'index'])
+                        ->name('users.index');
+
+                    Route::resource('events', DashboardEventController::class)
+                        ->except(['index', 'show']);
+
+                    Route::get('/events/{event}/attendees.pdf', [DashboardEventController::class, 'attendeesPdf'])
+                        ->name('events.attendees-pdf');
+                });
             });
     });
 
