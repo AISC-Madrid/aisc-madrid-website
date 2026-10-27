@@ -10,7 +10,8 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $event_id = (int) $_GET['id'];
 
 // Prepare SQL
-$stmt = $conn->prepare("SELECT * FROM events WHERE id = ?");
+// Drafts are not public: they behave as if the event did not exist
+$stmt = $conn->prepare("SELECT * FROM events WHERE id = ? AND status = 'published'");
 if (!$stmt) {
     error_log("DB prepare failed in " . __FILE__ . ": " . $conn->error);
     http_response_code(500);

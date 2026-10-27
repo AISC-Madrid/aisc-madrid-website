@@ -18,6 +18,7 @@ $query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.sta
         JOIN form_submissions u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
         JOIN events e ON r.event_id = e.id
         WHERE e.reminder_enabled = 1
+        AND e.status = 'published'
         AND DATE(e.start_datetime) = DATE_ADD(?, INTERVAL e.reminder_days_before DAY)
         AND r.reminder_sent = 0";
 

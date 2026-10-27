@@ -25,6 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Only published events accept registrations (drafts are not public)
+    $stmt = $conn->prepare("SELECT id FROM events WHERE id = ? AND status = 'published'");
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows === 0) {
+        $stmt->close();
+        http_response_code(404);
+        die("❌ Event not found");
+    }
+    $stmt->close();
+
     // Check for duplicate registration
     $stmt = $conn->prepare("SELECT id FROM event_registrations WHERE event_id = ? AND email = ?");
     $stmt->bind_param("is", $event_id, $email);

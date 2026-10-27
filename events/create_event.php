@@ -10,6 +10,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 
 include('../assets/db.php'); // Your $conn mysqli connection
+include('../assets/csrf.php'); // Token for the translate endpoint
 
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
@@ -20,6 +21,8 @@ $company = '';
 $requires_registration = 0;
 $reminder_enabled = 0;
 $reminder_days_before = 2;
+$status = 'draft';
+$registration_count = 0;
 
 
 // Check if an ID is passed
@@ -33,29 +36,41 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $event = $result->fetch_assoc();
 
     if ($event) {
+        $status = $event['status'];
         $title_es = $event['title_es'];
-        $title_en = $event['title_en'];
-        $type_es = $event['type_es'];
-        $type_en = $event['type_en'];
+        $title_en = $event['title_en'] ?? '';
+        $type_es = $event['type_es'] ?? '';
+        $type_en = $event['type_en'] ?? '';
         $speaker = $event['speaker'];
         $company = $event['company'] ?? '';
-        $description_es = $event['description_es'];
-        $description_en = $event['description_en'];
-        $location = $event['location'];
-        // 1. Convertimos el inicio de UTC a Madrid para el formulario
-        $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
-        $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
-        $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+        $description_es = $event['description_es'] ?? '';
+        $description_en = $event['description_en'] ?? '';
+        $location = $event['location'] ?? '';
+        // 1. Convertimos el inicio de UTC a Madrid para el formulario (un borrador puede no tener fechas)
+        if (!empty($event['start_datetime'])) {
+            $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+            $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+            $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+        }
 
         // 2. Convertimos el fin de UTC a Madrid para el formulario
-        $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
-        $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
-        $end_datetime = $end_dt->format('Y-m-d\TH:i');
-        $image_path = $event['image_path'];
+        if (!empty($event['end_datetime'])) {
+            $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+            $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+            $end_datetime = $end_dt->format('Y-m-d\TH:i');
+        }
+        $image_path = $event['image_path'] ?? '';
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];
         $reminder_enabled = $event['reminder_enabled'];
         $reminder_days_before = $event['reminder_days_before'];
+
+        // Shown in the confirmation before unpublishing
+        $count_stmt = $conn->prepare("SELECT COUNT(*) FROM event_registrations WHERE event_id = ?");
+        $count_stmt->bind_param("i", $event_id);
+        $count_stmt->execute();
+        $registration_count = (int) $count_stmt->get_result()->fetch_row()[0];
+        $count_stmt->close();
     }
     
 }
@@ -74,34 +89,51 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="row wrap">
             <h1 class="mb-4"><?= isset($event_id) ? 'Editar Evento' : 'Crear Nuevo Evento' ?></h1>
 
-            <form action="<?= isset($event_id) ? 'update_event.php' : 'insert_event.php' ?>" method="POST" enctype="multipart/form-data">
+            <?php if ($status === 'draft'): ?>
+                <div class="alert alert-warning">
+                    <strong>Borrador.</strong> Este evento no es visible en la web hasta que lo publiques.
+                    Para guardarlo como borrador basta con el título en español; para publicarlo hacen falta
+                    títulos y descripciones en ambos idiomas, fechas e imagen principal.
+                </div>
+            <?php endif; ?>
+
+            <form id="event-form" action="<?= isset($event_id) ? 'update_event.php' : 'insert_event.php' ?>" method="POST" enctype="multipart/form-data">
                 <?php if (isset($event_id)): ?>
                     <input type="hidden" name="id" value="<?= $event_id ?>">
                 <?php endif; ?>
 
                     <div class="row justify-content-center">
+                    <!-- ES -> EN translation (OpenRouter) -->
+                    <div class="mb-3 col-12 d-flex align-items-center gap-3 flex-wrap">
+                        <button type="button" id="translate-btn" class="btn btn-outline-primary">
+                            Traducir al inglés
+                        </button>
+                        <small class="text-muted">Rellena título, tipo y descripción en español y genera la versión en inglés. Revísala antes de guardar.</small>
+                        <div id="translate-status" class="small w-100" role="status"></div>
+                    </div>
+
                     <!-- Spanish title -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Título (Español)</label>
-                        <input type="text" name="title_es" class="form-control" required value="<?= htmlspecialchars($title_es) ?>">
+                        <input type="text" name="title_es" id="title_es" class="form-control" required value="<?= htmlspecialchars($title_es) ?>">
                     </div>
 
                     <!-- English title -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Title (English)</label>
-                        <input type="text" name="title_en" class="form-control" required value="<?= htmlspecialchars($title_en) ?>">
+                        <input type="text" name="title_en" id="title_en" class="form-control" required value="<?= htmlspecialchars($title_en) ?>">
                     </div>
 
                     <!-- Spanish type -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Tipo (Español)</label>
-                        <input type="text" name="type_es" class="form-control" value="<?= htmlspecialchars($type_es) ?>">
+                        <input type="text" name="type_es" id="type_es" class="form-control" value="<?= htmlspecialchars($type_es) ?>">
                     </div>
 
                     <!-- English type -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Type (English)</label>
-                        <input type="text" name="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
+                        <input type="text" name="type_en" id="type_en" class="form-control" value="<?= htmlspecialchars($type_en) ?>">
                     </div>
 
                     <!-- Speaker -->
@@ -120,13 +152,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Spanish description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Descripción (Español)</label>
-                        <textarea required name="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
+                        <textarea required name="description_es" id="description_es" class="form-control" rows="4"><?= htmlspecialchars($description_es) ?></textarea>
                     </div>
 
                     <!-- English description -->
                     <div class="mb-3 col-6">
                         <label class="form-label">Description (English)</label>
-                        <textarea required name="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
+                        <textarea required name="description_en" id="description_en" class="form-control" rows="4"><?= htmlspecialchars($description_en) ?></textarea>
                     </div>
 
                     <!-- Location -->
@@ -150,7 +182,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Image upload -->
                     <div class="mb-3">
                         <label class="form-label">Imagen principal del evento</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" <?= isset($event_id) ? '' : 'required' ?>>
+                        <input type="file" name="image" class="form-control" accept="image/*" <?= empty($image_path) ? 'required' : '' ?>>
                     </div>
 
                     <!-- Multiple event photos -->
@@ -191,16 +223,89 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                     </div>
 
-                    <!-- Submit -->
-                    <button type="submit" class="btn btn-primary col-6">
-                        <?= isset($event_id) ? 'Actualizar Evento' : 'Guardar Evento' ?>
-                    </button>
+                    <!-- Submit: drafts skip the browser validation, only title_es is checked server-side -->
+                    <div class="col-12 d-flex gap-2 flex-wrap">
+                        <?php if ($status === 'draft'): ?>
+                            <button type="submit" name="action" value="draft" class="btn btn-outline-secondary" formnovalidate>
+                                Guardar borrador
+                            </button>
+                            <button type="submit" name="action" value="publish" class="btn btn-primary">
+                                Publicar
+                            </button>
+                        <?php else: ?>
+                            <button type="submit" name="action" value="save" class="btn btn-primary">
+                                Guardar cambios
+                            </button>
+                            <button type="submit" name="action" value="unpublish" class="btn btn-outline-danger" formnovalidate
+                                onclick="return confirm(<?= htmlspecialchars(json_encode($registration_count > 0
+                                    ? "Este evento tiene $registration_count inscritos. Dejará de ser visible en la web y no se enviarán recordatorios. ¿Despublicarlo?"
+                                    : 'El evento dejará de ser visible en la web. ¿Despublicarlo?'), ENT_QUOTES) ?>)">
+                                Despublicar
+                            </button>
+                        <?php endif; ?>
+                    </div>
         </div>
         </form>
 
 
     </div>
     </div>
+
+    <script>
+        // Fills the EN fields from the ES ones via translate_event.php; nothing is saved until the form is submitted
+        (function () {
+            const btn = document.getElementById('translate-btn');
+            const statusBox = document.getElementById('translate-status');
+            const csrfToken = <?= json_encode(generate_csrf_token()) ?>;
+            const pairs = [['title_es', 'title_en'], ['type_es', 'type_en'], ['description_es', 'description_en']];
+
+            function setStatus(text, cls) {
+                statusBox.textContent = text;
+                statusBox.className = 'small w-100 ' + cls;
+            }
+
+            btn.addEventListener('click', async function () {
+                const source = {};
+                pairs.forEach(([es]) => source[es] = document.getElementById(es).value.trim());
+
+                if (!source.title_es && !source.description_es) {
+                    setStatus('Escribe al menos el título o la descripción en español.', 'text-danger');
+                    return;
+                }
+
+                const overwritten = pairs.filter(([es, en]) => source[es] && document.getElementById(en).value.trim());
+                if (overwritten.length && !confirm('Algunos campos en inglés ya tienen texto y se sobrescribirán. ¿Continuar?')) {
+                    return;
+                }
+
+                btn.disabled = true;
+                setStatus('Traduciendo… puede tardar unos segundos.', 'text-muted');
+
+                try {
+                    const response = await fetch('/events/translate_event.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+                        body: JSON.stringify(source)
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Error al traducir.');
+                    }
+
+                    pairs.forEach(([es, en]) => {
+                        if (source[es] && data[en]) {
+                            document.getElementById(en).value = data[en];
+                        }
+                    });
+                    setStatus('Traducción generada con ' + data.model + '. Revísala antes de guardar.', 'text-success');
+                } catch (err) {
+                    setStatus(err.message || 'Error al traducir.', 'text-danger');
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>

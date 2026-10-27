@@ -18,6 +18,7 @@ $allEvents = $conn->query("
     SELECT id, title_es, title_en, start_datetime,
            CASE WHEN start_datetime >= NOW() THEN 1 ELSE 0 END AS is_future
     FROM events 
+    WHERE status = 'published'
     ORDER BY start_datetime DESC
 ");
 
