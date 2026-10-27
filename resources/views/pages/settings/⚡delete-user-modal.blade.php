@@ -2,6 +2,7 @@
 
 use App\Concerns\PasswordValidationRules;
 use App\Livewire\Actions\Logout;
+use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -11,7 +12,10 @@ new class extends Component {
     public string $password = '';
 
     /**
-     * Delete the currently authenticated user.
+     * Deactivate the authenticated member and log them out.
+     *
+     * The members row is kept (not deleted) so speaker and alumni history survive;
+     * an inactive member can no longer log in until an admin reactivates them.
      */
     public function deleteUser(Logout $logout): void
     {
@@ -19,7 +23,12 @@ new class extends Component {
             'password' => $this->currentPasswordRules(),
         ]);
 
-        tap(Auth::user(), $logout(...))->delete();
+        /** @var Member $member */
+        $member = Auth::user();
+
+        $member->update(['active' => false]);
+
+        $logout();
 
         $this->redirect('/', navigate: true);
     }
@@ -28,10 +37,10 @@ new class extends Component {
 <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
     <form method="POST" wire:submit="deleteUser" class="space-y-6">
         <div>
-            <flux:heading size="lg">{{ __('Are you sure you want to delete your account?') }}</flux:heading>
+            <flux:heading size="lg">{{ __('Are you sure you want to deactivate your account?') }}</flux:heading>
 
             <flux:subheading>
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                {{ __('You will be logged out and will not be able to log in again until an admin reactivates your account. Please enter your password to confirm.') }}
             </flux:subheading>
         </div>
 
@@ -43,7 +52,7 @@ new class extends Component {
             </flux:modal.close>
 
             <flux:button variant="danger" type="submit" data-test="confirm-delete-user-button">
-                {{ __('Delete account') }}
+                {{ __('Deactivate account') }}
             </flux:button>
         </div>
     </form>

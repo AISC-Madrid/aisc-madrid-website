@@ -47,11 +47,11 @@ Route::prefix('{locale}')
         Route::view('/about', 'about')
             ->name('about');
 
-        //For terms and conditions page:
+        // For terms and conditions page:
         Route::view('/terms-conditions', 'terms')
             ->name('terms');
 
-        //For statutes page:
+        // For statutes page:
         Route::view('/estatutos', 'estatutos')
             ->name('estatutos');
 
@@ -63,7 +63,7 @@ Route::prefix('{locale}')
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'verified'])
+Route::middleware(['auth'])
     ->group(function () {
         Route::view('/dashboard', 'dashboard')
             ->name('dashboard');

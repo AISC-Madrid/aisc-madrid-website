@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Member;
 use Laravel\Fortify\Features;
 
 test('login screen can be rendered', function () {
@@ -9,11 +9,11 @@ test('login screen can be rendered', function () {
     $response->assertOk();
 });
 
-test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+test('members can authenticate using the login screen', function () {
+    $member = Member::factory()->create();
 
     $response = $this->post(route('login.store'), [
-        'email' => $user->email,
+        'email' => $member->mail,
         'password' => 'password',
     ]);
 
@@ -21,14 +21,27 @@ test('users can authenticate using the login screen', function () {
         ->assertSessionHasNoErrors()
         ->assertRedirect(route('dashboard', absolute: false));
 
-    $this->assertAuthenticated();
+    $this->assertAuthenticatedAs($member);
 });
 
-test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
+test('members with a legacy php password_hash can authenticate', function () {
+    $member = Member::factory()->create([
+        'password_hash' => password_hash('legacy-secret', PASSWORD_DEFAULT),
+    ]);
+
+    $this->post(route('login.store'), [
+        'email' => $member->mail,
+        'password' => 'legacy-secret',
+    ])->assertSessionHasNoErrors();
+
+    $this->assertAuthenticatedAs($member);
+});
+
+test('members can not authenticate with invalid password', function () {
+    $member = Member::factory()->create();
 
     $response = $this->post(route('login.store'), [
-        'email' => $user->email,
+        'email' => $member->mail,
         'password' => 'wrong-password',
     ]);
 
@@ -37,29 +50,39 @@ test('users can not authenticate with invalid password', function () {
     $this->assertGuest();
 });
 
-test('users with two factor enabled are redirected to two factor challenge', function () {
-    $this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
-
-    Features::twoFactorAuthentication([
-        'confirm' => true,
-        'confirmPassword' => true,
-    ]);
-
-    $user = User::factory()->withTwoFactor()->create();
+test('inactive members can not authenticate', function () {
+    $member = Member::factory()->inactive()->create();
 
     $response = $this->post(route('login.store'), [
-        'email' => $user->email,
+        'email' => $member->mail,
         'password' => 'password',
     ]);
 
-    $response->assertRedirect(route('two-factor.login'));
+    $response->assertSessionHasErrorsIn('email');
+
     $this->assertGuest();
 });
 
-test('users can logout', function () {
-    $user = User::factory()->create();
+test('requesting remember me does not break login', function () {
+    $member = Member::factory()->create();
 
-    $response = $this->actingAs($user)->post(route('logout'));
+    $this->post(route('login.store'), [
+        'email' => $member->mail,
+        'password' => 'password',
+        'remember' => 'on',
+    ])->assertSessionHasNoErrors();
+
+    $this->assertAuthenticatedAs($member);
+});
+
+test('members with two factor enabled are redirected to two factor challenge', function () {
+    $this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
+});
+
+test('members can logout', function () {
+    $member = Member::factory()->create();
+
+    $response = $this->actingAs($member)->post(route('logout'));
 
     $response->assertRedirect('/');
 

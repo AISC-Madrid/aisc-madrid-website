@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\MemberRole;
 use App\Models\AlumniHonor;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,6 +22,7 @@ class MemberFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'password_hash' => bcrypt('password'),
+            'role' => MemberRole::Marketing,
             'mail' => fake()->unique()->safeEmail(),
             'position_es' => fake()->jobTitle(),
             'position_en' => fake()->jobTitle(),
@@ -29,6 +31,20 @@ class MemberFactory extends Factory
             'active' => true,
             'image_path' => 'https://ui-avatars.com/api/?name='.urlencode(fake()->name()),
         ];
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'active' => false,
+        ]);
+    }
+
+    public function role(MemberRole $role): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => $role,
+        ]);
     }
 
     public function honorMember(): static
