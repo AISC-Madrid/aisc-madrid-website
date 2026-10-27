@@ -16,7 +16,9 @@ return new class extends Migration
         }
 
         Schema::create('event_speakers', function (Blueprint $table) {
-            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
+            // events.id is a signed INT (legacy schema), so the FK column must match.
+            $table->integer('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->cascadeOnDelete();
             $table->foreignId('speaker_id')->constrained('speakers')->cascadeOnDelete();
             $table->string('role', 50)->nullable();
             $table->unsignedSmallInteger('sort_order')->default(0);

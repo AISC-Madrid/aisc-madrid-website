@@ -15,7 +15,9 @@ return new class extends Migration
         Schema::create('event_guest_access', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guest_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            // events.id is a signed INT (legacy schema), so the FK column must match.
+            $table->integer('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->cascadeOnDelete();
             $table->unique(['guest_id', 'event_id']);
         });
     }

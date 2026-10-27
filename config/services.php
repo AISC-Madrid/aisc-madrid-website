@@ -28,6 +28,24 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    | Media bucket (S3 / MinIO). The database stores object keys such as
+    | "events-workshops/10/cover.webp"; the public URL is base_url/key.
+    */
+    'media' => [
+        'base_url' => env('MEDIA_BASE_URL') ?: 'https://s3.aiscmadrid.com/aisc-public',
+        'key_prefixes' => ['events-workshops/', 'projects/', 'members/'],
+    ],
+
+    /*
+    | Legacy images that were never migrated to the bucket are still served
+    | from Cloudinary (the old "images/" folder mirrored into this folder).
+    */
+    'cloudinary' => [
+        'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+        'folder' => env('CLOUDINARY_FOLDER', 'aisc_madrid'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

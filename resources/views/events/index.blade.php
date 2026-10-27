@@ -85,7 +85,7 @@
                             ->copy()
                             ->setTimezone('Europe/Madrid');
 
-                        $type = strtolower($event->type->slug);
+                        $type = $event->type_slug;
 
                         $title = app()->getLocale() === 'en'
                             ? $event->title_en
@@ -109,12 +109,12 @@
                             <flux:card class="relative flex h-full flex-col overflow-hidden">
 
                                 {{-- Event image --}}
-                                @if ($event->image_path)
+                                @if ($event->image_url)
 
                                     <div class="aspect-square w-full overflow-hidden">
 
                                         <img
-                                            src="{{ asset($event->image_path) }}"
+                                            src="{{ $event->image_url }}"
                                             alt="{{ $title }}"
                                             class="h-full w-full object-cover"
                                         >

@@ -15,7 +15,7 @@
 >
     <div class="aspect-square overflow-hidden rounded-xl bg-muted shadow-sm transition duration-300 group-hover:shadow-lg">
         <img
-            src="{{ $member->image_path ?: 'https://ui-avatars.com/api/?size=512&name='.urlencode($member->full_name ?? '?') }}"
+            src="{{ $member->image_url ?: 'https://ui-avatars.com/api/?size=512&name='.urlencode($member->full_name ?? '?') }}"
             alt="{{ $member->full_name }}"
             loading="lazy"
             class="size-full object-cover"

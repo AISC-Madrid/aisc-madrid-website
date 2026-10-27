@@ -9,12 +9,12 @@ class EventController extends Controller
 {
     public function index(): View
     {
-        $upcoming = Event::with('type')
+        $upcoming = Event::query()
             ->where('end_datetime', '>=', now())
             ->orderBy('start_datetime', 'asc')
             ->get();
 
-        $past = Event::with('type')
+        $past = Event::query()
             ->where('end_datetime', '<', now())
             ->orderBy('start_datetime', 'desc')
             ->get();
@@ -26,10 +26,7 @@ class EventController extends Controller
 
     public function show(string $locale, Event $event): View
     {
-        $event->load([
-            'type',
-            'speakers',
-        ]);
+        $event->load('speakers');
 
         return view('events.show', compact('event'));
     }

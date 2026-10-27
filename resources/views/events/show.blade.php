@@ -13,9 +13,7 @@
             ? $event->description_es
             : $event->description_en;
 
-        $typeName = $isSpanish
-            ? $event->type->name_es
-            : $event->type->name_en;
+        $typeName = $event->typeName(app()->getLocale());
 
         $start = $event->start_datetime
             ->copy()
@@ -55,9 +53,11 @@
             <div class="order-2 flex flex-col justify-center md:order-1 md:col-span-7">
 
                 <div class="flex flex-wrap items-center gap-3">
-                    <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-                        {{ $typeName }}
-                    </span>
+                    @if ($typeName !== '')
+                        <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+                            {{ $typeName }}
+                        </span>
+                    @endif
 
                     @if ($isFuture)
                         <flux:badge color="green">
@@ -77,6 +77,11 @@
                         @foreach ($event->speakers as $speaker)
                             {{ $speaker->full_name }}{{ ! $loop->last ? ',' : '' }}
                         @endforeach
+                    </flux:text>
+                @elseif ($event->speaker_label)
+                    <flux:text size="lg" class="mt-4">
+                        <strong>{{ __('events.speaker') }}</strong>
+                        {{ $event->speaker_label }}
                     </flux:text>
                 @endif
 
@@ -114,10 +119,10 @@
 
             {{-- IMAGE --}}
             <div class="order-1 flex items-center justify-center md:order-2 md:col-span-5">
-                @if ($event->image_path)
+                @if ($event->image_url)
                     <div class="aspect-square w-full overflow-hidden rounded-2xl shadow-lg">
                         <img
-                            src="{{ asset($event->image_path) }}"
+                            src="{{ $event->image_url }}"
                             alt="{{ $title }}"
                             class="h-full w-full object-cover"
                         >

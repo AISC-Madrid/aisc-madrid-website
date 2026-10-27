@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $upcomingEvents = Event::with('type')
+        $upcomingEvents = Event::query()
             ->where('end_datetime', '>=', now())
             ->orderBy('start_datetime')
             ->take(3)

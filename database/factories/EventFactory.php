@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Event;
-use App\Models\EventType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,11 +19,15 @@ class EventFactory extends Factory
     {
         $start = fake()->dateTimeBetween('-2 months', '+2 months');
         $end = (clone $start)->modify('+2 hours');
+        [$typeEs, $typeEn] = fake()->randomElement([['Evento', 'Event'], ['Taller', 'Workshop']]);
 
         return [
             'title_es' => fake()->sentence(4),
             'title_en' => fake()->sentence(4),
-            'type_id' => EventType::factory(),
+            'type_es' => $typeEs,
+            'type_en' => $typeEn,
+            'speaker' => fake()->name(),
+            'company' => fake()->optional()->company(),
             'description_es' => fake()->paragraph(),
             'description_en' => fake()->paragraph(),
             'start_datetime' => $start,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\YesNoBoolean;
+use App\Concerns\ResolvesMediaUrls;
 use App\Enums\MemberRole;
 use Database\Factories\MemberFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,11 +21,12 @@ use Illuminate\Support\Str;
  * @property string|null $mail
  * @property-read string $name
  * @property-read string|null $email
+ * @property-read string|null $image_url
  */
 class Member extends Authenticatable
 {
     /** @use HasFactory<MemberFactory> */
-    use HasFactory;
+    use HasFactory, ResolvesMediaUrls;
 
     protected $table = 'members';
 
@@ -135,6 +137,16 @@ class Member extends Authenticatable
     protected function email(): Attribute
     {
         return Attribute::get(fn (): ?string => $this->mail);
+    }
+
+    /**
+     * Public URL of the member's photo (S3 key, legacy path or absolute URL).
+     *
+     * @return Attribute<string|null, never>
+     */
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::get(fn (): ?string => self::mediaUrl($this->image_path));
     }
 
     /**
