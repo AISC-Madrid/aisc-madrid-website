@@ -113,12 +113,13 @@
 
                             @if ($canManage)
                                 <flux:table.cell align="end">
-                                    <div class="flex justify-end gap-1">
-                                        <flux:button size="sm" icon="pencil-square" :href="route('dashboard.events.edit', $event)" wire:navigate>
+                                    {{-- Stacked vertically so the column stays narrow; all buttons share one width. --}}
+                                    <div class="ms-auto flex w-28 flex-col gap-1" data-test="event-actions">
+                                        <flux:button size="xs" icon="pencil-square" class="w-full justify-start!" :href="route('dashboard.events.edit', $event)" wire:navigate>
                                             {{ __('Editar') }}
                                         </flux:button>
 
-                                        <flux:button size="sm" icon="document-arrow-down" :href="route('dashboard.events.attendees-pdf', $event)" target="_blank" :title="__('Descargar lista de asistentes en PDF')">
+                                        <flux:button size="xs" icon="document-arrow-down" class="w-full justify-start!" :href="route('dashboard.events.attendees-pdf', $event)" target="_blank" :title="__('Descargar lista de asistentes en PDF')">
                                             PDF
                                         </flux:button>
 
@@ -130,7 +131,9 @@
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <flux:button size="sm" variant="danger" icon="trash" type="submit" :aria-label="__('Eliminar :title', ['title' => $event->title_es])" />
+                                            <flux:button size="xs" variant="danger" icon="trash" type="submit" class="w-full justify-start!" :aria-label="__('Eliminar :title', ['title' => $event->title_es])">
+                                                {{ __('Eliminar') }}
+                                            </flux:button>
                                         </form>
                                     </div>
                                 </flux:table.cell>
