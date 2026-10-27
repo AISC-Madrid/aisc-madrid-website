@@ -27,12 +27,12 @@
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
+                <flux:sidebar.item icon="globe-alt" :href="route('home', ['locale' => 'es'])" target="_blank">
+                    {{ __('Ver la web') }}
                 </flux:sidebar.item>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/AISC-Madrid/aisc-madrid-website" target="_blank">
+                    {{ __('Repositorio') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
@@ -48,6 +48,7 @@
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
+                    :avatar="auth()->user()->image_url"
                     icon-trailing="chevron-down"
                 />
 
@@ -58,6 +59,7 @@
                                 <flux:avatar
                                     :name="auth()->user()->name"
                                     :initials="auth()->user()->initials()"
+                                    :src="auth()->user()->image_url"
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">

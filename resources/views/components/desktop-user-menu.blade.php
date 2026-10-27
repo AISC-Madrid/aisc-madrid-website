@@ -2,6 +2,7 @@
     <flux:sidebar.profile
         :name="auth()->user()->name"
         :initials="auth()->user()->initials()"
+        :avatar="auth()->user()->image_url"
         icon:trailing="chevrons-up-down"
         data-test="sidebar-menu-button"
     />
@@ -11,6 +12,7 @@
             <flux:avatar
                 :name="auth()->user()->name"
                 :initials="auth()->user()->initials()"
+                :src="auth()->user()->image_url"
             />
             <div class="grid flex-1 text-start text-sm leading-tight">
                 <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>

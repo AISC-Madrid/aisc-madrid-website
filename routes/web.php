@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -66,7 +67,7 @@ Route::prefix('{locale}')
 
 Route::middleware(['auth'])
     ->group(function () {
-        Route::view('/dashboard', 'dashboard')
+        Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
         Route::middleware('role:admin,events')
