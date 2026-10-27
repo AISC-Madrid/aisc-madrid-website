@@ -19,4 +19,8 @@ return [
     'add_to_calendar' => 'Añadir al calendario:',
     'share' => 'Compartir',
     'register' => 'Inscribirse al evento',
+    'gallery' => 'Fotos del evento',
+    'gallery_photo' => 'Foto :number',
+    'gallery_previous' => 'Foto anterior',
+    'gallery_next' => 'Foto siguiente',
 ];

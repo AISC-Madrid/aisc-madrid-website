@@ -142,16 +142,24 @@
 
         {{-- DESCRIPTION --}}
         <main class="lg:col-span-8">
-            <div class="space-y-4 leading-relaxed text-foreground
-                [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-bold
-                [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold
-                [&_p]:mb-4
-                [&_ul]:list-disc [&_ul]:pl-6
-                [&_ol]:list-decimal [&_ol]:pl-6
-                [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
-            >
-                {!! $description !!}
-            </div>
+            {{-- GALLERY (gallery_paths), shown above the description like the legacy page --}}
+            <x-event-gallery :images="$event->gallery_urls" :title="$title" class="mb-10" />
+
+            {{--
+                Descriptions are stored with real line breaks (plus <br>), and the legacy page showed
+                them with white-space: pre-line. Keep that spacing, but not inside lists.
+                The content is printed on one line so the template's own indentation adds no blank lines.
+            --}}
+            <div
+                class="whitespace-pre-line text-base leading-7 text-foreground
+                    [&_h2]:text-2xl [&_h2]:font-bold
+                    [&_h3]:text-xl [&_h3]:font-semibold
+                    [&_ul]:my-2 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6 [&_ul]:whitespace-normal
+                    [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:space-y-1 [&_ol]:pl-6 [&_ol]:whitespace-normal
+                    [&_strong]:font-semibold
+                    [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                data-test="event-description"
+            >{!! trim((string) $description) !!}</div>
 
             {{-- YOUTUBE --}}
             @if ($event->youtube_url)

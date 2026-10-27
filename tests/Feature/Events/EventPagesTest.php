@@ -82,3 +82,51 @@ test('event images stored as bucket keys are served from S3', function () {
         ->assertOk()
         ->assertSee('https://s3.aiscmadrid.com/aisc-public/events-workshops/10/cover.webp', false);
 });
+
+test('event page shows the gallery photos in a carousel', function () {
+    $event = Event::factory()->upcoming()->create([
+        'gallery_paths' => [
+            'events-workshops/43/gallery/01.webp',
+            'https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event43/gallery/02.webp',
+        ],
+    ]);
+
+    $this->get(route('events.show', ['locale' => 'es', 'event' => $event]))
+        ->assertOk()
+        ->assertSee('data-test="event-gallery"', false)
+        ->assertSee('aria-roledescription="carousel"', false)
+        ->assertSeeInOrder([
+            'src="https://s3.aiscmadrid.com/aisc-public/events-workshops/43/gallery/01.webp"',
+            'src="https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/events/event43/gallery/02.webp"',
+            'data-test="event-description"',
+        ], false)
+        ->assertSee('aria-label="Foto siguiente"', false);
+});
+
+test('a single gallery photo has no carousel controls', function () {
+    $event = Event::factory()->upcoming()->create(['gallery_paths' => ['events-workshops/43/gallery/01.webp']]);
+
+    $this->get(route('events.show', ['locale' => 'en', 'event' => $event]))
+        ->assertOk()
+        ->assertSee('data-test="event-gallery"', false)
+        ->assertDontSee('aria-label="Next photo"', false);
+});
+
+test('events without gallery photos show no carousel', function (?array $gallery) {
+    $event = Event::factory()->upcoming()->create(['gallery_paths' => $gallery]);
+
+    $this->get(route('events.show', ['locale' => 'es', 'event' => $event]))
+        ->assertOk()
+        ->assertDontSee('data-test="event-gallery"', false);
+})->with([[null], [[]]]);
+
+test('event description keeps its line breaks', function () {
+    $event = Event::factory()->upcoming()->create([
+        'description_es' => "Primer párrafo.\n<br>\nSegundo párrafo con <strong>negrita</strong>.\n<ul>\n  <li>Uno</li>\n</ul>",
+    ]);
+
+    $this->get(route('events.show', ['locale' => 'es', 'event' => $event]))
+        ->assertOk()
+        ->assertSee('whitespace-pre-line', false)
+        ->assertSee("data-test=\"event-description\"\n            >Primer párrafo.\n<br>\nSegundo párrafo con <strong>negrita</strong>.", false);
+});

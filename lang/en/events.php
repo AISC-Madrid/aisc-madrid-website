@@ -19,4 +19,8 @@ return [
     'add_to_calendar' => 'Add to calendar:',
     'share' => 'Share',
     'register' => 'Register for event',
+    'gallery' => 'Event photos',
+    'gallery_photo' => 'Photo :number',
+    'gallery_previous' => 'Previous photo',
+    'gallery_next' => 'Next photo',
 ];
