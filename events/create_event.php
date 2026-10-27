@@ -20,6 +20,8 @@ $company = '';
 $requires_registration = 0;
 $reminder_enabled = 0;
 $reminder_days_before = 2;
+$status = 'draft';
+$registration_count = 0;
 
 
 // Check if an ID is passed
@@ -33,29 +35,41 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $event = $result->fetch_assoc();
 
     if ($event) {
+        $status = $event['status'];
         $title_es = $event['title_es'];
-        $title_en = $event['title_en'];
-        $type_es = $event['type_es'];
-        $type_en = $event['type_en'];
+        $title_en = $event['title_en'] ?? '';
+        $type_es = $event['type_es'] ?? '';
+        $type_en = $event['type_en'] ?? '';
         $speaker = $event['speaker'];
         $company = $event['company'] ?? '';
-        $description_es = $event['description_es'];
-        $description_en = $event['description_en'];
-        $location = $event['location'];
-        // 1. Convertimos el inicio de UTC a Madrid para el formulario
-        $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
-        $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
-        $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+        $description_es = $event['description_es'] ?? '';
+        $description_en = $event['description_en'] ?? '';
+        $location = $event['location'] ?? '';
+        // 1. Convertimos el inicio de UTC a Madrid para el formulario (un borrador puede no tener fechas)
+        if (!empty($event['start_datetime'])) {
+            $start_dt = new DateTime($event['start_datetime'], new DateTimeZone('UTC'));
+            $start_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+            $start_datetime = $start_dt->format('Y-m-d\TH:i'); // Formato requerido por datetime-local
+        }
 
         // 2. Convertimos el fin de UTC a Madrid para el formulario
-        $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
-        $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
-        $end_datetime = $end_dt->format('Y-m-d\TH:i');
-        $image_path = $event['image_path'];
+        if (!empty($event['end_datetime'])) {
+            $end_dt = new DateTime($event['end_datetime'], new DateTimeZone('UTC'));
+            $end_dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+            $end_datetime = $end_dt->format('Y-m-d\TH:i');
+        }
+        $image_path = $event['image_path'] ?? '';
         $youtube_url = $event['youtube_url'];
         $requires_registration = $event['requires_registration'];
         $reminder_enabled = $event['reminder_enabled'];
         $reminder_days_before = $event['reminder_days_before'];
+
+        // Shown in the confirmation before unpublishing
+        $count_stmt = $conn->prepare("SELECT COUNT(*) FROM event_registrations WHERE event_id = ?");
+        $count_stmt->bind_param("i", $event_id);
+        $count_stmt->execute();
+        $registration_count = (int) $count_stmt->get_result()->fetch_row()[0];
+        $count_stmt->close();
     }
     
 }
@@ -73,6 +87,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <div class="container my-5">
         <div class="row wrap">
             <h1 class="mb-4"><?= isset($event_id) ? 'Editar Evento' : 'Crear Nuevo Evento' ?></h1>
+
+            <?php if ($status === 'draft'): ?>
+                <div class="alert alert-warning">
+                    <strong>Borrador.</strong> Este evento no es visible en la web hasta que lo publiques.
+                    Para guardarlo como borrador basta con el título en español; para publicarlo hacen falta
+                    títulos y descripciones en ambos idiomas, fechas e imagen principal.
+                </div>
+            <?php endif; ?>
 
             <form action="<?= isset($event_id) ? 'update_event.php' : 'insert_event.php' ?>" method="POST" enctype="multipart/form-data">
                 <?php if (isset($event_id)): ?>
@@ -150,7 +172,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <!-- Image upload -->
                     <div class="mb-3">
                         <label class="form-label">Imagen principal del evento</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" <?= isset($event_id) ? '' : 'required' ?>>
+                        <input type="file" name="image" class="form-control" accept="image/*" <?= empty($image_path) ? 'required' : '' ?>>
                     </div>
 
                     <!-- Multiple event photos -->
@@ -191,10 +213,27 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         </div>
                     </div>
 
-                    <!-- Submit -->
-                    <button type="submit" class="btn btn-primary col-6">
-                        <?= isset($event_id) ? 'Actualizar Evento' : 'Guardar Evento' ?>
-                    </button>
+                    <!-- Submit: drafts skip the browser validation, only title_es is checked server-side -->
+                    <div class="col-12 d-flex gap-2 flex-wrap">
+                        <?php if ($status === 'draft'): ?>
+                            <button type="submit" name="action" value="draft" class="btn btn-outline-secondary" formnovalidate>
+                                Guardar borrador
+                            </button>
+                            <button type="submit" name="action" value="publish" class="btn btn-primary">
+                                Publicar
+                            </button>
+                        <?php else: ?>
+                            <button type="submit" name="action" value="save" class="btn btn-primary">
+                                Guardar cambios
+                            </button>
+                            <button type="submit" name="action" value="unpublish" class="btn btn-outline-danger" formnovalidate
+                                onclick="return confirm(<?= htmlspecialchars(json_encode($registration_count > 0
+                                    ? "Este evento tiene $registration_count inscritos. Dejará de ser visible en la web y no se enviarán recordatorios. ¿Despublicarlo?"
+                                    : 'El evento dejará de ser visible en la web. ¿Despublicarlo?'), ENT_QUOTES) ?>)">
+                                Despublicar
+                            </button>
+                        <?php endif; ?>
+                    </div>
         </div>
         </form>
 

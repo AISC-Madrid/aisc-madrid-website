@@ -26,7 +26,7 @@ $latestSubscribers = $conn->query("SELECT full_name, email, submitted_at, newsle
                                       LIMIT 5");
 
 // ---------- EVENTS ----------
-$upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE start_datetime > NOW()")->fetch_assoc()['total'];
+$upcomingEventsCount = $conn->query("SELECT COUNT(*) AS total FROM events WHERE status = 'published' AND start_datetime > NOW()")->fetch_assoc()['total'];
 $totalEventRegistrations = $conn->query("SELECT COUNT(*) AS total FROM event_registrations")->fetch_assoc()['total'];
 
 // ---------- PROJECTS ----------

@@ -21,7 +21,7 @@ include("../assets/head.php");
 include("../assets/db.php");
 include("../assets/nav_dashboard.php");
 
-// Retrieve events with registration count
+// Retrieve events with registration count (drafts first, then by date)
 $result = $conn->query("
     SELECT 
         e.*,
@@ -29,7 +29,7 @@ $result = $conn->query("
     FROM events e
     LEFT JOIN event_registrations er ON e.id = er.event_id
     GROUP BY e.id
-    ORDER BY e.start_datetime DESC
+    ORDER BY e.status = 'draft' DESC, e.start_datetime DESC
 ");
 ?>
 <!DOCTYPE html>
@@ -71,18 +71,26 @@ $result = $conn->query("
                         <tr>
                             <td><?= $row['id'] ?></td>
                             <td>
+                                <?php if ($row['status'] === 'draft'): ?>
+                                    <span class="badge bg-warning text-dark mb-1">Borrador</span><br>
+                                <?php endif; ?>
                                 <?= htmlspecialchars($row['title_es']) ?><br>
-                                <small class="text-muted"><?= htmlspecialchars($row['title_en']) ?></small>
+                                <small class="text-muted"><?= htmlspecialchars($row['title_en'] ?? '') ?></small>
                             </td>
                             <td>
-                                <?= htmlspecialchars($row['type_es']) ?><br>
-                                <small class="text-muted"><?= htmlspecialchars($row['type_en']) ?></small>
+                                <?= htmlspecialchars($row['type_es'] ?? '') ?><br>
+                                <small class="text-muted"><?= htmlspecialchars($row['type_en'] ?? '') ?></small>
                             </td>
                             <td>
                                 <?= htmlspecialchars($row['speaker']) ?><br>
                             </td>
                             <td>
                                 <?php 
+                                // Un borrador puede no tener fechas todavía
+                                if (empty($row['start_datetime']) || empty($row['end_datetime'])):
+                                ?>
+                                    <span class="text-muted">Sin fecha</span>
+                                <?php else:
                                 // 1. Creamos los objetos desde el UTC de la base de datos
                                 $inicio = new DateTime($row['start_datetime'], new DateTimeZone('UTC'));
                                 $fin    = new DateTime($row['end_datetime'], new DateTimeZone('UTC'));
@@ -95,8 +103,9 @@ $result = $conn->query("
                                 <?= $inicio->format("d/m/Y H:i") ?>
                                 -
                                 <?= $fin->format("d/m/Y H:i") ?>
+                                <?php endif; ?>
                             </td>
-                            <td><?= htmlspecialchars($row['location']) ?></td>
+                            <td><?= htmlspecialchars($row['location'] ?? '') ?></td>
                             <td class="text-center">
                                 <a href="/events/view_event_registrations.php?event_id=<?= $row['id'] ?>"
                                     class="badge bg-primary text-decoration-none" title="Ver registros">
