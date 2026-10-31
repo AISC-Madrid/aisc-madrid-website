@@ -10,7 +10,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $event_id = (int) $_GET['id'];
 
 // Prepare SQL to get event details
-$stmt = $conn->prepare("SELECT title_es, image_path, end_datetime FROM events WHERE id = ?");
+$stmt = $conn->prepare("SELECT title_es, image_path, end_datetime FROM events WHERE id = ? AND status = 'published'");
 if (!$stmt) {
   error_log("DB prepare failed in " . __FILE__ . ": " . $conn->error);
   http_response_code(500);

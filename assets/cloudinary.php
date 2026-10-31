@@ -5,8 +5,8 @@
  * Provides:
  *   cloudinary_config()                     -> array with cloud credentials/folder
  *   cloudinary_upload($localPath, $publicId, $opts = [])  -> ['url' => '...', 'public_id' => '...', 'version' => N] | ['error' => '...']
- *   cdn($localPath)                          -> Cloudinary delivery URL for static assets that live under images/
- *   cdn_from_image_path($imagePath)          -> Same as cdn() but tolerates already-absolute Cloudinary URLs (mixed legacy/new rows)
+ *   cdn($localPath)                          -> S3 URL (static/ prefix) for static assets that live under images/
+ *   cdn_from_image_path($imagePath)          -> Same as cdn() but also resolves media keys and absolute URLs stored in the DB
  *
  * No external dependencies — uses curl + sha1 (Cloudinary signed upload spec).
  */
@@ -121,40 +121,23 @@ function cloudinary_upload(string $localPath, string $publicId, array $opts = []
 }
 
 /**
- * Build a Cloudinary delivery URL for a static asset that lives under the local images/ folder.
+ * Public URL of a static asset that lives under the local images/ folder.
  *
  * Example: cdn('images/logos/PNG/AISC Logo Color.png')
- *       -> https://res.cloudinary.com/dpchpoort/image/upload/aisc_madrid/logos/PNG/AISC%20Logo%20Color.png
+ *       -> https://s3.aiscmadrid.com/aisc-public/static/logos/PNG/AISC%20Logo%20Color.png
  *
- * For files inside images/, the leading "images/" is stripped because the Cloudinary
- * folder "aisc_madrid" mirrors the contents of that directory.
+ * For files inside images/, the leading "images/" is stripped because the bucket
+ * prefix "static/" mirrors the contents of that directory.
  */
 function cdn(string $localPath): string
 {
-    $cfg = cloudinary_config();
-    $resourceType = 'image';
-
     // Normalise Windows-style backslashes that may have been stored in the DB.
-    $localPath = str_replace('\\', '/', $localPath);
-
-    // Treat .ico / .svg fallbacks: Cloudinary handles SVG as image, ICO as raw.
-    $ext = strtolower(pathinfo($localPath, PATHINFO_EXTENSION));
-    if ($ext === 'ico') {
-        $resourceType = 'raw';
-    }
-
-    $path = ltrim($localPath, '/');
+    $path = ltrim(str_replace('\\', '/', $localPath), '/');
     if (strpos($path, 'images/') === 0) {
         $path = substr($path, strlen('images/'));
     }
 
-    $folder = trim($cfg['folder'], '/');
-    $fullPath = $folder === '' ? $path : "$folder/$path";
-
-    // URL-encode each segment so spaces and special chars work.
-    $encoded = implode('/', array_map('rawurlencode', explode('/', $fullPath)));
-
-    return "https://res.cloudinary.com/{$cfg['cloud_name']}/{$resourceType}/upload/{$encoded}";
+    return media_url("static/$path");
 }
 
 /**

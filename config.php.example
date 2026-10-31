@@ -36,6 +36,12 @@ return [
     's3_bucket'             => 'aisc-public',
     's3_access_key'         => 'your_s3_access_key',
     's3_secret_key'         => 'your_s3_secret_key',
+
+    // OpenRouter, used by the "Traducir al inglés" button of the event form (ES -> EN).
+    // openrouter_models: comma-separated list of :free models, tried in order (OpenRouter fallback).
+    // Leave empty to use the default list in events/translate_event.php
+    'openrouter_api_key'    => 'your_openrouter_api_key',
+    'openrouter_models'     => '',
 ];
 
 

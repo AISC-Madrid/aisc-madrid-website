@@ -30,7 +30,7 @@ if ($view === 'probar') {
     $recipients = [];
     $message = '';
     $mail_files = glob('../mails/*/*.html');
-    $events = $conn->query("SELECT id, title_es, title_en FROM events ORDER BY start_datetime DESC");
+    $events = $conn->query("SELECT id, title_es, title_en FROM events WHERE status = 'published' ORDER BY start_datetime DESC");
 
     define('DEFAULT_CONTACT_INTRO', "Buenos días {{contact_name}},\n\n"
         . "En el próximo evento de la asociación universitaria AI Student Collective recibimos la visita de {{event_speaker}} de {{event_company}}. Creemos que puede ser de gran interés para los alumnos del {{organization}}.\n"
