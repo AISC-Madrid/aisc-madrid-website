@@ -52,6 +52,7 @@ $query = "SELECT r.email, r.event_id, COALESCE(NULLIF(TRIM(r.name), ''), u.full_
         SELECT email, MAX(full_name) AS full_name FROM form_submissions GROUP BY email
     ) u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
     WHERE e.reminder_enabled = 1
+    AND e.status = 'published'
     AND r.reminder_sent = 0
     AND e.start_datetime > UTC_TIMESTAMP()
     AND e.start_datetime <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL e.reminder_days_before + 1 DAY)

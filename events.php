@@ -7,8 +7,8 @@ include("assets/db.php");
 // Get current datetime
 $now = date("Y-m-d H:i:s");
 
-// Retrieve all events ordered by start_datetime
-$events = $conn->query("SELECT * FROM events ORDER BY start_datetime DESC");
+// Retrieve all published events (drafts stay hidden) ordered by start_datetime
+$events = $conn->query("SELECT * FROM events WHERE status = 'published' ORDER BY start_datetime DESC");
 
 // Separate future and past events
 $future_events = [];

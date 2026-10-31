@@ -8,17 +8,30 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 include("../assets/db.php");
 include("upload_image.php");
+include("event_form.php");
+
+// "draft" keeps the event hidden from the public site; anything else publishes it
+$status = ($_POST['action'] ?? '') === 'draft' ? 'draft' : 'published';
+
+if (trim($_POST['title_es'] ?? '') === '') {
+    die("<p style='color:red;'>❌ El título en español es obligatorio, incluso para un borrador.</p>");
+}
+
+$hasMainImage = !empty($_FILES['image']['name']);
+if ($status === 'published') {
+    $missing = event_publish_errors($_POST, $hasMainImage);
+    if ($missing) {
+        event_die_missing($missing);
+    }
+}
 
 // Initialize variables in case they are null
 $youtube_url = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
+$title_en = trim($_POST['title_en'] ?? '') ?: null;
 
-// Convert form datetimes from Madrid timezone to UTC for storage
-$madridTz = new DateTimeZone('Europe/Madrid');
-$utcTz = new DateTimeZone('UTC');
-$start_madrid = new DateTime($_POST['start_datetime'], $madridTz);
-$start_utc = $start_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
-$end_madrid = new DateTime($_POST['end_datetime'], $madridTz);
-$end_utc = $end_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
+// Convert form datetimes from Madrid timezone to UTC for storage (drafts may leave them empty)
+$start_utc = event_form_datetime_utc($_POST['start_datetime'] ?? null);
+$end_utc = event_form_datetime_utc($_POST['end_datetime'] ?? null);
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
 $reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
@@ -28,6 +41,7 @@ $company = trim($_POST['company'] ?? '') ?: null;
 
 // 1. Insert event WITHOUT image paths first
 $sql = "INSERT INTO events (
+    status,
     title_es, title_en,
     type_es, type_en,
     speaker,
@@ -40,16 +54,17 @@ $sql = "INSERT INTO events (
     reminder_enabled,
     reminder_days_before,
     reminder_custom_text
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt)
     die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssssiiis",
+    "sssssssssssssiiis",
+    $status,
     $_POST['title_es'],
-    $_POST['title_en'],
+    $title_en,
     $_POST['type_es'],
     $_POST['type_en'],
     $_POST['speaker'],
@@ -78,12 +93,15 @@ $eventId = $conn->insert_id;
 $eventFolder   = "events-workshops/$eventId";
 $galleryFolder = "events-workshops/$eventId/gallery";
 
-// 3. Upload main image to S3
-$mainImage = handleImageUpload('image', $eventFolder);
-if (isset($mainImage['error'])) {
-    die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
+// 3. Upload main image to S3 (a draft may not have it yet)
+$mainImagePath = null;
+if ($hasMainImage) {
+    $mainImage = handleImageUpload('image', $eventFolder);
+    if (isset($mainImage['error'])) {
+        die("<p style='color:red;'>❌ Main image error: " . $mainImage['error'] . "</p>");
+    }
+    $mainImagePath = $mainImage['path']; // bucket key
 }
-$mainImagePath = $mainImage['path']; // bucket key
 
 // 4. Upload gallery images to S3
 $gallery = handleMultipleImageUpload('images', $galleryFolder);
@@ -94,8 +112,13 @@ $update = $conn->prepare("UPDATE events SET image_path = ?, gallery_paths = ? WH
 $update->bind_param("ssi", $mainImagePath, $galleryPathsJson, $eventId);
 
 if ($update->execute()) {
-    echo "<p style='color:green;'>✅ Evento guardado correctamente con imágenes.</p>";
-    echo "<a href='events_list.php'>Crear otro evento</a>";
+    if ($status === 'draft') {
+        echo "<p style='color:green;'>✅ Borrador guardado. No será visible en la web hasta que lo publiques.</p>";
+        echo "<a href='create_event.php?id=$eventId'>Seguir editando</a> · ";
+    } else {
+        echo "<p style='color:green;'>✅ Evento publicado correctamente con imágenes.</p>";
+    }
+    echo "<a href='events_list.php'>Volver a la lista de eventos</a>";
 } else {
     echo "<p style='color:red;'>❌ Error al actualizar los paths: " . $update->error . "</p>";
 }

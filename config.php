@@ -30,4 +30,8 @@ return [
     's3_bucket'     => getenv('S3_BUCKET') ?: 'aisc-public',
     's3_access_key' => getenv('S3_ACCESS_KEY') ?: '',
     's3_secret_key' => getenv('S3_SECRET_KEY') ?: '',
+
+    // OpenRouter (ES -> EN translation of events). Models: comma-separated, tried in order
+    'openrouter_api_key' => getenv('OPENROUTER_API_KEY') ?: '',
+    'openrouter_models'  => getenv('OPENROUTER_MODELS') ?: '',
 ];
