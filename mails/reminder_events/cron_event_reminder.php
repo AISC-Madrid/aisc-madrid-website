@@ -8,11 +8,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 include(__DIR__ . '/../../assets/db.php');
 $config = include(__DIR__ . '/../../config.php');
 require_once __DIR__ . '/../../assets/cloudinary.php';
+require_once __DIR__ . '/reminder_text.php';
 
 // Buscar eventos con recordatorio activado cuyo start_datetime coincide con hoy + reminder_days_before
 $hoy = date('Y-m-d');
 
-$query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker, e.reminder_days_before 
+$query = "SELECT u.full_name, r.email, r.event_id, e.title_es, e.title_en, e.start_datetime, e.end_datetime, e.location, e.image_path, e.speaker, e.reminder_days_before, e.reminder_custom_text 
     , e.type_es
         FROM event_registrations r
         JOIN form_submissions u ON r.email COLLATE utf8mb4_unicode_ci = u.email COLLATE utf8mb4_unicode_ci
@@ -154,7 +155,15 @@ while ($row = $result->fetch_assoc()) {
     $icsContent .= "END:VEVENT\r\n";
     $icsContent .= "END:VCALENDAR\r\n";
 
+    // Párrafo principal: texto del panel (o el de por defecto) construido con los datos actuales del evento
+    $reminder_vars = [
+        'event_type_label' => $event_type_label,
+        'event_name' => $row['title_es'],
+        'event_date' => $formatted_date,
+    ];
+
     $htmlContent = $baseHtmlContent;
+    $htmlContent = str_replace('{{reminder_body}}', build_reminder_html($row['reminder_custom_text'], $reminder_vars), $htmlContent);
     $htmlContent = str_replace('{{user_name}}', $nombre, $htmlContent);
     $htmlContent = str_replace('{{event_type_label}}', $event_type_label, $htmlContent);
     $htmlContent = str_replace('{{event_name}}', $row['title_es'], $htmlContent);
@@ -171,7 +180,7 @@ while ($row = $result->fetch_assoc()) {
     $mail->Body = $htmlContent;
     $mail->clearAttachments();
     $mail->addStringAttachment($icsContent, 'event-reminder-' . $row['event_id'] . '.ics', 'base64', 'text/calendar; charset=UTF-8; method=PUBLISH');
-    $mail->AltBody = "Hola {$nombre}, te recordamos que el {$event_type_label} {$titulo_es} es el {$formatted_date} en {$row['location']}.";
+    $mail->AltBody = "Hola {$nombre},\n\n" . build_reminder_plain($row['reminder_custom_text'], $reminder_vars);
 
     if ($mail->send()) {
         // Marcamos como enviado para no repetir si el script corre dos veces
