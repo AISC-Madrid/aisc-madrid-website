@@ -385,7 +385,7 @@ test('a PHP error while processing images also goes back to the form', function 
 });
 
 test('large photos are scaled down to at most 2000px before being stored', function () {
-    $key = app(StoreWebpImage::class)(UploadedFile::fake()->image('phone-photo.jpg', 4000, 3000), 'events-workshops/9');
+    $key = app(StoreWebpImage::class)(UploadedFile::fake()->image('phone-photo.jpg', 2400, 1800), 'events-workshops/9');
 
     $size = getimagesizefromstring(Storage::disk('s3')->get($key));
 

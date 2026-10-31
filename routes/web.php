@@ -6,9 +6,11 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\NewsletterUnsubscribeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
-// For EVENT_PAGE
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/es');
+
+// Unsubscribe links in emails sent by the legacy PHP site.
+Route::get('/processing/unsubscribe.php', [NewsletterUnsubscribeController::class, 'legacy'])
+    ->name('newsletter.unsubscribe.legacy');
 
 Route::prefix('{locale}')
     ->where(['locale' => 'en|es'])
@@ -30,6 +36,26 @@ Route::prefix('{locale}')
         Route::post('/newsletter', [NewsletterController::class, 'store'])
             ->middleware('throttle:6,1')
             ->name('newsletter.store');
+
+        // Newsletter unsubscribe by token: GET only asks for confirmation (link scanners open
+        // every URL), POST unsubscribes, and one-click is for mail clients (RFC 8058, no CSRF).
+        Route::prefix('/newsletter/unsubscribe/{submission:unsubscribe_token}')
+            ->name('newsletter.unsubscribe.')
+            ->middleware('throttle:30,1')
+            ->group(function () {
+                Route::get('/', [NewsletterUnsubscribeController::class, 'show'])
+                    ->missing(fn (Request $request) => NewsletterUnsubscribeController::invalidLink($request))
+                    ->name('show');
+
+                Route::post('/', [NewsletterUnsubscribeController::class, 'store'])
+                    ->missing(fn (Request $request) => NewsletterUnsubscribeController::invalidLink($request))
+                    ->name('store');
+
+                Route::post('/one-click', [NewsletterUnsubscribeController::class, 'oneClick'])
+                    ->withoutMiddleware(PreventRequestForgery::class)
+                    ->missing(fn () => response()->noContent())
+                    ->name('one-click');
+            });
 
         // For event page:
 

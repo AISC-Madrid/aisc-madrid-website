@@ -15,6 +15,17 @@ return [
     'recruiting_cohort' => env('RECRUITING_COHORT', '2026-27-1C'),
 
     /*
+    | Invite link to the AISC Madrid WhatsApp community (newsletter success page and welcome email).
+    */
+
+    'whatsapp_community_url' => env('WHATSAPP_COMMUNITY_URL', 'https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c'),
+
+    'social' => [
+        'instagram' => 'https://www.instagram.com/aisc_madrid/',
+        'linkedin' => 'https://www.linkedin.com/company/ai-student-collective-madrid/',
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Companies we have organised events with
     |--------------------------------------------------------------------------

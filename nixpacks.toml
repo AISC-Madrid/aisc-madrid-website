@@ -158,6 +158,12 @@ http {
      
         location = /favicon.ico { access_log off; log_not_found off; }
         location = /robots.txt  { access_log off; log_not_found off; }
+
+        # Unsubscribe links in emails sent by the legacy PHP site: let Laravel handle them
+        # (the file does not exist, so the generic .php location below would return 404).
+        location = /processing/unsubscribe.php {
+            rewrite ^ /index.php last;
+        }
      
         $if(IS_LARAVEL) (
             error_page 404 /index.php;

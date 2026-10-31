@@ -61,4 +61,24 @@ class FormSubmission extends Model
                 ->orWhere('email', 'like', "%{$term}%");
         });
     }
+
+    /**
+     * Random token for the unsubscribe links (32 hex characters, the legacy site's format).
+     */
+    public static function newUnsubscribeToken(): string
+    {
+        return bin2hex(random_bytes(16));
+    }
+
+    /**
+     * Stop sending the newsletter. Returns false if they were already unsubscribed.
+     */
+    public function unsubscribe(): bool
+    {
+        if (! $this->newsletter) {
+            return false;
+        }
+
+        return $this->update(['newsletter' => false]);
+    }
 }

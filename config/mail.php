@@ -14,7 +14,8 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
+    // Falls back to SMTP when the legacy site's SMTP_HOST is set, so existing servers send mail.
+    'default' => env('MAIL_MAILER') ?: (env('SMTP_HOST') ? 'smtp' : 'log'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,15 +38,16 @@ return [
 
     'mailers' => [
 
+        // MAIL_* first, then the legacy site's SMTP_* names (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS).
         'smtp' => [
             'transport' => 'smtp',
             'scheme' => env('MAIL_SCHEME'),
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', '127.0.0.1'),
-            'port' => env('MAIL_PORT', 2525),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'host' => env('MAIL_HOST') ?: (env('SMTP_HOST') ?: '127.0.0.1'),
+            'port' => env('MAIL_PORT') ?: (env('SMTP_PORT') ?: 587),
+            'username' => env('MAIL_USERNAME') ?: env('SMTP_USER'),
+            'password' => env('MAIL_PASSWORD') ?: env('SMTP_PASS'),
+            'timeout' => 30,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
@@ -111,8 +113,17 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+        'address' => env('MAIL_FROM_ADDRESS') ?: 'info@aiscmadrid.com',
+        'name' => env('MAIL_FROM_NAME') ?: 'AISC Madrid',
+    ],
+
+    /*
+    | Replies to emails from the site go to the association's UC3M inbox (legacy MAIL_REPLY_TO).
+    */
+
+    'reply_to' => [
+        'address' => env('MAIL_REPLY_TO') ?: 'aisc.asoc@uc3m.es',
+        'name' => 'AISC Madrid',
     ],
 
 ];

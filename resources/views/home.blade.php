@@ -154,7 +154,7 @@
                         <p class="mt-4 text-muted-foreground">{{ __('site.home.newsletter.success_body') }}</p>
 
                         <a
-                            href="https://chat.whatsapp.com/BpdXitZhwGCCpErwBoj3hv?mode=r_c"
+                            href="{{ config('aisc.whatsapp_community_url') }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:brightness-110"
