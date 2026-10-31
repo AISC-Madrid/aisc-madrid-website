@@ -22,6 +22,8 @@ $end_utc = $end_madrid->setTimezone($utcTz)->format('Y-m-d H:i:s');
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
 $reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
+require_once __DIR__ . '/../mails/reminder_events/reminder_text.php';
+$reminder_custom_text = reminder_text_to_store($_POST['reminder_custom_text'] ?? '');
 $company = trim($_POST['company'] ?? '') ?: null;
 
 // 1. Insert event WITHOUT image paths first
@@ -36,15 +38,16 @@ $sql = "INSERT INTO events (
     youtube_url,
     requires_registration,
     reminder_enabled,
-    reminder_days_before
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    reminder_days_before,
+    reminder_custom_text
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 if (!$stmt)
     die("Error al preparar la consulta: " . $conn->error);
 
 $stmt->bind_param(
-    "ssssssssssssiii",
+    "ssssssssssssiiis",
     $_POST['title_es'],
     $_POST['title_en'],
     $_POST['type_es'],
@@ -59,7 +62,8 @@ $stmt->bind_param(
     $youtube_url,
     $requires_registration,
     $reminder_enabled,
-    $reminder_days_before
+    $reminder_days_before,
+    $reminder_custom_text
 );
 
 
