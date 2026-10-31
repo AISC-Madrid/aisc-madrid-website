@@ -29,6 +29,15 @@ require_once __DIR__ . '/assets/cloudinary.php';
 
 $error = '';
 
+// Vuelta a la URL original tras el login (usado por los deep links del planificador de
+// eventos). Solo se acepta una ruta interna (empieza por "/", nunca "//" -> evita
+// redirecciones a otros dominios).
+$next = $_POST['next'] ?? $_GET['next'] ?? '';
+$next = is_string($next) ? trim($next) : '';
+if ($next === '' || $next[0] !== '/' || str_starts_with($next, '//')) {
+    $next = '/dashboard/dashboard.php';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputUser = trim($_POST['mail'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -51,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mail'] = $user['mail'];
             $_SESSION['activated'] = true;
             $_SESSION['role'] = $user['role'];
-            header("Location: /dashboard/dashboard.php");
+            header("Location: " . $next);
             exit();
         } else {
             $error = "Invalid username or password.";
@@ -119,6 +128,7 @@ $conn->close();
                 <?php endif; ?>
 
                 <form action="" method="POST">
+                    <input type="hidden" name="next" value="<?= htmlspecialchars($next) ?>">
                     <div class="mb-3">
                         <label class="form-label">NIA / Username</label>
                         <input type="text" name="mail" class="form-control form-control-lg" required>
