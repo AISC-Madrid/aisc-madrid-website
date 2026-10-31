@@ -74,7 +74,8 @@ $sql = "UPDATE events SET
     youtube_url = ?,
     requires_registration = ?,
     reminder_enabled = ?,
-    reminder_days_before = ?
+    reminder_days_before = ?,
+    reminder_custom_text = ?
 WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -86,6 +87,8 @@ if (!$stmt) {
 $requires_registration = isset($_POST['requires_registration']) ? 1 : 0;
 $reminder_enabled = isset($_POST['reminder_enabled']) ? 1 : 0;
 $reminder_days_before = isset($_POST['reminder_days_before']) ? (int)$_POST['reminder_days_before'] : 2;
+require_once __DIR__ . '/../mails/reminder_events/reminder_text.php';
+$reminder_custom_text = reminder_text_to_store($_POST['reminder_custom_text'] ?? '');
 $youtubeUrl = !empty($_POST['youtube_url']) ? $_POST['youtube_url'] : null;
 $title_en = trim($_POST['title_en'] ?? '') ?: null;
 $company = trim($_POST['company'] ?? '') ?: null;
@@ -96,7 +99,7 @@ $end_utc = event_form_datetime_utc($_POST['end_datetime'] ?? null);
 
 
 $stmt->bind_param(
-    "sssssssssssssssiiii",
+    "sssssssssssssssiiisi",
     $status,
     $_POST['title_es'],
     $title_en,
@@ -115,6 +118,7 @@ $stmt->bind_param(
     $requires_registration,
     $reminder_enabled,
     $reminder_days_before,
+    $reminder_custom_text,
     $event_id
 );
 

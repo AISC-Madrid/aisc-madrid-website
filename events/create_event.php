@@ -11,6 +11,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 
 include('../assets/db.php'); // Your $conn mysqli connection
 include('../assets/csrf.php'); // Token for the translate endpoint
+require_once __DIR__ . '/../mails/reminder_events/reminder_text.php';
 
 // Initialize variables for the form
 $title_es = $title_en = $type_es = $type_en = '';
@@ -21,6 +22,7 @@ $company = '';
 $requires_registration = 0;
 $reminder_enabled = 0;
 $reminder_days_before = 2;
+$reminder_custom_text = '';
 $status = 'draft';
 $registration_count = 0;
 
@@ -64,6 +66,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $requires_registration = $event['requires_registration'];
         $reminder_enabled = $event['reminder_enabled'];
         $reminder_days_before = $event['reminder_days_before'];
+        $reminder_custom_text = $event['reminder_custom_text'] ?? '';
 
         // Shown in the confirmation before unpublishing
         $count_stmt = $conn->prepare("SELECT COUNT(*) FROM event_registrations WHERE event_id = ?");
@@ -220,6 +223,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                     <option value="<?= $i ?>" <?= $reminder_days_before == $i ? 'selected' : '' ?>><?= $i ?> día<?= $i > 1 ? 's' : '' ?></option>
                                 <?php endfor; ?>
                             </select>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label" for="reminder_custom_text">Texto del correo</label>
+                            <textarea name="reminder_custom_text" id="reminder_custom_text" class="form-control" rows="5"><?= htmlspecialchars($reminder_custom_text ?: DEFAULT_REMINDER_TEXT) ?></textarea>
+                            <div class="form-text">
+                                Párrafo que va después de "¡Hola {nombre}!". Marcadores: <code>{{event_type_label}}</code>, <code>{{event_name}}</code>, <code>{{event_date}}</code>.
+                                <code>**texto**</code> = negrita. Las URLs se convierten en enlaces. Vacíalo para volver al texto por defecto.
+                            </div>
                         </div>
                     </div>
 
