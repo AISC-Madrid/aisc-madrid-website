@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\EventRegistration;
 use App\Models\FormSubmission;
 use App\Models\Member;
 use App\Models\Project;
+use App\Models\RecruitingApplicant;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 /**
  * Overview of the website, like the legacy dashboard/dashboard.php: sign-ups and newsletter,
@@ -33,7 +33,7 @@ class DashboardController extends Controller
             ->orderBy('start_datetime')
             ->get(['id', 'title_es', 'title_en', 'type_es', 'type_en', 'start_datetime', 'end_datetime', 'location']);
 
-        $registrationsByEvent = $this->registrationsByEvent($upcomingEvents->pluck('id'));
+        $registrationsByEvent = EventRegistration::countsByEvent($upcomingEvents->pluck('id'));
 
         return view('dashboard', [
             'users' => [
@@ -46,14 +46,11 @@ class DashboardController extends Controller
             'events' => [
                 'upcoming' => $upcomingEvents->count(),
                 'past' => Event::where('end_datetime', '<', $now)->count(),
-                'totalRegistrations' => $this->countIfTableExists('event_registrations'),
+                'totalRegistrations' => EventRegistration::count(),
             ],
             'recruiting' => [
                 'cohort' => config('aisc.recruiting_cohort'),
-                'applicants' => $this->countIfTableExists(
-                    'recruiting',
-                    ['cohort' => config('aisc.recruiting_cohort')],
-                ),
+                'applicants' => RecruitingApplicant::currentCohort()->count(),
             ],
             'community' => [
                 'activeMembers' => Member::activeMembers()->count(),
@@ -94,40 +91,5 @@ class DashboardController extends Controller
                 'total' => (int) $totalsByMonth->get($month->format('Y-m'), 0),
             ];
         });
-    }
-
-    /**
-     * Registrations per upcoming event, keyed by event id. Empty when the legacy table is not there.
-     *
-     * @param  Collection<int, int>  $eventIds
-     * @return Collection<int, int>
-     */
-    private function registrationsByEvent(Collection $eventIds): Collection
-    {
-        if ($eventIds->isEmpty() || ! Schema::hasTable('event_registrations')) {
-            return collect();
-        }
-
-        return DB::table('event_registrations')
-            ->selectRaw('event_id, COUNT(*) as total')
-            ->whereIn('event_id', $eventIds)
-            ->groupBy('event_id')
-            ->pluck('total', 'event_id')
-            ->map(fn ($total): int => (int) $total);
-    }
-
-    /**
-     * Count rows in a legacy table that has no model yet (event_registrations, recruiting).
-     * Returns null when the table does not exist, so the dashboard can hide that number.
-     *
-     * @param  array<string, mixed>  $where
-     */
-    private function countIfTableExists(string $table, array $where = []): ?int
-    {
-        if (! Schema::hasTable($table)) {
-            return null;
-        }
-
-        return DB::table($table)->where($where)->count();
     }
 }

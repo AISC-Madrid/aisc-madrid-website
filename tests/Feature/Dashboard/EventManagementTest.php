@@ -3,28 +3,11 @@
 use App\Actions\StoreWebpImage;
 use App\Enums\MemberRole;
 use App\Models\Event;
+use App\Models\EventRegistration;
 use App\Models\Member;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\UnableToWriteFile;
-
-/**
- * The legacy event_registrations table has no Laravel migration yet; create it with the
- * columns the old site uses so the list counts and the PDF can read it.
- */
-function createEventRegistrationsTable(): void
-{
-    Schema::create('event_registrations', function (Blueprint $table) {
-        $table->id();
-        $table->integer('event_id');
-        $table->string('name');
-        $table->string('email');
-        $table->string('attendance_status')->default('not_attended');
-    });
-}
 
 /**
  * @return array<string, mixed>
@@ -88,13 +71,10 @@ test('admins and events members see the actions', function (MemberRole $role) {
 })->with([MemberRole::Admin, MemberRole::Events]);
 
 test('the list shows dates in Madrid time, newest first, with registration counts', function () {
-    createEventRegistrationsTable();
     $older = Event::factory()->create(['title_es' => 'Evento antiguo', 'start_datetime' => '2025-01-10 10:00:00', 'end_datetime' => '2025-01-10 12:00:00']);
     $newer = Event::factory()->create(['title_es' => 'Evento nuevo', 'start_datetime' => '2026-10-15 10:00:00', 'end_datetime' => '2026-10-15 12:00:00']);
-    DB::table('event_registrations')->insert([
-        ['event_id' => $newer->id, 'name' => 'Ada', 'email' => 'ada@example.com', 'attendance_status' => 'attended'],
-        ['event_id' => $newer->id, 'name' => 'Alan', 'email' => 'alan@example.com', 'attendance_status' => 'not_attended'],
-    ]);
+    EventRegistration::factory()->attended()->for($newer)->create();
+    EventRegistration::factory()->for($newer)->create();
 
     $this->actingAs(eventsAdmin())
         ->get(route('dashboard.events.index'))
@@ -263,12 +243,9 @@ test('events can be deleted', function () {
 });
 
 test('the attendee list downloads as a PDF', function () {
-    createEventRegistrationsTable();
     $event = Event::factory()->create(['title_es' => 'Sergio Ayala, Co-Founder | AISC x TRAZA', 'location' => 'Aula 2.3.A03, Edificio Sabatini']);
-    DB::table('event_registrations')->insert([
-        ['event_id' => $event->id, 'name' => 'José Miguel Medina', 'email' => 'jose@example.com', 'attendance_status' => 'attended'],
-        ['event_id' => $event->id, 'name' => 'Albert Franquet', 'email' => '100495469@alumnos.uc3m.es', 'attendance_status' => 'not_attended'],
-    ]);
+    EventRegistration::factory()->attended()->for($event)->create(['name' => 'José Miguel Medina']);
+    EventRegistration::factory()->for($event)->create(['name' => 'Albert Franquet']);
 
     $response = $this->actingAs(eventsAdmin())
         ->get(route('dashboard.events.attendees-pdf', $event))
@@ -281,7 +258,7 @@ test('the attendee list downloads as a PDF', function () {
     expect($response->getContent())->toStartWith('%PDF-');
 });
 
-test('the PDF works when the registrations table does not exist', function () {
+test('the PDF works when the event has no registrations', function () {
     $event = Event::factory()->create();
 
     $this->actingAs(eventsAdmin())

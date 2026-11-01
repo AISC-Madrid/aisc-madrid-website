@@ -42,6 +42,6 @@ class Project extends Model
      */
     protected function imageUrl(): Attribute
     {
-        return Attribute::get(fn (): ?string => self::mediaUrl($this->image_path));
+        return Attribute::make(get: fn (): ?string => self::mediaUrl($this->image_path));
     }
 }

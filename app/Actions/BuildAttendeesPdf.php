@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Models\Event;
+use App\Models\EventRegistration;
 use Fpdf\Fpdf;
 use Illuminate\Support\Collection;
 
@@ -13,7 +14,7 @@ use Illuminate\Support\Collection;
 class BuildAttendeesPdf
 {
     /**
-     * @param  Collection<int, object{name: string, email: string, attendance_status: ?string}>  $registrations
+     * @param  Collection<int, EventRegistration>  $registrations
      */
     public function __invoke(Event $event, Collection $registrations): string
     {

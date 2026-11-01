@@ -30,5 +30,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EventGuestAccessSeeder::class);
         $this->call(CollaborationSeeder::class);
         $this->call(FormSubmissionSeeder::class);
+        $this->call(EventRegistrationSeeder::class);
+        $this->call(RecruitingApplicantSeeder::class);
+        $this->call(NewsletterLogSeeder::class);
     }
 }

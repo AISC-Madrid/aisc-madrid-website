@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
@@ -62,7 +63,7 @@ class Event extends Model
     ];
 
     /**
-     * @return BelongsToMany<Speaker, $this>
+     * @return BelongsToMany<Speaker, $this, EventSpeaker>
      */
     public function speakers(): BelongsToMany
     {
@@ -71,8 +72,17 @@ class Event extends Model
             'event_speakers',
             'event_id',
             'speaker_id'
-        )->withPivot('role', 'sort_order')
+        )->using(EventSpeaker::class)
+            ->withPivot('role', 'sort_order')
             ->orderBy('sort_order');
+    }
+
+    /**
+     * @return HasMany<EventRegistration, $this>
+     */
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(EventRegistration::class);
     }
 
     /**
@@ -90,7 +100,7 @@ class Event extends Model
      */
     protected function typeSlug(): Attribute
     {
-        return Attribute::get(fn (): string => Str::lower(trim((string) $this->type_en)));
+        return Attribute::make(get: fn (): string => Str::lower(trim((string) $this->type_en)));
     }
 
     /**
@@ -100,7 +110,7 @@ class Event extends Model
      */
     protected function speakerLabel(): Attribute
     {
-        return Attribute::get(function (): ?string {
+        return Attribute::make(get: function (): ?string {
             $speaker = trim((string) $this->speaker);
 
             if ($speaker === '') {
@@ -118,7 +128,7 @@ class Event extends Model
      */
     protected function imageUrl(): Attribute
     {
-        return Attribute::get(fn (): ?string => self::mediaUrl($this->image_path));
+        return Attribute::make(get: fn (): ?string => self::mediaUrl($this->image_path));
     }
 
     /**
@@ -126,7 +136,7 @@ class Event extends Model
      */
     protected function galleryUrls(): Attribute
     {
-        return Attribute::get(fn (): array => collect($this->gallery_paths ?? [])
+        return Attribute::make(get: fn (): array => collect($this->gallery_paths ?? [])
             ->map(fn (mixed $path): ?string => is_string($path) ? self::mediaUrl($path) : null)
             ->filter()
             ->values()

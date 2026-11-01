@@ -7,15 +7,14 @@ use App\Actions\StoreWebpImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\EventRequest;
 use App\Models\Event;
+use App\Models\EventRegistration;
 use App\Models\Member;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Throwable;
 
@@ -46,7 +45,7 @@ class EventController extends Controller
         return view('dashboard.events.index', [
             'events' => $events,
             'search' => $search,
-            'registrationCounts' => $this->registrationCounts(collect($events->items())->pluck('id')),
+            'registrationCounts' => EventRegistration::countsByEvent(collect($events->items())->pluck('id')),
             'canManage' => $member instanceof Member && $member->hasAnyRole(['admin', 'events']),
         ]);
     }
@@ -126,13 +125,10 @@ class EventController extends Controller
 
     public function attendeesPdf(Event $event, BuildAttendeesPdf $buildAttendeesPdf): Response
     {
-        $registrations = Schema::hasTable('event_registrations')
-            ? DB::table('event_registrations')
-                ->select(['name', 'email', 'attendance_status'])
-                ->where('event_id', $event->id)
-                ->orderBy('name')
-                ->get()
-            : collect();
+        $registrations = $event->registrations()
+            ->select(['name', 'email', 'attendance_status'])
+            ->orderBy('name')
+            ->get();
 
         $filename = 'asistentes-'.$event->id.'-'.Str::slug($event->title_es).'.pdf';
 
@@ -172,23 +168,5 @@ class EventController extends Controller
             ->map(fn (UploadedFile $photo): string => ($this->storeWebpImage)($photo, $this->folderFor($event).'/gallery'))
             ->values()
             ->all();
-    }
-
-    /**
-     * @param  Collection<int, int>  $eventIds
-     * @return Collection<int, int>
-     */
-    private function registrationCounts(Collection $eventIds): Collection
-    {
-        if ($eventIds->isEmpty() || ! Schema::hasTable('event_registrations')) {
-            return collect();
-        }
-
-        return DB::table('event_registrations')
-            ->selectRaw('event_id, COUNT(*) as total')
-            ->whereIn('event_id', $eventIds)
-            ->groupBy('event_id')
-            ->pluck('total', 'event_id')
-            ->map(fn ($total): int => (int) $total);
     }
 }

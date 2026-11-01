@@ -2,33 +2,11 @@
 
 use App\Enums\MemberRole;
 use App\Models\Event;
+use App\Models\EventRegistration;
 use App\Models\FormSubmission;
 use App\Models\Member;
 use App\Models\Project;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-
-/**
- * The legacy event_registrations and recruiting tables have no Laravel migration yet;
- * create them with the columns the old site writes so the dashboard can count them.
- */
-function createLegacyDashboardTables(): void
-{
-    Schema::create('event_registrations', function (Blueprint $table) {
-        $table->id();
-        $table->integer('event_id');
-        $table->string('name');
-        $table->string('email');
-    });
-
-    Schema::create('recruiting', function (Blueprint $table) {
-        $table->id();
-        $table->string('full_name');
-        $table->string('email');
-        $table->string('cohort');
-    });
-}
+use App\Models\RecruitingApplicant;
 
 test('guests are redirected to the login page', function () {
     $response = $this->get(route('dashboard'));
@@ -83,28 +61,22 @@ test('dashboard shows event and community statistics', function () {
         ]);
 });
 
-test('registrations and recruiting are hidden when the legacy tables do not exist', function () {
+test('registrations and recruiting are zero when nobody has signed up', function () {
     $this->actingAs(Member::factory()->create())
         ->get(route('dashboard'))
         ->assertOk()
-        ->assertViewHas('events', fn (array $events) => $events['totalRegistrations'] === null)
-        ->assertViewHas('recruiting', fn (array $recruiting) => $recruiting['applicants'] === null)
+        ->assertViewHas('events', fn (array $events) => $events['totalRegistrations'] === 0)
+        ->assertViewHas('recruiting', fn (array $recruiting) => $recruiting['applicants'] === 0)
         ->assertSee('Proceso 2026-27-1C');
 });
 
-test('dashboard counts registrations and applicants from the legacy tables', function () {
-    createLegacyDashboardTables();
+test('dashboard counts registrations and applicants of the current cohort', function () {
     config(['aisc.recruiting_cohort' => '2026-27-1C']);
 
     $event = Event::factory()->upcoming()->create(['title_es' => 'Taller de IA']);
-    DB::table('event_registrations')->insert([
-        ['event_id' => $event->id, 'name' => 'Ada', 'email' => 'ada@example.com'],
-        ['event_id' => $event->id, 'name' => 'Alan', 'email' => 'alan@example.com'],
-    ]);
-    DB::table('recruiting')->insert([
-        ['full_name' => 'Ada', 'email' => 'ada@example.com', 'cohort' => '2026-27-1C'],
-        ['full_name' => 'Grace', 'email' => 'grace@example.com', 'cohort' => '2025-26-2C'],
-    ]);
+    EventRegistration::factory()->count(2)->for($event)->create();
+    RecruitingApplicant::factory()->forCohort('2026-27-1C')->create();
+    RecruitingApplicant::factory()->forCohort('2025-26-2C')->create();
 
     $this->actingAs(Member::factory()->create())
         ->get(route('dashboard'))

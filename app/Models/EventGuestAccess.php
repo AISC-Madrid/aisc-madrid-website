@@ -21,11 +21,17 @@ class EventGuestAccess extends Model
         'event_id',
     ];
 
+    /**
+     * @return BelongsTo<Guest, $this>
+     */
     public function guest(): BelongsTo
     {
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return BelongsTo<Event, $this>
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);

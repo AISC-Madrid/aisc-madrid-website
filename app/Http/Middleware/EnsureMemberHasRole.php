@@ -18,7 +18,7 @@ class EnsureMemberHasRole
     {
         $member = $request->user();
 
-        if (! $member instanceof Member || ! $member->hasAnyRole($roles)) {
+        if (! $member instanceof Member || ! $member->hasAnyRole(array_values($roles))) {
             abort(403);
         }
 

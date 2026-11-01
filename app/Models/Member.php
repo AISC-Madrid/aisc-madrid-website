@@ -136,7 +136,7 @@ class Member extends Authenticatable
      */
     protected function email(): Attribute
     {
-        return Attribute::get(fn (): ?string => $this->mail);
+        return Attribute::make(get: fn (): ?string => $this->mail);
     }
 
     /**
@@ -146,7 +146,7 @@ class Member extends Authenticatable
      */
     protected function imageUrl(): Attribute
     {
-        return Attribute::get(fn (): ?string => self::mediaUrl($this->image_path));
+        return Attribute::make(get: fn (): ?string => self::mediaUrl($this->image_path));
     }
 
     /**

@@ -26,7 +26,7 @@ class Speaker extends Model
     ];
 
     /**
-     * @return BelongsToMany<Event, $this>
+     * @return BelongsToMany<Event, $this, EventSpeaker>
      */
     public function events(): BelongsToMany
     {
@@ -36,6 +36,7 @@ class Speaker extends Model
             'speaker_id',
             'event_id'
         )
+            ->using(EventSpeaker::class)
             ->withPivot('role', 'sort_order')
             ->orderBy('sort_order');
     }
