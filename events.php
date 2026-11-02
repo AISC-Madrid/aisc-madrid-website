@@ -76,7 +76,7 @@ $future_events = array_reverse($future_events);
           data-es="<?= $section['es'] ?>">
           <?= $section['es'] ?>
         </h3>
-        <span class="badge rounded-pill bg-light text-dark border"><?= count($section['events']) ?></span>
+        <span class="badge rounded-pill bg-light text-dark border"></span>
       </div>
 
       <?php if (empty($section['events'])): ?>
