@@ -97,6 +97,7 @@ function ep_activity_label(string $action): string
     return match ($action) {
         'plan_created' => 'Evento creado',
         'task_activated' => 'Tarea activada',
+        'task_force_activated' => 'Tarea activada manualmente',
         'task_completed' => 'Tarea completada',
         'task_skipped' => 'Tarea marcada como No aplica',
         'task_reassigned' => 'Tarea reasignada',
@@ -115,6 +116,7 @@ function ep_activity_icon(string $action): string
 {
     return match (true) {
         $action === 'plan_created' => 'bi-flag-fill',
+        $action === 'task_force_activated' => 'bi-lightning-fill',
         str_starts_with($action, 'task_activated') => 'bi-play-fill',
         str_starts_with($action, 'task_completed') => 'bi-check-lg',
         str_starts_with($action, 'task_skipped') => 'bi-slash-circle',
