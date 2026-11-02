@@ -385,7 +385,7 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
                 completedEl.style.display = 'none';
             }
 
-            ['epFormComplete', 'epFormSkip', 'epFormReassign'].forEach(function (id) {
+            ['epFormComplete', 'epFormSkip', 'epFormReassign', 'epFormForceActivate'].forEach(function (id) {
                 var form = document.getElementById(id);
                 if (form) form.querySelector('input[name=task_id]').value = d.id;
             });
@@ -395,6 +395,9 @@ function ep_timeline_pct(string $date, DateTimeImmutable $min, int $spanDays): f
 
             var skipForm = document.getElementById('epFormSkip');
             if (skipForm) skipForm.style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';
+
+            var forceActivateForm = document.getElementById('epFormForceActivate');
+            if (forceActivateForm) forceActivateForm.style.display = (EP_IS_BOARD && d.status === 'blocked') ? '' : 'none';
 
             var reassignForm = document.getElementById('epFormReassign');
             if (reassignForm) reassignForm.style.display = (EP_IS_BOARD && d.status !== 'done') ? '' : 'none';

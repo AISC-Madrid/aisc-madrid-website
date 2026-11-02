@@ -291,6 +291,69 @@ function event_planner_skip_task(mysqli $conn, array $config, int $taskId, int $
 }
 
 // ---------------------------------------------------------------------------
+// Activar manualmente una tarea bloqueada, saltándose el gate y las dependencias
+// (junta/admin). Para cuando el grafo automático no encaja con la realidad y una
+// tarea se queda bloqueada sin que haya forma de adelantarla.
+// ---------------------------------------------------------------------------
+function event_planner_force_activate_task(mysqli $conn, array $config, int $taskId, int $actorId): void
+{
+    $stmt = $conn->prepare("SELECT * FROM event_tasks WHERE id = ?");
+    $stmt->bind_param('i', $taskId);
+    $stmt->execute();
+    $task = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!$task) {
+        throw new EventPlannerValidationException('Tarea no encontrada.');
+    }
+    if ($task['status'] !== 'blocked') {
+        throw new EventPlannerValidationException('Solo se pueden activar manualmente tareas bloqueadas.');
+    }
+
+    $planId = (int) $task['event_plan_id'];
+    $nowSql = event_planner_now()->format('Y-m-d H:i:s');
+
+    $update = $conn->prepare("UPDATE event_tasks SET status = 'active', activated_at = ? WHERE id = ? AND status = 'blocked'");
+    $update->bind_param('si', $nowSql, $taskId);
+    $update->execute();
+    $ok = $update->affected_rows === 1;
+    $update->close();
+
+    if (!$ok) {
+        throw new EventPlannerValidationException('No se pudo activar (conflicto concurrente).');
+    }
+
+    $stmt = $conn->prepare(
+        "SELECT dt.* FROM event_task_dependencies etd
+         JOIN event_tasks dt ON dt.id = etd.depends_on_task_id WHERE etd.task_id = ?"
+    );
+    $stmt->bind_param('i', $taskId);
+    $stmt->execute();
+    $deps = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+
+    $pendingDeps = array_values(array_filter($deps, fn($d) => !in_array($d['status'], ['done', 'skipped'], true)));
+    $completedDeps = array_values(array_filter($deps, fn($d) => in_array($d['status'], ['done', 'skipped'], true)));
+
+    event_planner_log($conn, $planId, $actorId, 'task_force_activated', [
+        'task_id' => $taskId,
+        'title' => $task['title'],
+        'gate' => $task['gate'],
+        'pending_dependencies' => array_map(fn($d) => $d['title'], $pendingDeps),
+    ], $taskId);
+
+    $completedNotes = array_values(array_filter(array_map(fn($d) => $d['completion_notes'], $completedDeps)));
+    $pendingTitles = array_map(fn($d) => $d['title'], $pendingDeps);
+
+    ep_notify_task_activated($conn, $config, $planId, $task, $completedNotes, $pendingTitles);
+    foreach ($pendingDeps as $pendingDep) {
+        ep_notify_dependency_waiting($conn, $config, $planId, $task, $pendingDep);
+    }
+
+    event_planner_recompute_plan($conn, $config, $planId);
+}
+
+// ---------------------------------------------------------------------------
 // Reasignar tarea (junta/admin)
 // ---------------------------------------------------------------------------
 function event_planner_reassign_task(mysqli $conn, array $config, int $taskId, int $newMemberId, int $actorId): void
