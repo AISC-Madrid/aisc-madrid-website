@@ -44,6 +44,13 @@
                         </div>
                     </form>
 
+                    <form method="post" action="/dashboard/event_planner/force_activate_task.php" id="epFormForceActivate" class="mb-2" onsubmit="return confirm('Esto activa la tarea saltándose el gate y las dependencias pendientes. ¿Continuar?');">
+                        <?= ep_csrf_field() ?>
+                        <input type="hidden" name="plan_id" value="<?= $planId ?>">
+                        <input type="hidden" name="task_id" value="">
+                        <button type="submit" class="btn btn-outline-warning btn-sm w-100"><i class="bi bi-lightning-fill"></i> Activar ahora (saltarse dependencias)</button>
+                    </form>
+
                     <form method="post" action="/dashboard/event_planner/skip_task.php" id="epFormSkip" onsubmit="return confirm('¿Marcar esta tarea como No aplica?');">
                         <?= ep_csrf_field() ?>
                         <input type="hidden" name="plan_id" value="<?= $planId ?>">
