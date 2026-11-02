@@ -4,13 +4,18 @@
 //   role 'events'    -> equipo EVENTOS
 //   role 'web'       -> equipo WEB
 //   role 'marketing' -> equipo REDES
-// role 'admin'/'finance'/'guest' no pertenecen a ningún equipo (no pueden ocupar un slot).
+//   role 'admin'     -> los tres equipos (pueden ocupar cualquier slot)
+// role 'finance'/'guest' no pertenecen a ningún equipo (no pueden ocupar un slot).
 
 const EVENT_PLANNER_ROLE_TO_TEAM = [
     'events' => 'EVENTOS',
     'web' => 'WEB',
     'marketing' => 'REDES',
 ];
+
+// Roles que, además de su equipo de EVENT_PLANNER_ROLE_TO_TEAM (si tienen), pueden
+// ocupar un slot de cualquier equipo.
+const EVENT_PLANNER_ROLES_IN_ALL_TEAMS = ['admin'];
 
 const EVENT_PLANNER_SLOTS = ['EV_CONTACTO', 'EV_APOYO', 'REDES_1', 'REDES_2', 'WEB'];
 
@@ -28,9 +33,12 @@ function event_planner_team_for_role(string $role): ?string
 }
 
 // Miembros activos que pertenecen a un equipo dado (candidatos para un slot o reasignación).
+// Incluye a quienes tengan el rol propio del equipo y, además, a los roles de
+// EVENT_PLANNER_ROLES_IN_ALL_TEAMS (hoy, 'admin'), que valen para cualquier equipo.
 function event_planner_active_members_for_team(mysqli $conn, string $team): array
 {
     $roles = array_keys(array_filter(EVENT_PLANNER_ROLE_TO_TEAM, fn($t) => $t === $team));
+    $roles = array_unique(array_merge($roles, EVENT_PLANNER_ROLES_IN_ALL_TEAMS));
     if (empty($roles)) {
         return [];
     }
