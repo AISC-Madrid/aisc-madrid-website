@@ -67,8 +67,14 @@ No se tocó la tabla `members`. El equipo de cada miembro se deriva de la column
 - `role = 'events'` → equipo **EVENTOS**
 - `role = 'web'` → equipo **WEB**
 - `role = 'marketing'` → equipo **REDES**
-- `role = 'admin' | 'finance'` → sin equipo (no pueden ocupar un slot, pero si además
-  `board = 'yes'` o `role = 'admin'` sí son "junta o admin" a efectos de permisos)
+- `role = 'admin'` → **los tres equipos** (puede ocupar cualquier slot del asistente,
+  aparece como candidato en los tres selectores; ver `EVENT_PLANNER_ROLES_IN_ALL_TEAMS`
+  en `lib/teams.php`)
+- `role = 'finance'` → sin equipo (no puede ocupar un slot)
+
+Esto es independiente de los permisos de "junta o admin" (`board = 'yes'` o
+`role = 'admin'`), que deciden quién puede crear/editar planes, no quién puede ser
+asignado a una tarea.
 
 ## Entorno local (Windows + Herd + MySQL local)
 
