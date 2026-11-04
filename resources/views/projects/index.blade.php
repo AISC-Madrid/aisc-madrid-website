@@ -47,7 +47,7 @@
                             <div class="absolute left-4 top-8 z-10 size-3 -translate-x-1/2 rounded-full bg-primary ring-4 ring-background md:left-1/2"></div>
 
                             <div @class([
-                                'order-1 pl-10 pt-2 md:pt-6',
+                                'pl-10 pt-2 md:row-start-1 md:pt-6',
                                 'md:col-start-2 md:pl-5 md:text-left' => $isRight,
                                 'md:col-start-1 md:pr-5 md:text-right' => ! $isRight,
                             ])>
@@ -60,7 +60,7 @@
                             </div>
 
                             <div @class([
-                                'order-2 pl-10',
+                                'pl-10 md:row-start-1',
                                 'md:col-start-1 md:pl-0 md:pr-5' => $isRight,
                                 'md:col-start-2 md:pl-5' => ! $isRight,
                             ])>
