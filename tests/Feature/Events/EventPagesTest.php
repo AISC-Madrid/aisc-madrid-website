@@ -10,6 +10,8 @@ test('events index renders with upcoming and past events', function () {
 
     $this->get(route('events.index', ['locale' => 'es']))
         ->assertOk()
+        ->assertSee('Próximamente')
+        ->assertSee('Eventos pasados')
         ->assertSee('Taller de IA')
         ->assertSee('Charla pasada');
 });
