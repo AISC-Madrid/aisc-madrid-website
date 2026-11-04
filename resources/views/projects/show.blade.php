@@ -124,7 +124,15 @@
                         </svg>
                     </button>
 
-                    <div id="share-menu" class="hidden absolute left-0 z-10 mt-2 w-40 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
+                    <div id="share-menu" class="hidden absolute left-0 z-10 mt-2 w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
+                        <button
+                            type="button"
+                            onclick="copyProjectLink()"
+                            class="block w-full rounded-lg px-3 py-2 text-left text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                        >
+                            <span id="copy-link-label">{{ __('site.projects.copy_link') }}</span>
+                        </button>
+
                         <a href="https://api.whatsapp.com/send?text={{ urlencode($title . ' ' . url()->current()) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground">WhatsApp</a>
                         <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground">LinkedIn</a>
                         <a href="https://x.com/intent/tweet/?url={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground">X</a>
@@ -135,8 +143,40 @@
     </section>
 
     <script>
+        const projectUrl = @json(url()->current());
+
         function toggleShareMenu() {
             document.getElementById('share-menu')?.classList.toggle('hidden');
+        }
+
+        async function copyProjectLink() {
+            const label = document.getElementById('copy-link-label');
+
+            try {
+                if (navigator.clipboard) {
+                    await navigator.clipboard.writeText(projectUrl);
+                } else {
+                    const input = document.createElement('textarea');
+                    input.value = projectUrl;
+                    input.style.position = 'fixed';
+                    input.style.opacity = '0';
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    input.remove();
+                }
+
+                if (label) {
+                    label.textContent = @json(__('site.projects.link_copied'));
+                    window.setTimeout(() => {
+                        label.textContent = @json(__('site.projects.copy_link'));
+                    }, 2000);
+                }
+            } catch {
+                if (label) {
+                    label.textContent = @json(__('site.projects.copy_failed'));
+                }
+            }
         }
 
         document.addEventListener('click', function (event) {
