@@ -107,6 +107,7 @@ return [
         'about' => 'About this project',
         'date' => 'Timeline',
         'technologies' => 'Technologies',
+        'share' => 'Share',
         'team' => 'Team',
         'view_code' => 'View code',
         'view_site' => 'View site',

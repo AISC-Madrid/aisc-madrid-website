@@ -107,6 +107,7 @@ return [
         'about' => 'Sobre este proyecto',
         'date' => 'Duración',
         'technologies' => 'Tecnologías',
+        'share' => 'Compartir',
         'team' => 'Equipo',
         'view_code' => 'Ver código',
         'view_site' => 'Ver web',
