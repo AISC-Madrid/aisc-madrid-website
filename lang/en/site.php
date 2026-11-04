@@ -95,9 +95,18 @@ return [
     ],
 
     'projects' => [
+        'eyebrow' => 'Built by our community',
         'title' => 'Our projects',
         'description' => 'Explore the artificial intelligence projects developed by our community.',
+        'latest' => 'Latest projects',
+        'filter' => 'Filter projects',
         'all' => 'All',
+        'empty' => 'Projects will appear here soon.',
+        'view_project' => 'View project',
+        'back' => 'Back to projects',
+        'about' => 'About this project',
+        'date' => 'Timeline',
+        'technologies' => 'Technologies',
         'team' => 'Team',
         'view_code' => 'View code',
         'view_site' => 'View site',

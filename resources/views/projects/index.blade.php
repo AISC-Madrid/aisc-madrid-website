@@ -1,159 +1,134 @@
 <x-layouts.public :title="__('site.projects.title') . ' - AISC Madrid'">
+    @php
+        $isSpanish = app()->getLocale() === 'es';
+    @endphp
 
-    {{-- Page header --}}
-    <div class="mx-auto w-full max-w-7xl px-6 pt-10 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-            <flux:heading size="xl" level="1">
-                {{ __('site.projects.title') }}
-            </flux:heading>
+    <section class="border-b border-border bg-muted/40">
+        <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+            <div class="max-w-3xl">
+                <span class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                    {{ __('site.projects.eyebrow') }}
+                </span>
 
-            <div class="mx-auto my-4 h-1 w-15 rounded-full bg-primary"></div>
+                <flux:heading size="xl" level="1" class="mt-4">
+                    {{ __('site.projects.title') }}
+                </flux:heading>
 
-            <flux:text size="lg" class="mx-auto max-w-2xl">
-                {{ __('site.projects.description') }}
-            </flux:text>
-        </div>
-
-        {{-- Category filters --}}
-        <div class="mt-10 flex flex-wrap justify-center gap-3">
-            <button
-                type="button"
-                class="project-filter rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition"
-                data-filter="all"
-            >
-                {{ __('site.projects.all') }}
-            </button>
-
-            @foreach ($categories as $category)
-                <button
-                    type="button"
-                    class="project-filter rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition hover:border-primary hover:text-primary"
-                    data-filter="{{ $category }}"
-                >
-                    {{ __('site.projects.categories.'.$category) }}
-                </button>
-            @endforeach
-        </div>
-    </div>
-
-    {{-- Timeline --}}
-    <section class="px-6 py-16 lg:px-8">
-        <div class="relative mx-auto max-w-4xl">
-
-            {{-- Spine --}}
-            <div class="absolute left-4 top-2 bottom-2 w-px bg-border md:left-1/2"></div>
-
-            <div class="space-y-14">
-                @foreach ($projects as $project)
-                    @php
-                        $isEven = $loop->index % 2 === 0;
-
-                        $accentDot = $isEven ? 'bg-primary' : 'bg-secondary-foreground';
-                        $accentBorder = $isEven ? 'border-primary' : 'border-secondary-foreground';
-                        $accentBg = $isEven ? 'bg-primary/10' : 'bg-secondary-foreground/10';
-                        $accentText = $isEven ? 'text-primary' : 'text-secondary-foreground';
-
-                        $title = app()->getLocale() === 'en' ? $project->title_en : $project->title_es;
-                        $description = app()->getLocale() === 'en' ? $project->description_en : $project->description_es;
-
-                        $dateRange = $project->start_date->format('m/Y');
-
-                        if ($project->end_date && $project->end_date->format('Y-m') !== $project->start_date->format('Y-m')) {
-                            $dateRange .= ' — '.$project->end_date->format('m/Y');
-                        }
-                    @endphp
-
-                    <div
-                        class="project-node relative md:grid md:grid-cols-2 md:gap-x-14"
-                        data-category="{{ $project->category }}"
-                    >
-                        {{-- Dot --}}
-                        <div class="absolute left-4 top-2 z-10 size-3 -translate-x-1/2 rounded-full {{ $accentDot }} ring-4 ring-background md:left-1/2"></div>
-
-                        @if ($isEven)
-                            <div class="pl-10 md:col-start-1 md:pl-0 md:pr-4 md:text-right">
-                                <x-project-card
-                                    :project="$project"
-                                    :title="$title"
-                                    :description="$description"
-                                    :date-range="$dateRange"
-                                    :accent-border="$accentBorder"
-                                    :accent-bg="$accentBg"
-                                    :accent-text="$accentText"
-                                    align="right"
-                                />
-                            </div>
-                        @else
-                            <div class="pl-10 md:col-start-2 md:pl-4">
-                                <x-project-card
-                                    :project="$project"
-                                    :title="$title"
-                                    :description="$description"
-                                    :date-range="$dateRange"
-                                    :accent-border="$accentBorder"
-                                    :accent-bg="$accentBg"
-                                    :accent-text="$accentText"
-                                    align="left"
-                                />
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-
-                {{-- What's next --}}
-                <div class="relative md:grid md:grid-cols-2 md:gap-x-14">
-                    <div class="absolute left-4 top-2 z-10 size-3 -translate-x-1/2 rounded-full border-2 border-dashed border-muted-foreground bg-background md:left-1/2"></div>
-
-                    <div class="pl-10 md:col-start-1 md:pl-0 md:pr-4 md:text-right">
-                        <flux:heading size="base" class="text-muted-foreground">
-                            {{ __('site.projects.more_soon') }}
-                        </flux:heading>
-
-                        <flux:text class="mt-2 text-muted-foreground">
-                            {{ __('site.projects.more_soon_body') }}
-                        </flux:text>
-                    </div>
-                </div>
+                <flux:text size="lg" class="mt-5 max-w-2xl">
+                    {{ __('site.projects.description') }}
+                </flux:text>
             </div>
-
         </div>
     </section>
 
-    {{-- Filtering --}}
+    <section class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+        <div class="flex flex-wrap items-center justify-between gap-5">
+            <flux:heading size="lg">
+                {{ __('site.projects.latest') }}
+            </flux:heading>
+
+            <div class="flex flex-wrap gap-2" aria-label="{{ __('site.projects.filter') }}">
+                <button
+                    type="button"
+                    class="project-filter rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition"
+                    data-filter="all"
+                >
+                    {{ __('site.projects.all') }}
+                </button>
+
+                @foreach ($categories as $category)
+                    <button
+                        type="button"
+                        class="project-filter rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition hover:border-primary hover:text-primary"
+                        data-filter="{{ $category }}"
+                    >
+                        {{ __('site.projects.categories.'.$category) }}
+                    </button>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            @forelse ($projects as $project)
+                @php
+                    $title = $isSpanish ? $project->title_es : $project->title_en;
+                    $description = $isSpanish ? $project->description_es : $project->description_en;
+                @endphp
+
+                <a
+                    href="{{ route('projects.show', ['locale' => app()->getLocale(), 'project' => $project]) }}"
+                    class="project-node group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:-translate-y-1 hover:border-primary hover:shadow-xl"
+                    data-category="{{ $project->category }}"
+                >
+                    <div class="aspect-[16/10] overflow-hidden bg-muted">
+                        @if ($project->image_url)
+                            <img
+                                src="{{ $project->image_url }}"
+                                alt="{{ $title }}"
+                                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            >
+                        @else
+                            <div class="flex h-full items-center justify-center bg-primary/10 text-4xl font-bold text-primary">
+                                {{ str($title)->substr(0, 1)->upper() }}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="flex flex-1 flex-col gap-5 p-6">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+                                {{ __('site.projects.categories.'.$project->category) }}
+                            </span>
+
+                            <time datetime="{{ $project->start_date->toDateString() }}" class="shrink-0 text-sm text-muted-foreground">
+                                {{ $project->start_date->format('m/Y') }}
+                            </time>
+                        </div>
+
+                        <div>
+                            <flux:heading size="lg">
+                                {{ $title }}
+                            </flux:heading>
+
+                            <flux:text class="mt-3 line-clamp-3">
+                                {{ $description }}
+                            </flux:text>
+                        </div>
+
+                        <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                            {{ __('site.projects.view_project') }}
+                            <span aria-hidden="true" class="transition group-hover:translate-x-1">&rarr;</span>
+                        </span>
+                    </div>
+                </a>
+            @empty
+                <flux:text class="col-span-full text-center text-muted-foreground">
+                    {{ __('site.projects.empty') }}
+                </flux:text>
+            @endforelse
+        </div>
+    </section>
+
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
-
             const buttons = document.querySelectorAll('.project-filter');
             const nodes = document.querySelectorAll('.project-node');
 
             buttons.forEach(button => {
-
                 button.addEventListener('click', function () {
-
-                    buttons.forEach(btn => {
-                        btn.classList.remove('bg-primary', 'text-white');
-                        btn.classList.add('border', 'border-border', 'text-muted-foreground');
+                    buttons.forEach(filterButton => {
+                        filterButton.classList.remove('bg-primary', 'text-white');
+                        filterButton.classList.add('border', 'border-border', 'text-muted-foreground');
                     });
 
                     this.classList.add('bg-primary', 'text-white');
                     this.classList.remove('border', 'border-border', 'text-muted-foreground');
 
-                    const filter = this.dataset.filter;
-
                     nodes.forEach(node => {
-                        node.style.display =
-                            filter === 'all' || node.dataset.category === filter
-                                ? ''
-                                : 'none';
+                        node.hidden = this.dataset.filter !== 'all' && node.dataset.category !== this.dataset.filter;
                     });
-
                 });
-
             });
-
         });
-
     </script>
-
 </x-layouts.public>
