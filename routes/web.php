@@ -1,7 +1,10 @@
+
 <?php
 
+use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
+use App\Http\Controllers\Dashboard\ProjectController as DashboardProjectController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -37,8 +40,7 @@ Route::prefix('{locale}')
             ->middleware('throttle:6,1')
             ->name('newsletter.store');
 
-        // Newsletter unsubscribe by token: GET only asks for confirmation (link scanners open
-        // every URL), POST unsubscribes, and one-click is for mail clients (RFC 8058, no CSRF).
+        // Newsletter unsubscribe by token.
         Route::prefix('/newsletter/unsubscribe/{submission:unsubscribe_token}')
             ->name('newsletter.unsubscribe.')
             ->middleware('throttle:30,1')
@@ -57,36 +59,33 @@ Route::prefix('{locale}')
                     ->name('one-click');
             });
 
-        // For event page:
-
+        // Events
         Route::get('/events', [EventController::class, 'index'])
             ->name('events.index');
 
-        // For events page
         Route::get('/events/{event}', [EventController::class, 'show'])
             ->name('events.show');
 
-        // For team page:
+        // Team
         Route::get('/team', [TeamController::class, 'index'])
             ->name('team.index');
 
-        // For projects page:
+        // Projects
         Route::get('/projects', [ProjectController::class, 'index'])
             ->name('projects.index');
 
-        // For project page:
         Route::get('/projects/{project}', [ProjectController::class, 'show'])
             ->name('projects.show');
 
-        // For about page:
+        // About
         Route::view('/about', 'about')
             ->name('about');
 
-        // For terms and conditions page:
+        // Terms and conditions
         Route::view('/terms-conditions', 'terms')
             ->name('terms');
 
-        // For statutes page:
+        // Statutes
         Route::view('/estatutos', 'estatutos')
             ->name('estatutos');
 
@@ -106,10 +105,23 @@ Route::middleware(['auth'])
         Route::prefix('dashboard')
             ->name('dashboard.')
             ->group(function () {
-                // Every member can see the events list (like the legacy events_list.php).
+
+                // Every member can see the events list.
                 Route::get('/events', [DashboardEventController::class, 'index'])
                     ->name('events.index');
 
+                // Contacts: admin and marketing roles.
+                Route::middleware('role:admin,marketing')->group(function () {
+                    Route::resource('contacts', ContactController::class);
+                });
+
+                // Projects: admin and web roles.
+                Route::middleware('role:admin,web')->group(function () {
+                    Route::resource('projects', DashboardProjectController::class)
+                        ->except(['show']);
+                });
+
+                // Events and users: admin and events roles.
                 Route::middleware('role:admin,events')->group(function () {
                     Route::get('/users', [UserController::class, 'index'])
                         ->name('users.index');
