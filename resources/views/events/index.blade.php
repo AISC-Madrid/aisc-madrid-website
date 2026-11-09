@@ -68,10 +68,16 @@
             {{-- Events grid --}}
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
+                @php
+                    $lastEventStatus = null;
+                @endphp
+
                 @foreach ($events as $event)
 
                     @php
                         $isFuture = $event->end_datetime >= now();
+
+                        $eventStatus = $isFuture ? 'upcoming' : 'past';
 
                         $eventClass = $isFuture
                             ? 'event-future'
@@ -91,6 +97,27 @@
                             ? $event->title_en
                             : $event->title_es;
                     @endphp
+
+                    @if ($eventStatus !== $lastEventStatus)
+
+                        <div class="col-span-full flex items-center gap-4 pt-4 first:pt-0">
+
+                            <flux:heading
+                                size="lg"
+                                class="whitespace-nowrap"
+                            >
+                                {{ __("events.{$eventStatus}") }}
+                            </flux:heading>
+
+                            <div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-700"></div>
+
+                        </div>
+
+                        @php
+                            $lastEventStatus = $eventStatus;
+                        @endphp
+
+                    @endif
 
                     <div
                         class="event-card {{ $eventClass }}"
