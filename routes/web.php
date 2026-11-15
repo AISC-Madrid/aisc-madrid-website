@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
+use App\Http\Controllers\Dashboard\GuestController;
+use App\Http\Controllers\Dashboard\TeamMemberController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -119,6 +121,15 @@ Route::middleware(['auth'])
 
                     Route::get('/events/{event}/attendees.pdf', [DashboardEventController::class, 'attendeesPdf'])
                         ->name('events.attendees-pdf');
+
+                    Route::resource('guests', GuestController::class)
+                        ->except(['show']);
+                });
+
+                Route::middleware('role:admin,finance')->group(function () {
+                    Route::resource('team-members', TeamMemberController::class)
+                        ->parameters(['team-members' => 'member'])
+                        ->except(['show']);
                 });
             });
     });

@@ -32,6 +32,16 @@
                     <flux:sidebar.item icon="users" :href="route('dashboard.users.index')" :current="request()->routeIs('dashboard.users.*')" wire:navigate>
                         {{ __('Usuarios') }}
                     </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="identification" :href="route('dashboard.guests.index')" :current="request()->routeIs('dashboard.guests.*')" wire:navigate>
+                        {{ __('Invitados') }}
+                    </flux:sidebar.item>
+                @endif
+
+                @if (auth()->user() instanceof \App\Models\Member && auth()->user()->hasAnyRole(['admin', 'finance']))
+                    <flux:sidebar.item icon="user-group" :href="route('dashboard.team-members.index')" :current="request()->routeIs('dashboard.team-members.*')" wire:navigate>
+                        {{ __('Equipo') }}
+                    </flux:sidebar.item>
                 @endif
             </flux:sidebar.nav>
 
