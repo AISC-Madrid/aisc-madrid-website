@@ -11,6 +11,7 @@ return [
     ],
 
     'upcoming' => 'Upcoming',
+    'past' => 'Past events',
     'read_more' => 'Learn more →',
 
     'speaker' => 'Speaker:',
