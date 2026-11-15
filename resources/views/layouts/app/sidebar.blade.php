@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
@@ -28,12 +29,26 @@
                     {{ __('Eventos') }}
                 </flux:sidebar.item>
 
+                {{-- Contactos: solo administradores y marketing --}}
+                @if (auth()->user() instanceof \App\Models\Member && auth()->user()->hasAnyRole(['admin', 'marketing']))
+                    <flux:sidebar.item icon="identification" :href="route('dashboard.contacts.index')" :current="request()->routeIs('dashboard.contacts.*')" wire:navigate>
+                        {{ __('Contactos') }}
+                    </flux:sidebar.item>
+                @endif
+
+                {{-- Proyectos: solo administradores y web --}}
+                @if (auth()->user() instanceof \App\Models\Member && auth()->user()->hasAnyRole(['admin', 'web']))
+                    <flux:sidebar.item icon="rocket-launch" :href="route('dashboard.projects.index')" :current="request()->routeIs('dashboard.projects.*')" wire:navigate>
+                        {{ __('Proyectos') }}
+                    </flux:sidebar.item>
+                @endif
+
                 @if (auth()->user() instanceof \App\Models\Member && auth()->user()->hasAnyRole(['admin', 'events']))
                     <flux:sidebar.item icon="users" :href="route('dashboard.users.index')" :current="request()->routeIs('dashboard.users.*')" wire:navigate>
                         {{ __('Usuarios') }}
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="identification" :href="route('dashboard.guests.index')" :current="request()->routeIs('dashboard.guests.*')" wire:navigate>
+                    <flux:sidebar.item icon="ticket" :href="route('dashboard.guests.index')" :current="request()->routeIs('dashboard.guests.*')" wire:navigate>
                         {{ __('Invitados') }}
                     </flux:sidebar.item>
                 @endif
