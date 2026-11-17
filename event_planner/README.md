@@ -55,9 +55,18 @@ producción, en Coolify: **Scheduled Tasks** del recurso → nueva tarea →
 comando `php /var/www/html/scripts/event_planner_cron.php`, cron `*/15 * * * *`.
 
 Pasos que ejecuta cada vez: transición `confirmed -> held` / `held -> closed`,
-`recomputePlan` en todos los planes abiertos, el paso diario (recordatorios, vencidas,
-resumen de la junta, avisos de draft — una vez al día, a partir de las 09:00 Madrid,
+`recomputePlan` en todos los planes abiertos, el paso diario (recordatorios y vencidas
+solo al asignado, avisos de draft — una vez al día, a partir de las 09:00 Madrid,
 controlado con `cron_runs`) y el envío de `email_outbox`.
+
+## Correos (histórico de recortes de volumen)
+
+El documento original definía 10 tipos de correo. Se recortaron dos cosas para no
+saturar a la gente (sin tocar los que avisan de trabajo nuevo o cambios reales):
+- Se quitó el nº 6, "resumen diario de retrasos a la junta": lo ven en el propio
+  listado/detalle del planificador, no hacía falta además por correo.
+- Los nº 4 y 5 (recordatorio y vencida) ya no mandan copia al creador del plan, solo al
+  asignado — el creador ve lo mismo en la web.
 
 ## Mapeo de equipos (decisión del reconocimiento)
 

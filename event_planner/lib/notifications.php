@@ -1,6 +1,7 @@
 <?php
-// Los 10 tipos de correo del planificador (ver documento, sección 5). Todos pasan por
-// email_outbox vía ep_queue_email(); el envío real lo hace el cron.
+// Los tipos de correo del planificador (ver documento, sección 5; se quitó el nº 6,
+// "resumen de retrasos a la junta", para reducir volumen — lo ven en la propia web).
+// Todos pasan por email_outbox vía ep_queue_email(); el envío real lo hace el cron.
 
 require_once __DIR__ . '/mailer.php';
 require_once __DIR__ . '/clock.php';
@@ -145,24 +146,19 @@ function ep_notify_dependency_waiting(mysqli $conn, array $config, int $planId, 
 }
 
 // ---------------------------------------------------------------------------
-// 4 / 5. Recordatorio (día antes) y vencida (día después) — a asignado + creador del plan
+// 4 / 5. Recordatorio (día antes) y vencida (día después) — solo al asignado.
+// (Antes se mandaba copia al creador del plan; se quitó para reducir volumen — el
+// creador ve lo mismo en el listado/detalle del planificador.)
 // ---------------------------------------------------------------------------
 function ep_notify_task_due_event(mysqli $conn, array $config, int $planId, array $task, string $kind): void
 {
     $isReminder = $kind === 'reminder';
-    $stmt = $conn->prepare(
-        "SELECT a.full_name AS a_name, a.mail AS a_mail, c.id AS creator_id, c.full_name AS c_name, c.mail AS c_mail
-         FROM event_tasks et
-         JOIN members a ON a.id = et.assignee_id
-         JOIN event_plans p ON p.id = et.event_plan_id
-         JOIN members c ON c.id = p.created_by
-         WHERE et.id = ?"
-    );
-    $stmt->bind_param('i', $task['id']);
+    $stmt = $conn->prepare("SELECT full_name, mail FROM members WHERE id = ?");
+    $stmt->bind_param('i', $task['assignee_id']);
     $stmt->execute();
-    $row = $stmt->get_result()->fetch_assoc();
+    $assignee = $stmt->get_result()->fetch_assoc();
     $stmt->close();
-    if (!$row) {
+    if (!$assignee) {
         return;
     }
 
@@ -172,66 +168,17 @@ function ep_notify_task_due_event(mysqli $conn, array $config, int $planId, arra
         : 'La siguiente tarea venció <strong>ayer</strong> y sigue sin completarse:';
 
     $bodyHtml = '<p>' . $intro . '</p><h3 style="color:#EB178E;">' . ep_html_escape($task['title']) . '</h3>'
-        . '<p><strong>Asignado a:</strong> ' . ep_html_escape($row['a_name']) . '<br>'
-        . '<strong>Fecha límite:</strong> ' . ep_format_date($task['due_date']) . '</p>';
-    $bodyText = $heading . ": {$task['title']} (asignado a {$row['a_name']}, fecha límite " . ep_format_date($task['due_date']) . ')';
+        . '<p><strong>Fecha límite:</strong> ' . ep_format_date($task['due_date']) . '</p>';
+    $bodyText = $heading . ": {$task['title']} (fecha límite " . ep_format_date($task['due_date']) . ')';
 
     $rendered = ep_render_email($heading, $bodyHtml, $bodyText, ep_task_url($config, $planId, $task['id']), 'Ver la tarea');
-    $recipients = [
-        (int) $task['assignee_id'] => ['mail' => $row['a_mail']],
-        (int) $row['creator_id'] => ['mail' => $row['c_mail']],
-    ];
-    foreach ($recipients as $memberId => $info) {
-        ep_queue_email(
-            $conn, $memberId, $info['mail'],
-            ($isReminder ? 'Recordatorio: ' : 'Vencida: ') . $task['title'],
-            $rendered['html'], $rendered['text'],
-            $kind, "{$kind}:{$task['id']}:{$task['due_date']}:{$memberId}",
-            event_planner_now()
-        );
-    }
-}
-
-// ---------------------------------------------------------------------------
-// 6. Resumen diario de retrasos para la junta
-// ---------------------------------------------------------------------------
-function ep_notify_board_overdue_digest(mysqli $conn, array $config, array $overdueTasks, DateTimeImmutable $today): void
-{
-    if (empty($overdueTasks)) {
-        return;
-    }
-
-    $stmt = $conn->prepare("SELECT id, full_name, mail FROM members WHERE active = 'yes' AND (role = 'admin' OR board = 'yes')");
-    $stmt->execute();
-    $boardMembers = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-
-    if (empty($boardMembers)) {
-        return;
-    }
-
-    $rows = '';
-    foreach ($overdueTasks as $t) {
-        $rows .= '<li>[' . ep_html_escape($t['plan_title']) . '] ' . ep_html_escape($t['title'])
-            . ' — ' . ep_html_escape($t['assignee_name']) . ' (vencía ' . ep_format_date($t['due_date']) . ')</li>';
-    }
-    $bodyHtml = '<p>Tareas vencidas en todos los eventos a día de hoy:</p><ul>' . $rows . '</ul>';
-    $bodyText = "Tareas vencidas:\n" . implode("\n", array_map(
-        fn($t) => "- [{$t['plan_title']}] {$t['title']} — {$t['assignee_name']} (vencía " . ep_format_date($t['due_date']) . ')',
-        $overdueTasks
-    ));
-    $dateKey = $today->format('Y-m-d');
-
-    $rendered = ep_render_email('Resumen de tareas vencidas', $bodyHtml, $bodyText, ep_base_url($config) . '/dashboard/event_planner/index.php', 'Ver eventos');
-    foreach ($boardMembers as $member) {
-        ep_queue_email(
-            $conn, (int) $member['id'], $member['mail'],
-            'Resumen de tareas vencidas (' . $dateKey . ')',
-            $rendered['html'], $rendered['text'],
-            'board_overdue_digest', "board_overdue_digest:{$dateKey}:{$member['id']}",
-            event_planner_now()
-        );
-    }
+    ep_queue_email(
+        $conn, (int) $task['assignee_id'], $assignee['mail'],
+        ($isReminder ? 'Recordatorio: ' : 'Vencida: ') . $task['title'],
+        $rendered['html'], $rendered['text'],
+        $kind, "{$kind}:{$task['id']}:{$task['due_date']}:{$task['assignee_id']}",
+        event_planner_now()
+    );
 }
 
 // ---------------------------------------------------------------------------
