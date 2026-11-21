@@ -7,8 +7,8 @@
  *   1. confirmed -> held cuando ya ha pasado starts_at + duration.
  *   2. held -> closed cuando no quedan tareas pendientes.
  *   3. recomputePlan en todos los planes abiertos.
- *   4. Paso diario (>= 09:00 Madrid, una vez al día): recordatorios, vencidas, resumen
- *      de la junta y avisos de draft.
+ *   4. Paso diario (>= 09:00 Madrid, una vez al día): recordatorios, vencidas y avisos
+ *      de draft.
  *   5. Enviar los correos pendientes de email_outbox.
  *
  * Para probarlo fuera de producción:
@@ -65,7 +65,7 @@ foreach ($openIds as $planId) {
 echo '  recomputePlan en ' . count($openIds) . " planes abiertos\n";
 
 // ---------------------------------------------------------------------------
-// Paso 4: paso diario (recordatorios, vencidas, resumen junta, draft sin confirmar)
+// Paso 4: paso diario (recordatorios, vencidas, draft sin confirmar)
 // ---------------------------------------------------------------------------
 if ((int) $now->format('H') >= 9) {
     $runKey = 'daily:' . $now->format('Y-m-d');
@@ -79,7 +79,6 @@ if ((int) $now->format('H') >= 9) {
         echo "  paso diario ({$runKey})\n";
         $tomorrow = $now->modify('+1 day')->format('Y-m-d');
         $yesterday = $now->modify('-1 day')->format('Y-m-d');
-        $today = $now->format('Y-m-d');
 
         // 4. Recordatorio: tareas activas que vencen mañana
         $stmt = $conn->prepare("SELECT * FROM event_tasks WHERE status = 'active' AND due_date = ?");
@@ -103,21 +102,8 @@ if ((int) $now->format('H') >= 9) {
         }
         echo '    vencidas encoladas: ' . count($overdueYesterday) . "\n";
 
-        // 6. Resumen de retrasos para la junta: todas las tareas vencidas de todos los eventos
-        $stmt = $conn->prepare(
-            "SELECT et.id, et.title, et.due_date, p.title AS plan_title, m.full_name AS assignee_name
-             FROM event_tasks et
-             JOIN event_plans p ON p.id = et.event_plan_id
-             JOIN members m ON m.id = et.assignee_id
-             WHERE et.status NOT IN ('done','skipped') AND et.due_date < ? AND p.status NOT IN ('closed','cancelled')
-             ORDER BY et.due_date ASC"
-        );
-        $stmt->bind_param('s', $today);
-        $stmt->execute();
-        $allOverdue = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
-        ep_notify_board_overdue_digest($conn, $config, $allOverdue, $now);
-        echo '    tareas vencidas (resumen junta): ' . count($allOverdue) . "\n";
+        // (el resumen diario de retrasos a la junta se quitó: lo ven en el propio
+        // listado/detalle del planificador, no hacía falta por correo)
 
         // 10. Draft sin confirmar a <= 14 días del evento
         $stmt = $conn->prepare("SELECT * FROM event_plans WHERE status = 'draft'");
