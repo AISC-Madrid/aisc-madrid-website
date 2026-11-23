@@ -1,6 +1,6 @@
-
 <?php
 
+use App\Http\Controllers\Dashboard\AttendanceScannerController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
@@ -103,6 +103,12 @@ Route::middleware(['auth'])
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
+
+        Route::get('/dashboard/scan-attendance', [AttendanceScannerController::class, 'index'])
+            ->name('attendance.scan');
+
+        Route::post('/dashboard/scan-attendance', [AttendanceScannerController::class, 'update'])
+            ->name('attendance.update');
 
         Route::prefix('dashboard')
             ->name('dashboard.')
