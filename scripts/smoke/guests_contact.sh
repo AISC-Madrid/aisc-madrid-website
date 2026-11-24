@@ -1,5 +1,5 @@
 #!/bin/sh
-# Smoke test HTTP de los datos de contacto de los guests (#335).
+# Smoke test HTTP de los datos de contacto de los guests (#335 formularios, #336 lista).
 # Se ejecuta EN EL VPS contra un contenedor de dev_container.sh (BD de DEV, nunca prod):
 #   ssh root@VPS 'sh -s 18080' < scripts/smoke/guests_contact.sh
 # Crea guests "smoke_*" y los borra al terminar.
@@ -32,6 +32,15 @@ check() { if eval "$2"; then ok "$1"; else fail "$1"; fi; }
 has()   { grep -qF -- "$1" "$OUT"; }
 # El atributo checked va en la línea siguiente al id del checkbox
 event_checked() { grep -A1 -F "id=\"event_$1\"" "$OUT" | grep -q 'checked'; }
+# HTML de la fila <tr>…</tr> de la lista cuya celda de username es $1
+list_row() {
+    awk -v user="$1" '/<tr[ >]/{row=""; matched=0; in_row=1}
+        in_row{row=row $0 "\n"; text=$0; sub(/<\/strong>/, "", text); gsub(/^[ \t]+|[ \t\r]+$/, "", text); if (text == user) matched=1}
+        /<\/tr>/{if (in_row && matched) printf "%s", row; in_row=0}' "$OUT"
+}
+row_has() { list_row "$1" | grep -qF -- "$2"; }
+# Contenido de la celda de contacto (class="guest-contact") de la fila del guest $1, sin espacios
+contact_cell() { list_row "$1" | awk '/class="guest-contact"/{in_cell=1; next} in_cell && /<\/td>/{exit} in_cell' | tr -d ' \t\r\n'; }
 redirects_to() { case "$CODE" in "302 "*"$1") return 0;; esac; return 1; }
 
 # POST de un formulario; deja el HTML en $OUT y en $CODE el código HTTP y el destino de la redirección
@@ -106,6 +115,23 @@ post "$BASE/edit_guest.php?id=$ID" \
     --data-urlencode "events[]=$EVENT_ID"
 check "LinkedIn inválido al editar: no guarda nada" '[ "$CODE" = "200 " ] && [ "$(guest_row smoke_full)" = "nuevo@example.com|NULL|https://linkedin.com/in/nuevo" ]'
 check "LinkedIn inválido al editar: mismo error, conserva lo escrito y los eventos marcados" 'has "El LinkedIn debe ser una URL de linkedin.com." && has "value=\"otro@example.com\"" && has "value=\"699\"" && has "value=\"ftp://linkedin.com/in/x\"" && event_checked "$EVENT_ID"'
+
+echo "Lista de guests"
+post "$BASE/create_guest.php" \
+    --data-urlencode username=smoke_list_full --data-urlencode password=secret123 \
+    --data-urlencode email='lista@example.com' --data-urlencode phone='+34 611 22 33 44' \
+    --data-urlencode linkedin_url='https://www.linkedin.com/in/lista?a=1&b=2'
+post "$BASE/create_guest.php" \
+    --data-urlencode username=smoke_list_empty --data-urlencode password=secret123
+post "$BASE/create_guest.php" \
+    --data-urlencode username=smoke_list_phone --data-urlencode password=secret123 --data-urlencode phone='por WhatsApp'
+get "$BASE/guests_list.php"
+check "la lista tiene una fila por cada guest" '[ -n "$(list_row smoke_list_full)" ] && [ -n "$(list_row smoke_list_empty)" ]'
+check "el email es un enlace mailto:" 'row_has smoke_list_full "<a href=\"mailto:lista@example.com\">lista@example.com</a>"'
+check "el teléfono es un enlace tel:" 'row_has smoke_list_full "<a href=\"tel:+34611223344\">+34 611 22 33 44</a>"'
+check "el LinkedIn es un icono que abre el perfil (escapado) en otra pestaña" 'row_has smoke_list_full "<a href=\"https://www.linkedin.com/in/lista?a=1&amp;b=2\" target=\"_blank\" rel=\"noopener\"" && row_has smoke_list_full "bi-linkedin"'
+check "sin contacto: ni enlaces vacíos ni hueco, muestra -" '[ "$(contact_cell smoke_list_empty)" = "-" ] && ! row_has smoke_list_empty "mailto:" && ! row_has smoke_list_empty "tel:" && ! row_has smoke_list_empty "linkedin"'
+check "teléfono sin dígitos: se muestra como texto, sin enlace tel: vacío" '[ "$(contact_cell smoke_list_phone)" = "<div>porWhatsApp</div>" ]'
 
 echo
 if [ "$FAILS" -eq 0 ]; then echo "OK"; else echo "$FAILS fallo(s)"; exit 1; fi
