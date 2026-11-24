@@ -15,6 +15,6 @@ start-server.sh
 database.sql
 .vscode/
 
-.claude
-CLAUDE.md
+.claude/*
+!.claude/skills/
 .env
