@@ -15,6 +15,8 @@ start-server.sh
 database.sql
 .vscode/
 
-.claude
-CLAUDE.md
+.claude/*
+!.claude/skills/
 .env
+# Datos de contacto reales de los guests históricos (#337); el repo es público
+scripts/historical_guests.csv

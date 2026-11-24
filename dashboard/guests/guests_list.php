@@ -100,6 +100,7 @@ $result = $conn->query("
                             <th>ID</th>
                             <th>Username</th>
                             <th>Nombre</th>
+                            <th>Contacto</th>
                             <th>Estado</th>
                             <th>Eventos Asociados</th>
                             <th>Creado</th>
@@ -118,6 +119,25 @@ $result = $conn->query("
                                     </td>
                                     <td>
                                         <?= htmlspecialchars($row['name'] ?: '-') ?>
+                                    </td>
+                                    <td class="guest-contact">
+                                        <?php if (!$row['email'] && !$row['phone'] && !$row['linkedin_url']): ?>
+                                            -
+                                        <?php endif; ?>
+                                        <?php if ($row['email']): ?>
+                                            <div><a href="mailto:<?= htmlspecialchars($row['email']) ?>"><?= htmlspecialchars($row['email']) ?></a></div>
+                                        <?php endif; ?>
+                                        <?php if ($row['phone']): ?>
+                                            <?php $tel = preg_replace('/[^0-9+]/', '', $row['phone']); // El teléfono es texto libre ?>
+                                            <?php if (preg_match('/[0-9]/', $tel)): ?>
+                                                <div><a href="tel:<?= htmlspecialchars($tel) ?>"><?= htmlspecialchars($row['phone']) ?></a></div>
+                                            <?php else: ?>
+                                                <div><?= htmlspecialchars($row['phone']) ?></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                        <?php if ($row['linkedin_url']): ?>
+                                            <div><a href="<?= htmlspecialchars($row['linkedin_url']) ?>" target="_blank" rel="noopener" title="LinkedIn"><i class="bi bi-linkedin"></i></a></div>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if ($row['is_active']): ?>
@@ -165,7 +185,7 @@ $result = $conn->query("
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="7" class="text-center py-4">
+                                <td colspan="8" class="text-center py-4">
                                     <div class="text-muted">
                                         <i class="bi bi-inbox display-6 d-block mb-2"></i>
                                         No hay guests registrados.

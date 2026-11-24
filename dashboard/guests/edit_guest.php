@@ -9,6 +9,7 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include("../../assets/db.php");
+require_once("../../assets/guest_contact.php");
 
 // Validate guest ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -57,10 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $is_active = isset($_POST['is_active']) ? 1 : 0;
     $selected_events = $_POST['events'] ?? [];
+    $contact = guest_contact_from_input($_POST);
     
     // Validation
     if (empty($username)) {
         $error = "El username es obligatorio.";
+    } elseif ($contact['error']) {
+        $error = $contact['error'];
     } else {
         // Check if username already exists (excluding current guest)
         $checkStmt = $conn->prepare("SELECT id FROM guests WHERE username = ? AND id != ?");
@@ -75,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($password)) {
                 // Update with new password
                 $password_hash = password_hash($password, PASSWORD_DEFAULT);
-                $updateStmt = $conn->prepare("UPDATE guests SET username = ?, password_hash = ?, name = ?, is_active = ? WHERE id = ?");
-                $updateStmt->bind_param("sssii", $username, $password_hash, $name, $is_active, $guest_id);
+                $updateStmt = $conn->prepare("UPDATE guests SET username = ?, password_hash = ?, name = ?, email = ?, phone = ?, linkedin_url = ?, is_active = ? WHERE id = ?");
+                $updateStmt->bind_param("ssssssii", $username, $password_hash, $name, $contact['email'], $contact['phone'], $contact['linkedin_url'], $is_active, $guest_id);
             } else {
                 // Update without changing password
-                $updateStmt = $conn->prepare("UPDATE guests SET username = ?, name = ?, is_active = ? WHERE id = ?");
-                $updateStmt->bind_param("ssii", $username, $name, $is_active, $guest_id);
+                $updateStmt = $conn->prepare("UPDATE guests SET username = ?, name = ?, email = ?, phone = ?, linkedin_url = ?, is_active = ? WHERE id = ?");
+                $updateStmt->bind_param("sssssii", $username, $name, $contact['email'], $contact['phone'], $contact['linkedin_url'], $is_active, $guest_id);
             }
             
             if ($updateStmt->execute()) {
@@ -108,6 +112,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $checkStmt->close();
     }
+}
+
+// Tras un error de validación, el formulario conserva lo enviado en lugar de lo guardado
+$form = $guest;
+if ($error) {
+    $form = array_merge($guest, array_intersect_key($_POST, array_flip(['username', 'name', 'email', 'phone', 'linkedin_url'])));
+    $form['is_active'] = isset($_POST['is_active']) ? 1 : 0;
+    $associatedEvents = array_map('intval', $selected_events);
 }
 
 include("../../assets/head.php");
@@ -154,7 +166,7 @@ include("../../assets/nav_dashboard.php");
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
                                         <input type="text" name="username" class="form-control" 
-                                               value="<?= htmlspecialchars($guest['username']) ?>" 
+                                               value="<?= htmlspecialchars($form['username']) ?>" 
                                                required>
                                     </div>
                                 </div>
@@ -178,14 +190,16 @@ include("../../assets/nav_dashboard.php");
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                     <input type="text" name="name" class="form-control" 
-                                           value="<?= htmlspecialchars($guest['name'] ?? '') ?>">
+                                           value="<?= htmlspecialchars($form['name'] ?? '') ?>">
                                 </div>
                             </div>
+
+                            <?php $contact_values = $form; include("guest_contact_fields.php"); ?>
 
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input type="checkbox" name="is_active" class="form-check-input" 
-                                           id="is_active" value="1" <?= $guest['is_active'] ? 'checked' : '' ?>>
+                                           id="is_active" value="1" <?= $form['is_active'] ? 'checked' : '' ?>>
                                     <label class="form-check-label" for="is_active">
                                         <strong>Guest Activo</strong>
                                         <br>
