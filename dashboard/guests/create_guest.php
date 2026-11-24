@@ -9,9 +9,11 @@ if (!isset($_SESSION['activated']) || !in_array($_SESSION['role'], $allowed_role
 }
 
 include("../../assets/db.php");
+require_once("../../assets/guest_contact.php");
 
 $error = '';
 $success = false;
+$selected_events = [];
 
 // Get all events (future and past) for the dropdown
 $allEvents = $conn->query("
@@ -28,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $name = trim($_POST['name'] ?? '');
     $selected_events = $_POST['events'] ?? [];
+    $contact = guest_contact_from_input($_POST);
 
     // Validation
     if (empty($username)) {
@@ -36,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "La contraseña es obligatoria.";
     } elseif (strlen($password) < 6) {
         $error = "La contraseña debe tener al menos 6 caracteres.";
+    } elseif ($contact['error']) {
+        $error = $contact['error'];
     } else {
         // Check if username already exists
         $checkStmt = $conn->prepare("SELECT id FROM guests WHERE username = ?");
@@ -48,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Create the guest
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $insertStmt = $conn->prepare("INSERT INTO guests (username, password_hash, name) VALUES (?, ?, ?)");
-            $insertStmt->bind_param("sss", $username, $password_hash, $name);
+            $insertStmt = $conn->prepare("INSERT INTO guests (username, password_hash, name, email, phone, linkedin_url) VALUES (?, ?, ?, ?, ?, ?)");
+            $insertStmt->bind_param("ssssss", $username, $password_hash, $name, $contact['email'], $contact['phone'], $contact['linkedin_url']);
 
             if ($insertStmt->execute()) {
                 $guestId = $conn->insert_id;
@@ -151,6 +156,8 @@ include("../../assets/nav_dashboard.php");
                                 <small class="text-muted">Nombre que se mostrará en el portal del guest</small>
                             </div>
 
+                            <?php $contact_values = $_POST; include("guest_contact_fields.php"); ?>
+
                             <hr class="my-4">
 
                             <div class="mb-4">
@@ -172,7 +179,8 @@ include("../../assets/nav_dashboard.php");
                                             <div class="col-md-6 mb-2 event-item" data-future="<?= $event['is_future'] ?>" style="<?= !$event['is_future'] ? 'display:none;' : '' ?>">
                                                 <div class="form-check">
                                                     <input type="checkbox" name="events[]" value="<?= $event['id'] ?>"
-                                                        class="form-check-input event-checkbox" id="event_<?= $event['id'] ?>">
+                                                        class="form-check-input event-checkbox" id="event_<?= $event['id'] ?>"
+                                                        <?= in_array($event['id'], $selected_events) ? 'checked' : '' ?>>
                                                     <label class="form-check-label <?= !$event['is_future'] ? 'text-muted' : '' ?>" for="event_<?= $event['id'] ?>">
                                                         <?= htmlspecialchars($event['title_es']) ?>
                                                         <br>
