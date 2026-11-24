@@ -18,3 +18,5 @@ database.sql
 .claude/*
 !.claude/skills/
 .env
+# Datos de contacto reales de los guests históricos (#337); el repo es público
+scripts/historical_guests.csv
