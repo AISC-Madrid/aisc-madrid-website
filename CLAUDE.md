@@ -4,6 +4,8 @@ PHP + MariaDB, desplegado con Coolify. Las migraciones SQL viven en `migrations/
 
 ## Agent skills
 
+Las skills no viven en el repo: cada uno usa las suyas a nivel de usuario (p. ej. el plugin `mattpocock-skills`). Los docs de abajo son el contexto del proyecto que esas skills leen.
+
 ### Issue tracker
 
 Issues y specs en GitHub Issues de `AISC-Madrid/aisc-madrid-website` (CLI `gh`). See `docs/agents/issue-tracker.md`.
